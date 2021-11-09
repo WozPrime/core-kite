@@ -32,3 +32,8 @@ Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 
 // // LANDING PAGE
 
+// PROGRESS
+Route::get('/admin/projects',[UserController::class, 'projects'])->name('projects')->middleware(['role','auth']);
+Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
+Route::get('/admin/reports',[UserController::class, 'reports'])->name('reports')->middleware(['role','auth']);
+

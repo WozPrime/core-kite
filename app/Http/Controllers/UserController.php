@@ -38,4 +38,17 @@ class UserController extends Controller
     {
         DB::statement("ALTER TABLE `$table_name` AUTO_INCREMENT = 1;");
     }
+    //Progress
+    public function reports()
+    {
+        return view('pages.progress.reports');
+    }
+    public function projects()
+    {
+        return view('pages.progress.projects');
+    }
+    public function joblist()
+    {
+        return view('pages.progress.joblist');
+    }
 }
