@@ -10,8 +10,11 @@ class Post extends Model
     use HasFactory;
     protected $fillable = [
         'task',
+        'code',
         'status',
+        'start',
+        'stop',
         'point',
-        
+
     ];
 }
