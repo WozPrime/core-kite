@@ -10020,4 +10020,7 @@ h3 {
     color: inherit;
     border-color: #dee2e6;
   }
+  .fa-plus-circle {
+    color: white;
+  }
 }

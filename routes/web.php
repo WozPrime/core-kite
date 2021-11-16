@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +35,7 @@ Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 // // LANDING PAGE
 
 // PROGRESS
-Route::get('/admin/projects',[UserController::class, 'projects'])->name('projects')->middleware(['role','auth']);
+Route::resource('/admin/projects', ProjectController::class)->middleware(['role','auth']);
+Route::resource('/admin/reports', ReportController::class)->middleware(['role','auth']);
 Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
-Route::get('/admin/reports',[UserController::class, 'reports'])->name('reports')->middleware(['role','auth']);
 
