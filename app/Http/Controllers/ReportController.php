@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
+use App\Models\ReportModel;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -12,9 +12,16 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {   
+        $this->ReportModel = new ReportModel();
+        $this->middleware('auth');
+    }
     public function index()
     {
-        //
+        return view('pages.progress.reports', [
+            'data' => ReportModel::all()
+        ]);
     }
 
     /**

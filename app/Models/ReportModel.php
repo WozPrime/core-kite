@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProjectModel;
 
 class ReportModel extends Model
 {
@@ -18,4 +19,8 @@ class ReportModel extends Model
     protected $guarded = [
         'report_id',
     ];
+    public function projects()
+    {
+        return $this -> belongsTo(ProjectModel::class);
+    }
 }

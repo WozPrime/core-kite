@@ -58,30 +58,30 @@
                                 <tbody>
                                     @foreach ($data as $tbl_project)
                                         <tr>
-                                            <td>{{ $loop -> iteration }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $tbl_project->project_name }}</td>
                                             <td>{{ $tbl_project->project_code }}</td>
                                             <td></td>
                                             <td></td>
                                             <td>
-                                            <a href="#">
-                                                <button type="button" class="btn btn-success">
-                                                    Detail
-                                                </button>
-                                            </a>
-                                            <a>
-                                                <button type="button"
-                                                    class="btn btn-warning toastsDefaultWarning" data-toggle="modal"
-                                                    data-target="#edit">
-                                                    Edit
-                                                </button>
-                                            </a>
-                                            <a>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#delete">
-                                                    Delete
-                                                </button>
-                                            </a></td>
+                                                <a href="#">
+                                                    <button type="button" class="btn btn-success">
+                                                        Detail
+                                                    </button>
+                                                </a>
+                                                <a>
+                                                    <button type="button" class="btn btn-warning toastsDefaultWarning"
+                                                        data-toggle="modal" data-target="#edit">
+                                                        Edit
+                                                    </button>
+                                                </a>
+                                                <a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#delete">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -116,6 +116,67 @@
                         <div class="content">
 
                             <div class="form-group">
+                                <label for="seeAnotherFieldInstance">Select Instance</label>
+                                <select class="form-control" id="seeAnotherFieldInstance">
+                                    <option value="" hidden> Pilih Instansi </option>
+                                    <option value="A"> A </option>
+                                    <option value="B"> B </option>
+                                    <option value="C"> C </option>
+                                    <option value="D"> D </option>
+                                    <option value="Perorangan"> Perorangan </option>
+                                    <option value="yes"> Instansi Baru </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="otherFieldDivInstance">
+                                <div class="form-group">
+                                    <label>Instance Name</label>
+                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Instance Code</label>
+                                    <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Instance Address</label>
+                                    <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
+                                </div>
+                            </div>
+
+                            <hr style="height:5px">
+
+                            <div class="form-group">
+                                <label for="seeAnotherFieldClient">Select Client</label>
+                                <select class="form-control" id="seeAnotherFieldClient">
+                                    <option value="" hidden> Pilih Klien </option>
+                                    <option value="A"> A </option>
+                                    <option value="B"> B </option>
+                                    <option value="C"> C </option>
+                                    <option value="D"> D </option>
+                                    <option value="yes"> Klien Baru </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="otherFieldDivClient">
+                                <div class="form-group">
+                                    <label>Client Name</label>
+                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Client Code</label>
+                                    <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
+                                </div>
+                            </div>
+                            
+                            <hr style="height:5px">
+
+                            <div class="form-group">
                                 <label>Project Code</label>
                                 <input name="project_code" class="form-control" value="{{ old('project_code') }}">
                             </div>
@@ -132,12 +193,12 @@
 
                             <div class="form-group">
                                 <label>Starting Date</label>
-                                <input name="project_start_date" class="form-control" type="date" value="{{ old('project_start_date') }}">
+                                <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
                             </div>
 
                             <div class="form-group">
                                 <label>Deadline</label>
-                                <input name="project_deadline" class="form-control" type="date" value="{{ old('project_deadline') }}">
+                                <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
                             </div>
 
                             {{-- <div class="form-group">

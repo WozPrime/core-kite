@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- show-hide-fields-form -->
+    <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -93,6 +95,10 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    <!-- hide-show-fields-form -->
+    <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    {{-- Get Current Date and Time --}}
+    <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
 </body>
 
 </html>
