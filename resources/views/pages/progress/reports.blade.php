@@ -123,7 +123,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Starting Date</label>
+                                <label>Report Date</label>
                                 <input name="report_date" class="form-control" type="date" id="currentDate" value="{{ old('project_start_date') }}">
                             </div>
 
