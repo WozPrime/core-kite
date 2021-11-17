@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\InstanceController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,11 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 Route::get('/admin',[UserController::class, 'admin'])->name('admin')->middleware(['role','auth']);
 Route::get('/admin/tables',[UserController::class, 'tables'])->name('tables')->middleware(['role','auth']);
 Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+// Route::get('/admin/klien',[UserController::class, 'klien'])->name('klien')->middleware(['role','auth']);
+// Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
+
+//KLIEN
+Route::resource('/admin/klien', InstanceController::class)->middleware(['role', 'auth']);
 
 // EMPLOYEE
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');

@@ -64,6 +64,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/admin/klien"
+                        class="nav-link  {{ request()->is('admin/klien*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Klien
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

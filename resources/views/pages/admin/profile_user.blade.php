@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Dashboard
+    Profile
 @endsection
 @section('body')
 @section('navbar')

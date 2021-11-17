@@ -33,6 +33,14 @@ class UserController extends Controller
     {
         return view('pages.emp.emp');
     }
+
+    public function klien(){
+        return view('pages.admin.klien.overview');
+    }
+
+    public function detailklien(){
+        return view('pages.admin.klien.detail');
+    }
     
     public function cleanup($table_name)
     {
