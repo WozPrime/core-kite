@@ -125,18 +125,24 @@
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 @if (Auth::user()->pp == '')
-                <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"  alt="{{ Auth::user()->name }}">
+                    <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"
+                        alt="{{ Auth::user()->name }}">
                 @else
-                <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"  alt="{{ Auth::user()->name }}">
+                    <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
+                        alt="{{ Auth::user()->name }}">
                 @endif
                 <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-orange">
-                    <img src="{{ url('pp/' . Auth::user()->pp) }}" alt="{{ Auth::user()->name }}"
-                        onError="this.onerror=null;this.src='pp/default.jpg';" class="img-circle elevation-2"
-                        alt="User Image">
+                    @if (Auth::user()->pp == '')
+                        <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"
+                            alt="{{ Auth::user()->name }}">
+                    @else
+                        <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
+                            alt="{{ Auth::user()->name }}">
+                    @endif
 
                     <p class="text-light">
                         {{ Auth::user()->name }} - Web Developer
