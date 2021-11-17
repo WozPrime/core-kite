@@ -27,7 +27,9 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 // // ADMIN
 Route::get('/admin',[UserController::class, 'admin'])->name('admin')->middleware(['role','auth']);
 Route::get('/admin/tables',[UserController::class, 'tables'])->name('tables')->middleware(['role','auth']);
-Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+Route::get('/admin/profile/{id}',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+Route::post('/admin/profile/edit/{id}',[UserController::class, 'edit'])->name('edit')->middleware(['role','auth']);
+
 
 // EMPLOYEE
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');

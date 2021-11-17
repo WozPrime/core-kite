@@ -99,6 +99,21 @@
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
     {{-- Get Current Date and Time --}}
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
+
+    {{-- script gambar preview --}}
+    <script type="text/javascript">
+        function Image_preview(event){
+            var image= URL.createObjectURL(event.target.files[0]);
+            var imagediv = document.getElementById('pp');
+            var newimg = document.createElement('img');
+            newimg.src = image;
+            newimg.width = 100;
+            newimg.height = 100;
+            imagediv.appendChild(newimg);
+        }
+    </script>
+    
+
 </body>
 
 </html>
