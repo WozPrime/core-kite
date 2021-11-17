@@ -7,7 +7,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('home')}}" class="nav-link">Home</a>
+            <a href="{{ route('home') }}" class="nav-link">Home</a>
         </li>
     </ul>
 
@@ -124,13 +124,19 @@
         {{-- Profile --}}
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <img src="../../dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+                @if (Auth::user()->pp == '')
+                <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"  alt="{{ Auth::user()->name }}">
+                @else
+                <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"  alt="{{ Auth::user()->name }}">
+                @endif
                 <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-orange">
-                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ url('pp/' . Auth::user()->pp) }}" alt="{{ Auth::user()->name }}"
+                        onError="this.onerror=null;this.src='pp/default.jpg';" class="img-circle elevation-2"
+                        alt="User Image">
 
                     <p class="text-light">
                         {{ Auth::user()->name }} - Web Developer
@@ -154,8 +160,8 @@
                 </li> --}}
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="/admin/profile" class="btn btn-default btn-flat">Profile</a>
-                    <a href="{{route('logout')}}" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <a href="/admin/profile/{{ Auth::user()->id }}" class="btn btn-default btn-flat">Profile</a>
+                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right">Sign out</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>

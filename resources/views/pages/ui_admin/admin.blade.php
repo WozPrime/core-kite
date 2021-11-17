@@ -91,6 +91,21 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+    {{-- script gambar preview --}}
+    <script type="text/javascript">
+        function Image_preview(event){
+            var image= URL.createObjectURL(event.target.files[0]);
+            var imagediv = document.getElementById('pp');
+            var newimg = document.createElement('img');
+            newimg.src = image;
+            newimg.width = 100;
+            newimg.height = 100;
+            imagediv.appendChild(newimg);
+        }
+    </script>
+    
+
 </body>
 
 </html>
