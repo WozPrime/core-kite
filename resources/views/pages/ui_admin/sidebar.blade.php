@@ -28,7 +28,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
+                with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="/admin"
                         class="nav-link  {{ \Request::route()->getName() == 'admin' ? 'active text-light' : '' }}">
@@ -63,6 +63,29 @@
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
                             Klien
+                    <a href="/admin/projects"
+                        class="nav-link  {{ request()->is('admin/projects') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Project
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/joblist"
+                        class="nav-link  {{ request()->is('admin/joblist') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>
+                            Joblists
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/reports"
+                        class="nav-link  {{ request()->is('admin/reports') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-fax"></i>
+                        <p>
+                            Reports
                         </p>
                     </a>
                 </li>

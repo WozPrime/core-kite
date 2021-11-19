@@ -6,6 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +47,9 @@ Route::post('/admin/profile/edit/{id}',[UserController::class, 'edit'])->name('e
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 
 // // LANDING PAGE
+
+// PROGRESS
+Route::resource('/admin/projects', ProjectController::class)->middleware(['role','auth']);
+Route::resource('/admin/reports', ReportController::class)->middleware(['role','auth']);
+Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
 
