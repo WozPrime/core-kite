@@ -12,135 +12,215 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>General Form</h1>
+                    <h1>Fill Your Profile</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                        <li class="breadcrumb-item active">Your Profile</li>
                     </ol>
                 </div>
             </div>
         </div>
         <!-- /.container-fluid -->
     </section>
+    @if (Auth::user()->code == '' && Auth::user()->stats == '' && Auth::user()->gender == '')
+        <div class="container-fluid">
+            <section class="content">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible ">
+                        <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">&times;</button>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
+                            </div>
+                            <div class="col-md-11">
+                                <h3> Data Kosong!</h3>
+                                <span>Silahkan Isi data yang kosong!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    @endif
+    @if (Auth::user()->pp == '')
+        <div class="container-fluid">
+            <section class="content">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible ">
+                        <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">&times;</button>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
+                            </div>
+                            <div class="col-md-11">
+                                <h3> Foto Masih Default!</h3>
+                                <span>Silahkan ganti ke foto profil yang baru!!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    @endif
+    @if (session('pesan'))
+        <div class="container-fluid">
+            <section class="content">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">&times;</button>
+                        <h3><i class="icon fas fa-check"></i> Success!</h3>
+                        {{ session('pesan') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    @endif
+    @if (session('sama'))
+    <div class="container-fluid">
+        <section class="content">
+            <div class="col-md-12">
+                <div class="alert alert-secondary alert-dismissible ">
+                    <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;</button>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
+                        </div>
+                        <div class="col-md-11">
+                            <h3> {{session('sama')}}</h3>
+                            <span>Periksa Kembali data!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    @endif
+
     <section class="content">
         <section class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Quick Example</h3>
+                            <h3 class="card-title pt-1">Data Profile</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
-                            <div class="card-body">
+                        <div class="card-body">
+                            <form action="/admin/profile/edit/{{ $data_user->id }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
+                                    <label for="Name">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        value="{{ $data_user->name }}">
+                                    <div class="text-danger">
+                                        @error('name')
+                                            {{ $message }}
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
+                                <div class="form-group">
+                                    <label for="Code">Employee Code</label>
+                                    <input type="text" class="form-control" id="code" name="code"
+                                        value="{{ $data_user->code }}">
+                                    <div class="text-danger">
+                                        @error('code')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Gender">Gender</label>
+                                    <select name="gender" id="gender" class="form-control">
+                                        <option value="" @if ($data_user->gender == '')
+                                            selected @endif disabled hidden>Pilih jenis kelamin
+                                        </option>
+                                        <option value="L" @if ($data_user->gender == 'L')
+                                            selected @endif>Laki-laki</option>
+                                        <option value="P" @if ($data_user->gender == 'P')
+                                            selected @endif>Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Status">Status</label>
+                                    <select name="stats" id="stats" class="form-control">
+                                        <option value="" @if ($data_user->stats == '')
+                                            selected @endif di sabled hidden>Pilih Status
+                                        </option>
+                                        <option value="KT" @if ($data_user->stats == 'KT')
+                                            selected @endif>Karyawan Tetap</option>
+                                        <option value="KM" @if ($data_user->stats == 'KM')
+                                            selected @endif>Karyawan Magang</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <textarea class="form-control" id="address" name="address" rows="3"
+                                        placeholder="Enter Your Address ...">{{$data_user->address}}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ProfilePicture">Profile Picture/Avatar</label>
+                                    <div>
+                                        <div id="pp" class="mb-1"></div>
+                                        <input type="file" name="pp" onchange="Image_preview(event)">
+                                        <div class="text-danger">
+                                            @error('pp')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <label>Saved Photo</label>
+                                    <div>
+                                        @if ($data_user->pp == '')
+                                            <img src="{{ url('pp/default.jpg') }}" class="img-circle" width="150">
+                                        @else
+                                            <img src="{{ url('pp/' . $data_user->pp) }}" class="img-circle"
+                                                width="150">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary float-right">Submit</button>
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+
+
+
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card card-secondary">
+                <div class="col-md-4">
+                    <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
+                            <h3 class="card-title">Password Setting</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Task</th>
-                                        <th>Progress</th>
-                                        <th style="width: 40px">Label</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-success">90%</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <button type="submit" class="btn btn-warning float-left">Change Password</button>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
                     </div>
                     <!-- /.card -->
                 </div>

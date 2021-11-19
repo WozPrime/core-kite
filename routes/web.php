@@ -34,6 +34,9 @@ Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')
 
 //KLIEN
 Route::resource('/admin/klien', InstanceController::class)->middleware(['role', 'auth']);
+Route::get('/admin/profile/{id}',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+Route::post('/admin/profile/edit/{id}',[UserController::class, 'edit'])->name('edit')->middleware(['role','auth']);
+
 
 // EMPLOYEE
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');
