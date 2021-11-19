@@ -45,7 +45,8 @@ class UserController extends Controller
         if (Request()->name == $data_user->name &&
             Request()->code == $data_user->code &&
             Request()->gender == $data_user->gender &&
-            Request()->stats == $data_user->stats
+            Request()->stats == $data_user->stats &&
+            Request()->address == $data_user->address
         ) {
             echo "DATA SAMA";
             return redirect()->route('profile', ['id' => $id])->with('sama','Data Tidak Berubah!!');
