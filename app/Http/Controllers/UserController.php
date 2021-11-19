@@ -43,11 +43,14 @@ class UserController extends Controller
         Request()->validate([
             'name' => 'required',
             'code' => 'required',
-            'pp' => 'required|mimes:jpg,png,jpeg,bmp|max:1024',
+            'gender' => 'required',
+            'stats' => 'required',
+            'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
         ], [
             'name.required' => 'Wajib Isi!!',
             'code.required' => 'Wajib Isi!!',
-            'pp.required' => 'Wajib Isi!!'
+            'gender' => 'Wajib Isi!!',
+            'stats' => 'Wajib Isi!!',
         ]);
         if (Request()->pp <> "") {
             $file = Request()->pp;
@@ -55,24 +58,22 @@ class UserController extends Controller
             $file->move(public_path('pp'), $fileName);
 
             $update_data = [
-                'id' => Request()->id,
-                'email' => Request()->email,
                 'name' => Request()->name,
                 'code' => Request()->code,
                 'gender' => Request()->gender,
                 'stats' => Request()->stats,
+                'address' => Request()->address,
                 'pp' => $fileName,
             ];
             $this->user->editData($id, $update_data);
         } else {
 
             $update_data = [
-                'id' => Request()->id,
-                'email' => Request()->email,
                 'name' => Request()->name,
                 'code' => Request()->code,
                 'gender' => Request()->gender,
                 'stats' => Request()->stats,
+                'address' => Request()->address,
             ];
             $this->user->editData($id, $update_data);
         }
