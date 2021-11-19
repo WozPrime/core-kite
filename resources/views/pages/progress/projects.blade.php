@@ -25,7 +25,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
+    
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -135,12 +135,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Instance Code</label>
-                                    <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
+                                    <input name="project_start_date" class="form-control"
+                                        value="{{ old('project_start_date') }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Instance Address</label>
-                                    <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
+                                    <input name="project_deadline" class="form-control"
+                                        value="{{ old('project_deadline') }}">
                                 </div>
                             </div>
 
@@ -165,15 +167,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Client Code</label>
-                                    <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
+                                    <input name="project_start_date" class="form-control"
+                                        value="{{ old('project_start_date') }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Phone Number</label>
-                                    <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
+                                    <input name="project_deadline" class="form-control"
+                                        value="{{ old('project_deadline') }}">
                                 </div>
                             </div>
-                            
+
                             <hr style="height:5px">
 
                             <div class="form-group">
@@ -193,12 +197,14 @@
 
                             <div class="form-group">
                                 <label>Starting Date</label>
-                                <input name="project_start_date" class="form-control" value="{{ old('project_start_date') }}">
+                                <input name="project_start_date" class="form-control"
+                                    value="{{ old('project_start_date') }}">
                             </div>
 
                             <div class="form-group">
                                 <label>Deadline</label>
-                                <input name="project_deadline" class="form-control" value="{{ old('project_deadline') }}">
+                                <input name="project_deadline" class="form-control"
+                                    value="{{ old('project_deadline') }}">
                             </div>
 
                             {{-- <div class="form-group">
