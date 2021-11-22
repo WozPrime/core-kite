@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -34,11 +36,36 @@ class UserController extends Controller
         return view('pages.admin.tables');
     }
 
-    public function profile($id)
-    {
+    public function profile()
+    {   
+        $id= Auth::user()->id;
         $data_user = User::find($id);
         return view('pages.admin.profile_user', compact('data_user'));
     }
+
+    public function cpass($id)
+    {
+        $user = User::find($id);
+        $password = Request()->password;
+        Request()->validate([
+            'email' => 'email',
+            'password' => 'required|confirmed|min:8',
+        ],[
+            'password.confirmed' => 'Cek Kembali Password!!',
+        ]);
+        if (Hash::check($password, $user->password)) { 
+             $update_data = [
+                'password' => $password
+            ];
+            $this->user->editData($id, $update_data);
+            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
+         
+         } else {
+             return redirect()->route('profile')->with('sama','Password Tidak Berubah!!');
+         }
+    }
+
+
     public function edit($id)
     {
         $data_user = User::find($id);
@@ -46,10 +73,10 @@ class UserController extends Controller
             Request()->code == $data_user->code &&
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
-            Request()->address == $data_user->address
+            Request()->address == $data_user->address &&
+            Request()->pp == ""
         ) {
-            echo "DATA SAMA";
-            return redirect()->route('profile', ['id' => $id])->with('sama','Data Tidak Berubah!!');
+            return redirect()->route('profile')->with('sama','Data Tidak Berubah!!');
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -88,7 +115,7 @@ class UserController extends Controller
                 ];
                 $this->user->editData($id, $update_data);
             }
-            return redirect()->route('profile', ['id' => $id])->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
         }
     }
 
