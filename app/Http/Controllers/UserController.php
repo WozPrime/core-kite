@@ -54,14 +54,14 @@ class UserController extends Controller
             'password.confirmed' => 'Cek Kembali Password!!',
         ]);
         if (Hash::check($password, $user->password)) { 
+            return redirect()->route('profile')->with('sama','Password Tidak Berubah!!');
+         } else {
              $update_data = [
-                'password' => $password
+                'password' => bcrypt($password)
             ];
             $this->user->editData($id, $update_data);
             return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
          
-         } else {
-             return redirect()->route('profile')->with('sama','Password Tidak Berubah!!');
          }
     }
 
