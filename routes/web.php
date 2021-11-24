@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
 
@@ -36,7 +35,7 @@ Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')
 // Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
 
 //KLIEN
-Route::resource('/admin/klien', InstanceController::class)->middleware(['role', 'auth']);
+Route::resource('/admin/instansi', InstanceController::class)->middleware(['role', 'auth']);
 
 //profile
 Route::get('/admin/profile/{id}',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
