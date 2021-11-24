@@ -16,7 +16,8 @@ class CreateInstancesTable extends Migration
         Schema::create('instances', function (Blueprint $table) {
             $table->id();
             $table->string('nama_instansi');
-            $table->string('alamat_instansi')->nullable();
+            $table->text('alamat_instansi')->nullable();
+            $table->string('kota_instansi');
             $table->foreignId('instances_model_id');
             $table->string('logo_instansi')->nullable();
         });
