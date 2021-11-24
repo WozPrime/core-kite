@@ -20,6 +20,12 @@ class User extends Authenticatable
         ->where('id', $id)
         ->update($update_data);
     }
+    public function deleteData($id)
+    {
+        DB::table('users')
+        ->where('id',$id)
+        ->delete();
+    }
     /**
      * The attributes that are mass assignable.
      *

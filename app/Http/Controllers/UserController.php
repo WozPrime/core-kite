@@ -76,7 +76,7 @@ class UserController extends Controller
             Request()->address == $data_user->address &&
             Request()->pp == ""
         ) {
-            return redirect()->route('profile')->with('sama','Data Tidak Berubah!!');
+            return redirect()->back()->with('sama','Data Tidak Berubah!!');
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -115,8 +115,21 @@ class UserController extends Controller
                 ];
                 $this->user->editData($id, $update_data);
             }
-            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
         }
+    }
+    
+    public function manage_user()
+    {
+        $data = User::all();
+        return view('pages.admin.muser',['users' => $data]);
+    }
+
+    public function delete_user($id)
+    {
+        $this->user->deleteData($id);
+        DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
+        return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
     }
 
     public function emp()
@@ -124,9 +137,4 @@ class UserController extends Controller
         return view('pages.emp.emp');
     }
 
-
-    public function cleanup($table_name)
-    {
-        DB::statement("ALTER TABLE `$table_name` AUTO_INCREMENT = 1;");
-    }
 }
