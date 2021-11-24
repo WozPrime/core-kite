@@ -14,4 +14,10 @@ class Instance extends Model
     public function instances_model(){
         return $this->belongsTo(InstancesModel::class);
     }
+
+    public function client(){
+        return $this->hasMany(Client::class);
+    }
+
+    public $timestamps = false;
 }

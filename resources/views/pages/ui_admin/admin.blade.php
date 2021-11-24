@@ -40,6 +40,7 @@
 
         @include('pages.ui_admin.navbar')
         @include('pages.ui_admin.sidebar')
+        @include('sweetalert::alert')
         
 
         <!-- Content Wrapper. Contains page content -->
@@ -97,6 +98,7 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <!-- hide-show-fields-form -->
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
     {{-- Get Current Date and Time --}}
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
 
