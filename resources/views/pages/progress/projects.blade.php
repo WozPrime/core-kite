@@ -25,7 +25,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -42,7 +42,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a class="badge bg-primary mb-3" data-toggle="modal" data-target="#add-data"><i
+                            <a href="#" class="badge bg-primary mb-3" data-toggle="modal" data-target="#add-data"><i
                                     class="fa fa-plus-circle mr-1"></i> Add New Project</a>
                             <table class="table table-bordered">
                                 <thead>
@@ -104,6 +104,7 @@
             </div>
         </div>
     </section>
+
     <div class="modal fade" id="add-data">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -116,65 +117,81 @@
                         <div class="content">
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldInstance">Select Instance</label>
-                                <select class="form-control" id="seeAnotherFieldInstance">
-                                    <option value="" hidden> Pilih Instansi </option>
-                                    <option value="A"> A </option>
-                                    <option value="B"> B </option>
-                                    <option value="C"> C </option>
-                                    <option value="D"> D </option>
-                                    <option value="Perorangan"> Perorangan </option>
-                                    <option value="yes"> Instansi Baru </option>
+                                <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                <select class="form-select" aria-label="Disable" id="seeAnotherFieldInstance"
+                                    name="instansi_instance_id">
+                                    <option selected hidden>Pilih Instansi</option>
+                                    @foreach ($instansi as $i)
+                                        <option value="{{ $i->id }}"> {{ $i->nama_instansi }} </option>
+                                    @endforeach
+                                    <option value="yes"> Tambah Instansi Baru </option>
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group" id="otherFieldDivInstance">
                                 <div class="form-group">
-                                    <label>Instance Name</label>
-                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                    <label>Nama Instansi</label>
+                                    <input name="instansi_namainstansi" class="form-control"
+                                        value="{{ old('instansi_namainstansi') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Instance Code</label>
-                                    <input name="project_start_date" class="form-control"
-                                        value="{{ old('project_start_date') }}">
+                                    <label>Alamat Instansi</label>
+                                    <input name="instansi_alamatinstansi" class="form-control"
+                                        value="{{ old('instansi_alamatinstansi') }}">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Instance Address</label>
-                                    <input name="project_deadline" class="form-control"
-                                        value="{{ old('project_deadline') }}">
+                                    <label>Kota Instansi</label>
+                                    <input name="instansi_kotainstansi" class="form-control"
+                                        value="{{ old('instansi_kotainstansi') }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Jenis Instansi</label>
+                                    <input name="instansi_jenisinstansi" class="form-control"
+                                        value="{{ old('instansi_jenisinstansi') }}">
                                 </div>
                             </div>
 
                             <hr style="height:5px">
 
+
                             <div class="form-group">
-                                <label for="seeAnotherFieldClient">Select Client</label>
-                                <select class="form-control" id="seeAnotherFieldClient">
-                                    <option value="" hidden> Pilih Klien </option>
-                                    <option value="A"> A </option>
-                                    <option value="B"> B </option>
-                                    <option value="C"> C </option>
-                                    <option value="D"> D </option>
-                                    <option value="yes"> Klien Baru </option>
+                                <label for="seeAnotherFieldClient">Pilih Klien</label>
+                                <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClient">
+                                    <option selected hidden> Pilih Klien </option>
+                                    @foreach ($klien as $k)
+                                        {{-- @if ($k->id = $ambilId) --}}
+
+                                            <option value=" {{ $k->id }} "> {{ $k->name }} </option>
+                                        {{-- @endif --}}
+                                    @endforeach
+
+                                    <option value="yes"> Tambah Klien Baru </option>
                                 </select>
                             </div>
 
                             <div class="form-group" id="otherFieldDivClient">
                                 <div class="form-group">
-                                    <label>Client Name</label>
-                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                    <label>ID_instansi</label>
+                                    <input name="klien_idinstansi" class="form-control"
+                                        value="{{ old('klien_idinstansi') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Client Code</label>
-                                    <input name="project_start_date" class="form-control"
-                                        value="{{ old('project_start_date') }}">
+                                    <label>Nama Klien</label>
+                                    <input name="klien_namaklien" class="form-control"
+                                        value="{{ old('klien_namaklien') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Klien</label>
+                                    <input name="klien_emailklien" class="form-control"
+                                        value="{{ old('klien_emailklien') }}">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Phone Number</label>
-                                    <input name="project_deadline" class="form-control"
-                                        value="{{ old('project_deadline') }}">
+                                    <label>Nomor Telepon Klien</label>
+                                    <input name="klien_nomorteleponklien" class="form-control"
+                                        value="{{ old('klien_nomorteleponklien') }}">
                                 </div>
                             </div>
 
@@ -214,18 +231,17 @@
                                     <div class="text-danger">
                                         @error('foto_karyawan')
                                             {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div> --}}
-
+                        @enderror
+                    </div>
+            </div>
+        </div> --}}
                             <div class="form-group">
                                 <button class="btn btn-success float-right">Save Data</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
-            </form>
         </div>
         <!-- /.modal-content -->
     </div>
