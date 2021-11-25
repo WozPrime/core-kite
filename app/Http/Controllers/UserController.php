@@ -80,7 +80,7 @@ class UserController extends Controller
         } else {
             Request()->validate([
                 'name' => 'required',
-                'code' => 'required',
+                'code' => 'required|unique:users,code,'.$this->user->id,
                 'gender' => 'required',
                 'stats' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
@@ -119,6 +119,55 @@ class UserController extends Controller
         }
     }
     
+    public function edit2($id)
+    {
+        $data_user = User::find($id);
+        if (Request()->name == $data_user->name &&
+            Request()->code == $data_user->code &&
+            Request()->gender == $data_user->gender &&
+            Request()->stats == $data_user->stats &&
+            Request()->address == $data_user->address &&
+            Request()->pp == ""
+        ) {
+            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+        } else {
+            Request()->validate([
+                'name' => 'required',
+                'code' => 'unique:users,code,'.$this->user->id,
+                'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
+            ], [
+                'name.required' => 'Wajib Isi!!',
+                'stats' => 'Wajib Isi!!',
+            ]);
+            if (Request()->pp <> "") {
+                $file = Request()->pp;
+                $fileName = Request()->id . '.' . $file->extension();
+                $file->move(public_path('pp'), $fileName);
+
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                    'pp' => $fileName,
+                ];
+                $this->user->editData($id, $update_data);
+            } else {
+
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                ];
+                $this->user->editData($id, $update_data);
+            }
+            return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
+        }
+    }
+
     public function manage_user()
     {
         $data = User::all();
