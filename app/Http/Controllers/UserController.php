@@ -12,7 +12,8 @@ class UserController extends Controller
     //
     private $user;
 
-    public function __construct(User $user){
+    public function __construct(User $user)
+    {
         // İnitialize user property.
         $this->user = $user;
     }
@@ -40,44 +41,54 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        Request()->validate([
-            'name' => 'required',
-            'code' => 'required',
-            'gender' => 'required',
-            'stats' => 'required',
-            'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
-        ], [
-            'name.required' => 'Wajib Isi!!',
-            'code.required' => 'Wajib Isi!!',
-            'gender' => 'Wajib Isi!!',
-            'stats' => 'Wajib Isi!!',
-        ]);
-        if (Request()->pp <> "") {
-            $file = Request()->pp;
-            $fileName = Request()->id . '.' . $file->extension();
-            $file->move(public_path('pp'), $fileName);
-
-            $update_data = [
-                'name' => Request()->name,
-                'code' => Request()->code,
-                'gender' => Request()->gender,
-                'stats' => Request()->stats,
-                'address' => Request()->address,
-                'pp' => $fileName,
-            ];
-            $this->user->editData($id, $update_data);
+        $data_user = User::find($id);
+        if (Request()->name == $data_user->name &&
+            Request()->code == $data_user->code &&
+            Request()->gender == $data_user->gender &&
+            Request()->stats == $data_user->stats
+        ) {
+            echo "DATA SAMA";
+            return redirect()->route('profile', ['id' => $id])->with('sama','Data Tidak Berubah!!');
         } else {
+            Request()->validate([
+                'name' => 'required',
+                'code' => 'required',
+                'gender' => 'required',
+                'stats' => 'required',
+                'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
+            ], [
+                'name.required' => 'Wajib Isi!!',
+                'code.required' => 'Wajib Isi!!',
+                'gender' => 'Wajib Isi!!',
+                'stats' => 'Wajib Isi!!',
+            ]);
+            if (Request()->pp <> "") {
+                $file = Request()->pp;
+                $fileName = Request()->id . '.' . $file->extension();
+                $file->move(public_path('pp'), $fileName);
 
-            $update_data = [
-                'name' => Request()->name,
-                'code' => Request()->code,
-                'gender' => Request()->gender,
-                'stats' => Request()->stats,
-                'address' => Request()->address,
-            ];
-            $this->user->editData($id, $update_data);
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                    'pp' => $fileName,
+                ];
+                $this->user->editData($id, $update_data);
+            } else {
+
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                ];
+                $this->user->editData($id, $update_data);
+            }
+            return redirect()->route('profile', ['id' => $id])->with('pesan', 'Data Berhasil Diperbaharui!!!');
         }
-        return redirect()->route('profile',['id'=> $id])->with('pesan','Data Berhasil Diperbaharui!!!');
     }
 
     public function emp()
@@ -85,6 +96,14 @@ class UserController extends Controller
         return view('pages.emp.emp');
     }
 
+    public function klien(){
+        return view('pages.admin.klien.overview');
+    }
+
+    public function detailklien(){
+        return view('pages.admin.klien.detail');
+    }
+    
 
     public function cleanup($table_name)
     {
