@@ -1,3 +1,7 @@
+<?php
+use Carbon\Carbon;
+?>
+
 @extends('pages.ui_admin.admin')
 @section('title')
     Tabel Laporan
@@ -114,8 +118,18 @@
                         <div class="content">
 
                             <div class="form-group">
+                                <label>Project Name</label>
+                                <input class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Joblist Name</label>
+                                <input class="form-control">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Project Status</label>
-                                <select class="form-control" name="profesi" id="profesi" required="required">
+                                <select class="form-control" name="report_status" required="required">
                                     <option value="" hidden> Pilih Status : </option>
                                     <option value="Selesai"> Finish </option>
                                     <option value="Bermasalah"> Problematic </option>
@@ -124,7 +138,7 @@
 
                             <div class="form-group">
                                 <label>Report Date</label>
-                                <input name="report_date" class="form-control" type="date" id="currentDate" value="{{ old('project_start_date') }}">
+                                <input name="report_date" class="form-control" value="{{ \Carbon\Carbon::now() }}" disabled>
                             </div>
 
                             {{-- <div class="form-group">

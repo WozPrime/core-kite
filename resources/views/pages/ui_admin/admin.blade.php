@@ -97,9 +97,6 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <!-- hide-show-fields-form -->
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
-    {{-- Get Current Date and Time --}}
-    <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
-
     {{-- script gambar preview --}}
     <script type="text/javascript">
         function Image_preview(event){

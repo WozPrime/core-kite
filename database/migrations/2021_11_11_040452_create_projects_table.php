@@ -17,6 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id('project_id');
             $table->string('project_code')->unique();
             $table->string('project_name');
+            $table->string('project_category');
+            $table->string('project_logo')->nullable();
             $table->string('project_status')->nullable();
             $table->date('project_start_date');
             $table->date('project_deadline');

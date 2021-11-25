@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -95,5 +96,4 @@ class UserController extends Controller
     {
         return view('pages.progress.joblist');
     }
-
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 Route::resource('/admin/projects', ProjectController::class)->middleware(['role','auth']);
 Route::resource('/admin/reports', ReportController::class)->middleware(['role','auth']);
 Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
+Route::get('/admin/carbontest ',[UserController::class, 'carbontest'])->name('carbontest')->middleware(['role','auth']);
 
