@@ -24,46 +24,14 @@
         </div>
         <!-- /.container-fluid -->
     </section>
-    @if (Auth::user()->code == '' && Auth::user()->stats == '' && Auth::user()->gender == '')
+    @if (Auth::user()->code == '' || Auth::user()->stats == '' || Auth::user()->gender == '')
         <div class="container-fluid">
-            <section class="content">
-                <div class="col-md-12">
-                    <div class="alert alert-warning alert-dismissible ">
-                        <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">&times;</button>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
-                            </div>
-                            <div class="col-md-11">
-                                <h3> Data Kosong!</h3>
-                                <span>Silahkan Isi data yang kosong!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            @include('pages.misc.alert')    
+        </div>    
     @endif
     @if (Auth::user()->pp == '')
         <div class="container-fluid">
-            <section class="content">
-                <div class="col-md-12">
-                    <div class="alert alert-warning alert-dismissible ">
-                        <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">&times;</button>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
-                            </div>
-                            <div class="col-md-11">
-                                <h3> Foto Masih Default!</h3>
-                                <span>Silahkan ganti ke foto profil yang baru!!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            @include('pages.misc.alert2')
         </div>
     @endif
     @if (session('pesan'))
@@ -75,6 +43,27 @@
                             aria-hidden="true">&times;</button>
                         <h3><i class="icon fas fa-check"></i> Success!</h3>
                         {{ session('pesan') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    @endif
+    @if (session('sama'))
+        <div class="container-fluid">
+            <section class="content">
+                <div class="col-md-12">
+                    <div class="alert alert-secondary alert-dismissible ">
+                        <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">&times;</button>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
+                            </div>
+                            <div class="col-md-11">
+                                <h3> {{ session('sama') }}</h3>
+                                <span>Periksa Kembali data!</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -100,7 +89,7 @@
                             <form action="/admin/profile/edit/{{ $data_user->id }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-                                
+
                                 <div class="form-group">
                                     <label for="Name">Full Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
@@ -150,7 +139,7 @@
                                 <div class="form-group">
                                     <label>Alamat</label>
                                     <textarea class="form-control" id="address" name="address" rows="3"
-                                        placeholder="Enter Your Address ...">{{$data_user->address}}</textarea>
+                                        placeholder="Enter Your Address ...">{{ $data_user->address }}</textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -188,7 +177,7 @@
                 <div class="col-md-4">
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Password Setting</h3>
+                            <h3 class="card-title">Change Your Password</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -197,7 +186,28 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <button type="submit" class="btn btn-warning float-left">Change Password</button>
+                            <form action="/admin/profile/cpass/{{ $data_user->id }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        required autocomplete="new-password" placeholder="Password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-confirm">Confirm Password</label>
+                                    <input id="password-confirm" type="password" class="form-control"
+                                        name="password_confirmation" required autocomplete="new-password"
+                                        placeholder="Confirm Password">
+                                </div>
+                                <button type="submit" class="btn btn-warning float-left">Change Password</button>
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>

@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/profile/{{ Auth::user()->id }}"
+                    <a href="/admin/profile/"
                         class="nav-link  {{ \Request::route()->getName() == 'profile' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>

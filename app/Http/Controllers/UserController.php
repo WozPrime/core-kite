@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
+<<<<<<< HEAD
 use Carbon\Carbon;
+=======
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+>>>>>>> 5dca2335975ed1b65d6e9470c60085a5f8107038
 
 class UserController extends Controller
 {
@@ -13,7 +18,8 @@ class UserController extends Controller
     //
     private $user;
 
-    public function __construct(User $user){
+    public function __construct(User $user)
+    {
         // İnitialize user property.
         $this->user = $user;
     }
@@ -34,51 +40,87 @@ class UserController extends Controller
         return view('pages.admin.tables');
     }
 
-    public function profile($id)
-    {
+    public function profile()
+    {   
+        $id= Auth::user()->id;
         $data_user = User::find($id);
         return view('pages.admin.profile_user', compact('data_user'));
     }
+
+    public function cpass($id)
+    {
+        $user = User::find($id);
+        $password = Request()->password;
+        Request()->validate([
+            'email' => 'email',
+            'password' => 'required|confirmed|min:8',
+        ],[
+            'password.confirmed' => 'Cek Kembali Password!!',
+        ]);
+        if (Hash::check($password, $user->password)) { 
+            return redirect()->route('profile')->with('sama','Password Tidak Berubah!!');
+         } else {
+             $update_data = [
+                'password' => bcrypt($password)
+            ];
+            $this->user->editData($id, $update_data);
+            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
+         
+         }
+    }
+
+
     public function edit($id)
     {
-        Request()->validate([
-            'name' => 'required',
-            'code' => 'required',
-            'gender' => 'required',
-            'stats' => 'required',
-            'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
-        ], [
-            'name.required' => 'Wajib Isi!!',
-            'code.required' => 'Wajib Isi!!',
-            'gender' => 'Wajib Isi!!',
-            'stats' => 'Wajib Isi!!',
-        ]);
-        if (Request()->pp <> "") {
-            $file = Request()->pp;
-            $fileName = Request()->id . '.' . $file->extension();
-            $file->move(public_path('pp'), $fileName);
-
-            $update_data = [
-                'name' => Request()->name,
-                'code' => Request()->code,
-                'gender' => Request()->gender,
-                'stats' => Request()->stats,
-                'address' => Request()->address,
-                'pp' => $fileName,
-            ];
-            $this->user->editData($id, $update_data);
+        $data_user = User::find($id);
+        if (Request()->name == $data_user->name &&
+            Request()->code == $data_user->code &&
+            Request()->gender == $data_user->gender &&
+            Request()->stats == $data_user->stats &&
+            Request()->address == $data_user->address &&
+            Request()->pp == ""
+        ) {
+            return redirect()->route('profile')->with('sama','Data Tidak Berubah!!');
         } else {
+            Request()->validate([
+                'name' => 'required',
+                'code' => 'required',
+                'gender' => 'required',
+                'stats' => 'required',
+                'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
+            ], [
+                'name.required' => 'Wajib Isi!!',
+                'code.required' => 'Wajib Isi!!',
+                'gender' => 'Wajib Isi!!',
+                'stats' => 'Wajib Isi!!',
+            ]);
+            if (Request()->pp <> "") {
+                $file = Request()->pp;
+                $fileName = Request()->id . '.' . $file->extension();
+                $file->move(public_path('pp'), $fileName);
 
-            $update_data = [
-                'name' => Request()->name,
-                'code' => Request()->code,
-                'gender' => Request()->gender,
-                'stats' => Request()->stats,
-                'address' => Request()->address,
-            ];
-            $this->user->editData($id, $update_data);
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                    'pp' => $fileName,
+                ];
+                $this->user->editData($id, $update_data);
+            } else {
+
+                $update_data = [
+                    'name' => Request()->name,
+                    'code' => Request()->code,
+                    'gender' => Request()->gender,
+                    'stats' => Request()->stats,
+                    'address' => Request()->address,
+                ];
+                $this->user->editData($id, $update_data);
+            }
+            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
         }
-        return redirect()->route('profile',['id'=> $id])->with('pesan','Data Berhasil Diperbaharui!!!');
     }
 
     public function emp()
