@@ -58,6 +58,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Klien
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/admin/projects"
                         class="nav-link  {{ request()->is('admin/projects') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>

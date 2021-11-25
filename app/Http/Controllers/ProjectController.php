@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProjectModel;
+use App\Models\Instance;
+use App\Models\Client;
+use App\Models\InstancesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +24,10 @@ class ProjectController extends Controller
     public function index()
     {  
         return view('pages.progress.projects', [
-            'data' => ProjectModel::all()
+            'data' => ProjectModel::all(),
+            'instansi' => Instance::all(),
+            'klien' => Client::all(),
+            'modelinstansi' => InstancesModel::all()
         ]);
     }
     /**
