@@ -20,7 +20,7 @@ Profil Klien
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             @if ($instance->logo_instansi)
-                                <img src="/logoinstansi/logo{{$instance->id}}.jpg" alt="logo {{$instance->nama_instansi}}" class="rounded-circle" width="150" height="150">
+                                <img src="/logoinstansi/{{$instance->logo_instansi}}" alt="logo {{$instance->nama_instansi}}" class="rounded-circle" width="150" height="150">
                             @else
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png" alt="Logo Instansi" class="rounded-circle" width="150">
                             @endif
