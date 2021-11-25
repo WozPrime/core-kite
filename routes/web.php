@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,13 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 
 // // ADMIN
 Route::get('/admin',[UserController::class, 'admin'])->name('admin')->middleware(['role','auth']);
-Route::get('/admin/tables',[UserController::class, 'tables'])->name('tables')->middleware(['role','auth']);
 Route::get('/admin/profile/',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
 Route::post('/admin/profile/edit/{id}',[UserController::class, 'edit'])->name('edit')->middleware(['role','auth']);
+Route::get('/admin/profile/delete/{id}',[UserController::class, 'delete_user'])->name('delete')->middleware(['role','auth']);
 Route::post('/admin/profile/cpass/{id}',[UserController::class, 'cpass'])->name('cpass')->middleware(['role','auth']);
+Route::get('/admin/manage_user/',[UserController::class, 'manage_user'])->name('manage_user')->middleware(['role','auth']);
+
+Route::get('/admin/prof/',[ProfController::class, 'profile'])->name('profile')->middleware(['role','auth']);
 
 
 // EMPLOYEE
