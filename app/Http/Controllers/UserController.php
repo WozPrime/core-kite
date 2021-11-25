@@ -80,7 +80,7 @@ class UserController extends Controller
         } else {
             Request()->validate([
                 'name' => 'required',
-                'code' => 'required|unique:users,code,'.$this->user->id,
+                'code' => 'required|unique:users,code,'.$data_user->id,
                 'gender' => 'required',
                 'stats' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
@@ -133,11 +133,10 @@ class UserController extends Controller
         } else {
             Request()->validate([
                 'name' => 'required',
-                'code' => 'unique:users,code,'.$this->user->id,
+                'code' => 'unique:users,code,'.$data_user->id,
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
-                'stats' => 'Wajib Isi!!',
             ]);
             if (Request()->pp <> "") {
                 $file = Request()->pp;
