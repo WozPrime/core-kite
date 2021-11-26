@@ -57,6 +57,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/admin/prof/"
+                        class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Manage Profession
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -34,7 +34,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card card-lime">
-
                         <div class="card-header">
                             <h3 class="card-title pt-1">List of Users</h3>
                             <div class="card-tools">
@@ -73,6 +72,7 @@
                                                     <img src="{{ url('pp/' . $user['pp']) }}" class="img-circle"
                                                         width="70">
                                                 @endif
+                                            </td>
                                             <td style="text-align: center">
 
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -108,96 +108,90 @@
                                     </div>
                                     <div class="modal-body">
                                         <section class="container-fluid">
-
-
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
-                                                            <div class="text-center">
-                                                                @if ($user->pp == '')
-                                                                    <img src="{{ url('pp/default.jpg') }}"
-                                                                        class="profile-user-img img-fluid img-circle">
-                                                                @else
-                                                                    <img src="{{ url('pp/' . $user->pp) }}"
-                                                                        class="profile-user-img img-fluid img-circle">
-                                                                @endif
-                                                            </div>
-
-                                                            <h3 class="profile-username text-center">{{ $user->name }}
-                                                            </h3>
-
-                                                            <p class="text-muted text-center">Software Engineer</p>
-
-                                                            <ul class="list-group list-group-unbordered mb-3">
-                                                                <li class="list-group-item">
-                                                                    <b>Email</b> <a
-                                                                        class="float-right">{{ $user->email }}</a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>Employee Code</b> <a
-                                                                        class="float-right text-dark">{{ $user->code }}</a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>Role</b> <a
-                                                                        class="float-right text-dark">{{ $user->role }}</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <!-- /.card-body -->
+                                            <div class="card card-primary card-outline">
+                                                <div class="card-body box-profile">
+                                                    <div class="text-center">
+                                                        @if ($user->pp == '')
+                                                            <img src="{{ url('pp/default.jpg') }}"
+                                                                class="profile-user-img img-fluid img-circle">
+                                                        @else
+                                                            <img src="{{ url('pp/' . $user->pp) }}"
+                                                                class="profile-user-img img-fluid img-circle">
+                                                        @endif
                                                     </div>
+
+                                                    <h3 class="profile-username text-center">{{ $user->name }}
+                                                    </h3>
+
+                                                    <p class="text-muted text-center">Software Engineer</p>
+
+                                                    <ul class="list-group list-group-unbordered mb-3">
+                                                        <li class="list-group-item">
+                                                            <b>Email</b> <a class="float-right">{{ $user->email }}</a>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Employee Code</b> <a
+                                                                class="float-right text-dark">{{ $user->code }}</a>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Role</b> <a
+                                                                class="float-right text-dark">{{ $user->role }}</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="card card-primary">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">About Me</h3>
-                                                        </div>
-                                                        <!-- /.card-header -->
-                                                        <div class="card-body">
-                                                            <strong><i class="fas fa-venus-mars mr-1"></i> Gender</strong>
-                                                            <p class="text-muted">
-                                                                @if ($user->gender == 'L')
-                                                                    Laki-laki
-                                                                @elseif ($user->gender == 'P')
-                                                                    Perempuan
-                                                                @else
-                                                                    -
-                                                                @endif
-                                                            </p>
-                                                            <hr>
-
-                                                            <strong><i class="fas fa-map-marker-alt mr-1"></i>
-                                                                Address</strong>
-                                                            <p class="text-muted">
-                                                                @if ($user->address == '')
-                                                                    -
-                                                                @else
-                                                                    {{ $user->address }}
-                                                                @endif
-                                                            </p>
-
-                                                            <hr>
-
-                                                            <strong><i class="fas fa-user-circle mr-1"></i>
-                                                                Position</strong>
-
-                                                            <p class="text-muted">
-                                                                @if ($user->stats == 'KT')
-                                                                    Karyawan Tetap
-                                                                @elseif ($user->stats == 'KM')
-                                                                    Karyawan Magang
-                                                                @else
-                                                                    -
-                                                                @endif
-                                                            </p>
-
-                                                            <hr>
-
-                                                        </div>
-                                                        <!-- /.card-body -->
-                                                    </div>
-                                                </div>
+                                                <!-- /.card-body -->
                                             </div>
+
+
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">About Me</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body">
+                                                    <strong><i class="fas fa-venus-mars mr-1"></i> Gender</strong>
+                                                    <p class="text-muted">
+                                                        @if ($user->gender == 'L')
+                                                            Laki-laki
+                                                        @elseif ($user->gender == 'P')
+                                                            Perempuan
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </p>
+                                                    <hr>
+
+                                                    <strong><i class="fas fa-map-marker-alt mr-1"></i>
+                                                        Address</strong>
+                                                    <p class="text-muted">
+                                                        @if ($user->address == '')
+                                                            -
+                                                        @else
+                                                            {{ $user->address }}
+                                                        @endif
+                                                    </p>
+
+                                                    <hr>
+
+                                                    <strong><i class="fas fa-user-circle mr-1"></i>
+                                                        Position</strong>
+
+                                                    <p class="text-muted">
+                                                        @if ($user->stats == 'KT')
+                                                            Karyawan Tetap
+                                                        @elseif ($user->stats == 'KM')
+                                                            Karyawan Magang
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </p>
+
+                                                    <hr>
+
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+
 
                                         </section>
 
@@ -221,7 +215,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="/admin/profile/edit/{{ $user->id }}" method="POST"
+                                    <form action="/admin/profile/edit2/{{ $user->id }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
@@ -307,34 +301,37 @@
                                         </form>
                                     </div>
                                     <!-- /.modal-content -->
-                                    </div>
+                                </div>
                                     <!-- /.modal-dialog -->
-                                    </div>
+                            </div>
                                     <!-- /.modal -->
-                                    <div class="modal fade" id="delete{{ $user->id }}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content bg-danger">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Hapus Data User</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah anda yakin ingin Menghapus data dari {{ $user->name }} ini?
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                                    <a href="/admin/profile/delete/{{ $user->id }}" type="button"
-                                                        class="btn btn-outline-light">Hapus Data</a>
-                                                </div>
-                                            </div>
-                                            <!-- /.modal-content -->
+                            <div class="modal fade" id="delete{{ $user->id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Hapus Data User</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <!-- /.modal-dialog -->
+                                        <div class="modal-body">
+                                            Apakah anda yakin ingin Menghapus data dari {{ $user->name }} ini?
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                            <a href="/admin/profile/delete/{{ $user->id }}" type="button"
+                                                class="btn btn-outline-light">Hapus Data</a>
+                                        </div>
                                     </div>
-                                    <!-- /.modal -->
-        @endforeach
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 
