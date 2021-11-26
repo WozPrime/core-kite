@@ -50,7 +50,7 @@ Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 // // LANDING PAGE
 
 // PROGRESS
-Route::resource('/admin/projects', ProjectController::class)->middleware(['role','auth']);
+Route::resource('/admin/proyek', ProjectController::class)->middleware(['role','auth']);
 Route::resource('/admin/reports', ReportController::class)->middleware(['role','auth']);
 Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
 Route::get('/admin/carbontest ',[UserController::class, 'carbontest'])->name('carbontest')->middleware(['role','auth']);

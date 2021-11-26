@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
-<<<<<<< HEAD
 use Carbon\Carbon;
-=======
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
->>>>>>> 5dca2335975ed1b65d6e9470c60085a5f8107038
 
 class UserController extends Controller
 {

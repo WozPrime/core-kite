@@ -42,8 +42,8 @@ use Carbon\Carbon;
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a class="badge bg-primary mb-3" data-toggle="modal" data-target="#add-data"><i
-                                class="fa fa-plus-circle mr-1"></i> Add New Report</a>
+                            <a href="#" class="badge bg-primary mb-3" data-toggle="modal" data-target="#add-data"><i
+                                    class="fa fa-plus-circle mr-1"></i> Add New Report</a>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -58,34 +58,34 @@ use Carbon\Carbon;
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $tbl_report)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td></td>
-                                        <td>{{ $tbl_report->report_status}}</td>
-                                        <td>{{ $tbl_report->report_date}}</td>
-                                        <td></td>
-                                        <td>{{ $tbl_report->project_name }}</td>
-                                        <td>
-                                        <a href="#">
-                                            <button type="button" class="btn btn-success">
-                                                Detail
-                                            </button>
-                                        </a>
-                                        <a>
-                                            <button type="button"
-                                                class="btn btn-warning toastsDefaultWarning" data-toggle="modal"
-                                                data-target="#edit">
-                                                Edit
-                                            </button>
-                                        </a>
-                                        <a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#delete">
-                                                Delete
-                                            </button>
-                                        </a></td>
-                                    </tr>
-                                @endforeach
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td></td>
+                                            <td>{{ $tbl_report->report_status }}</td>
+                                            <td>{{ $tbl_report->report_date }}</td>
+                                            <td></td>
+                                            <td>{{ $tbl_report->project_name }}</td>
+                                            <td>
+                                                <a href="#">
+                                                    <button type="button" class="btn btn-success">
+                                                        Detail
+                                                    </button>
+                                                </a>
+                                                <a>
+                                                    <button type="button" class="btn btn-warning toastsDefaultWarning"
+                                                        data-toggle="modal" data-target="#edit">
+                                                        Edit
+                                                    </button>
+                                                </a>
+                                                <a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#delete">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -121,7 +121,7 @@ use Carbon\Carbon;
                                 <label>Project Name</label>
                                 <input class="form-control">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Joblist Name</label>
                                 <input class="form-control">
@@ -157,9 +157,9 @@ use Carbon\Carbon;
                                 <button class="btn btn-success float-right">Save Data</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
-            </form>
         </div>
         <!-- /.modal-content -->
     </div>

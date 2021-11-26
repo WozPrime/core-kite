@@ -67,7 +67,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/projects"
+                    <a href="/admin/proyek"
                         class="nav-link  {{ request()->is('admin/projects') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
