@@ -51,7 +51,8 @@
                                         <th class="col-4">Project Name</th>
                                         <th class="col-2">Project Code</th>
                                         <th class="col-1">Status</th>
-                                        <th class="col-3">Progress</th>
+                                        <th class="col-2">Kategori</th>
+                                        <th class="col-2">Progress</th>
                                         <th class="col-2">Action</th>
                                     </tr>
                                 </thead>
@@ -62,25 +63,11 @@
                                             <td>{{ $tbl_project->project_name }}</td>
                                             <td>{{ $tbl_project->project_code }}</td>
                                             <td></td>
+                                            <td>{{ $tbl_project->project_category }}</td>
                                             <td></td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-success">
-                                                        Detail
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button" class="btn btn-warning toastsDefaultWarning"
-                                                        data-toggle="modal" data-target="#edit">
-                                                        Edit
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#delete">
-                                                        Delete
-                                                    </button>
-                                                </a>
+                                            <td><a href="/admin/proyek/{{$tbl_project->id}}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
+                                                <a href="/admin/proyek/{{$tbl_project->id}}/edit" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -126,7 +113,6 @@
                                     @endforeach
                                     <option value="yes"> Tambah Instansi Baru </option>
                                 </select>
-
                             </div>
                             <div class="form-group" id="otherFieldDivInstance">
                                 <div class="form-group">
@@ -154,7 +140,6 @@
                             </div>
 
                             <hr style="height:5px">
-
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Klien</label>

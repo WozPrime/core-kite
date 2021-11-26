@@ -64,9 +64,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(ProjectModel $request)
     {
-        //
+        return view( 'pages.progress.p_detail');
     }
 
     /**
