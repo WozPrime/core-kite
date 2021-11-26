@@ -15,9 +15,10 @@ class CreateProfsTable extends Migration
     {
         Schema::create('profs', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('pname');
-            $table->text('detail');
+            $table->string('prof_code')->unique();
+            $table->string('prof_name');
+            $table->text('detail')->nullable();
+            $table->string('prof_img')->nullable();
             $table->timestamps();
         });
     }

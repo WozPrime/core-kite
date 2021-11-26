@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Prof extends Model
 {
@@ -11,8 +12,32 @@ class Prof extends Model
     protected $table = 'profs';
 
     protected $fillable = [
-        'code',
-        'pname',
+        'prof_code',
+        'prof_name',
         'detail',
+        'prof_img',
     ];
+
+    public function insertData($data)
+    {
+        DB::table('profs')
+        ->insert($data);
+    }
+    public function editData($id, $update_data)
+    {
+        DB::table('profs')
+        ->where('id', $id)
+        ->update($update_data);
+    }
+    public function deleteData($id)
+    {
+        DB::table('profs')
+        ->where('id',$id)
+        ->delete();
+    }
+    
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -39,7 +39,13 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
+        'id_prof',
     ];
+
+    public function prof()
+    {
+        return $this->belongsTo(Prof::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
