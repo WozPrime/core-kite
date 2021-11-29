@@ -65,8 +65,8 @@
                                             <td></td>
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td></td>
-                                            <td><a href="/admin/proyek/{{$tbl_project->id}}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
-                                                <a href="/admin/proyek/{{$tbl_project->id}}/edit" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                            <td><a href="/admin/proyek/{{ $tbl_project->project_id }}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
+                                                <a href="/admin/proyek/{{ $tbl_project->project_id }}/edit" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
                                             </td>
                                         </tr>
