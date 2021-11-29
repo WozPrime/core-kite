@@ -1,7 +1,7 @@
 @extends('pages.ui_admin.admin')
 
 @section('title')
-Profil Klien
+    Profil Klien
 @endsection
 
 @section('body')
@@ -12,157 +12,160 @@ Profil Klien
 @endsection
 
 @section('content')
-<div class="container pt-3">
-    <div class="main-body">
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-                <div class="card" style="height: 340px">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            {{-- @if ($instance->logo_instansi)
+    <div class="container pt-3">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card" style="height: 350px">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                {{-- @if ($instance->logo_instansi)
                                 <img src="#" alt="#" class="rounded-circle" width="150" height="150">
                             @else --}}
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png" alt="Logo Instansi" class="rounded-circle" width="150">
-                            {{-- @endif --}}
-                            <div class="mt-3">
-                                {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
-                                <p class="text-secondary mb-1"> # </p>
-                                <p class="text-muted font-size-sm"> # </p>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
+                                    alt="Logo Instansi" class="rounded-circle" width="150">
+                                {{-- @endif --}}
+                                <div class="mt-3">
+                                    {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
+                                    <b class="text-secondary-bold"> -Nama Proyek- </b>
+                                    <p class="text-muted font-size-sm"> -Kode Proyek- </p>
+                                    <b class="text-secondary-bold"> Nilai Proyek </b>
+                                    <p class="text-muted font-size-sm"> RP.-Nilai Proyek- </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card mb-3" style="height: 340px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3 pt-1">
-                                <h6 class="mb-0">Nama Instansi</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{-- : {{$instance->nama_instansi}} --}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row pb-xl-4">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Alamat</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{-- : {{$instance->alamat_instansi}} --}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Jenis Instansi</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{-- : {{$instance->instances_model->jenis_instansi}} --}}
-                            </div>
-                        </div>
-                        
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12 pb-1 pt-4">
-                                <a class="btn btn-rounded bg-primary mb-1" data-toggle="modal" data-target="#edit-data-instansi"> Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row gutters-sm">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card card-orange">
+                <div class="col-md-8">
+                    <div class="card mb-3" style="height: 350px">
                         <div class="card-header">
-                            <h3 class="card-title text-light">Proyek Klien</h3>
+                            <h3 class="card-title">Detail Proyek</h3>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="#" class="badge bg-success mb-3"><i class="fa fa-plus mr-1"></i> Tambah
-                                Proyek Baru</a>
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal Persetujuan</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Pemohon</th>
-                                        <th>Status Proyek</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>31 Februari 2069</td>
-                                        <td>Aplikasi Smart Pipel</td>
-                                        <td>Husni Ramadhan Ishan</td>
-                                        <td>Proyek Sedang Berjalan</td>
-                                        <td>
-                                            <a href="#" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
-                                            <a href="#" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="badge bg-danger" mr-1><i class="fa fa-eraser"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <b class="text-secondary-bold"> Detail Proyek </b>
+                            <p class="text-muted font-size-sm"> -Literally Detail Proyek- </p>
+                            <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek- </b>
+                            <p class="text-muted font-size-sm"> -Waktu Awal- s/d -waktu akhir- </p>
+                            <b class="text-secondary-bold"> Klien </b>
+                            <p class="text-muted font-size-sm"> -Nama Klien- </p>
+                            <b class="text-secondary-bold"> Instansi </b>
+                            <p class="text-muted font-size-sm"> -Nama Instansi- </p>
                         </div>
-                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters-sm">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card card-orange">
+                            <div class="card-header">
+                                <h3 class="card-title text-light">Anggota Proyek</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <form role="form" method="POST" enctype="multipart/form-data" id="formTambahAnggota">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div class="form-group no-border">
+                                                <select name="id_karyawan" id="tambah-anggota" class="form-control select2">
+                                                    <option value="10">Ahmad Syahroni, A. Md</option>
+                                                    <option value="12">Dean El&#039;Ilmi Kasyaif Nasution, S. Kom</option>
+                                                    <option value="13">David Hasibuan, S. Pd</option>
+                                                    <option value="15">David Simarmata, S. Kom</option>
+                                                    <option value="16">Indra Jatmika</option>
+                                                    <option value="17">Leonardus Fernando, S.Kom</option>
+                                                    <option value="18">Muhammad Sabiran, S.Kom</option>
+                                                    <option value="19">Syarif Irfan Yudha Ardian, S.Kom</option>
+                                                    <option value="20">Reno Anthus, S.Kom</option>
+                                                    <option value="22">Rangga Saputra, A.Md</option>
+                                                    <option value="23">Fathuzzikri, S.Kom</option>
+                                                    <option value="25">Izza Ulfa Dwiyanti</option>
+                                                    <option value="26">Andika Eka Putra</option>
+                                                    <option value="27">Alvian Teddy Cahya Putra</option>
+                                                    <option value="28">Alexander Hasibuan</option>
+                                                    <option value="29">Ikhwan Ruslianto</option>
+                                                    <option value="30">Parian Pilata</option>
+                                                    <option value="31">Syahru</option>
+                                                    <option value="32">Hendro Pratama</option>
+                                                    <option value="33">Irvan Denata</option>
+                                                    <option value="34">Weldi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-block btn-info">Tambah</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <table class="table table-bordered table-striped dt-responsive no-wrap" id="tAnggota">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width: 50px; max-width: 50px;" class="text-center">No.</th>
+                                            <th style="min-width: 35px; max-width: 35px;" class="text-center">Aksi</th>
+                                            <th style="min-width: 150px; max-width: 150px;" class="text-center">Role & Hak
+                                                Akses</th>
+                                            <th class="text-center">Nama</th>
+                                            <th style="min-width: 100px; max-width: 100px;" class="text-center">Foto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="edit-data-instansi">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="card-header bg-orange">
-                <h3 class="card-title">Edit Data Instansi</h3>
-            </div>
-            <div class="card-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
-                    @method('put')
-                    @csrf
-                    <div class="content">
-                        <div class="form-group">
-                            <label>Nama Instansi</label>
-                            <input name="namainstansi" class="form-control" value="#" required>
-                            <div class="text-danger">
-                                @error('namainstansi')
-                                    {{ $message }}
-                                @enderror
+    <div class="modal fade" id="edit-data-instansi">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Edit Data Instansi</h3>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <div class="content">
+                            <div class="form-group">
+                                <label>Nama Instansi</label>
+                                <input name="namainstansi" class="form-control" value="#" required>
+                                <div class="text-danger">
+                                    @error('namainstansi')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Alamat Instansi</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamatinstansi"> # </textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Kota Instansi</label>
-                            <input name="kotainstansi" class="form-control" value="#" required>
-                            <div class="text-danger">
-                                @error('namainstansi')
-                                    {{ $message }}
-                                @enderror
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Alamat Instansi</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    name="alamatinstansi"> # </textarea>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Jenis Instansi</label>
-                            <select name="jenisinstansi" class="form-control" value="#" >
+                            <div class="form-group">
+                                <label>Kota Instansi</label>
+                                <input name="kotainstansi" class="form-control" value="#" required>
+                                <div class="text-danger">
+                                    @error('namainstansi')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
 
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>Jenis Instansi</label>
+                                <select name="jenisinstansi" class="form-control" value="#">
 
-                        {{-- <div class="form-group">
+                                </select>
+                            </div>
+
+                            {{-- <div class="form-group">
                             <label>Logo Instansi</label>
                             <div>
                                 <input type="file" name="logoinstansi" id="logoinstansi">
@@ -174,16 +177,16 @@ Profil Klien
                             </div>
                         </div> --}}
 
-                        <div class="form-group">
-                            <button class="btn btn-success float-right">Save Data</button>
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save Data</button>
+                            </div>
                         </div>
-                    </div>
+                </div>
             </div>
+            </form>
         </div>
-        </form>
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
-</div>
 
 @endsection
 
