@@ -30,6 +30,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    {{-- DataTables --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    {{-- Material Design Icon --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
     <!-- show-hide-fields-form -->
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
 </head>
@@ -40,6 +46,7 @@
 
         @include('pages.ui_admin.navbar')
         @include('pages.ui_admin.sidebar')
+
         @include('sweetalert::alert')
         
 
@@ -96,6 +103,8 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    {{-- DataTables --}}
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- hide-show-fields-form -->
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
     <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
@@ -104,8 +113,8 @@
 
     {{-- script gambar preview --}}
     <script type="text/javascript">
-        function Image_preview(event){
-            var image= URL.createObjectURL(event.target.files[0]);
+        function Image_preview(event) {
+            var image = URL.createObjectURL(event.target.files[0]);
             var imagediv = document.getElementById('pp');
             var newimg = document.createElement('img');
             newimg.src = image;
@@ -114,7 +123,12 @@
             imagediv.appendChild(newimg);
         }
     </script>
-    
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+
 
 </body>
 

@@ -40,20 +40,29 @@
 
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/tables"
-                        class="nav-link  {{ \Request::route()->getName() == 'tables' ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Tables
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/admin/profile/"
                         class="nav-link  {{ \Request::route()->getName() == 'profile' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>
                             Profile
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/manage_user/"
+                        class="nav-link  {{ \Request::route()->getName() == 'manage_user' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Manage Users
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/prof/"
+                        class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Manage Profession
                         </p>
                     </a>
                 </li>
