@@ -26,8 +26,8 @@
     </section>
     @if (Auth::user()->code == '' || Auth::user()->stats == '' || Auth::user()->gender == '')
         <div class="container-fluid">
-            @include('pages.misc.alert')    
-        </div>    
+            @include('pages.misc.alert')
+        </div>
     @endif
     @if (Auth::user()->pp == '')
         <div class="container-fluid">
@@ -99,6 +99,19 @@
                                             selected @endif>Karyawan Tetap</option>
                                         <option value="KM" @if ($data_user->stats == 'KM')
                                             selected @endif>Karyawan Magang</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Profession">Profession</label>
+                                    <select name="id_prof" id="id_prof" class="form-control">
+                                        <option value="" @if ($data_user->id_prof == '')
+                                            selected @endif disabled hidden>Pilih Profesi
+                                        </option>
+                                        @foreach ($prof_list as $prof)
+                                            <option value="{{ $prof->id }}" @if ($data_user->id_prof == $prof->id)
+                                                selected @endif>{{ $prof->prof_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 

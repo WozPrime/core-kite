@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prof;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
@@ -40,7 +41,8 @@ class UserController extends Controller
     {   
         $id= Auth::user()->id;
         $data_user = User::find($id);
-        return view('pages.admin.profile_user', compact('data_user'));
+        $prof_list = Prof::all();
+        return view('pages.admin.profile_user', compact('data_user','prof_list'));
     }
 
     public function cpass($id)
@@ -68,12 +70,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        
         $data_user = User::find($id);
         if (Request()->name == $data_user->name &&
             Request()->code == $data_user->code &&
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
+            Request()->id_prof == $data_user->id_prof &&
             Request()->pp == ""
         ) {
             return redirect()->back()->with('sama','Data Tidak Berubah!!');
@@ -83,10 +87,12 @@ class UserController extends Controller
                 'code' => 'required|unique:users,code,'.$data_user->id,
                 'gender' => 'required',
                 'stats' => 'required',
+                'id_prof' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
                 'code.required' => 'Wajib Isi!!',
+                'id_prof.required' => 'Wajib Isi!!',
                 'gender' => 'Wajib Isi!!',
                 'stats' => 'Wajib Isi!!',
             ]);
@@ -101,6 +107,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'id_prof' => Request()->id_prof,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -112,6 +119,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'id_prof' => Request()->id_prof,
                 ];
                 $this->user->editData($id, $update_data);
             }
@@ -127,6 +135,7 @@ class UserController extends Controller
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
+            Request()->id_prof == $data_user->id_prof &&
             Request()->pp == ""
         ) {
             return redirect()->back()->with('sama','Data Tidak Berubah!!');
@@ -149,6 +158,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'id_prof' => Request()->id_prof,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -160,6 +170,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'id_prof' => Request()->id_prof,
                 ];
                 $this->user->editData($id, $update_data);
             }
@@ -170,7 +181,8 @@ class UserController extends Controller
     public function manage_user()
     {
         $data = User::all();
-        return view('pages.admin.muser',['users' => $data]);
+        $prof_list = Prof::all();
+        return view('pages.admin.muser',['users' => $data], ['prof_list'=> $prof_list]);
     }
 
     public function delete_user($id)

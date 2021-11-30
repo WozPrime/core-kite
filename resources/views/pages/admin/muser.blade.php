@@ -127,6 +127,10 @@
                                                                             <b>Role</b> <a
                                                                                 class="float-right text-dark">{{ $user->role }}</a>
                                                                         </li>
+                                                                        <li class="list-group-item">
+                                                                            <b>Profession</b> <a
+                                                                                class="float-right text-dark">{{ $prof_list->where('id', $user->id_prof)->pluck('prof_name')->implode(' ') }}</a>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /.card-body -->
@@ -255,6 +259,18 @@
                                                                         selected @endif>Karyawan Magang</option>
                                                                 </select>
                                                             </div>
+
+                                                            <div class="form-group">
+                                                                <label for="Profession">Profession</label>
+                                                                <select name="id_prof" id="id_prof" class="form-control">
+                                                                    <option value="" @if ($user->id_prof == '')
+                                                                        selected @endif disabled hidden>Pilih Profesi
+                                                                    </option>
+                                                                    @foreach ($prof_list as $prof)
+                                                                        <option value="{{ $prof->id }}" @if ($user->id_prof == $prof->id)
+                                                                            selected @endif>{{ $prof->prof_name }}</option>
+                                                                    @endforeach
+                                                                </select>
                 
                                                             <div class="form-group">
                                                                 <label>Alamat</label>
