@@ -48,24 +48,36 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/admin/manage_user/"
-                        class="nav-link  {{ \Request::route()->getName() == 'manage_user' ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-users-cog"></i>
+                <li class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' ? 'menu-open' : 'menu-closed' }}">
+                    <a href="#" class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-tasks"></i>
                         <p>
-                            Manage Users
+                            Management
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/manage_user/"
+                                class="nav-link {{ \Request::route()->getName() == 'manage_user' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>
+                                    Manage Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/prof/"
+                                class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Manage Profession
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/admin/prof/"
-                        class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Manage Profession
-                        </p>
-                    </a>
-                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
