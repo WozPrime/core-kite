@@ -63,11 +63,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-lime">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title pt-1">List of Projects</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
