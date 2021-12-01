@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -18,8 +19,17 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Ilham FF',
             'email' => 'dtest5444@gmail.com',
+            'name' => 'Husni Ramadhan',
+            'email' => 'husniramadhan@student.untan.ac.id',
+            'password' => bcrypt('12345678'),
+            'role' => 'admin',
+        ]);
+        User::create([
+            'name' => 'Raihan Mar ie Akhmadin',
+            'email' => 'raihan.akhmadin@gmail.com',
             'password' => bcrypt('12345678'),
             'role' => 'admin',
         ]);
     }
+}
 }

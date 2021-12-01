@@ -6,6 +6,7 @@ use App\Models\Prof;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -191,10 +192,23 @@ class UserController extends Controller
         DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
         return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
     }
+    public function klien(){
+        return view('pages.admin.klien.overview');
+    }
+
+    public function detailklien(){
+        return view('pages.admin.klien.detail');
+    }
+    
 
     public function emp()
     {
         return view('pages.emp.emp');
     }
 
+    //Progress
+    public function joblist()
+    {
+        return view('pages.progress.joblist');
+    }
 }

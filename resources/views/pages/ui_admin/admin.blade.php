@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
+    {{-- Tombol Tambah di Table --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -34,6 +36,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
+    <!-- show-hide-fields-form -->
+    <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -43,6 +47,8 @@
         @include('pages.ui_admin.navbar')
         @include('pages.ui_admin.sidebar')
 
+        @include('sweetalert::alert')
+        
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -99,6 +105,11 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     {{-- DataTables --}}
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- hide-show-fields-form -->
+    <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
+    {{-- Get Current Date and Time --}}
+    <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
 
     {{-- script gambar preview --}}
     <script type="text/javascript">

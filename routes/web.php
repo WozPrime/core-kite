@@ -1,9 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfController;
+use App\Http\Controllers\InstanceController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +32,16 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 // // ADMIN
 Route::get('/admin',[UserController::class, 'admin'])->name('admin')->middleware(['role','auth']);
 Route::get('/admin/profile/',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+Route::get('/admin/tables',[UserController::class, 'tables'])->name('tables')->middleware(['role','auth']);
+Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
+// Route::get('/admin/klien',[UserController::class, 'klien'])->name('klien')->middleware(['role','auth']);
+// Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
+
+//KLIEN
+Route::resource('/admin/instansi', InstanceController::class)->middleware(['role', 'auth']);
+
+//profile
+Route::get('/admin/profile/{id}',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
 Route::post('/admin/profile/edit/{id}',[UserController::class, 'edit'])->name('edit')->middleware(['role','auth']);
 Route::post('/admin/profile/edit2/{id}',[UserController::class, 'edit2'])->name('edit2')->middleware(['role','auth']);
 Route::get('/admin/profile/delete/{id}',[UserController::class, 'delete_user'])->name('delete')->middleware(['role','auth']);
@@ -42,4 +58,10 @@ Route::post('/admin/delete_prof/{id}',[ProfController::class, 'delete'])->name('
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');
 
 // // LANDING PAGE
+
+// PROGRESS
+Route::resource('/admin/proyek', ProjectController::class)->middleware(['role','auth']);
+Route::resource('/admin/reports', ReportController::class)->middleware(['role','auth']);
+Route::get('/admin/joblist ',[UserController::class, 'joblist'])->name('joblists')->middleware(['role','auth']);
+Route::get('/admin/carbontest ',[UserController::class, 'carbontest'])->name('carbontest')->middleware(['role','auth']);
 
