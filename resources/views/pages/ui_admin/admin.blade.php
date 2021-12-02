@@ -113,6 +113,8 @@
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
     {{-- Multi Page Modal --}}
     <script src="{{ asset('dist/js/multipagemodal.js') }}"></script>
+    {{-- Currency Input --}}
+    <script src="{{ asset('dist/js/currencyinput.js') }}"></script>
     {{-- script gambar preview --}}
     <script type="text/javascript">
         function Image_preview(event) {
