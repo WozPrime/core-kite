@@ -206,9 +206,4 @@ class UserController extends Controller
         return view('pages.emp.emp');
     }
 
-    //Progress
-    public function joblist()
-    {
-        return view('pages.progress.joblist');
-    }
 }

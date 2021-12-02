@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('task');
-            $table->string('points');
+            $table->integer('points');
             $table->timestamps();
         });
     }

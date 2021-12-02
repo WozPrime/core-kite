@@ -48,8 +48,10 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' ? 'menu-open' : 'menu-closed' }}">
-                    <a href="#" class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' ? 'active text-light' : '' }}">
+                <li
+                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
+                    <a 
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
                             Management
@@ -62,7 +64,7 @@
                                 class="nav-link {{ \Request::route()->getName() == 'manage_user' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users-cog"></i>
                                 <p>
-                                    Manage Users
+                                    Users
                                 </p>
                             </a>
                         </li>
@@ -71,7 +73,16 @@
                                 class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
-                                    Manage Profession
+                                    Profession
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/joblist/"
+                                class="nav-link  {{ \Request::route()->getName() == 'joblist' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>
+                                    Joblist
                                 </p>
                             </a>
                         </li>
@@ -93,15 +104,6 @@
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Project
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/joblist"
-                        class="nav-link  {{ request()->is('admin/joblist') ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>
-                            Joblists
                         </p>
                     </a>
                 </li>
