@@ -85,15 +85,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/joblist"
-                        class="nav-link  {{ request()->is('admin/joblist') ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>
-                            Joblists
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/admin/reports"
                         class="nav-link  {{ request()->is('admin/reports') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-fax"></i>
