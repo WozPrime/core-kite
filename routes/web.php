@@ -54,7 +54,7 @@ Route::post('/admin/edit_prof/{id}',[ProfController::class, 'edit'])->name('edit
 Route::get('/admin/delete_prof/{id}',[ProfController::class, 'delete'])->name('delete_prof')->middleware(['role','auth']);
 
 //Joblist
-Route::get('/admin/joblist', [PostController::class,'show'])->name('mjoblist')->middleware(['role','auth']);
+Route::get('/admin/joblist/', [PostController::class,'show'])->name('joblist')->middleware(['role','auth']);
 Route::post('/admin/ins_post/',[PostController::class, 'create'])->name('ins_post')->middleware(['role','auth']);
 Route::post('/admin/edit_post/{id}',[PostController::class, 'edit'])->name('edit_post')->middleware(['role','auth']);
 Route::get('/admin/delete_post/{id}',[PostController::class, 'delete'])->name('delete_post')->middleware(['role','auth']);
