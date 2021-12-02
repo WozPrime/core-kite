@@ -32,7 +32,6 @@
     .floating-btn:active {
         background: var(--gray);
     }
-
 </style>
 @section('body')
 @section('navbar')
@@ -388,6 +387,11 @@
                         <div class="form-group">
                             <label>Deadline</label>
                             <input name="project_deadline" class="form-control" type="date" value="{{ old('project_deadline') }}">
+                        </div>
+
+                        <div>
+                            <label>Total Project</label>
+                            <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" />
                         </div>
                     </div>
 
