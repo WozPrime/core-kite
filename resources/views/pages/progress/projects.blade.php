@@ -67,7 +67,8 @@
                         <div class="card-header">
                             <h3 class="card-title pt-1">List of Projects</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse" title="Collapse">
+                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
+                                    title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -96,7 +97,6 @@
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td></td>
                                             <td style="text-align: center">
-
                                                 <a class="btn btn-primary"
                                                     href="/admin/proyek/{{ $tbl_project->project_id }}"><i
                                                         class="fa fa-eye"></i></a>
@@ -116,17 +116,21 @@
                                                         <h3 class="card-title">Add New Project Data</h3>
                                                     </div>
                                                     <div class="card-body">
-                                                        <form action="/admin/projects/" method="post" enctype="multipart/form-data">
+                                                        <form action="/admin/projects/" method="post"
+                                                            enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="content">
-                                    
+
                                                                 <div class="form-group">
-                                                                    <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable" id="seeAnotherFieldInstance"
+                                                                    <label for="seeAnotherFieldInstance">Pilih
+                                                                        Instansi</label>
+                                                                    <select class="form-select" aria-label="Disable"
+                                                                        id="seeAnotherFieldInstance"
                                                                         name="instansi_instance_id">
                                                                         <option selected hidden>Pilih Instansi</option>
                                                                         @foreach ($instansi as $i)
-                                                                            <option value="{{ $i->id }}"> {{ $i->nama_instansi }} </option>
+                                                                            <option value="{{ $i->id }}">
+                                                                                {{ $i->nama_instansi }} </option>
                                                                         @endforeach
                                                                         <option value="yes"> Tambah Instansi Baru </option>
                                                                     </select>
@@ -134,49 +138,56 @@
                                                                 <div class="form-group" id="otherFieldDivInstance">
                                                                     <div class="form-group">
                                                                         <label>Nama Instansi</label>
-                                                                        <input name="instansi_namainstansi" class="form-control"
+                                                                        <input name="instansi_namainstansi"
+                                                                            class="form-control"
                                                                             value="{{ old('instansi_namainstansi') }}">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Alamat Instansi</label>
-                                                                        <input name="instansi_alamatinstansi" class="form-control"
+                                                                        <input name="instansi_alamatinstansi"
+                                                                            class="form-control"
                                                                             value="{{ old('instansi_alamatinstansi') }}">
                                                                     </div>
-                                    
+
                                                                     <div class="form-group">
                                                                         <label>Kota Instansi</label>
-                                                                        <input name="instansi_kotainstansi" class="form-control"
+                                                                        <input name="instansi_kotainstansi"
+                                                                            class="form-control"
                                                                             value="{{ old('instansi_kotainstansi') }}">
                                                                     </div>
-                                    
+
                                                                     <div class="form-group">
                                                                         <label>Jenis Instansi</label>
-                                                                        <input name="instansi_jenisinstansi" class="form-control"
+                                                                        <input name="instansi_jenisinstansi"
+                                                                            class="form-control"
                                                                             value="{{ old('instansi_jenisinstansi') }}">
                                                                     </div>
                                                                 </div>
-                                    
+
                                                                 <hr style="height:5px">
-                                    
+
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                    <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClient">
+                                                                    <select class="form-select" name="klien_pilihklien"
+                                                                        id="seeAnotherFieldClient">
                                                                         <option selected hidden> Pilih Klien </option>
                                                                         @foreach ($klien as $k)
                                                                             {{-- @if ($k->id = $ambilId) --}}
-                                    
-                                                                                <option value=" {{ $k->id }} "> {{ $k->name }} </option>
+
+                                                                            <option value=" {{ $k->id }} ">
+                                                                                {{ $k->name }} </option>
                                                                             {{-- @endif --}}
                                                                         @endforeach
-                                    
+
                                                                         <option value="yes"> Tambah Klien Baru </option>
                                                                     </select>
                                                                 </div>
-                                    
+
                                                                 <div class="form-group" id="otherFieldDivClient">
                                                                     <div class="form-group">
                                                                         <label>ID_instansi</label>
-                                                                        <input name="klien_idinstansi" class="form-control"
+                                                                        <input name="klien_idinstansi"
+                                                                            class="form-control"
                                                                             value="{{ old('klien_idinstansi') }}">
                                                                     </div>
                                                                     <div class="form-group">
@@ -186,48 +197,53 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Email Klien</label>
-                                                                        <input name="klien_emailklien" class="form-control"
+                                                                        <input name="klien_emailklien"
+                                                                            class="form-control"
                                                                             value="{{ old('klien_emailklien') }}">
                                                                     </div>
-                                    
+
                                                                     <div class="form-group">
                                                                         <label>Nomor Telepon Klien</label>
-                                                                        <input name="klien_nomorteleponklien" class="form-control"
+                                                                        <input name="klien_nomorteleponklien"
+                                                                            class="form-control"
                                                                             value="{{ old('klien_nomorteleponklien') }}">
                                                                     </div>
                                                                 </div>
-                                    
+
                                                                 <hr style="height:5px">
-                                    
+
                                                                 <div class="form-group">
                                                                     <label>Project Code</label>
-                                                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                                                    <input name="project_code" class="form-control"
+                                                                        value="{{ old('project_code') }}">
                                                                 </div>
-                                    
+
                                                                 <div class="form-group">
                                                                     <label>Project Name</label>
-                                                                    <input name="project_name" class="form-control" value="{{ old('project_name') }}">
+                                                                    <input name="project_name" class="form-control"
+                                                                        value="{{ old('project_name') }}">
                                                                     <div class="text-danger">
                                                                         @error('project_name')
                                                                             {{ $message }}
                                                                         @enderror
                                                                     </div>
                                                                 </div>
-                                    
+
                                                                 <div class="form-group">
                                                                     <label>Starting Date</label>
                                                                     <input name="project_start_date" class="form-control"
                                                                         value="{{ old('project_start_date') }}">
                                                                 </div>
-                                    
+
                                                                 <div class="form-group">
                                                                     <label>Deadline</label>
                                                                     <input name="project_deadline" class="form-control"
                                                                         value="{{ old('project_deadline') }}">
                                                                 </div>
-                                    
+
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-success float-right">Save Data</button>
+                                                                    <button class="btn btn-success float-right">Save
+                                                                        Data</button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -239,9 +255,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    <!-- /.card-body -->
-                    <!-- /.card -->
-                    <!-- /.card-body -->
+                        <!-- /.card-body -->
+                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
@@ -249,20 +265,25 @@
     </section>
     <!-- /.content -->
     <button class="material-icons floating-btn" data-toggle="modal" data-target="#add-data">add</button>
-    <div class="modal fade" id="add-data">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="card-header bg-orange">
-                    <h3 class="card-title">Add New Project Data</h3>
+    <div class="modal fade" id="add-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content card-primary">
+                <div class="card-header">
+                    <h4 class="card-title">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
+
                 <div class="card-body">
-                    <form action="/admin/projects/" method="post" enctype="multipart/form-data">
-                        @csrf
+
+                    <div class="modal-split">
+
                         <div class="content">
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                <select class="form-select" aria-label="Disable" id="seeAnotherFieldInstance"
+                                <label for="seeAnotherFieldInstanceFt">Pilih Instansi</label>
+                                <select class="form-select" aria-label="Disable" id="seeAnotherFieldInstanceFt"
                                     name="instansi_instance_id">
                                     <option selected hidden>Pilih Instansi</option>
                                     @foreach ($instansi as $i)
@@ -271,7 +292,8 @@
                                     <option value="yes"> Tambah Instansi Baru </option>
                                 </select>
                             </div>
-                            <div class="form-group" id="otherFieldDivInstance">
+                            
+                            <div class="form-group" id="otherFieldDivInstanceFt">
                                 <div class="form-group">
                                     <label>Nama Instansi</label>
                                     <input name="instansi_namainstansi" class="form-control"
@@ -295,88 +317,89 @@
                                         value="{{ old('instansi_jenisinstansi') }}">
                                 </div>
                             </div>
+                        </div>
 
-                            <hr style="height:5px">
+                    </div>
 
+                    <div class="modal-split">
+
+                        <div class="form-group">
+                            <label for="seeAnotherFieldClientFt">Pilih Klien</label>
+                            <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClientFt">
+                                <option selected hidden> Pilih Klien </option>
+                                @foreach ($klien as $k)
+                                    {{-- @if ($k->id = $ambilId) --}}
+
+                                    <option value=" {{ $k->id }} "> {{ $k->name }} </option>
+                                    {{-- @endif --}}
+                                @endforeach
+
+                                <option value="yes"> Tambah Klien Baru </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="otherFieldDivClientFt">
                             <div class="form-group">
-                                <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClient">
-                                    <option selected hidden> Pilih Klien </option>
-                                    @foreach ($klien as $k)
-                                        {{-- @if ($k->id = $ambilId) --}}
-
-                                            <option value=" {{ $k->id }} "> {{ $k->name }} </option>
-                                        {{-- @endif --}}
-                                    @endforeach
-
-                                    <option value="yes"> Tambah Klien Baru </option>
-                                </select>
+                                <label>ID_instansi</label>
+                                <input name="klien_idinstansi" class="form-control"
+                                    value="{{ old('klien_idinstansi') }}">
                             </div>
-
-                            <div class="form-group" id="otherFieldDivClient">
-                                <div class="form-group">
-                                    <label>ID_instansi</label>
-                                    <input name="klien_idinstansi" class="form-control"
-                                        value="{{ old('klien_idinstansi') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Nama Klien</label>
-                                    <input name="klien_namaklien" class="form-control"
-                                        value="{{ old('klien_namaklien') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Klien</label>
-                                    <input name="klien_emailklien" class="form-control"
-                                        value="{{ old('klien_emailklien') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Nomor Telepon Klien</label>
-                                    <input name="klien_nomorteleponklien" class="form-control"
-                                        value="{{ old('klien_nomorteleponklien') }}">
-                                </div>
-                            </div>
-
-                            <hr style="height:5px">
-
                             <div class="form-group">
-                                <label>Project Code</label>
-                                <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                                <label>Nama Klien</label>
+                                <input name="klien_namaklien" class="form-control"
+                                    value="{{ old('klien_namaklien') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Klien</label>
+                                <input name="klien_emailklien" class="form-control"
+                                    value="{{ old('klien_emailklien') }}">
                             </div>
 
                             <div class="form-group">
-                                <label>Project Name</label>
-                                <input name="project_name" class="form-control" value="{{ old('project_name') }}">
-                                <div class="text-danger">
-                                    @error('project_name')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Starting Date</label>
-                                <input name="project_start_date" class="form-control"
-                                    value="{{ old('project_start_date') }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Deadline</label>
-                                <input name="project_deadline" class="form-control"
-                                    value="{{ old('project_deadline') }}">
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-success float-right">Save Data</button>
+                                <label>Nomor Telepon Klien</label>
+                                <input name="klien_nomorteleponklien" class="form-control"
+                                    value="{{ old('klien_nomorteleponklien') }}">
                             </div>
                         </div>
-                    </form>
+
+                    </div>
+
+                    <div class="modal-split">
+                        <div class="form-group">
+                            <label>Project Code</label>
+                            <input name="project_code" class="form-control" value="{{ old('project_code') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input name="project_name" class="form-control" value="{{ old('project_name') }}">
+                            <div class="text-danger">
+                                @error('project_name')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Starting Date</label>
+                            <input name="project_start_date" class="form-control" type="date" value="{{ old('project_start_date') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deadline</label>
+                            <input name="project_deadline" class="form-control" type="date" value="{{ old('project_deadline') }}">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <!--Nothing Goes Here but is needed! -->
                 </div>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.content -->
+
 
 @section('footer')
 @endsection

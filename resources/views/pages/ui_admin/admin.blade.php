@@ -107,10 +107,12 @@
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- hide-show-fields-form -->
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    <script src="{{ asset('dist/js/hide-show-fields-form-float.js') }}"></script>
     <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
     {{-- Get Current Date and Time --}}
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
-
+    {{-- Multi Page Modal --}}
+    <script src="{{ asset('dist/js/multipagemodal.js') }}"></script>
     {{-- script gambar preview --}}
     <script type="text/javascript">
         function Image_preview(event) {
