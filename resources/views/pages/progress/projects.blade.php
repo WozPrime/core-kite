@@ -123,52 +123,19 @@
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldInstance">Pilih
                                                                         Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable"
-                                                                        id="seeAnotherFieldInstance"
+                                                                    <select class="form-select" aria-label="Disable"    
                                                                         name="instansi_instance_id">
                                                                         <option selected hidden>Pilih Instansi</option>
                                                                         @foreach ($instansi as $i)
                                                                             <option value="{{ $i->id }}">
                                                                                 {{ $i->nama_instansi }} </option>
                                                                         @endforeach
-                                                                        <option value="yes"> Tambah Instansi Baru </option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="form-group" id="otherFieldDivInstance">
-                                                                    <div class="form-group">
-                                                                        <label>Nama Instansi</label>
-                                                                        <input name="instansi_namainstansi"
-                                                                            class="form-control"
-                                                                            value="{{ old('instansi_namainstansi') }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Alamat Instansi</label>
-                                                                        <input name="instansi_alamatinstansi"
-                                                                            class="form-control"
-                                                                            value="{{ old('instansi_alamatinstansi') }}">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label>Kota Instansi</label>
-                                                                        <input name="instansi_kotainstansi"
-                                                                            class="form-control"
-                                                                            value="{{ old('instansi_kotainstansi') }}">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label>Jenis Instansi</label>
-                                                                        <input name="instansi_jenisinstansi"
-                                                                            class="form-control"
-                                                                            value="{{ old('instansi_jenisinstansi') }}">
-                                                                    </div>
-                                                                </div>
-
-                                                                <hr style="height:5px">
 
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                    <select class="form-select" name="klien_pilihklien"
-                                                                        id="seeAnotherFieldClient">
+                                                                    <select class="form-select" name="klien_pilihklien">
                                                                         <option selected hidden> Pilih Klien </option>
                                                                         @foreach ($klien as $k)
                                                                             {{-- @if ($k->id = $ambilId) --}}
@@ -177,67 +144,37 @@
                                                                                 {{ $k->name }} </option>
                                                                             {{-- @endif --}}
                                                                         @endforeach
-
-                                                                        <option value="yes"> Tambah Klien Baru </option>
                                                                     </select>
                                                                 </div>
 
-                                                                <div class="form-group" id="otherFieldDivClient">
-                                                                    <div class="form-group">
-                                                                        <label>ID_instansi</label>
-                                                                        <input name="klien_idinstansi"
-                                                                            class="form-control"
-                                                                            value="{{ old('klien_idinstansi') }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Nama Klien</label>
-                                                                        <input name="klien_namaklien" class="form-control"
-                                                                            value="{{ old('klien_namaklien') }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Email Klien</label>
-                                                                        <input name="klien_emailklien"
-                                                                            class="form-control"
-                                                                            value="{{ old('klien_emailklien') }}">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label>Nomor Telepon Klien</label>
-                                                                        <input name="klien_nomorteleponklien"
-                                                                            class="form-control"
-                                                                            value="{{ old('klien_nomorteleponklien') }}">
-                                                                    </div>
-                                                                </div>
-
-                                                                <hr style="height:5px">
-
                                                                 <div class="form-group">
                                                                     <label>Project Code</label>
-                                                                    <input name="project_code" class="form-control"
-                                                                        value="{{ old('project_code') }}">
+                                                                    <input name="project_code" class="form-control" value="{{ old('project_code') }}">
                                                                 </div>
-
+                                        
                                                                 <div class="form-group">
                                                                     <label>Project Name</label>
-                                                                    <input name="project_name" class="form-control"
-                                                                        value="{{ old('project_name') }}">
+                                                                    <input name="project_name" class="form-control" value="{{ old('project_name') }}">
                                                                     <div class="text-danger">
                                                                         @error('project_name')
                                                                             {{ $message }}
                                                                         @enderror
                                                                     </div>
                                                                 </div>
-
+                                        
                                                                 <div class="form-group">
                                                                     <label>Starting Date</label>
-                                                                    <input name="project_start_date" class="form-control"
-                                                                        value="{{ old('project_start_date') }}">
+                                                                    <input name="project_start_date" class="form-control" type="date" value="{{ old('project_start_date') }}">
                                                                 </div>
-
+                                        
                                                                 <div class="form-group">
                                                                     <label>Deadline</label>
-                                                                    <input name="project_deadline" class="form-control"
-                                                                        value="{{ old('project_deadline') }}">
+                                                                    <input name="project_deadline" class="form-control" type="date" value="{{ old('project_deadline') }}">
+                                                                </div>
+                                        
+                                                                <div>
+                                                                    <label>Total Project</label>
+                                                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" />
                                                                 </div>
 
                                                                 <div class="form-group">
