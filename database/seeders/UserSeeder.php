@@ -21,7 +21,8 @@ class UserSeeder extends Seeder
             'email' => 'husniramadhan@student.untan.ac.id',
             'password' => bcrypt('12345678'),
             'role' => 'admin',
-        ]);User::create([
+        ]);
+        User::create([
             'name' => 'Ilham FF',
             'email' => 'dtest5444@gmail.com',
             'password' => bcrypt('12345678'),
@@ -35,3 +36,4 @@ class UserSeeder extends Seeder
         ]);
     }
 }
+

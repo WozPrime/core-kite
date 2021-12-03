@@ -115,21 +115,21 @@ class ProfController extends Controller
                 $fileName = Request()->id . '.' . $file->extension();
                 $file->move(public_path('prof'), $fileName);
 
-                $insert_data = [
+                $update_data = [
                     'prof_code' => Request()->prof_code,
                     'prof_name' => Request()->prof_name,
                     'detail' => Request()->detail,
                     'prof_img' => $fileName,
                 ];
-                $this->prof->insertData($insert_data);
+                $this->prof->editData($id, $update_data);
             } else {
 
-                $insert_data = [
+                $update_data = [
                     'prof_code' => Request()->prof_code,
                     'prof_name' => Request()->prof_name,
                     'detail' => Request()->detail,
                 ];
-                $this->prof->insertData($insert_data);
+                $this->prof->editData($id, $update_data);
             }
             return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
         }

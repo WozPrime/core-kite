@@ -2,14 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,10 +46,18 @@ Route::get('/admin/profile/delete/{id}',[UserController::class, 'delete_user'])-
 Route::post('/admin/profile/cpass/{id}',[UserController::class, 'cpass'])->name('cpass')->middleware(['role','auth']);
 Route::get('/admin/manage_user/',[UserController::class, 'manage_user'])->name('manage_user')->middleware(['role','auth']);
 
+
+//Profession
 Route::get('/admin/prof/',[ProfController::class, 'index'])->name('prof')->middleware(['role','auth']);
 Route::post('/admin/ins_prof/',[ProfController::class, 'create'])->name('ins_prof')->middleware(['role','auth']);
 Route::post('/admin/edit_prof/{id}',[ProfController::class, 'edit'])->name('edit_prof')->middleware(['role','auth']);
-Route::post('/admin/delete_prof/{id}',[ProfController::class, 'delete'])->name('delete_prof')->middleware(['role','auth']);
+Route::get('/admin/delete_prof/{id}',[ProfController::class, 'delete'])->name('delete_prof')->middleware(['role','auth']);
+
+//Joblist
+Route::get('/admin/joblist/', [PostController::class,'show'])->name('joblist')->middleware(['role','auth']);
+Route::post('/admin/ins_post/',[PostController::class, 'create'])->name('ins_post')->middleware(['role','auth']);
+Route::post('/admin/edit_post/{id}',[PostController::class, 'edit'])->name('edit_post')->middleware(['role','auth']);
+Route::get('/admin/delete_post/{id}',[PostController::class, 'delete'])->name('delete_post')->middleware(['role','auth']);
 
 
 // EMPLOYEE
