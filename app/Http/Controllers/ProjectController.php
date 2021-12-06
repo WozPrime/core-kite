@@ -66,11 +66,9 @@ class ProjectController extends Controller
      */
     public function show(ProjectModel $proyek)
     {
+        // dd($proyek);
         return view( 'pages.progress.p_detail', [
             'data' => $proyek,
-            'instansi' => Instance::all(),
-            'klien' => Client::all(),
-            'modelinstansi' => InstancesModel::all()
             ]);
     }
 

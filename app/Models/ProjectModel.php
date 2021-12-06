@@ -10,6 +10,14 @@ class ProjectModel extends Model
     use HasFactory;
     protected $table="projects";
     protected $guarded = [
-        'project_id',
+        'id',
     ];
+
+    public function instance(){
+        return $this->belongsTo(Instance::class);
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
 }

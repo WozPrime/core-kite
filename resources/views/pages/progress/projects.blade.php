@@ -97,25 +97,25 @@
                                             <td></td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary"
-                                                    href="/admin/proyek/{{ $tbl_project->project_id }}"><i
+                                                    href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
                                                 <a class="btn btn-success" data-toggle="modal"
-                                                    href="#edit{{ $tbl_project->project_id }}"><i
+                                                    href="#edit{{ $tbl_project->id }}"><i
                                                         class="fa fa-edit"></i></a>
                                                 <a class="btn btn-danger" data-toggle="modal"
-                                                    href="#delete{{ $tbl_project->project_id }}"><i
+                                                    href="#delete{{ $tbl_project->id }}"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <!-- /.modal -->
-                                        <div class="modal fade" id="edit{{ $tbl_project->project_id }}">
+                                        <div class="modal fade" id="edit{{ $tbl_project->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
-                                                        <h3 class="card-title">Add New Project Data</h3>
+                                                        <h3 class="card-title">Edit Project Detail</h3>
                                                     </div>
                                                     <div class="card-body">
-                                                        <form action="/admin/projects/" method="post"
+                                                        <form action="/admin/proyek/" method="post"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="content">
@@ -187,6 +187,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal fade" id="delete{{ $tbl_project->id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-danger">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Hapus Data User</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah anda yakin ingin Menghapus data dari {{ $tbl_project->project_name }} ini?
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                                        <a href="/admin/proyek/delete/{{ $tbl_project->id }}" type="button"
+                                                            class="btn btn-outline-light">Hapus Data</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -200,13 +220,13 @@
         </div>
     </section>
     <!-- /.content -->
-    <button class="material-icons floating-btn" data-toggle="modal" data-target="#add-data">add</button>
+    <button class="material-icons floating-btn" data-toggle="modal" data-target="#add-data"></button>
     <div class="modal fade" id="add-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
 
             <div class="modal-content card-primary">
                 <div class="card-header">
-                    <h4 class="card-title">Modal title</h4>
+                    <h4 class="card-title">Add New Project</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>

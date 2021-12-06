@@ -28,7 +28,7 @@
                                 <div class="mt-3">
                                     {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
                                     <b class="text-secondary-bold"> {{$data->project_name}} </b>
-                                    <p class="text-muted font-size-sm"> [7{{$data->project_code}}] </p>
+                                    <p class="text-muted font-size-sm"> [{{$data->project_code}}] </p>
                                     <b class="text-secondary-bold"> Nilai Proyek </b>
                                     <p class="text-muted font-size-sm"> Rp {{$data->project_value}} </p>
                                 </div>
@@ -48,9 +48,9 @@
                             <p class="text-muted font-size-sm"> {{$data->project_start_date}} s/d {{$data->project_deadline}} </p>
                             <p class="text-muted font-size-sm"> -total waktu- </p>
                             <b class="text-secondary-bold"> Klien </b>
-                            <p class="text-muted font-size-sm"> -Nama Klien- </p>
+                            <p class="text-muted font-size-sm"> {{$data->client->name}} </p>
                             <b class="text-secondary-bold"> Instansi </b>
-                            <p class="text-muted font-size-sm"> -Nama Instansi- </p>
+                            <p class="text-muted font-size-sm"> {{$data->instance->nama_instansi}} </p>
                         </div>
                     </div>
                 </div>

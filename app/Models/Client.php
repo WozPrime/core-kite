@@ -14,4 +14,8 @@ class Client extends Model
     public function instance(){
         return $this->belongsTo(Instance::class);
     }
+
+    public function project_model(){
+        return $this->hasMany(ProjectModel::class);
+    }
 }
