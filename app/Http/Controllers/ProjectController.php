@@ -64,9 +64,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectModel $request)
+    public function show(ProjectModel $proyek)
     {
-        return view( 'pages.progress.p_detail');
+        return view( 'pages.progress.p_detail', [
+            'data' => $proyek,
+            'instansi' => Instance::all(),
+            'klien' => Client::all(),
+            'modelinstansi' => InstancesModel::all()
+            ]);
     }
 
     /**

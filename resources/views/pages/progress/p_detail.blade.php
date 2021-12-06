@@ -16,7 +16,7 @@
         <div class="main-body">
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
-                    <div class="card" style="height: 350px">
+                    <div class="card" style="height: 375px">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 {{-- @if ($instance->logo_instansi)
@@ -27,25 +27,26 @@
                                 {{-- @endif --}}
                                 <div class="mt-3">
                                     {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
-                                    <b class="text-secondary-bold"> -Nama Proyek- </b>
-                                    <p class="text-muted font-size-sm"> -Kode Proyek- </p>
+                                    <b class="text-secondary-bold"> {{$data->project_name}} </b>
+                                    <p class="text-muted font-size-sm"> [7{{$data->project_code}}] </p>
                                     <b class="text-secondary-bold"> Nilai Proyek </b>
-                                    <p class="text-muted font-size-sm"> RP.-Nilai Proyek- </p>
+                                    <p class="text-muted font-size-sm"> Rp {{$data->project_value}} </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card mb-3" style="height: 350px">
+                    <div class="card mb-3" style="height: 375px">
                         <div class="card-header">
                             <h3 class="card-title">Detail Proyek</h3>
                         </div>
                         <div class="card-body">
                             <b class="text-secondary-bold"> Detail Proyek </b>
-                            <p class="text-muted font-size-sm"> -Literally Detail Proyek- </p>
+                            <p class="text-muted font-size-sm"> {{$data->project_detail}} </p>
                             <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek- </b>
-                            <p class="text-muted font-size-sm"> -Waktu Awal- s/d -waktu akhir- </p>
+                            <p class="text-muted font-size-sm"> {{$data->project_start_date}} s/d {{$data->project_deadline}} </p>
+                            <p class="text-muted font-size-sm"> -total waktu- </p>
                             <b class="text-secondary-bold"> Klien </b>
                             <p class="text-muted font-size-sm"> -Nama Klien- </p>
                             <b class="text-secondary-bold"> Instansi </b>
