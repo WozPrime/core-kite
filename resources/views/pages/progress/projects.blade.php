@@ -118,11 +118,10 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                <select class="form-select" aria-label="Disable" id="seeAnotherFieldInstance"
-                                    name="instansi_instance_id">
+                                <select class="form-select" id="seeAnotherFieldInstance" name="instansi_instance_id">
                                     <option selected hidden>Pilih Instansi</option>
                                     @foreach ($instansi as $i)
-                                        <option value="{{ $i->id }}"> {{ $i->nama_instansi }} </option>
+                                        <option value="{{ $i->id }}" id="{{$i->id}}"> {{ $i->nama_instansi }} </option>
                                     @endforeach
                                     <option value="yes"> Tambah Instansi Baru </option>
                                 </select>
@@ -155,17 +154,17 @@
 
                             <hr style="height:5px">
 
-
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClient">
+                                <select class="form-select" name="klien_pilihklien" id="seeAnotherFieldClient" >
                                     <option selected hidden> Pilih Klien </option>
                                     @foreach ($klien as $k)
-                                        {{-- @if ($k->id = $ambilId) --}}
-
-                                            <option value=" {{ $k->id }} "> {{ $k->name }} </option>
+                                        {{-- @if ($k->id == $cekId ) --}}
+                                            <option value=" {{ $k->id }} " id="{{$k->instance->instance_id}}"> {{ $k->name }} </option>
                                         {{-- @endif --}}
                                     @endforeach
+
+
 
                                     <option value="yes"> Tambah Klien Baru </option>
                                 </select>
@@ -174,7 +173,7 @@
                             <div class="form-group" id="otherFieldDivClient">
                                 <div class="form-group">
                                     <label>ID_instansi</label>
-                                    <input name="klien_idinstansi" class="form-control"
+                                    <input name="klien_idinstansi" class="form-control" id="klien_idinstansi"
                                         value="{{ old('klien_idinstansi') }}">
                                 </div>
                                 <div class="form-group">
@@ -246,7 +245,6 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.content -->
-
 
 @section('footer')
 @endsection
