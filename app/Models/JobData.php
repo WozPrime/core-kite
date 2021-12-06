@@ -6,38 +6,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Post extends Model
+class JobData extends Model
 {
     use HasFactory;
-    protected $table = 'posts';
+    protected $table = 'job_data';
     protected $fillable = [
-        'task',
-        'code',
-        'point',
-        'prof_id',
+        'posts_id',
+        'users_id',
+        'project.project_id',
+        'expired_at',
     ];
-
     public function insertData($data)
     {
-        DB::table('posts')
+        DB::table('job_data')
         ->insert($data);
     }
     public function editData($id, $update_data)
     {
-        DB::table('posts')
+        DB::table('job_data')
         ->where('id', $id)
         ->update($update_data);
     }
     public function deleteData($id)
     {
-        DB::table('posts')
+        DB::table('job_data')
         ->where('id',$id)
         ->delete();
-    }
-
-    public function prof()
-    {
-        return $this->belongsTo(Prof::class);
     }
 
 }

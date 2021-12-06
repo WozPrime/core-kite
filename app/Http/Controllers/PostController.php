@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Prof;
 
 class PostController extends Controller
 {
@@ -35,15 +36,18 @@ class PostController extends Controller
             'code' => 'required|unique:posts,code,'.Request()->id,
             'task' => 'required',
             'points' => 'required|integer',
+            'prof_id' => 'required',
         ], [
             'code.required' => 'Wajib Isi!!',
             'task.required' => 'Wajib Isi!!',
             'points.required' => 'Wajib Isi!!',
+            'prof_id.required' => 'Wajib Isi!!',
         ]);
         $insert_data = [
             'code' => Request()->code,
             'task' => Request()->task,
             'points' => Request()->points,
+            'prof_id' => Request()->prof_id,
         ];
         $this->post->insertData($insert_data);
         return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
@@ -69,7 +73,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $joblist = Post::all();
-        return view('pages.admin.mjob',compact('joblist'));
+        $prof_list = Prof::all();
+        return view('pages.admin.mjob',compact('joblist','prof_list'));
     }
 
     /**
@@ -91,15 +96,18 @@ class PostController extends Controller
                 'code' => 'required|unique:posts,code,'.Request()->id,
                 'task' => 'required',
                 'points' => 'required|integer',
+                'prof_id' => 'required',
             ], [
                 'code.required' => 'Wajib Isi!!',
                 'task.required' => 'Wajib Isi!!',
                 'points.required' => 'Wajib Isi!!',
+                'prof_id.required' => 'Wajib Isi!!',
             ]);
             $update_data = [
                 'code' => Request()->code,
                 'task' => Request()->task,
                 'points' => Request()->points,
+                'prof_id' => Request()->prof_id,
             ];
             $this->post->editData($id,$update_data);
             return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');

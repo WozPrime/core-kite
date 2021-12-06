@@ -86,6 +86,7 @@
                                         <th class="col-2">Job Code</th>
                                         <th class="col-4">Task</th>
                                         <th class="col-1">Points</th>
+                                        <th>Profession</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -96,6 +97,8 @@
                                             <td>{{ $job['code'] }}</td>
                                             <td>{{ $job['task'] }}</td>
                                             <td>{{ $job['points'] }}</td>
+                                            <td>{{ $prof_list->where('id', $job['prof_id'])->pluck('prof_name')->implode(' ') }}
+                                            </td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-success" data-toggle="modal"
                                                     data-target="#edit{{ $job->id }}"><i
@@ -151,57 +154,70 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
-                                                        </div>
-                                                    </form>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <!-- /.modal -->
-                                        </div>
-                                        <div class="modal fade" id="delete{{ $job->id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-danger">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Hapus Job</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Apakah anda yakin ingin Menghapus data dari
-                                                        {{ $job->code }} ini?
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-outline-light"
-                                                            data-dismiss="modal">Close</button>
-                                                        <a href="/admin/delete_post/{{ $job->id }}" type="button"
-                                                            class="btn btn-outline-light">Hapus Data</a>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        <!-- /.modal -->
+                                                            <div class="form-group">
+                                                                <label for="Profession">Profession</label>
+                                                                <select name="prof_id" id="prof_id" class="form-control">
+                                                                    <option value="" @if ($job['prof_id'] == '')
+                                                                        selected
+                                    @endif disabled hidden>Pilih Profesi
+                                    </option>
+                                    @foreach ($prof_list as $prof)
+                                        <option value="{{ $prof->id }}" @if ($job['prof_id'] == $prof->id)
+                                            selected
+                                    @endif>{{ $prof->prof_name }}</option>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                    </select>
                         </div>
-                        <!-- /.card-body -->
 
-                        <!-- /.card -->
-                        <!-- /.card-body -->
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save
+                            changes</button>
+                    </div>
+                    </form>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <div class="modal fade" id="delete{{ $job->id }}">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Job</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah anda yakin ingin Menghapus data dari
+                        {{ $job->code }} ini?
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <a href="/admin/delete_post/{{ $job->id }}" type="button" class="btn btn-outline-light">Hapus
+                            Data</a>
                     </div>
                 </div>
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        @endforeach
+        </tbody>
+        </table>
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card -->
+        <!-- /.card-body -->
+        </div>
+        </div>
+        </div>
         </div>
         <button class="material-icons floating-btn" data-toggle="modal" data-target="#insert">add</button>
 
@@ -245,6 +261,18 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="Profession">Profession</label>
+                                <select name="prof_id" id="prof_id" class="form-control">
+                                    <option value="" selected disabled hidden>Pilih Profesi
+                                    </option>
+                                    @foreach ($prof_list as $prof)
+                                        <option value="{{ $prof->id }}">{{$prof->prof_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
 
                         </div>
                         <div class="modal-footer justify-content-between">

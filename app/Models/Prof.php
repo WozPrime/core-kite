@@ -40,4 +40,10 @@ class Prof extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }

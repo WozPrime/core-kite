@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfController;
 use App\Http\Controllers\InstanceController;
+use App\Http\Controllers\JobDataController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
@@ -59,6 +60,11 @@ Route::post('/admin/ins_post/',[PostController::class, 'create'])->name('ins_pos
 Route::post('/admin/edit_post/{id}',[PostController::class, 'edit'])->name('edit_post')->middleware(['role','auth']);
 Route::get('/admin/delete_post/{id}',[PostController::class, 'delete'])->name('delete_post')->middleware(['role','auth']);
 
+//JobData
+Route::middleware(['role','auth'])->group(function ()
+{
+    Route::resource('admin/jobdata/', JobDataController::class);
+});
 
 // EMPLOYEE
 Route::get('/emp',[UserController::class, 'emp'])->name('emp');

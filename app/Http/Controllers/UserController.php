@@ -78,7 +78,7 @@ class UserController extends Controller
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->id_prof == $data_user->id_prof &&
+            Request()->prof_id == $data_user->prof_id &&
             Request()->pp == ""
         ) {
             return redirect()->back()->with('sama','Data Tidak Berubah!!');
@@ -88,12 +88,12 @@ class UserController extends Controller
                 'code' => 'required|unique:users,code,'.$data_user->id,
                 'gender' => 'required',
                 'stats' => 'required',
-                'id_prof' => 'required',
+                'prof_id' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
                 'code.required' => 'Wajib Isi!!',
-                'id_prof.required' => 'Wajib Isi!!',
+                'prof_id.required' => 'Wajib Isi!!',
                 'gender' => 'Wajib Isi!!',
                 'stats' => 'Wajib Isi!!',
             ]);
@@ -108,7 +108,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'id_prof' => Request()->id_prof,
+                    'prof_id' => Request()->prof_id,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -120,7 +120,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'id_prof' => Request()->id_prof,
+                    'prof_id' => Request()->prof_id,
                 ];
                 $this->user->editData($id, $update_data);
             }
@@ -136,7 +136,7 @@ class UserController extends Controller
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->id_prof == $data_user->id_prof &&
+            Request()->prof_id == $data_user->prof_id &&
             Request()->pp == ""
         ) {
             return redirect()->back()->with('sama','Data Tidak Berubah!!');
@@ -159,7 +159,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'id_prof' => Request()->id_prof,
+                    'prof_id' => Request()->prof_id,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -171,7 +171,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'id_prof' => Request()->id_prof,
+                    'prof_id' => Request()->prof_id,
                 ];
                 $this->user->editData($id, $update_data);
             }

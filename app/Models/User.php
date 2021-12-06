@@ -39,7 +39,7 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
-        'id_prof',
+        'prof_id',
     ];
 
     public function prof()

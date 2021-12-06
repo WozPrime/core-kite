@@ -104,12 +104,12 @@
 
                                 <div class="form-group">
                                     <label for="Profession">Profession</label>
-                                    <select name="id_prof" id="id_prof" class="form-control">
-                                        <option value="" @if ($data_user->id_prof == '')
+                                    <select name="prof_id" id="prof_id" class="form-control">
+                                        <option value="" @if ($data_user->prof_id == '')
                                             selected @endif disabled hidden>Pilih Profesi
                                         </option>
                                         @foreach ($prof_list as $prof)
-                                            <option value="{{ $prof->id }}" @if ($data_user->id_prof == $prof->id)
+                                            <option value="{{ $prof->id }}" @if ($data_user->prof_id == $prof->id)
                                                 selected @endif>{{ $prof->prof_name }}</option>
                                         @endforeach
                                     </select>

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->text('address')->nullable();
             $table->string('pp')->nullable();
-            $table->foreignId('id_prof')->nullable();
+            $table->foreignId('prof_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
