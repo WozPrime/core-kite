@@ -30,7 +30,9 @@
                                     <b class="text-secondary-bold"> {{$data->project_name}} </b>
                                     <p class="text-muted font-size-sm"> [{{$data->project_code}}] </p>
                                     <b class="text-secondary-bold"> Nilai Proyek </b>
-                                    <p class="text-muted font-size-sm"> Rp {{$data->project_value}} </p>
+                                    <p class="text-muted font-size-sm"> {{$data->project_value}} </p>
+                                    <b class="text-secondary-bold"> Jenis Proyek </b>
+                                    <p class="text-muted font-size-sm"> {{$data->project_category}} </p>
                                 </div>
                             </div>
                         </div>
