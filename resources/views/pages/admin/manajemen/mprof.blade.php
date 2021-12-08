@@ -60,7 +60,7 @@
 
     {{-- alert --}}
 
-    @include('pages.misc.alert3')
+
 
     {{-- content --}}
     <section class="content">

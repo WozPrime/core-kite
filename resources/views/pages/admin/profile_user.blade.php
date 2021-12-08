@@ -34,7 +34,7 @@
             @include('pages.misc.alert2')
         </div>
     @endif
-    @include('pages.misc.alert3')
+
 
     <section class="content">
         <section class="container-fluid">

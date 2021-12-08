@@ -26,7 +26,7 @@
         </div><!-- /.container-fluid -->
     </section>
 
-    @include('pages.misc.alert3')
+
 
     <!-- Main content -->
     <section class="content">
