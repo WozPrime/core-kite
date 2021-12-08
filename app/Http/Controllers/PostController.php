@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Prof;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -50,7 +51,8 @@ class PostController extends Controller
             'prof_id' => Request()->prof_id,
         ];
         $this->post->insertData($insert_data);
-        return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
+        Alert::success('Sukses','Data berhasil Diperbaharui');
+        return redirect()->back();
     }
 
     /**
@@ -74,7 +76,7 @@ class PostController extends Controller
     {
         $joblist = Post::all();
         $prof_list = Prof::all();
-        return view('pages.admin.mjob',compact('joblist','prof_list'));
+        return view('pages.admin.manajemen.mjob',compact('joblist','prof_list'));
     }
 
     /**
@@ -90,7 +92,8 @@ class PostController extends Controller
         Request()->task == $data_post->task &&
         Request()->points == $data_post->points 
         ) {
-            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+            Alert::warning('sama','Data Tidak Berubah');
+            return redirect()->back();
         } else {
             Request()->validate([
                 'code' => 'required|unique:posts,code,'.Request()->id,
@@ -110,7 +113,8 @@ class PostController extends Controller
                 'prof_id' => Request()->prof_id,
             ];
             $this->post->editData($id,$update_data);
-            return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
         }
     }
 
@@ -136,6 +140,7 @@ class PostController extends Controller
     {
         $this->post->deleteData($id);
         DB::statement("ALTER TABLE posts AUTO_INCREMENT = 1;");
-        return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
+        Alert::success('Sukses','Data berhasil Dihapus!!');
+        return redirect()->back();
     }
 }

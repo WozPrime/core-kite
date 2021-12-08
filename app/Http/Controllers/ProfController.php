@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prof;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfController extends Controller
 {
@@ -22,7 +23,7 @@ class ProfController extends Controller
     public function index()
     {
         $prof_list = Prof::all();
-        return view('pages.admin.mprof', compact('prof_list'));
+        return view('pages.admin.manajemen.mprof', compact('prof_list'));
     }
 
     /**
@@ -61,7 +62,8 @@ class ProfController extends Controller
                 ];
                 $this->prof->insertData($insert_data);
             }
-            return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
     }
 
     /**
@@ -100,7 +102,8 @@ class ProfController extends Controller
         Request()->detail == $data_prof->detail &&
         Request()->prof_img == ""
         ) {
-            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+            Alert::warning('Sama','Data Tidak Berubah');
+            return redirect()->back();
         } else {
             Request()->validate([
                 'prof_code' => 'required|unique:profs,prof_code,'.Request()->id,
@@ -131,7 +134,8 @@ class ProfController extends Controller
                 ];
                 $this->prof->editData($id, $update_data);
             }
-            return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
         }
     }
 
@@ -157,6 +161,7 @@ class ProfController extends Controller
     {
         $this->prof->deleteData($id);
         DB::statement("ALTER TABLE profs AUTO_INCREMENT = 1;");
-        return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
+        Alert::success('Sukses','Data berhasil Dihapus');
+        return redirect()->back();
     }
 }

@@ -159,14 +159,15 @@
                                                                 <select name="prof_id" id="prof_id" class="form-control">
                                                                     <option value="" @if ($job['prof_id'] == '')
                                                                         selected
-                                    @endif disabled hidden>Pilih Profesi
-                                    </option>
-                                    @foreach ($prof_list as $prof)
-                                        <option value="{{ $prof->id }}" @if ($job['prof_id'] == $prof->id)
-                                            selected
-                                    @endif>{{ $prof->prof_name }}</option>
-                                    @endforeach
-                                    </select>
+                                                                @endif disabled hidden>Pilih Profesi
+                                                                </option>
+                                                                @foreach ($prof_list as $prof)
+                                                                    <option value="{{ $prof->id }}" @if ($job['prof_id'] == $prof->id)
+                                                                        selected
+                                                                @endif>{{ $prof->prof_name }}</option>
+                                                                @endforeach
+                                                                </select>
+                                                                
                         </div>
 
 

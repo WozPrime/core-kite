@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prof;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use GuzzleHttp\Psr7\Request;
-use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -57,13 +56,15 @@ class UserController extends Controller
             'password.confirmed' => 'Cek Kembali Password!!',
         ]);
         if (Hash::check($password, $user->password)) { 
-            return redirect()->route('profile')->with('sama','Password Tidak Berubah!!');
+            Alert::warning('Sama','Password Tidak Berubah');
+            return redirect()->route('profile');
          } else {
              $update_data = [
                 'password' => bcrypt($password)
             ];
             $this->user->editData($id, $update_data);
-            return redirect()->route('profile')->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->route('profile');
          
          }
     }
@@ -81,7 +82,8 @@ class UserController extends Controller
             Request()->prof_id == $data_user->prof_id &&
             Request()->pp == ""
         ) {
-            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+            Alert::warning('Sama','Data Tidak Berubah');
+            return redirect()->back();
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -124,7 +126,8 @@ class UserController extends Controller
                 ];
                 $this->user->editData($id, $update_data);
             }
-            return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
         }
     }
     
@@ -139,7 +142,8 @@ class UserController extends Controller
             Request()->prof_id == $data_user->prof_id &&
             Request()->pp == ""
         ) {
-            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+            Alert::warning('Sama','Data Tidak Berubah');
+            return redirect()->back();
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -175,7 +179,8 @@ class UserController extends Controller
                 ];
                 $this->user->editData($id, $update_data);
             }
-            return redirect()->back()->with('pesan', 'Data Berhasil Diperbaharui!!!');
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
         }
     }
 
@@ -183,14 +188,15 @@ class UserController extends Controller
     {
         $data = User::all();
         $prof_list = Prof::all();
-        return view('pages.admin.muser',['users' => $data], ['prof_list'=> $prof_list]);
+        return view('pages.admin.manajemen.muser',['users' => $data], ['prof_list'=> $prof_list]);
     }
 
     public function delete_user($id)
     {
         $this->user->deleteData($id);
         DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
-        return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
+        Alert::success('Sukses','Data berhasil Diperbaharui');
+        return redirect()->back();
     }
     public function klien(){
         return view('pages.admin.klien.overview');
