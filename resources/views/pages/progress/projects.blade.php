@@ -286,27 +286,30 @@
                                             </div>
                                         </div>
                                         <div class="modal fade" id="delete{{ $tbl_project->id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-danger">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Hapus Data User</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Apakah anda yakin ingin Menghapus data dari
-                                                        {{ $tbl_project->project_name }} ini?
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-outline-light"
-                                                            data-dismiss="modal">Close</button>
-                                                        <a href="/admin/proyek/delete/{{ $tbl_project->id }}"
-                                                            type="button" class="btn btn-outline-light">Hapus Data</a>
+                                            <form action="/admin/proyek/{{ $tbl_project->id }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content bg-danger">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Hapus Data User</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah anda yakin ingin Menghapus data dari
+                                                            {{ $tbl_project->project_name }} ini?
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-light"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-outline-light">Hapus Data</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     @endforeach
                                 </tbody>
