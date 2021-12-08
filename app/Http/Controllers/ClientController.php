@@ -82,4 +82,8 @@ class ClientController extends Controller
     {
         //
     }
+
+    public function myproject(){
+        return view('pages.klien.clientproject');
+    }
 }

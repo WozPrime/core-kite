@@ -10,7 +10,6 @@ Dashboard
 @section('content')
 <div class="container pt-3">
     <div class="main-body">
-
         <div class="col-lg-12 mx-auto">
             <div class="card">
                 <div class="card-body">
@@ -95,7 +94,7 @@ Dashboard
                                 <td>
                                     <a href="#" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
                                     <a href="#" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                    <a href="#" class="badge bg-green mr-1"><i class="fa fa-clock"></i></a>
+                                    <a href="#" class="badge bg-green mr-1" data-toggle="modal" data-target="#add-data"><i class="fa fa-clock"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -135,9 +134,39 @@ Dashboard
                 </div>
             </div>
         </div>
-
+        
     </div>
 </div>
+
+<div class="modal fade" id="add-data">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="card-header bg-orange">
+                <h3 class="card-title">Atur Jadwal Pertemuan</h3>
+            </div>
+            <div class="card-body">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label>Pilih Tanggal Pertemuan</label>
+                        <input type="date" name="tanggalpertemuan" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
+                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success float-right">Save Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+@endsection
 @section('footer')
 @endsection
 @endsection

@@ -48,6 +48,17 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="/client/meetings"
+                        class="nav-link  {{ request()->is('client/meetings*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            My Meetings
+                        </p>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

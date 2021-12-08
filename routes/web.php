@@ -37,6 +37,7 @@ Route::resource('/admin/instansi', InstanceController::class)->middleware(['role
 // Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
 
 //KLIEN
+Route::get('/client/projects', [ClientController::class, 'myproject'])->middleware(['role', 'auth']);
 Route::resource('/client', ClientController::class);
 //profile
 Route::get('/admin/profile/{id}',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
