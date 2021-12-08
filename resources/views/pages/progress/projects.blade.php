@@ -196,9 +196,15 @@
                                                         class="fa fa-eye"></i></a>
                                                 <a class="btn btn-success" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
-                                                <a class="btn btn-danger" data-toggle="modal"
-                                                    href="#delete{{ $tbl_project->id }}"><i
-                                                        class="fa fa-trash"></i></a>
+                                                <a>
+                                                    <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                </a>
                                             </td>
                                         </tr>
                                         <!-- /.modal -->
@@ -206,75 +212,92 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
-                                                        <h3 class="card-title">Edit Project Detail</h3>
+                                                        <h3 class="card-title">Add New Project</h3>
                                                     </div>
                                                     <div class="card-body">
-                                                        <form action="/admin/proyek/" method="post"
-                                                            enctype="multipart/form-data">
+                                                        <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" enctype="multipart/form-data">
+                                                            @method('put')
                                                             @csrf
                                                             <div class="content">
-
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldInstance">Pilih
                                                                         Instansi</label>
                                                                     <select class="form-select" aria-label="Disable"
-                                                                        name="instansi_instance_id">
-                                                                        <option selected hidden>Pilih Instansi</option>
+                                                                        name="instance_id">
+                                                                            <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
                                                                         @foreach ($instansi as $i)
                                                                             <option value="{{ $i->id }}">
                                                                                 {{ $i->nama_instansi }} </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-
+                                    
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                    <select class="form-select" name="klien_pilihklien">
-                                                                        <option selected hidden> Pilih Klien </option>
+                                                                    <select class="form-select" name="client_id">
+                                                                        <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
                                                                         @foreach ($klien as $k)
-                                                                            <option value=" {{ $k->id }} ">
-                                                                                {{ $k->name }} </option>
+                                                                            <option value=" {{ $k->id }} ">{{ $k->name }} </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-
+                                    
                                                                 <div class="form-group">
-                                                                    <label>Project Code</label>
-                                                                    <input name="project_code" class="form-control"
-                                                                        value="{{ old('project_code') }}">
+                                                                    <label>Kode Proyek</label>
+                                                                    <input name="project_code" class="form-control" value="{{ $tbl_project->project_code }}">
                                                                 </div>
-
+                                    
                                                                 <div class="form-group">
-                                                                    <label>Project Name</label>
-                                                                    <input name="project_name" class="form-control"
-                                                                        value="{{ old('project_name') }}">
+                                                                    <label>Name Proyek</label>
+                                                                    <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
                                                                     <div class="text-danger">
                                                                         @error('project_name')
                                                                             {{ $message }}
                                                                         @enderror
                                                                     </div>
                                                                 </div>
-
+                                    
+                                                                <div class="form-group">
+                                                                    <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                                                    <select class="form-select" name="project_category">
+                                                                        <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
+                                                                            <option value="Web">Web</option>
+                                                                            <option value="Mobile App">Mobile App</option>
+                                                                    </select>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Detail Proyek</label>
+                                                                    <textarea name="project_detail" class="form-control" type="date" >{{ $tbl_project->project_detail }}</textarea>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
+                                                                    <select class="form-select" name="project_status">
+                                                                        <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
+                                                                            <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                                            <option value="Tertunda">Tertunda</option>
+                                                                            <option value="Selesai">Selesai</option>
+                                                                    </select>
+                                                                </div>
+                                    
                                                                 <div class="form-group">
                                                                     <label>Starting Date</label>
-                                                                    <input name="project_start_date" class="form-control"
-                                                                        type="date"
-                                                                        value="{{ old('project_start_date') }}">
+                                                                    <input name="project_start_date" class="form-control" type="date" value="{{ $tbl_project->project_start_date }}">
                                                                 </div>
-
+                                    
                                                                 <div class="form-group">
                                                                     <label>Deadline</label>
-                                                                    <input name="project_deadline" class="form-control"
-                                                                        type="date"
-                                                                        value="{{ old('project_deadline') }}">
+                                                                    <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
                                                                 </div>
-
+                                    
                                                                 <div>
                                                                     <label>Total Project</label>
-                                                                    <input class="input-currency form-control" type="text"
-                                                                        type-currency="IDR" placeholder="Rp" />
+                                                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
                                                                 </div>
-
+                                    
+                                                                <br>
+                                    
                                                                 <div class="form-group">
                                                                     <button class="btn btn-success float-right">Save
                                                                         Data</button>
@@ -284,32 +307,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal fade" id="delete{{ $tbl_project->id }}">
-                                            <form action="/admin/proyek/{{ $tbl_project->id }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content bg-danger">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Hapus Data User</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah anda yakin ingin Menghapus data dari
-                                                            {{ $tbl_project->project_name }} ini?
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-outline-light"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-outline-light">Hapus Data</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
                                         </div>
                                     @endforeach
                                 </tbody>
@@ -386,7 +383,7 @@
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
                                 <select class="form-select" name="project_category">
-                                    <option selected hidden> Pilih Klien </option>
+                                    <option selected hidden> Pilih Kategori </option>
                                         <option value="Web">Web</option>
                                         <option value="Mobile App">Mobile App</option>
                                 </select>
@@ -399,9 +396,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
                                 <select class="form-select" name="project_status">
-                                    <option selected hidden> Pilih Klien </option>
+                                    <option selected hidden> Pilih Status </option>
                                         <option value="Sedang Berjalan">Sedang Berjalan</option>
                                         <option value="Tertunda">Tertunda</option>
                                         <option value="Selesai">Selesai</option>

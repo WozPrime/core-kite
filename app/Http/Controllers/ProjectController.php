@@ -99,9 +99,24 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'instance_id' => $request->instance_id,
+            'client_id' => $request->client_id,
+            'project_code' => $request->project_code,
+            'project_name' => $request->project_name,
+            'project_detail' => $request->project_detail,
+            'project_status' => $request->project_status,
+            'project_category' => $request->project_category,
+            'project_start_date' => $request->project_start_date,
+            'project_deadline' => $request->project_deadline,
+            'project_value' => $request->project_value,
+        ];
+        ProjectModel::where('id', $id)->update($data);
+        Alert::success('Sukses', 'Data Proyek berhasil diedit!');
+        return redirect('/admin/proyek');
+        
     }
 
     /**
@@ -110,9 +125,11 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //
+        ProjectModel::destroy($id);
+        Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect('/admin/proyek');
     }
 
     function hitung_tanggal($project_start_date) {
