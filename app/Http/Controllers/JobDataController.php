@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobData;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class JobDataController extends Controller
 {
@@ -13,9 +14,13 @@ class JobDataController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        return view('pages.admin.todo',[
+            'jobdata'=>Jobdata::all(),
+            'posts'=>Post::all(),
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +49,7 @@ class JobDataController extends Controller
      * @param  \App\Models\JobData  $jobData
      * @return \Illuminate\Http\Response
      */
-    public function show(JobData $jobData)
+    public function show()
     {
         
     }

@@ -90,6 +90,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="/admin/jobdata"
+                        class="nav-link  {{ request()->is('admin/jobdata*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-clipboard-check"></i>
+                        <p>
+                            To Do List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/admin/instansi"
                         class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-user-friends"></i>

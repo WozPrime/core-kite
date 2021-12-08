@@ -18,7 +18,9 @@ class CreateJobDataTable extends Migration
             $table->foreignId('posts_id');
             $table->foreignId('users_id');
             $table->foreignId('project_id');
-            $table->date('expired_at');
+            $table->foreignId('prof_id');
+            $table->string('file_name');
+            $table->dateTime('expired_at');
             $table->timestamps();
         });
     }
