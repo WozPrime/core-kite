@@ -19,5 +19,9 @@ class Instance extends Model
         return $this->hasMany(Client::class);
     }
 
+    public function project_model(){
+        return $this->hasMany(ProjectModel::class);
+    }
+
     public $timestamps = false;
 }

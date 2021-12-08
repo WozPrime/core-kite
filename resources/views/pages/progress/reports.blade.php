@@ -1,11 +1,39 @@
-<?php
-use Carbon\Carbon;
-?>
-
 @extends('pages.ui_admin.admin')
 @section('title')
     Tabel Laporan
 @endsection
+<style>
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        background: var(--gray-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 50%;
+        color: var(--white);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        transition: background 0.25s;
+
+        /* button */
+        outline: gray;
+        border: none;
+        cursor: pointer;
+    }
+
+    .floating-btn:hover {
+        color: lawngreen;
+    }
+
+    .floating-btn:active {
+        background: var(--gray);
+    }
+
+</style>
 @section('body')
 @section('navbar')
 @endsection
@@ -35,16 +63,19 @@ use Carbon\Carbon;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title text-light">Employee Report</h3>
+                            <h3 class="card-title pt-1">List of Reports</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="#" class="badge bg-primary mb-3" data-toggle="modal" data-target="#add-data"><i
-                                    class="fa fa-plus-circle mr-1"></i> Add New Report</a>
-                            <table class="table table-bordered">
+                            <table class="table table-responsive-sm table-bordered" id="myTable" width="100%">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
@@ -65,105 +96,82 @@ use Carbon\Carbon;
                                             <td>{{ $tbl_report->report_date }}</td>
                                             <td></td>
                                             <td>{{ $tbl_report->project_name }}</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-success">
-                                                        Detail
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button" class="btn btn-warning toastsDefaultWarning"
-                                                        data-toggle="modal" data-target="#edit">
-                                                        Edit
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#delete">
-                                                        Delete
-                                                    </button>
-                                                </a>
+                                            <td style="text-align: center">
+                                                <a class="btn btn-primary"
+                                                    href="/admin/proyek/{{ $tbl_project->report_id }}"><i
+                                                        class="fa fa-eye"></i></a>
+                                                <a class="btn btn-success" data-toggle="modal"
+                                                    href="#edit{{ $tbl_project->report_id }}"><i
+                                                        class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger" data-toggle="modal"
+                                                    href="#delete{{ $tbl_project->report_id }}"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
-                                        </tr>
+                                        <!-- /.modal -->
+                                        <div class="modal fade" id="edit{{ $tbl_project->report_id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="card-header bg-orange">
+                                                        <h3 class="card-title">Add New Project Data</h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <form action="/admin/projects/" method="post"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
+                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                    <!-- /.card-body -->
                 </div>
             </div>
         </div>
     </section>
-    <div class="modal fade" id="add-data">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="card-header bg-orange">
-                    <h3 class="card-title">Submit New Report</h3>
+    <!-- /.content -->
+    <button class="material-icons floating-btn" data-toggle="modal" data-target="#add-data">add</button>
+    <div class="modal fade" id="add-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content card-primary">
+                <div class="card-header">
+                    <h4 class="card-title">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
+
                 <div class="card-body">
-                    <form action="/admin/projects/" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="content">
 
-                            <div class="form-group">
-                                <label>Project Name</label>
-                                <input class="form-control">
-                            </div>
+                    <div class="modal-split">
+                        1
+                    </div>
 
-                            <div class="form-group">
-                                <label>Joblist Name</label>
-                                <input class="form-control">
-                            </div>
+                    <div class="modal-split">
+                        2
+                    </div>
 
-                            <div class="form-group">
-                                <label>Project Status</label>
-                                <select class="form-control" name="report_status" required="required">
-                                    <option value="" hidden> Pilih Status : </option>
-                                    <option value="Selesai"> Finish </option>
-                                    <option value="Bermasalah"> Problematic </option>
-                                </select>
-                            </div>
+                    <div class="modal-split">
+                        3
+                    </div>
 
-                            <div class="form-group">
-                                <label>Report Date</label>
-                                <input name="report_date" class="form-control" value="{{ \Carbon\Carbon::now() }}" disabled>
-                            </div>
+                </div>
 
-                            {{-- <div class="form-group">
-                                <label>Project Picture/Logo</label>
-                                <div>
-                                    <input type="file" name="foto_karyawan">
-                                    <div class="text-danger">
-                                        @error('foto_karyawan')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <div class="form-group">
-                                <button class="btn btn-success float-right">Save Data</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="modal-footer">
+                    <!--Nothing Goes Here but is needed! -->
                 </div>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.content -->
+
+
 @section('footer')
 @endsection
 @endsection

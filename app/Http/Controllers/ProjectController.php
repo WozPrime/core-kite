@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
+use Carbon\Carbon;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use App\Models\Client;
@@ -49,13 +51,20 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = new ProjectModel;
+        $data->instance_id = $request->instance_id;
+        $data->client_id = $request->client_id;
         $data->project_code = $request->project_code;
         $data->project_name = $request->project_name;
+        $data->project_detail = $request->project_detail;
+        $data->project_status = $request->project_status;
+        $data->project_category = $request->project_category;
         $data->project_start_date = $request->project_start_date;
         $data->project_deadline = $request->project_deadline;
+        $data->project_value = $request->project_value;
         $data->save();
         DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
-        return redirect('/admin/projects');
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        return redirect('/admin/proyek');
     }
 
     /**
@@ -64,9 +73,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectModel $request)
+    public function show(ProjectModel $proyek)
     {
-        return view( 'pages.progress.p_detail');
+        // dd($proyek);
+        return view( 'pages.progress.p_detail', [
+            'data' => $proyek,
+            ]);
     }
 
     /**
@@ -87,9 +99,24 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'instance_id' => $request->instance_id,
+            'client_id' => $request->client_id,
+            'project_code' => $request->project_code,
+            'project_name' => $request->project_name,
+            'project_detail' => $request->project_detail,
+            'project_status' => $request->project_status,
+            'project_category' => $request->project_category,
+            'project_start_date' => $request->project_start_date,
+            'project_deadline' => $request->project_deadline,
+            'project_value' => $request->project_value,
+        ];
+        ProjectModel::where('id', $id)->update($data);
+        Alert::success('Sukses', 'Data Proyek berhasil diedit!');
+        return redirect('/admin/proyek');
+        
     }
 
     /**
@@ -98,8 +125,27 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //
+        ProjectModel::destroy($id);
+        Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect('/admin/proyek');
+    }
+
+    function hitung_tanggal($project_start_date) {
+        $tglakhir =Carbon::parse($project_deadline);
+        $tglawal = Carbon::parse($project_start_date);
+        $jangka = $tglakhir->diffInYears($tgl_awal);
+        $satuan = "Tahun";
+        if ($usia < 1) {
+            $usia = $tglakhir->diffInMonths($tglawal);
+            $satuan = "Bulan";
+        }
+        if ($usia < 1) {
+            $usia = $tglakhir->diffInDays($tglawal);
+            $satuan = "Hari";
+        }
+        $output = $jangka . ' ' . $satuan;
+        return ($output);
     }
 }

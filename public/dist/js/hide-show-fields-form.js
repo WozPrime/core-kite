@@ -6,10 +6,12 @@ $("#seeAnotherFieldInstance").change(function() {
     } else {
         $('#otherFieldDivInstance').hide();
         $('#otherField').removeAttr('required');
-        $('#otherField').removeAttr('data-error');				
+        $('#otherField').removeAttr('data-error');		
     }
 });
 $("#seeAnotherFieldInstance").trigger("change");
+
+
 
 $("#seeAnotherFieldClient").change(function() {
     if ($(this).val() == "yes") {
