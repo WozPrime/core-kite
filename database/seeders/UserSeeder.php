@@ -23,6 +23,12 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
         User::create([
+            'name' => 'Ilham FF',
+            'email' => 'dtest5444@gmail.com',
+            'password' => bcrypt('12345678'),
+            'role' => 'admin',
+        ]);
+        User::create([
             'name' => 'Raihan Mar ie Akhmadin',
             'email' => 'raihan.akhmadin@gmail.com',
             'password' => bcrypt('12345678'),
@@ -30,3 +36,4 @@ class UserSeeder extends Seeder
         ]);
     }
 }
+

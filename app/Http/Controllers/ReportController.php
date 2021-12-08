@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReportModel;
 use Illuminate\Http\Request;
+Use Carbon\Carbon;
 
 class ReportController extends Controller
 {

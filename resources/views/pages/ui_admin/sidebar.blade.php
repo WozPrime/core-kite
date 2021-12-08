@@ -40,16 +40,7 @@
 
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/tables"
-                        class="nav-link  {{ \Request::route()->getName() == 'tables' ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Tables
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/profile/{{ Auth::user()->id }}"
+                    <a href="/admin/profile/"
                         class="nav-link  {{ \Request::route()->getName() == 'profile' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>
@@ -57,6 +48,47 @@
                         </p>
                     </a>
                 </li>
+                <li
+                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
+                    <a 
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Management
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/manage_user/"
+                                class="nav-link {{ \Request::route()->getName() == 'manage_user' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/prof/"
+                                class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Profession
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/joblist/"
+                                class="nav-link  {{ \Request::route()->getName() == 'joblist' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>
+                                    Joblist
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="/admin/instansi"
                         class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
@@ -67,8 +99,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/projects"
-                        class="nav-link  {{ request()->is('admin/projects') ? 'active text-light' : '' }}">
+                    <a href="/admin/proyek"
+                        class="nav-link  {{ request()->is('admin/proyek*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Project
@@ -76,17 +108,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/joblist"
-                        class="nav-link  {{ request()->is('admin/joblist') ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>
-                            Joblists
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/admin/reports"
-                        class="nav-link  {{ request()->is('admin/reports') ? 'active text-light' : '' }}">
+                        class="nav-link  {{ request()->is('admin/reports*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-fax"></i>
                         <p>
                             Reports

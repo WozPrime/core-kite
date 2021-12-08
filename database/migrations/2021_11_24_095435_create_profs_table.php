@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateProfsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('profs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id');
-            $table->dateTime('report_date');
-            $table->string('report_status');
-            $table->text('report_detail')->nullable();
+            $table->string('prof_code')->unique();
+            $table->string('prof_name');
+            $table->text('detail')->nullable();
+            $table->string('prof_img')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('profs');
     }
 }

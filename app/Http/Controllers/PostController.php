@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -17,6 +18,12 @@ class PostController extends Controller
         //
     }
 
+    public function __construct(Post $post)
+    {
+        // İnitialize user property.
+        $this->post = $post;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +31,22 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        Request()->validate([
+            'code' => 'required|unique:posts,code,'.Request()->id,
+            'task' => 'required',
+            'points' => 'required|integer',
+        ], [
+            'code.required' => 'Wajib Isi!!',
+            'task.required' => 'Wajib Isi!!',
+            'points.required' => 'Wajib Isi!!',
+        ]);
+        $insert_data = [
+            'code' => Request()->code,
+            'task' => Request()->task,
+            'points' => Request()->points,
+        ];
+        $this->post->insertData($insert_data);
+        return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
     }
 
     /**
@@ -46,7 +68,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $joblist = Post::all();
+        return view('pages.admin.mjob',compact('joblist'));
     }
 
     /**
@@ -55,9 +78,32 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $data_post = $this->post->find($id);
+        if (Request()->code == $data_post->code &&
+        Request()->task == $data_post->task &&
+        Request()->points == $data_post->points 
+        ) {
+            return redirect()->back()->with('sama','Data Tidak Berubah!!');
+        } else {
+            Request()->validate([
+                'code' => 'required|unique:posts,code,'.Request()->id,
+                'task' => 'required',
+                'points' => 'required|integer',
+            ], [
+                'code.required' => 'Wajib Isi!!',
+                'task.required' => 'Wajib Isi!!',
+                'points.required' => 'Wajib Isi!!',
+            ]);
+            $update_data = [
+                'code' => Request()->code,
+                'task' => Request()->task,
+                'points' => Request()->points,
+            ];
+            $this->post->editData($id,$update_data);
+            return redirect()->back()->with('pesan', 'Data Berhasil Ditambahkan!!!');
+        }
     }
 
     /**
@@ -78,8 +124,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function delete($id)
     {
-        //
+        $this->post->deleteData($id);
+        DB::statement("ALTER TABLE posts AUTO_INCREMENT = 1;");
+        return redirect()->back()->with('pesan', 'Data Berhasil Dihapus!!!');
     }
 }

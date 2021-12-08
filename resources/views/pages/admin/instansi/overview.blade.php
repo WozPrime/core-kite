@@ -51,8 +51,9 @@
                                             <td> {{$i->kota_instansi}} </td>
                                             <td><a href="/admin/instansi/{{$i->id}}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="/admin/instansi/{{$i->id}}/edit" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                                <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a></td>
-                                            </tr>
+                                                <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                     {{-- <tr>
                                         <td>1</td>
