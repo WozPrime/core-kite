@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
+    {{-- Tombol Tambah di Table --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,6 +30,16 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    {{-- DataTables --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    {{-- Material Design Icon --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {{-- DROPZONE --}}
+    <link rel="stylesheet" href="{{ asset('/plugins/dropzone/min/dropzone.min.css') }}">
+
+    <!-- show-hide-fields-form -->
+    <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -36,7 +48,9 @@
 
         @include('pages.ui_admin.navbar')
         @include('pages.ui_admin.sidebar')
-        
+
+        @include('sweetalert::alert')
+
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -91,11 +105,25 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    {{-- DataTables --}}
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- hide-show-fields-form -->
+    <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    <script src="{{ asset('dist/js/hide-show-fields-form-float.js') }}"></script>
+    <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
+    {{-- Get Current Date and Time --}}
+    <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
+    <!-- dropzonejs -->
+    <script src="{{ asset('/plugins/dropzone/min/dropzone.min.js') }}"></script>
 
+    {{-- Multi Page Modal --}}
+    <script src="{{ asset('dist/js/multipagemodal.js') }}"></script>
+    {{-- Currency Input --}}
+    <script src="{{ asset('dist/js/currencyinput.js') }}"></script>
     {{-- script gambar preview --}}
     <script type="text/javascript">
-        function Image_preview(event){
-            var image= URL.createObjectURL(event.target.files[0]);
+        function Image_preview(event) {
+            var image = URL.createObjectURL(event.target.files[0]);
             var imagediv = document.getElementById('pp');
             var newimg = document.createElement('img');
             newimg.src = image;
@@ -104,7 +132,68 @@
             imagediv.appendChild(newimg);
         }
     </script>
-    
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <script>
+        // DropzoneJS Demo Code Start
+        Dropzone.autoDiscover = false
+
+        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+        var previewNode = document.querySelector("#template")
+        previewNode.id = ""
+        var previewTemplate = previewNode.parentNode.innerHTML
+        previewNode.parentNode.removeChild(previewNode)
+
+        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+            url: "/target-url", // Set the url
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+        })
+
+        myDropzone.on("addedfile", function(file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function() {
+                myDropzone.enqueueFile(file)
+            }
+        })
+
+        // Update the total progress bar
+        myDropzone.on("totaluploadprogress", function(progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+        })
+
+        myDropzone.on("sending", function(file) {
+            // Show the total progress bar when upload starts
+            document.querySelector("#total-progress").style.opacity = "1"
+            // And disable the start button
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+        })
+
+        // Hide the total progress bar when nothing's uploading anymore
+        myDropzone.on("queuecomplete", function(progress) {
+            document.querySelector("#total-progress").style.opacity = "0"
+        })
+
+        // Setup the buttons for all transfers
+        // The "add files" button doesn't need to be setup because the config
+        // `clickable` has already been specified.
+        document.querySelector("#actions .start").onclick = function() {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+        }
+        document.querySelector("#actions .cancel").onclick = function() {
+            myDropzone.removeAllFiles(true)
+        }
+        // DropzoneJS Demo Code End
+    </script>
+
 
 </body>
 

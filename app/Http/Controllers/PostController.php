@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Prof;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -17,6 +20,12 @@ class PostController extends Controller
         //
     }
 
+    public function __construct(Post $post)
+    {
+        // İnitialize user property.
+        $this->post = $post;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +33,26 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        Request()->validate([
+            'code' => 'required|unique:posts,code,'.Request()->id,
+            'task' => 'required',
+            'points' => 'required|integer',
+            'prof_id' => 'required',
+        ], [
+            'code.required' => 'Wajib Isi!!',
+            'task.required' => 'Wajib Isi!!',
+            'points.required' => 'Wajib Isi!!',
+            'prof_id.required' => 'Wajib Isi!!',
+        ]);
+        $insert_data = [
+            'code' => Request()->code,
+            'task' => Request()->task,
+            'points' => Request()->points,
+            'prof_id' => Request()->prof_id,
+        ];
+        $this->post->insertData($insert_data);
+        Alert::success('Sukses','Data berhasil Diperbaharui');
+        return redirect()->back();
     }
 
     /**
@@ -46,7 +74,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $joblist = Post::all();
+        $prof_list = Prof::all();
+        return view('pages.admin.manajemen.mjob',compact('joblist','prof_list'));
     }
 
     /**
@@ -55,9 +85,37 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $data_post = $this->post->find($id);
+        if (Request()->code == $data_post->code &&
+        Request()->task == $data_post->task &&
+        Request()->points == $data_post->points 
+        ) {
+            Alert::warning('sama','Data Tidak Berubah');
+            return redirect()->back();
+        } else {
+            Request()->validate([
+                'code' => 'required|unique:posts,code,'.Request()->id,
+                'task' => 'required',
+                'points' => 'required|integer',
+                'prof_id' => 'required',
+            ], [
+                'code.required' => 'Wajib Isi!!',
+                'task.required' => 'Wajib Isi!!',
+                'points.required' => 'Wajib Isi!!',
+                'prof_id.required' => 'Wajib Isi!!',
+            ]);
+            $update_data = [
+                'code' => Request()->code,
+                'task' => Request()->task,
+                'points' => Request()->points,
+                'prof_id' => Request()->prof_id,
+            ];
+            $this->post->editData($id,$update_data);
+            Alert::success('Sukses','Data berhasil Diperbaharui');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -78,8 +136,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function delete($id)
     {
-        //
+        $this->post->deleteData($id);
+        DB::statement("ALTER TABLE posts AUTO_INCREMENT = 1;");
+        Alert::success('Sukses','Data berhasil Dihapus!!');
+        return redirect()->back();
     }
 }

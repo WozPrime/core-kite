@@ -26,49 +26,15 @@
     </section>
     @if (Auth::user()->code == '' || Auth::user()->stats == '' || Auth::user()->gender == '')
         <div class="container-fluid">
-            @include('pages.misc.alert')    
-        </div>    
+            @include('pages.misc.alert')
+        </div>
     @endif
     @if (Auth::user()->pp == '')
         <div class="container-fluid">
             @include('pages.misc.alert2')
         </div>
     @endif
-    @if (session('pesan'))
-        <div class="container-fluid">
-            <section class="content">
-                <div class="col-md-12">
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">&times;</button>
-                        <h3><i class="icon fas fa-check"></i> Success!</h3>
-                        {{ session('pesan') }}
-                    </div>
-                </div>
-            </section>
-        </div>
-    @endif
-    @if (session('sama'))
-        <div class="container-fluid">
-            <section class="content">
-                <div class="col-md-12">
-                    <div class="alert alert-secondary alert-dismissible ">
-                        <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">&times;</button>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <i class="icon fas fa-exclamation-triangle fa-3x ml-2 mt-2"></i>
-                            </div>
-                            <div class="col-md-11">
-                                <h3> {{ session('sama') }}</h3>
-                                <span>Periksa Kembali data!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    @endif
+
 
     <section class="content">
         <section class="container-fluid">
@@ -133,6 +99,19 @@
                                             selected @endif>Karyawan Tetap</option>
                                         <option value="KM" @if ($data_user->stats == 'KM')
                                             selected @endif>Karyawan Magang</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Profession">Profession</label>
+                                    <select name="prof_id" id="prof_id" class="form-control">
+                                        <option value="" @if ($data_user->prof_id == '')
+                                            selected @endif disabled hidden>Pilih Profesi
+                                        </option>
+                                        @foreach ($prof_list as $prof)
+                                            <option value="{{ $prof->id }}" @if ($data_user->prof_id == $prof->id)
+                                                selected @endif>{{ $prof->prof_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 

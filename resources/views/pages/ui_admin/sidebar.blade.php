@@ -28,7 +28,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
+                with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="/admin"
                         class="nav-link  {{ \Request::route()->getName() == 'admin' ? 'active text-light' : '' }}">
@@ -40,20 +40,88 @@
 
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/tables"
-                        class="nav-link  {{ \Request::route()->getName() == 'tables' ? 'active text-light' : '' }}">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Tables
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/admin/profile/"
                         class="nav-link  {{ \Request::route()->getName() == 'profile' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>
                             Profile
+                        </p>
+                    </a>
+                </li>
+                <li
+                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
+                    <a 
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Management
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/manage_user/"
+                                class="nav-link {{ \Request::route()->getName() == 'manage_user' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/prof/"
+                                class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Profession
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/joblist/"
+                                class="nav-link  {{ \Request::route()->getName() == 'joblist' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>
+                                    Joblist
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/jobdata"
+                        class="nav-link  {{ request()->is('admin/jobdata*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-clipboard-check"></i>
+                        <p>
+                            To Do List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Klien
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/proyek"
+                        class="nav-link  {{ request()->is('admin/proyek*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Project
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/reports"
+                        class="nav-link  {{ request()->is('admin/reports*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-fax"></i>
+                        <p>
+                            Reports
                         </p>
                     </a>
                 </li>

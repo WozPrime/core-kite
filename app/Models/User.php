@@ -20,6 +20,12 @@ class User extends Authenticatable
         ->where('id', $id)
         ->update($update_data);
     }
+    public function deleteData($id)
+    {
+        DB::table('users')
+        ->where('id',$id)
+        ->delete();
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -33,7 +39,13 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
+        'prof_id',
     ];
+
+    public function prof()
+    {
+        return $this->belongsTo(Prof::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
