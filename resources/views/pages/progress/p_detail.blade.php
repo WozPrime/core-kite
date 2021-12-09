@@ -27,12 +27,12 @@
                                 {{-- @endif --}}
                                 <div class="mt-3">
                                     {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
-                                    <b class="text-secondary-bold"> {{$data->project_name}} </b>
-                                    <p class="text-muted font-size-sm"> [{{$data->project_code}}] </p>
+                                    <b class="text-secondary-bold"> {{ $data->project_name }} </b>
+                                    <p class="text-muted font-size-sm"> [{{ $data->project_code }}] </p>
                                     <b class="text-secondary-bold"> Nilai Proyek </b>
-                                    <p class="text-muted font-size-sm"> {{$data->project_value}} </p>
+                                    <p class="text-muted font-size-sm"> {{ $data->project_value }} </p>
                                     <b class="text-secondary-bold"> Jenis Proyek </b>
-                                    <p class="text-muted font-size-sm"> {{$data->project_category}} </p>
+                                    <p class="text-muted font-size-sm"> {{ $data->project_category }} </p>
                                 </div>
                             </div>
                         </div>
@@ -45,14 +45,15 @@
                         </div>
                         <div class="card-body">
                             <b class="text-secondary-bold"> Detail Proyek </b>
-                            <p class="text-muted font-size-sm"> {{$data->project_detail}} </p>
+                            <p class="text-muted font-size-sm"> {{ $data->project_detail }} </p>
                             <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek- </b>
-                            <p class="text-muted font-size-sm"> {{$data->project_start_date}} s/d {{$data->project_deadline}} </p>
+                            <p class="text-muted font-size-sm"> {{ $data->project_start_date }} s/d
+                                {{ $data->project_deadline }} </p>
                             <p class="text-muted font-size-sm"> -total waktu- </p>
                             <b class="text-secondary-bold"> Klien </b>
-                            <p class="text-muted font-size-sm"> {{$data->client->name}} </p>
+                            <p class="text-muted font-size-sm"> {{ $data->client->name }} </p>
                             <b class="text-secondary-bold"> Instansi </b>
-                            <p class="text-muted font-size-sm"> {{$data->instance->nama_instansi}} </p>
+                            <p class="text-muted font-size-sm"> {{ $data->instance->nama_instansi }} </p>
                         </div>
                     </div>
                 </div>
@@ -66,33 +67,19 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form role="form" method="POST" enctype="multipart/form-data" id="formTambahAnggota">
+                                <form action="../../admin/jobdata" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-9">
                                             <div class="form-group no-border">
-                                                <select name="id_karyawan" id="tambah-anggota" class="form-control select2">
-                                                    <option value="10">Ahmad Syahroni, A. Md</option>
-                                                    <option value="12">Dean El&#039;Ilmi Kasyaif Nasution, S. Kom</option>
-                                                    <option value="13">David Hasibuan, S. Pd</option>
-                                                    <option value="15">David Simarmata, S. Kom</option>
-                                                    <option value="16">Indra Jatmika</option>
-                                                    <option value="17">Leonardus Fernando, S.Kom</option>
-                                                    <option value="18">Muhammad Sabiran, S.Kom</option>
-                                                    <option value="19">Syarif Irfan Yudha Ardian, S.Kom</option>
-                                                    <option value="20">Reno Anthus, S.Kom</option>
-                                                    <option value="22">Rangga Saputra, A.Md</option>
-                                                    <option value="23">Fathuzzikri, S.Kom</option>
-                                                    <option value="25">Izza Ulfa Dwiyanti</option>
-                                                    <option value="26">Andika Eka Putra</option>
-                                                    <option value="27">Alvian Teddy Cahya Putra</option>
-                                                    <option value="28">Alexander Hasibuan</option>
-                                                    <option value="29">Ikhwan Ruslianto</option>
-                                                    <option value="30">Parian Pilata</option>
-                                                    <option value="31">Syahru</option>
-                                                    <option value="32">Hendro Pratama</option>
-                                                    <option value="33">Irvan Denata</option>
-                                                    <option value="34">Weldi</option>
+                                                <select name="users_id" id="users_id" class="form-control select2">
+                                                    @foreach ($users as $karyawan)
+                                                        <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
+                                                <input type="hidden" name="project_id" id="project_id"
+                                                    value="{{ $data->id }}">
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -100,19 +87,36 @@
                                         </div>
                                     </div>
                                 </form>
-                                <table class="table table-bordered table-striped dt-responsive no-wrap" id="tAnggota">
+                                <table class="table table-responsive-sm table-bordered" id="myTable">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 50px; max-width: 50px;" class="text-center">No.</th>
-                                            <th style="min-width: 35px; max-width: 35px;" class="text-center">Aksi</th>
-                                            <th style="min-width: 150px; max-width: 150px;" class="text-center">Role & Hak
+                                            <th style="min-width: 20px; max-width: 20px;" class="text-center">No.</th>
+                                            <th style="min-width: 100px; max-width: 100px;" class="text-center">Role &
+                                                Hak
                                                 Akses</th>
                                             <th class="text-center">Nama</th>
-                                            <th style="min-width: 100px; max-width: 100px;" class="text-center">Foto</th>
+                                            <th style="min-width: 40px; max-width: 40px;" class="text-center">Foto</th>
+                                            <th style="min-width: 70px; max-width: 70px;" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @foreach ($job_data as $list)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td></td>
+                                            <td>{{ $users->where('id',$list->users_id)->pluck('name')->implode(' ') }}</td>
+                                            <td>
+                                                @if ($users->where('id', $list->users_id)->pluck('pp')->implode(' ') == '')
+                                                    <img src="{{ url('pp/default.jpg') }}" class="img-circle"
+                                                        width="70">
+                                                @else
+                                                    <img src="{{ url('pp/' . $users->where('id', $list->users_id)->pluck('pp')->implode(' ')) }}" class="img-circle"
+                                                        width="70">
+                                                @endif
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

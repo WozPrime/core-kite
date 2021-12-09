@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JobData;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JobDataController extends Controller
 {
@@ -40,7 +41,12 @@ class JobDataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new JobData;
+        $data->users_id = $request->users_id;
+        $data->project_id = $request->project_id;
+        $data->save();
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!'); 
+        return redirect()->back();
     }
 
     /**

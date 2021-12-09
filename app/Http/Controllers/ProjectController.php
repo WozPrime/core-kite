@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Alert;
-use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use App\Models\Client;
 use App\Models\InstancesModel;
+use App\Models\User;
+use App\Models\JobData;
+use App\Models\Post;
+use App\Models\Prof;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +32,7 @@ class ProjectController extends Controller
             'data' => ProjectModel::all(),
             'instansi' => Instance::all(),
             'klien' => Client::all(),
-            'modelinstansi' => InstancesModel::all()
+            'modelinstansi' => InstancesModel::all(),
         ]);
     }
     /**
@@ -76,8 +79,13 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
+        
         return view( 'pages.progress.p_detail', [
             'data' => $proyek,
+            'users' => User::all(),
+            'job_data' => JobData::all(),
+            'profs' => Prof::all(),
+            'job_list' => Post::all(),
             ]);
     }
 
@@ -87,7 +95,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(ProjectModel $project)
     {
         //
     }
@@ -132,20 +140,5 @@ class ProjectController extends Controller
         return redirect('/admin/proyek');
     }
 
-    function hitung_tanggal($project_start_date) {
-        $tglakhir =Carbon::parse($project_deadline);
-        $tglawal = Carbon::parse($project_start_date);
-        $jangka = $tglakhir->diffInYears($tgl_awal);
-        $satuan = "Tahun";
-        if ($usia < 1) {
-            $usia = $tglakhir->diffInMonths($tglawal);
-            $satuan = "Bulan";
-        }
-        if ($usia < 1) {
-            $usia = $tglakhir->diffInDays($tglawal);
-            $satuan = "Hari";
-        }
-        $output = $jangka . ' ' . $satuan;
-        return ($output);
-    }
+
 }
