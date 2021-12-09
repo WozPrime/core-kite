@@ -1,7 +1,10 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('pages.ui_admin.admin')
 
 @section('title')
-    Profil Klien
+    Profil Proyek
 @endsection
 
 @section('body')
@@ -40,16 +43,13 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card mb-3" style="height: 375px">
-                        <div class="card-header">
-                            <h3 class="card-title">Detail Proyek</h3>
-                        </div>
                         <div class="card-body">
                             <b class="text-secondary-bold"> Detail Proyek </b>
-                            <p class="text-muted font-size-sm"> {{ $data->project_detail }} </p>
-                            <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek- </b>
-                            <p class="text-muted font-size-sm"> {{ $data->project_start_date }} s/d
-                                {{ $data->project_deadline }} </p>
-                            <p class="text-muted font-size-sm"> -total waktu- </p>
+                            <p class="text-muted font-size-sm"> {{$data->project_detail}} </p>
+                            <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek</b>
+                            <p class="text-muted font-size-sm"> {{date('D, d M Y', strtotime($data->project_start_date))}} <b>s/d</b> {{date('D, d M Y', strtotime($data->project_deadline))}} </p>
+                            <b class="text-secondary-bold"> Rentang Pengerjaan Waktu </b>
+                            <p class="text-muted font-size-sm"> {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date)}}  Hari</p>
                             <b class="text-secondary-bold"> Klien </b>
                             <p class="text-muted font-size-sm"> {{ $data->client->name }} </p>
                             <b class="text-secondary-bold"> Instansi </b>

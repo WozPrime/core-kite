@@ -124,7 +124,6 @@ class ProjectController extends Controller
         ProjectModel::where('id', $id)->update($data);
         Alert::success('Sukses', 'Data Proyek berhasil diedit!');
         return redirect('/admin/proyek');
-        
     }
 
     /**
