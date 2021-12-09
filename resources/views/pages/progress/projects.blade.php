@@ -222,8 +222,7 @@
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldInstance">Pilih
                                                                         Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable"
-                                                                        name="instance_id">
+                                                                    <select class="form-select" aria-label="Disable" name="instance_id" required>
                                                                             <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
                                                                         @foreach ($instansi as $i)
                                                                             <option value="{{ $i->id }}">
@@ -234,7 +233,7 @@
                                     
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                    <select class="form-select" name="client_id">
+                                                                    <select class="form-select" name="client_id" required>
                                                                         <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
                                                                         @foreach ($klien as $k)
                                                                             <option value=" {{ $k->id }} ">{{ $k->name }} </option>
@@ -259,7 +258,7 @@
                                     
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
-                                                                    <select class="form-select" name="project_category">
+                                                                    <select class="form-select" name="project_category" required>
                                                                         <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
                                                                             <option value="Web">Web</option>
                                                                             <option value="Mobile App">Mobile App</option>
@@ -273,7 +272,7 @@
                                     
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                                                    <select class="form-select" name="project_status">
+                                                                    <select class="form-select" name="project_status" required>
                                                                         <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
                                                                             <option value="Baru">Baru</option>
                                                                             <option value="Sedang Berjalan">Sedang Berjalan</option>
@@ -330,18 +329,49 @@
         </div>
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="addi">
+    <div class="modal fade" id="addk">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="card-header bg-orange">
-                    <h3 class="card-title">Add New Project</h3>
+                    <h3 class="card-title">Menambah Data Klien</h3>
                 </div>
                 <div class="card-body">
                     <form action="/admin/proyek/" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
+
+                            <div class="form-group">
+                                <label>Nama Klien</label>
+                                <input name="name" class="form-control" required>
+                            </div>
                                                         
+                            <div class="form-group">
+                                <label>Email Klien</label>
+                                <input name="email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password Akun Klien</label>
+                                <input name="password" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nomor Ponsel Klien</label>
+                                <input name="phone_number" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                <select class="form-select" aria-label="Disable" name="instance_id" required>
+                                    <option selected hidden>Pilih Instansi</option>
+                                    @foreach ($instansi as $i)
+                                        <option value="{{ $i->id }}">
+                                            {{ $i->nama_instansi }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <br>
 
                             <div class="form-group">
@@ -354,18 +384,43 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addk">
+    <div class="modal fade" id="addi">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="card-header bg-orange">
-                    <h3 class="card-title">Add New Project</h3>
+                    <h3 class="card-title">Menambah Data Instansi</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/admin/proyek/" method="post"
+                    <form action="../../admin/instansi" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
                             
+                            <div class="form-group">
+                                <label>Name Instansi</label>
+                                <input name="nama_instansi" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Alamat Instansi</label>
+                                <input name="alamat_instansi" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kota Instansi</label>
+                                <input name="kota_instansi" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seeAnotherFieldInstance">Pilih Jenis Instansi</label>
+                                <select class="form-select" aria-label="Disable" name="instances_model_id" required>
+                                    <option selected hidden>Pilih Jenis Instansi</option>
+                                    @foreach ($modelinstansi as $i)
+                                        <option value="{{ $i->id }}"> {{ $i->jenis_instansi }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <br>
 
                             <div class="form-group">
@@ -382,7 +437,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="card-header bg-orange">
-                    <h3 class="card-title">Add New Project</h3>
+                    <h3 class="card-title">Menambah Data proyek</h3>
                 </div>
                 <div class="card-body">
                     <form action="/admin/proyek/" method="post"
@@ -391,10 +446,8 @@
                         <div class="content">
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldInstance">Pilih
-                                    Instansi</label>
-                                <select class="form-select" aria-label="Disable"
-                                    name="instance_id">
+                                <label for="seeAnotherFieldInstance">Pilih Jenis Instansi</label>
+                                <select class="form-select" aria-label="Disable" name="instance_id" required>
                                     <option selected hidden>Pilih Instansi</option>
                                     @foreach ($instansi as $i)
                                         <option value="{{ $i->id }}">
@@ -405,7 +458,7 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                <select class="form-select" name="client_id">
+                                <select class="form-select" name="client_id" required>
                                     <option selected hidden> Pilih Klien </option>
                                     @foreach ($klien as $k)
                                         <option value=" {{ $k->id }} ">
@@ -431,7 +484,7 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
-                                <select class="form-select" name="project_category">
+                                <select class="form-select" name="project_category" required>
                                     <option selected hidden> Pilih Kategori </option>
                                         <option value="Web">Web</option>
                                         <option value="Mobile App">Mobile App</option>
@@ -445,7 +498,7 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                <select class="form-select" name="project_status">
+                                <select class="form-select" name="project_status" required>
                                     <option selected hidden> Pilih Status </option>
                                         <option value="Baru">Baru</option>
                                         <option value="Sedang Berjalan">Sedang Berjalan</option>

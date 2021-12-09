@@ -17,7 +17,7 @@ class InstanceController extends Controller
     public function index()
     {
         return view('pages.admin.instansi.overview',[
-            'instance'=>Instance::all()
+            'instance'=>Instance::all(),
         ]);
     }
 
@@ -39,7 +39,14 @@ class InstanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Instance;
+        $data -> nama_instansi = $request->nama_instansi;
+        $data -> alamat_instansi = $request->alamat_instansi;
+        $data -> kota_instansi = $request->kota_instansi;
+        $data -> instances_model_id = $request->instances_model_id;
+        $data->save();
+        Alert::success('Sukses', 'Data Instansi berhasil ditambahkan!');
+        return redirect()->back();
     }
 
     /**
