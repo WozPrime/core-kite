@@ -14,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('pages.klien.index');
+        //
     }
 
     /**
@@ -35,7 +35,15 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Client;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->phone_number = $request->phone_number;
+        $data->instance_id = $request->instance_id;
+        $data->save();
+        Alert::success('Sukses', 'Data Klien berhasil ditambahkan!');
+        return redirect()->back();
     }
 
     /**
@@ -81,9 +89,5 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         //
-    }
-
-    public function myproject(){
-        return view('pages.klien.clientproject');
     }
 }

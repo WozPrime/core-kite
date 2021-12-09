@@ -336,7 +336,7 @@
                     <h3 class="card-title">Menambah Data Klien</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/admin/proyek/" method="post"
+                    <form action="../../client" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
