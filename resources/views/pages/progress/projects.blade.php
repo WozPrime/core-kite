@@ -212,7 +212,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
-                                                        <h3 class="card-title">Add New Project</h3>
+                                                        <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>
                                                     </div>
                                                     <div class="card-body">
                                                         <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" enctype="multipart/form-data">
@@ -248,7 +248,7 @@
                                                                 </div>
                                     
                                                                 <div class="form-group">
-                                                                    <label>Name Proyek</label>
+                                                                    <label>Nama Proyek</label>
                                                                     <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
                                                                     <div class="text-danger">
                                                                         @error('project_name')
@@ -275,6 +275,7 @@
                                                                     <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
                                                                     <select class="form-select" name="project_status">
                                                                         <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
+                                                                            <option value="Baru">Baru</option>
                                                                             <option value="Sedang Berjalan">Sedang Berjalan</option>
                                                                             <option value="Tertunda">Tertunda</option>
                                                                             <option value="Selesai">Selesai</option>
@@ -318,9 +319,9 @@
                         <div class="action" onclick="actionToggle();">
                             <span>+</span>
                             <ul>
-                                <li>Tambah Instansi Baru</li>
-                                <li>Tambah Klien Baru</li>
-                                <li data-toggle="modal" data-target="#add-data">Tambah Proyek Baru</li>
+                                <li data-toggle="modal" data-target="#addi">Tambah Instansi Baru</li>
+                                <li data-toggle="modal" data-target="#addk">Tambah Klien Baru</li>
+                                <li data-toggle="modal" data-target="#addp">Tambah Proyek Baru</li>
                             </ul>
                         </div>
                     </div>
@@ -329,7 +330,55 @@
         </div>
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="add-data">
+    <div class="modal fade" id="addi">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Add New Project</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/proyek/" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="content">
+                                                        
+                            <br>
+
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save
+                                    Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addk">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Add New Project</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/proyek/" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="content">
+                            
+                            <br>
+
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save
+                                    Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addp">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="card-header bg-orange">
@@ -367,12 +416,12 @@
 
                             <div class="form-group">
                                 <label>Kode Proyek</label>
-                                <input name="project_code" class="form-control">
+                                <input name="project_code" class="form-control" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Name Proyek</label>
-                                <input name="project_name" class="form-control">
+                                <input name="project_name" class="form-control" required>
                                 <div class="text-danger">
                                     @error('project_name')
                                         {{ $message }}
@@ -391,14 +440,14 @@
 
                             <div class="form-group">
                                 <label>Detail Proyek</label>
-                                <textarea name="project_detail" class="form-control"
-                                    type="date"></textarea>
+                                <textarea name="project_detail" class="form-control" type="date" required></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
                                 <select class="form-select" name="project_status">
                                     <option selected hidden> Pilih Status </option>
+                                        <option value="Baru">Baru</option>
                                         <option value="Sedang Berjalan">Sedang Berjalan</option>
                                         <option value="Tertunda">Tertunda</option>
                                         <option value="Selesai">Selesai</option>
@@ -407,20 +456,17 @@
 
                             <div class="form-group">
                                 <label>Starting Date</label>
-                                <input name="project_start_date" class="form-control"
-                                    type="date">
+                                <input name="project_start_date" class="form-control" type="date" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Deadline</label>
-                                <input name="project_deadline" class="form-control"
-                                    type="date">
+                                <input name="project_deadline" class="form-control" type="date" required>
                             </div>
 
                             <div>
                                 <label>Total Project</label>
-                                <input class="input-currency form-control" type="text"
-                                    type-currency="IDR" placeholder="Rp" name="project_value">
+                                <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" required>
                             </div>
 
                             <br>
