@@ -47,7 +47,7 @@
                             <b class="text-secondary-bold"> Detail Proyek </b>
                             <p class="text-muted font-size-sm"> {{$data->project_detail}} </p>
                             <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek</b>
-                            <p class="text-muted font-size-sm"> {{date('D, d M Y', strtotime($data->project_start_date))}} s/d {{date('D, d M Y', strtotime($data->project_deadline))}} </p>
+                            <p class="text-muted font-size-sm"> {{date('D, d M Y', strtotime($data->project_start_date))}} <b>s/d</b> {{date('D, d M Y', strtotime($data->project_deadline))}} </p>
                             <b class="text-secondary-bold"> Rentang Pengerjaan Waktu </b>
                             <p class="text-muted font-size-sm"> {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date)}}  Hari</p>
                             <b class="text-secondary-bold"> Klien </b>

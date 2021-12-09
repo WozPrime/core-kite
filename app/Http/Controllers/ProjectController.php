@@ -116,7 +116,6 @@ class ProjectController extends Controller
         ProjectModel::where('id', $id)->update($data);
         Alert::success('Sukses', 'Data Proyek berhasil diedit!');
         return redirect('/admin/proyek');
-        
     }
 
     /**
@@ -130,22 +129,5 @@ class ProjectController extends Controller
         ProjectModel::destroy($id);
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
         return redirect('/admin/proyek');
-    }
-
-    function hitung_tanggal($project_start_date) {
-        $tglakhir =Carbon::parse($project_deadline);
-        $tglawal = Carbon::parse($project_start_date);
-        $jangka = $tglakhir->diffInYears($tgl_awal);
-        $satuan = "Tahun";
-        if ($usia < 1) {
-            $usia = $tglakhir->diffInMonths($tglawal);
-            $satuan = "Bulan";
-        }
-        if ($usia < 1) {
-            $usia = $tglakhir->diffInDays($tglawal);
-            $satuan = "Hari";
-        }
-        $output = $jangka . ' ' . $satuan;
-        return ($output);
     }
 }
