@@ -2,6 +2,8 @@
 @section('title')
     Tabel Proyek
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 {{-- <style>
     .floating-btn {
         width: 50px;
