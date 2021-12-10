@@ -197,7 +197,7 @@
                                                 <a class="btn btn-success" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
                                                 <a>
-                                                    <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
+                                                    <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
                                                         @method('delete')
                                                         @csrf
                                                         <button class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
@@ -215,7 +215,7 @@
                                                         <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>
                                                     </div>
                                                     <div class="card-body">
-                                                        <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" enctype="multipart/form-data">
+                                                        <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" enctype="multipart/form-data">
                                                             @method('put')
                                                             @csrf
                                                             <div class="content">
@@ -336,7 +336,7 @@
                     <h3 class="card-title">Menambah Data Klien</h3>
                 </div>
                 <div class="card-body">
-                    <form action="../../client" method="post"
+                    <form autocomplete="off" action="../../client" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
@@ -391,7 +391,7 @@
                     <h3 class="card-title">Menambah Data Instansi</h3>
                 </div>
                 <div class="card-body">
-                    <form action="../../admin/instansi" method="post"
+                    <form autocomplete="off" action="../../admin/instansi" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
@@ -440,14 +440,14 @@
                     <h3 class="card-title">Menambah Data proyek</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/admin/proyek/" method="post"
+                    <form autocomplete="off" action="/admin/proyek/" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldInstance">Pilih Jenis Instansi</label>
-                                <select class="form-select" aria-label="Disable" name="instance_id" required>
+                                <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
                                     <option selected hidden>Pilih Instansi</option>
                                     @foreach ($instansi as $i)
                                         <option value="{{ $i->id }}">
@@ -458,13 +458,12 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                <select class="form-select" name="client_id" required>
-                                    <option selected hidden> Pilih Klien </option>
-                                    @foreach ($klien as $k)
-                                        <option value=" {{ $k->id }} ">
-                                            {{ $k->name }} </option>
-                                    @endforeach
+                               
+                                <select class='form-select' name='client_id' id='client_id' required>
                                 </select>
+                                {{-- <div id='listClient'> --}}
+
+                                {{-- </div> --}}
                             </div>
 
                             <div class="form-group">
@@ -539,6 +538,32 @@
 
 @section('footer')
 @endsection
+<script>
+    function pilihInstansi() {
+    var data = 'id=' +document.getElementById('instance_id').value;
+
+    var baris = "";
+    $.ajax({
+      url: "{{ route('clientData') }}",
+      data: data,
+      cache: false,
+      dataType: 'json',
+      success: function(data) {
+        //   alert(response.message);
+        for (var i = 0; i < data.length; i++) {
+            baris += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+        }
+        // baris = baris + '</select>'
+        // if(typeof(document.getElementById('selectDefault') != 'undefined' && document.getElementById('selectDefault') != null)){
+        //     document.getElementById('selectDefault').remove();
+        // }
+        $('#client_id').html(baris);
+      }
+    });
+    return false;
+  }
+</script>
+
 <script type="text/javascript">
     function actionToggle() {
         var action = document.querySelector('.action')

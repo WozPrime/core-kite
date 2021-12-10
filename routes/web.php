@@ -66,10 +66,12 @@ Route::middleware(['role', 'auth'])->group(function () {
 
     //JobData
     Route::resource('admin/jobdata/', JobDataController::class);
+
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
     Route::resource('/admin/reports', ReportController::class);
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
+    Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 });
 
 // EMPLOYEE

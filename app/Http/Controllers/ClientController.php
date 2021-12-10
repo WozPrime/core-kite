@@ -90,4 +90,14 @@ class ClientController extends Controller
     {
         //
     }
+
+    public function pilihan(Request $data)
+    {
+        $valueClient = Client::select('id', 'name')->where('instance_id', $data->id)->get();
+        $this->message = 'Masuk';
+        return json_encode($valueClient);
+        // return response()->json([
+        //     'message' => $data->id
+        // ]);
+    }
 }
