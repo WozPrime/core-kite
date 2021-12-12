@@ -91,35 +91,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($prof_list as $prof)
+                                    @foreach ($role_list as $role)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $prof['prof_code'] }}</td>
-                                            <td>{{ $prof['prof_name'] }}</td>
-                                            <td>{{ $prof['detail'] }}</td>
+                                            <td>{{ $role['role_code'] }}</td>
+                                            <td>{{ $role['role_name'] }}</td>
+                                            <td>{{ $role['detail'] }}</td>
                                             <td style="text-align: center">
-                                                @if ($prof['prof_img'] == '')
-                                                    <img src="{{ url('prof/default.png') }}" class="img-circle"
+                                                @if ($role['role_img'] == '')
+                                                    <img src="{{ url('role/default.png') }}" class="img-circle"
                                                         width="70" height="70">
                                                 @else
-                                                    <img src="{{ url('prof/' . $prof['prof_img']) }}"
+                                                    <img src="{{ url('role/' . $role['role_img']) }}"
                                                         class="img-circle" width="70" height="70">
                                                 @endif
                                             </td>
                                             <td style="text-align: center">
 
                                                 <a class="btn btn-primary" data-toggle="modal"
-                                                    href="#detail{{ $prof->id }}"><i
+                                                    href="#detail{{ $role->id }}"><i
                                                         class="fa fa-eye"></i></a>
                                                 <a class="btn btn-success" data-toggle="modal"
-                                                    data-target="#edit{{ $prof->id }}"><i
+                                                    data-target="#edit{{ $role->id }}"><i
                                                         class="fa fa-edit"></i></a>
                                                 <a class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#delete{{ $prof->id }}"><i
+                                                    data-target="#delete{{ $role->id }}"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="detail{{ $prof->id }}">
+                                        <div class="modal fade" id="detail{{ $role->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -134,34 +134,34 @@
                                                             <div class="card card-primary card-outline">
                                                                 <div class="card-body box-profile">
                                                                     <div class="text-center">
-                                                                        @if ($prof->prof_img == '')
-                                                                            <img src="{{ url('prof/default.png') }}"
+                                                                        @if ($role->role_img == '')
+                                                                            <img src="{{ url('role/default.png') }}"
                                                                                 class="profile-user-img img-fluid img-circle" width="150"
                                                                                 height="150">
                                                                         @else
-                                                                            <img src="{{ url('prof/' . $prof->prof_img) }}"
+                                                                            <img src="{{ url('role/' . $role->role_img) }}"
                                                                                 class="profile-user-img img-fluid img-circle" width="150"
                                                                                 height="150">
                                                                         @endif
                                                                     </div>
-                
-                                                                    <h3 class="profile-username text-center">{{ $prof->prof_name }}
+
+                                                                    <h3 class="profile-username text-center">{{ $role->role_name }}
                                                                     </h3>
-                
-                                                                    <p class="text-muted text-center">{{ $prof->prof_code }}</p>
-                
+
+                                                                    <p class="text-muted text-center">{{ $role->role_code }}</p>
+
                                                                     <ul class="list-group list-group-unbordered mb-3">
                                                                         <li class="list-group-item">
                                                                             <b>Detail</b>
                                                                             <br>
-                                                                            <a class="text-dark">{{ $prof->detail }}</a>
+                                                                            <a class="text-dark">{{ $role->detail }}</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /.card-body -->
                                                             </div>
                                                         </section>
-                
+
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -172,7 +172,7 @@
                                             <!-- /.modal-dialog -->
                                         </div>
                                         <!-- /.modal -->
-                                        <div class="modal fade" id="edit{{ $prof->id }}">
+                                        <div class="modal fade" id="edit{{ $role->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -182,26 +182,26 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/admin/edit_prof/{{ $prof->id }}" method="POST"
+                                                    <form action="/admin/edit_role/{{ $role->id }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="Prof_code">Profession Code</label>
-                                                                <input type="text" class="form-control" id="prof_code" name="prof_code"
-                                                                    value="{{ $prof->prof_code }}">
+                                                                <input type="text" class="form-control" id="role_code" name="role_code"
+                                                                    value="{{ $role->role_code }}">
                                                                 <div class="text-danger">
-                                                                    @error('prof_code')
+                                                                    @error('role_code')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="Prof_name">Profession Name</label>
-                                                                <input type="text" class="form-control" id="prof_name" name="prof_name"
-                                                                    value="{{ $prof->prof_name }}">
+                                                                <input type="text" class="form-control" id="role_name" name="role_name"
+                                                                    value="{{ $role->role_name }}">
                                                                 <div class="text-danger">
-                                                                    @error('prof_name')
+                                                                    @error('role_name')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </div>
@@ -209,37 +209,37 @@
                                                             <div class="form-group">
                                                                 <label for="Detail">Details</label>
                                                                 <input type="text" class="form-control" id="detail" name="detail"
-                                                                    value="{{ $prof->detail }}">
+                                                                    value="{{ $role->detail }}">
                                                                 <div class="text-danger">
                                                                     @error('detail')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                
+
                                                             <div class="form-group">
                                                                 <label for="Profession_Img">Profession Image</label>
                                                                 <div>
-                                                                    <div id="prof_img" class="mb-1"></div>
-                                                                    <input type="file" name="prof_img" onchange="Image_preview(event)">
+                                                                    <div id="role_img" class="mb-1"></div>
+                                                                    <input type="file" name="role_img" onchange="Image_preview(event)">
                                                                     <div class="text-danger">
-                                                                        @error('prof_img')
+                                                                        @error('role_img')
                                                                             {{ $message }}
                                                                         @enderror
                                                                     </div>
                                                                     <label>Saved Photo</label>
                                                                     <div>
-                                                                        @if ($prof->prof_img == '')
-                                                                            <img src="{{ url('prof/default.png') }}"
+                                                                        @if ($role->role_img == '')
+                                                                            <img src="{{ url('role/default.png') }}"
                                                                                 class="img-circle" width="150">
                                                                         @else
-                                                                            <img src="{{ url('prof/' . $prof->prof_img) }}"
+                                                                            <img src="{{ url('role/' . $role->role_img) }}"
                                                                                 class="img-circle" width="150">
                                                                         @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
-                
+
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
@@ -253,7 +253,7 @@
                                             </div>
                                             <!-- /.modal -->
                                         </div>
-                                        <div class="modal fade" id="delete{{ $prof->id }}">
+                                        <div class="modal fade" id="delete{{ $role->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
@@ -264,12 +264,12 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Apakah anda yakin ingin Menghapus data dari {{ $prof->prof_name }} ini?
+                                                        Apakah anda yakin ingin Menghapus data dari {{ $role->role_name }} ini?
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-outline-light"
                                                             data-dismiss="modal">Close</button>
-                                                        <a href="/admin/delete_prof/{{ $prof->id }}" type="button"
+                                                        <a href="/admin/delete_role/{{ $role->id }}" type="button"
                                                             class="btn btn-outline-light">Hapus Data</a>
                                                     </div>
                                                 </div>
@@ -302,23 +302,23 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="/admin/ins_prof" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/ins_role" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="Prof_code">Profession Code</label>
-                                <input type="text" class="form-control" id="prof_code" name="prof_code">
+                                <input type="text" class="form-control" id="role_code" name="role_code">
                                 <div class="text-danger">
-                                    @error('prof_code')
+                                    @error('role_code')
                                         {{ $message }}
                                     @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="Prof_name">Profession Name</label>
-                                <input type="text" class="form-control" id="prof_name" name="prof_name">
+                                <input type="text" class="form-control" id="role_name" name="role_name">
                                 <div class="text-danger">
-                                    @error('prof_name')
+                                    @error('role_name')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -336,10 +336,10 @@
                             <div class="form-group">
                                 <label for="Profession_Img">Profession Image</label>
                                 <div>
-                                    <div id="prof_img" class="mb-1"></div>
-                                    <input type="file" name="prof_img" onchange="Image_preview(event)">
+                                    <div id="role_img" class="mb-1"></div>
+                                    <input type="file" name="role_img" onchange="Image_preview(event)">
                                     <div class="text-danger">
-                                        @error('prof_img')
+                                        @error('role_img')
                                             {{ $message }}
                                         @enderror
                                     </div>

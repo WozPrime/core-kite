@@ -8,9 +8,9 @@ use App\Models\Instance;
 use App\Models\Client;
 use App\Models\InstancesModel;
 use App\Models\User;
-use App\Models\JobData;
-use App\Models\Post;
-use App\Models\Prof;
+use App\Models\ProjectTask;
+use App\Models\Task;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,12 +22,12 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-    {   
+    {
         $this->ProjectModel = new ProjectModel();
         $this->middleware('auth');
     }
     public function index()
-    {  
+    {
         return view('pages.progress.projects', [
             'data' => ProjectModel::all(),
             'instansi' => Instance::all(),
@@ -42,7 +42,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -79,16 +79,37 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
-        
-        return view( 'pages.progress.p_detail', [
+        $participant = DB::table('project_task')
+            ->join('users', 'users.id', '=', 'project_task.user_id')
+            ->select(['users.id as user_id', 'users.name', 'project_task.id as task_id', 'users.pp'])
+            ->get();
+        $part_user = DB::table('project_task')
+            ->join('users', 'users.id', '=', 'project_task.user_id', 'right outer')
+            ->select(['users.id', 'users.name', 'project_task.id as task_id'])
+            ->whereNull('project_task.id')
+            ->get();
+        // dd($participant);
+
+        return view('pages.progress.p_detail', [
             'data' => $proyek,
-            'users' => User::all(),
-            'job_data' => JobData::all(),
-            'profs' => Prof::all(),
-            'job_list' => Post::all(),
-            ]);
+            'users' =>  User::get(['name', 'id', 'pp']),
+            'part_user' => $part_user,
+            'project_task' => ProjectTask::all(),
+            'roles' => RoleUser::all(),
+            'job_list' => Task::all(),
+            'participant' => $participant,
+        ]);
     }
 
+    public function addParticipant(Request $request)
+    {
+        $data = new ProjectTask;
+        $data->user_id = $request->user_id;
+        $data->project_id = $request->project_id;
+        $data->save();
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!'); 
+        return redirect()->back();
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -138,6 +159,4 @@ class ProjectController extends Controller
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
         return redirect('/admin/proyek');
     }
-
-
 }

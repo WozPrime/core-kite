@@ -39,12 +39,20 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
-        'prof_id',
     ];
 
-    public function prof()
+    public function roleUser()
     {
-        return $this->belongsTo(Prof::class);
+        return $this->hasOne(RoleUserModel::class);
+    }
+
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(RoleUser::class,'user_role','user_id','role_id');
     }
 
     /**

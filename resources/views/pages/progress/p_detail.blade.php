@@ -67,15 +67,22 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="../../admin/jobdata" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('upload_emp')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-9">
                                             <div class="form-group no-border">
-                                                <select name="users_id" id="users_id" class="form-control select2">
-                                                    @foreach ($users as $karyawan)
+                                                <select name="user_id" id="user_id" class="form-control select2">
+                                                    
+                                                    @if (count($part_user) == 0)
+                                                        <option value="">Karyawan Tidak Tersedia
+                                                        </option>
+                                                        
+                                                    @endif
+                                                    @foreach ($part_user as $karyawan)
                                                         <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
                                                         </option>
+                                                            
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" name="project_id" id="project_id"
@@ -83,7 +90,9 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button type="submit" class="btn btn-block btn-info">Tambah</button>
+                                            <button @if (count($part_user) == 0)
+                                            disabled
+                                        @endif type="submit" class="btn btn-block btn-info">Tambah</button>
                                         </div>
                                     </div>
                                 </form>
@@ -100,21 +109,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($job_data as $list)
+                                        @foreach ($participant as $list)
                                         <tr>
+                                            {{-- {{dd($list)}} --}}
                                             <td>{{ $loop->iteration }}</td>
                                             <td></td>
-                                            <td>{{ $users->where('id',$list->users_id)->pluck('name')->implode(' ') }}</td>
+                                            <td>{{ $list->name}}</td>
                                             <td>
-                                                @if ($users->where('id', $list->users_id)->pluck('pp')->implode(' ') == '')
+                                                @if ($list->pp == '')
                                                     <img src="{{ url('pp/default.jpg') }}" class="img-circle"
                                                         width="70">
                                                 @else
-                                                    <img src="{{ url('pp/' . $users->where('id', $list->users_id)->pluck('pp')->implode(' ')) }}" class="img-circle"
+                                                    <img src="{{ url('pp/' . $list->pp) }}" class="img-circle"
                                                         width="70">
                                                 @endif
                                             </td>
-                                            <td></td>
+                                            <td style="text-align: center">
+
+                                                <a class="btn btn-primary" data-toggle="modal"
+                                                    href="#detail{{ $list->user_id }}"><i
+                                                        class="fa fa-eye"></i></a>
+                                                <a class="btn btn-success" data-toggle="modal"
+                                                    href="#edit{{ $list->user_id }}"><i
+                                                        class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger" data-toggle="modal"
+                                                    href="#delete{{ $list->user_id }}"><i
+                                                        class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

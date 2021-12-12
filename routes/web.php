@@ -7,10 +7,11 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\JobDataController;
+use App\Http\Controllers\ProjectTaskController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ProfController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TaskController;
+use App\Models\ProjectTask;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,21 +54,22 @@ Route::middleware(['role', 'auth'])->group(function () {
 
 
     //Profession
-    Route::get('/admin/prof/', [ProfController::class, 'index'])->name('prof');
-    Route::post('/admin/ins_prof/', [ProfController::class, 'create'])->name('ins_prof');
-    Route::post('/admin/edit_prof/{id}', [ProfController::class, 'edit'])->name('edit_prof');
-    Route::get('/admin/delete_prof/{id}', [ProfController::class, 'delete'])->name('delete_prof');
+    Route::get('/admin/role/', [RoleController::class, 'index'])->name('role');
+    Route::post('/admin/ins_role/', [RoleController::class, 'create'])->name('ins_role');
+    Route::post('/admin/edit_role/{id}', [RoleController::class, 'edit'])->name('edit_role');
+    Route::get('/admin/delete_role/{id}', [RoleController::class, 'delete'])->name('delete_role');
 
     //Joblist
-    Route::get('/admin/joblist/', [PostController::class, 'show'])->name('joblist');
-    Route::post('/admin/ins_post/', [PostController::class, 'create'])->name('ins_post');
-    Route::post('/admin/edit_post/{id}', [PostController::class, 'edit'])->name('edit_post');
-    Route::get('/admin/delete_post/{id}', [PostController::class, 'delete'])->name('delete_post');
+    Route::get('/admin/joblist/', [TaskController::class, 'show'])->name('joblist');
+    Route::post('/admin/ins_task/', [TaskController::class, 'create'])->name('ins_task');
+    Route::post('/admin/edit_task/{id}', [TaskController::class, 'edit'])->name('edit_task');
+    Route::get('/admin/delete_task/{id}', [TaskController::class, 'delete'])->name('delete_task');
 
-    //JobData
-    Route::resource('admin/jobdata/', JobDataController::class);
+    //ProjectTask
+    Route::resource('admin/project_task/', ProjectTaskController::class);
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
+    Route::post('admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
     Route::resource('/admin/reports', ReportController::class);
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
 });

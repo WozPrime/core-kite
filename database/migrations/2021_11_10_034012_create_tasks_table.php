@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfsTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateProfsTable extends Migration
      */
     public function up()
     {
-        Schema::create('profs', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('prof_code')->unique();
-            $table->string('prof_name');
-            $table->text('detail')->nullable();
-            $table->string('prof_img')->nullable();
+            $table->string('code')->unique();
+            $table->string('task_name');
+            $table->integer('points');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateProfsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profs');
+        Schema::dropIfExists('tasks');
     }
 }

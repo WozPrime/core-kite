@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prof;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ProfController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(Prof $prof)
+    public function __construct(RoleUser $role)
     {
         // İnitialize user property.
-        $this->prof = $prof;
+        $this->role = $role;
     }
 
     public function index()
     {
-        $prof_list = Prof::all();
-        return view('pages.admin.manajemen.mprof', compact('prof_list'));
+        $role_list = RoleUser::all();
+        return view('pages.admin.manajemen.mprof', compact('role_list'));
     }
 
     /**
@@ -34,33 +34,33 @@ class ProfController extends Controller
     public function create()
     {
         Request()->validate([
-                'prof_code' => 'required|unique:profs,prof_code,'.Request()->id,
-                'prof_name' => 'required',
-                'prof_img' => 'mimes:jpg,png,jpeg,bmp|max:5120',
+                'role_code' => 'required|unique:roles,role_code,'.Request()->id,
+                'role_name' => 'required',
+                'role_img' => 'mimes:jpg,png,jpeg,bmp|max:5120',
             ], [
-                'prof_code.required' => 'Wajib Isi!!',
-                'prof_name.required' => 'Wajib Isi!!',
+                'role_code.required' => 'Wajib Isi!!',
+                'role_name.required' => 'Wajib Isi!!',
             ]);
-            if (Request()->prof_img <> "") {
-                $file = Request()->prof_img;
+            if (Request()->role_img <> "") {
+                $file = Request()->role_img;
                 $fileName = Request()->id . '.' . $file->extension();
-                $file->move(public_path('prof'), $fileName);
+                $file->move(public_path('role'), $fileName);
 
                 $insert_data = [
-                    'prof_code' => Request()->prof_code,
-                    'prof_name' => Request()->prof_name,
+                    'role_code' => Request()->role_code,
+                    'role_name' => Request()->role_name,
                     'detail' => Request()->detail,
-                    'prof_img' => $fileName,
+                    'role_img' => $fileName,
                 ];
-                $this->prof->insertData($insert_data);
+                $this->role->insertData($insert_data);
             } else {
 
                 $insert_data = [
-                    'prof_code' => Request()->prof_code,
-                    'prof_name' => Request()->prof_name,
+                    'role_code' => Request()->role_code,
+                    'role_name' => Request()->role_name,
                     'detail' => Request()->detail,
                 ];
-                $this->prof->insertData($insert_data);
+                $this->role->insertData($insert_data);
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');
             return redirect()->back();
@@ -80,10 +80,10 @@ class ProfController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\RoleUser  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Prof $prof)
+    public function show(RoleUser $role)
     {
         //
     }
@@ -91,48 +91,48 @@ class ProfController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\RoleUser  $role
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data_prof = $this->prof->find($id);
-        if (Request()->prof_code == $data_prof->prof_code &&
-        Request()->prof_name == $data_prof->prof_name &&
-        Request()->detail == $data_prof->detail &&
-        Request()->prof_img == ""
+        $data_role = $this->role->find($id);
+        if (Request()->role_code == $data_role->role_code &&
+        Request()->role_name == $data_role->role_name &&
+        Request()->detail == $data_role->detail &&
+        Request()->role_img == ""
         ) {
             Alert::warning('Sama','Data Tidak Berubah');
             return redirect()->back();
         } else {
             Request()->validate([
-                'prof_code' => 'required|unique:profs,prof_code,'.Request()->id,
-                'prof_name' => 'required',
-                'prof_img' => 'mimes:jpg,png,jpeg,bmp|max:5120',
+                'role_code' => 'required|unique:roles,role_code,'.Request()->id,
+                'role_name' => 'required',
+                'role_img' => 'mimes:jpg,png,jpeg,bmp|max:5120',
             ], [
-                'prof_code.required' => 'Wajib Isi!!',
-                'prof_name.required' => 'Wajib Isi!!',
+                'role_code.required' => 'Wajib Isi!!',
+                'role_name.required' => 'Wajib Isi!!',
             ]);
-            if (Request()->prof_img <> "") {
-                $file = Request()->prof_img;
+            if (Request()->role_img <> "") {
+                $file = Request()->role_img;
                 $fileName = Request()->id . '.' . $file->extension();
-                $file->move(public_path('prof'), $fileName);
+                $file->move(public_path('role'), $fileName);
 
                 $update_data = [
-                    'prof_code' => Request()->prof_code,
-                    'prof_name' => Request()->prof_name,
+                    'role_code' => Request()->role_code,
+                    'role_name' => Request()->role_name,
                     'detail' => Request()->detail,
-                    'prof_img' => $fileName,
+                    'role_img' => $fileName,
                 ];
-                $this->prof->editData($id, $update_data);
+                $this->role->editData($id, $update_data);
             } else {
 
                 $update_data = [
-                    'prof_code' => Request()->prof_code,
-                    'prof_name' => Request()->prof_name,
+                    'role_code' => Request()->role_code,
+                    'role_name' => Request()->role_name,
                     'detail' => Request()->detail,
                 ];
-                $this->prof->editData($id, $update_data);
+                $this->role->editData($id, $update_data);
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');
             return redirect()->back();
@@ -143,10 +143,10 @@ class ProfController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\RoleUser  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prof $prof)
+    public function update(Request $request, RoleUser $role)
     {
         //
     }
@@ -154,13 +154,13 @@ class ProfController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\RoleUser  $role
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
     {
-        $this->prof->deleteData($id);
-        DB::statement("ALTER TABLE profs AUTO_INCREMENT = 1;");
+        $this->role->deleteData($id);
+        DB::statement("ALTER TABLE roles AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus');
         return redirect()->back();
     }

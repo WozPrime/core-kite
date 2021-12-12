@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        // User::truncate();
         User::create([
             'name' => 'Husni Ramadhan',
             'email' => 'husniramadhan@student.untan.ac.id',

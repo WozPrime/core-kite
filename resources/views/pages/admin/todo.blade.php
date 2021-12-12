@@ -44,7 +44,7 @@ use Illuminate\Support\Carbon;
                         <!-- /.card-header -->
                         <div class="card-body">
                             <ul class="todo-list ui-sortable" data-widget="todo-list">
-                                @foreach ($jobdata as $job)
+                                @foreach ($project_task as $job)
                                     <li>
                                         <span class="handle ui-sortable-handle">
                                             <i class="fas fa-ellipsis-v"></i>
@@ -56,7 +56,7 @@ use Illuminate\Support\Carbon;
                                             <label for="todoCheck{{ $job->id }}"></label>
                                         </div>
                                         <span
-                                            class="text">{{ $posts->where('id', $job->posts_id)->pluck('task')->implode(' ') }}</span>
+                                            class="text">{{ $tasks->where('id', $job->tasks_id)->pluck('task')->implode(' ') }}</span>
                                         <small class="badge badge-danger" id='deadline'><i class="far fa-clock"></i>
                                             {{ Carbon::parse($job->expired_at)->diffinDays() }} Days</small>
                                         <div class="tools">

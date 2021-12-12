@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prof;
+use App\Models\RoleUser;
+use App\Models\RoleUserModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -38,11 +39,12 @@ class UserController extends Controller
     }
 
     public function profile()
-    {   
-        $id= Auth::user()->id;
+    {
+        $id = Auth::user()->id;
         $data_user = User::find($id);
-        $prof_list = Prof::all();
-        return view('pages.admin.profile_user', compact('data_user','prof_list'));
+        $role_list = RoleUser::all();
+        $currentRoleUser = $data_user->roleUser;
+        return view('pages.admin.profile_user', compact('data_user', 'role_list','currentRoleUser'));
     }
 
     public function cpass($id)
@@ -52,50 +54,56 @@ class UserController extends Controller
         Request()->validate([
             'email' => 'email',
             'password' => 'required|confirmed|min:8',
-        ],[
+        ], [
             'password.confirmed' => 'Cek Kembali Password!!',
         ]);
-        if (Hash::check($password, $user->password)) { 
-            Alert::warning('Sama','Password Tidak Berubah');
+        if (Hash::check($password, $user->password)) {
+            Alert::warning('Sama', 'Password Tidak Berubah');
             return redirect()->route('profile');
-         } else {
-             $update_data = [
+        } else {
+            $update_data = [
                 'password' => bcrypt($password)
             ];
             $this->user->editData($id, $update_data);
-            Alert::success('Sukses','Data berhasil Diperbaharui');
+            Alert::success('Sukses', 'Data berhasil Diperbaharui');
             return redirect()->route('profile');
-         
-         }
+        }
     }
 
 
     public function edit($id)
     {
-        
+
         $data_user = User::find($id);
-        if (Request()->name == $data_user->name &&
+        $newRole = RoleUser::find(Request()->role_id);
+        if($data_user->roleUser){
+            $oldRole = $data_user->roleUser->role_id;
+        } else{
+            $oldRole = '';
+        }
+        if (
+            Request()->name == $data_user->name &&
             Request()->code == $data_user->code &&
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->prof_id == $data_user->prof_id &&
+            Request()->role_id == $oldRole &&
             Request()->pp == ""
         ) {
-            Alert::warning('Sama','Data Tidak Berubah');
+            Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->back();
         } else {
             Request()->validate([
                 'name' => 'required',
-                'code' => 'required|unique:users,code,'.$data_user->id,
+                'code' => 'required|unique:users,code,' . $data_user->id,
                 'gender' => 'required',
                 'stats' => 'required',
-                'prof_id' => 'required',
+                'role_id' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
                 'code.required' => 'Wajib Isi!!',
-                'prof_id.required' => 'Wajib Isi!!',
+                'role_id.required' => 'Wajib Isi!!',
                 'gender' => 'Wajib Isi!!',
                 'stats' => 'Wajib Isi!!',
             ]);
@@ -110,10 +118,19 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'prof_id' => Request()->prof_id,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
+                if ($data_user->roleUser) {
+                    $data_user->roleUser->role_id = Request()->role_id;
+                    $data_user->roleUser->user_id = $id;
+                    $data_user->roleUser->push();
+                }else{
+                    $data_user->roleUser()->save(new RoleUserModel([
+                        "user_id"=>$id,
+                        "role_id"=>$newRole->id
+                    ]));
+                }
             } else {
 
                 $update_data = [
@@ -122,32 +139,48 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'prof_id' => Request()->prof_id,
                 ];
                 $this->user->editData($id, $update_data);
+                if ($data_user->roleUser) {
+                    $data_user->roleUser->role_id = Request()->role_id;
+                    $data_user->roleUser->user_id = $id;
+                    $data_user->roleUser->push();
+                }else{
+                    $data_user->roleUser()->save(new RoleUserModel([
+                        "user_id"=>$id,
+                        "role_id"=>$newRole->id
+                    ]));
+                }
             }
-            Alert::success('Sukses','Data berhasil Diperbaharui');
+            Alert::success('Sukses', 'Data berhasil Diperbaharui');
             return redirect()->back();
         }
     }
-    
+
     public function edit2($id)
     {
         $data_user = User::find($id);
-        if (Request()->name == $data_user->name &&
+        $newRole = RoleUser::find(Request()->role_id);
+        if($data_user->roleUser){
+            $oldRole = $data_user->roleUser->role_id;
+        } else{
+            $oldRole = '';
+        }
+        if (
+            Request()->name == $data_user->name &&
             Request()->code == $data_user->code &&
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->prof_id == $data_user->prof_id &&
+            Request()->role_id == $oldRole &&
             Request()->pp == ""
         ) {
-            Alert::warning('Sama','Data Tidak Berubah');
+            Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->back();
         } else {
             Request()->validate([
                 'name' => 'required',
-                'code' => 'unique:users,code,'.$data_user->id,
+                'code' => 'unique:users,code,' . $data_user->id,
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
@@ -163,10 +196,19 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'prof_id' => Request()->prof_id,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
+                if ($data_user->roleUser) {
+                    $data_user->roleUser->role_id = Request()->role_id;
+                    $data_user->roleUser->user_id = $id;
+                    $data_user->roleUser->push();
+                }else{
+                    $data_user->roleUser()->save(new RoleUserModel([
+                        "user_id"=>$id,
+                        "role_id"=>$newRole->id
+                    ]));
+                }
             } else {
 
                 $update_data = [
@@ -175,11 +217,20 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'prof_id' => Request()->prof_id,
                 ];
                 $this->user->editData($id, $update_data);
+                if ($data_user->roleUser) {
+                    $data_user->roleUser->role_id = Request()->role_id;
+                    $data_user->roleUser->user_id = $id;
+                    $data_user->roleUser->push();
+                }else{
+                    $data_user->roleUser()->save(new RoleUserModel([
+                        "user_id"=>$id,
+                        "role_id"=>$newRole->id
+                    ]));
+                }
             }
-            Alert::success('Sukses','Data berhasil Diperbaharui');
+            Alert::success('Sukses', 'Data berhasil Diperbaharui');
             return redirect()->back();
         }
     }
@@ -187,29 +238,30 @@ class UserController extends Controller
     public function manage_user()
     {
         $data = User::all();
-        $prof_list = Prof::all();
-        return view('pages.admin.manajemen.muser',['users' => $data], ['prof_list'=> $prof_list]);
+        $role_list = RoleUser::all();
+        return view('pages.admin.manajemen.muser', ['users' => $data], ['role_list' => $role_list]);
     }
 
     public function delete_user($id)
     {
         $this->user->deleteData($id);
         DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
-        Alert::success('Sukses','Data berhasil Diperbaharui');
+        Alert::success('Sukses', 'Data berhasil Diperbaharui');
         return redirect()->back();
     }
-    public function klien(){
+    public function klien()
+    {
         return view('pages.admin.klien.overview');
     }
 
-    public function detailklien(){
+    public function detailklien()
+    {
         return view('pages.admin.klien.detail');
     }
-    
+
 
     public function emp()
     {
         return view('pages.emp.emp');
     }
-
 }

@@ -20,4 +20,8 @@ class ProjectModel extends Model
     public function client(){
         return $this->belongsTo(Client::class);
     }
+
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
+    }
 }
