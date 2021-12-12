@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ProfController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@ Route::get('/admin/profile/',[UserController::class, 'profile'])->name('profile'
 Route::get('/admin/tables',[UserController::class, 'tables'])->name('tables')->middleware(['role','auth']);
 Route::get('/admin/profile',[UserController::class, 'profile'])->name('profile')->middleware(['role','auth']);
 Route::resource('/admin/instansi', InstanceController::class)->middleware(['role', 'auth']);
+Route::resource('/admin/client', AdminClientController::class)->middleware(['role', 'auth']);
 // Route::get('/admin/klien',[UserController::class, 'klien'])->name('klien')->middleware(['role','auth']);
 // Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
 

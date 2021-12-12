@@ -192,17 +192,17 @@
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td></td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-primary" href="/admin/proyek/{{ $tbl_project->id }}"><i
+                                                <a class="badge bg-primary mr-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a class="btn btn-success" data-toggle="modal"
+                                                <a class="badge bg-success mr-1" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
                                                 <a>
                                                     <form action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
                                                         @method('delete')
                                                         @csrf
-                                                        <button class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
+                                                        <a class="badge bg-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
                                                             <span class="fa fa-trash"></span>
-                                                        </button>
+                                                        </a>
                                                     </form>
                                                 </a>
                                             </td>
@@ -318,8 +318,8 @@
                         <div class="action" onclick="actionToggle();">
                             <span>+</span>
                             <ul>
-                                <li>Tambah Instansi Baru</li>
-                                <li>Tambah Klien Baru</li>
+                                <li data-toggle="modal" data-target="#add-instance">Tambah Instansi Baru</li>
+                                <li data-toggle="modal" data-target="#add-client">Tambah Klien Baru</li>
                                 <li data-toggle="modal" data-target="#add-data">Tambah Proyek Baru</li>
                             </ul>
                         </div>
@@ -329,6 +329,114 @@
         </div>
     </section>
     <!-- /.content -->
+    <div class="modal fade" id="add-instance">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Add New Instansi</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/instansi/" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="content">
+
+                            <div class="form-group">
+                                <label>Nama Instansi</label>
+                                <input required name="instance_name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seeAnotherFieldClient">Alamat Klien</label>
+                                <textarea name="instance_address" id="instance_address" class="form-control" cols="30" rows="3" placeholder="Isikan Alamat Instansi Disini"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kota Instansi</label>
+                                <input name="instance_city" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Instansi</label>
+                                <select name="instance_model" id="instance_model" class="form-select" required>
+                                    <option value="" selected hidden>Pilih Jenis Instansi</option>
+                                    @foreach ($modelinstansi as $m)
+                                        <option value="{{$m->id}}">{{$m->jenis_instansi}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="instance_logo">Logo Instansi</label>
+                                <br>
+                                <input type="file" name="instance_logo" id="instance_logo" onchange="Image_preview(event)">
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save
+                                    Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-client">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Add New Client</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/client/" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="content">
+
+                            <div class="form-group">
+                                <label>Nama Klien</label>
+                                <input name="client_name" class="form-control" id="client_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Pilih Instansi</label>
+                                <select class="form-select" aria-label="Disable"
+                                    name="client_instance" required>
+                                    <option selected hidden value="">Pilih Instansi</option>
+                                    @foreach ($instansi as $i)
+                                        <option value="{{ $i->id }}">
+                                            {{ $i->nama_instansi }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Klien</label>
+                                <input type="email" name="client_email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nomor Telepon</label>
+                                <input name="client_phone_number" class="form-control" required>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save
+                                    Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="add-data">
         <div class="modal-dialog">
             <div class="modal-content">

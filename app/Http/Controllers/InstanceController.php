@@ -39,7 +39,17 @@ class InstanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Instance;
+        $data->nama_instansi = $request->instance_name;
+        $data->alamat_instansi = $request->instance_address;
+        $data->kota_instansi = $request->instance_city;
+        $data->instances_model_id = $request->instance_model;
+        if($request->file('instance_logo')){
+            $data->logo_instansi = $request->file('instance_logo')->store('logoinstansi', ['disk' => 'public']);
+        }
+        $data->save();
+        Alert::success('Sukses','Data Instansi Berhasil Ditambahkan');
+        return redirect('/admin/proyek');
     }
 
     /**

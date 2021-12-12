@@ -1,7 +1,7 @@
 @extends('pages.ui_admin.admin')
 
 @section('title')
-Profil Instansi
+Edit Data Instansi
 @endsection
 
 @section('body')
@@ -14,36 +14,26 @@ Profil Instansi
 @section('content')
 <div class="container pt-3">
     <div class="main-body">
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-                <div class="card" style="height: 340px">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            @if ($instance->logo_instansi)
-                                <img src="/logoinstansi/{{$instance->logo_instansi}}" alt="logo {{$instance->nama_instansi}}" class="rounded-circle" width="150" height="150">
-                            @else
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png" alt="Logo Instansi" class="rounded-circle" width="150">
-                            @endif
-                            <div class="mt-3">
-                                <h4>{{$instance->nama_instansi}}</h4>
-                                <p class="text-secondary mb-1"> {{$instance->alamat_instansi}} </p>
-                                <p class="text-muted font-size-sm"> {{$instance->kota_instansi}} </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+            <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="card mb-3" style="height: 340px">
+                <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
+                            <div class="d-flex flex-column align-items-center text-center mb-5">
+                                @if ($instance->logo_instansi)
+                                <img src="/logoinstansi/{{$instance->logo_instansi}}" alt="" class="rounded-circle" width="150">
+                                @else
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png" alt="Logo Instansi" class="rounded-circle" width="150" height="150">
+                                @endif
+                            </div>
                             <div class="col-sm-3 pt-1">
                                 <h6 class="mb-0">Nama Instansi</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 : {{$instance->nama_instansi}}
                             </div>
-                        </div>
+                        </div> 
                         <hr>
                         <div class="row pb-xl-4">
                             <div class="col-sm-3">
@@ -51,6 +41,15 @@ Profil Instansi
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 : {{$instance->alamat_instansi}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row pb-xl-4">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Kota Instansi</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                : {{$instance->kota_instansi}}
                             </div>
                         </div>
                         <hr>
@@ -73,49 +72,6 @@ Profil Instansi
                 </div>
             </div>
         </div>
-        <div class="row gutters-sm">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-orange">
-                        <div class="card-header">
-                            <h3 class="card-title text-light">Proyek Dengan Instansi</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <a href="#" class="badge bg-success mb-3"><i class="fa fa-plus mr-1"></i> Tambah
-                                Proyek Baru</a>
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal Persetujuan</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Pemohon</th>
-                                        <th>Status Proyek</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>31 Februari 2069</td>
-                                        <td>Aplikasi Smart Pipel</td>
-                                        <td>Husni Ramadhan Ishan</td>
-                                        <td>Proyek Sedang Berjalan</td>
-                                        <td>
-                                            <a href="#" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
-                                            <a href="#" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="badge bg-danger" mr-1><i class="fa fa-eraser"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -126,7 +82,7 @@ Profil Instansi
                 <h3 class="card-title">Edit Data Instansi</h3>
             </div>
             <div class="card-body">
-                <form action="/admin/instansi/{{$instance->id}}" method="POST" enctype="multipart/form-data">
+                <form action="/admin/klien/{{$instance->id}}" method="POST" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="content">
@@ -147,7 +103,7 @@ Profil Instansi
 
                         <div class="form-group">
                             <label>Kota Instansi</label>
-                            <input name="kotainstansi" class="form-control" value="{{ $instance->kota_instansi }}" required>
+                            <input name="kotainstansi" class="form-control" value="{{ $instance->nama_instansi }}" required>
                             <div class="text-danger">
                                 @error('namainstansi')
                                     {{ $message }}
