@@ -49,7 +49,7 @@ class AdminClientController extends Controller
         $klien->save();
         // DB::statement("ALTER TABLE `clients` AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil ditambahkan');
-        return redirect('/admin/proyek');
+        return redirect()->back();
     }
 
     /**
@@ -94,7 +94,7 @@ class AdminClientController extends Controller
         
         Client::where('id',$id)->update($data);
         Alert::success('Sukses', 'Data Berhasil Diperbarui');
-        return redirect('/admin/client');
+        return redirect()->back();
     }
 
     /**

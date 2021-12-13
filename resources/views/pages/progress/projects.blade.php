@@ -338,7 +338,7 @@
                     <h3 class="card-title">Add New Instansi</h3>
                 </div>
                 <div class="card-body">
-                    <form action="../../admin/instansi/" method="post"
+                    <form autocomplete="off" action="/admin/instansi/" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">
@@ -394,7 +394,7 @@
                     <h3 class="card-title">Add New Client</h3>
                 </div>
                 <div class="card-body">
-                    <form action="../../admin/client/" method="post"
+                    <form autocomplete="off" action="/admin/client/" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="content">

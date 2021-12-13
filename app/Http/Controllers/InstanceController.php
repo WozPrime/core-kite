@@ -114,7 +114,7 @@ class InstanceController extends Controller
         }
         // DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
         Alert::success('Sukses', 'Data berhasil di Update');
-        return redirect('/admin/instansi/');
+        return redirect()->back();
     }
 
     /**
