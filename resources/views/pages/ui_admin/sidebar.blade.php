@@ -99,11 +99,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/instansi"
-                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
+                    {{-- <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}"> --}}
+                    <a href="/admin/client"
+                        class="nav-link  {{ request()->is('admin/client*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
-                            Klien
+                            Client
                         </p>
                     </a>
                 </li>

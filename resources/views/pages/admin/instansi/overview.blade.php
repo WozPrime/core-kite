@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Overview Klien
+    Overview Instansi
 @endsection
 @section('body')
 @section('navbar')
@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Overview Klien</h1>
+                <h1 class="m-0">Overview Instansi</h1>
             </div><!-- /.col -->
             
         </div><!-- /.row -->
