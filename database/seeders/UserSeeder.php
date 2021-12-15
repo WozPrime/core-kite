@@ -34,6 +34,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
             'role' => 'admin',
         ]);
+        User::create([
+            'name' => 'Io',
+            'email' => 'inertia.1094@gmail.com',
+            'password' => bcrypt('123123123'),
+            'role' => 'member',
+        ]);
     }
 }
 
