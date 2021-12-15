@@ -205,11 +205,4 @@ class UserController extends Controller
     public function detailklien(){
         return view('pages.admin.klien.detail');
     }
-    
-
-    public function emp()
-    {
-        return view('pages.emp.emp');
-    }
-
 }
