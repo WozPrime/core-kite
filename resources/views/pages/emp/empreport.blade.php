@@ -4,6 +4,38 @@
 @endsection
 @section('emphead')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .floating-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--gray-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            color: var(--white);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            transition: background 0.25s;
+    
+            /* button */
+            outline: gray;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .floating-btn:hover {
+            color: lawngreen;
+        }
+    
+        .floating-btn:active {
+            background: var(--gray);
+        }
+    </style>
 @endsection
 @section('empscript')
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
@@ -123,3 +155,4 @@
     <!-- /.container-fluid -->
   </section>
 @endsection
+<button class="material-icons floating-btn" data-toggle="modal" data-target="#add-report">add</button>
