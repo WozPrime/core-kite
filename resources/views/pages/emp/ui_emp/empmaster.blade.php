@@ -15,9 +15,9 @@
             @include('sweetalert::alert')
             <div class="content-wrapper">
                 @yield('content')
-                @include('pages.emp.ui_emp.empfooter')
             </div>
         </div>
+        @include('pages.emp.ui_emp.empfooter')
     </div>
     @include('pages.emp.ui_emp.empscripts')
 </body>

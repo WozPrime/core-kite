@@ -193,9 +193,9 @@
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href="/emp/home"><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
+                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href={{ request()->is('emp/home') ? '#' : '/emp/home' }}><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
                             <li class="{{ request()->is('emp/joblist') ? 'active' : '' }}"><a href="/emp/joblist"><i class="ti-check-box"></i><span>To Do List</span></a></li>
-                            <li class="{{ request()->is('emp/reports') ? 'active' : '' }}"><a href="/emp/reports"><i class="ti-printer"></i><span>Report</span></a></li>
+                            <li class="{{ request()->is('emp/reports') ? 'active' : '' }}"><a href={{ request()->is('emp/reports') ? '#' : '/emp/reports' }}><i class="ti-printer"></i><span>Report</span></a></li>
                         </ul>
                     </nav>
                 </div>
