@@ -19,4 +19,5 @@
     <link rel="stylesheet" href="{{ asset('assetemp/css/responsive.css') }}">
     <!-- modernizr css -->
     <script src="{{ asset('assetemp/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    @yield('emphead')
 </head>

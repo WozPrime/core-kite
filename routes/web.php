@@ -14,6 +14,7 @@ use App\Http\Controllers\JobDataController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\EmpController;
+use App\Http\Controllers\EmpReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,7 @@ Route::middleware(['role', 'auth'])->group(function () {
 });
 
 // EMPLOYEE
-Route::resource('/emp', EmpController::class)->middleware(['auth']);
-
+Route::resource('/emp/home', EmpController::class)->middleware(['auth']);
+Route::resource('/emp/reports', EmpReportController::class)->middleware(['auth']);
+Route::get('/emp/profile/', [EmpController::class, 'profile'])->name('profile')->middleware(['auth']);
 // // LANDING PAGE

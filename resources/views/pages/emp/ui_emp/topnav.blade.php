@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <a href="/emp" class="brand-link">
+                <a href="/emp/home" class="brand-link">
                     <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
                         class="brand-image img-circle elevation-3" style="opacity: .8">
                     <h4 class="brand-text font-weight-bold text-dark">IDEKITE<span class="text-orange">CORE</span> </h4>
@@ -174,8 +174,8 @@
                         <img class="avatar user-thumb" src="{{ asset('assetemp/images/author/avatar.png') }}" alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="emp/profile/">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href={{ request()->is('emp/profile') ? '#' : 'profile/' }}>Profile</a>
+                            {{-- <a class="dropdown-item" href="#">Settings</a> --}}
                             <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
                         </div>
                     </div>
@@ -193,9 +193,9 @@
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li class="{{ request()->is('emp') ? 'active' : '' }}"><a href="/emp"><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
+                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href="/emp/home"><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
                             <li class="{{ request()->is('emp/joblist') ? 'active' : '' }}"><a href="/emp/joblist"><i class="ti-check-box"></i><span>To Do List</span></a></li>
-                            <li class="{{ request()->is('emp/report') ? 'active' : '' }}"><a href="/emp/report"><i class="ti-printer"></i><span>Report</span></a></li>
+                            <li class="{{ request()->is('emp/reports') ? 'active' : '' }}"><a href="/emp/reports"><i class="ti-printer"></i><span>Report</span></a></li>
                         </ul>
                     </nav>
                 </div>

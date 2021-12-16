@@ -32,3 +32,4 @@
 <!-- others plugins -->
 <script src="{{ asset('assetemp/js/plugins.js') }}"></script>
 <script src="{{ asset('assetemp/js/scripts.js') }}"></script>
+@yield('empscript')
