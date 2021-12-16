@@ -2835,3 +2835,34 @@ table.dataTable thead td {
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
+
+/* Style dari AdminLTE */
+.layout-top-nav .wrapper .main-header .brand-image {
+    margin-top: -.5rem;
+    margin-right: .2rem;
+    height: 33px;
+}
+.brand-link .brand-image {
+    float: left;
+    line-height: .8;
+    margin-left: .8rem;
+    margin-right: .5rem;
+    margin-top: -3px;
+    max-height: 33px;
+    width: auto;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.elevation-3 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+}
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+.text-orange {
+  color: #fd7e14 !important;
+}
+.text-dark {
+  color: #343a40 !important;
+}

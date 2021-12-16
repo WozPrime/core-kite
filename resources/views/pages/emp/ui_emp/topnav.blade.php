@@ -3,9 +3,11 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <div class="logo">
-                    <a href="index.html"><img src="{{ asset('assetemp/images/icon/logo2.png') }}" alt="logo"></a>
-                </div>
+                <a href="/emp" class="brand-link">
+                    <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <h4 class="brand-text font-weight-bold text-dark">IDEKITE<span class="text-orange">CORE</span> </h4>
+                </a>
             </div>
             <!-- profile info & task notification -->
             <div class="col-md-9 clearfix text-right">
@@ -172,7 +174,7 @@
                         <img class="avatar user-thumb" src="{{ asset('assetemp/images/author/avatar.png') }}" alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Message</a>
+                            <a class="dropdown-item" href="emp/profile/">Profile</a>
                             <a class="dropdown-item" href="#">Settings</a>
                             <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
                         </div>
@@ -191,85 +193,9 @@
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li class="{{ request()->is('emp*') ? 'active' : '' }}"><a href="/emp"><i class="ti-dashboard"></i><span>dashboard</span></a></li>
-                            <li class="active">
-                                <a href="javascript:void(0)"><i class="ti-layout-sidebar-left"></i><span>Sidebar
-                                        Types</span></a>
-                                <ul class="submenu">
-                                    <li><a href="index.html">Left Sidebar</a></li>
-                                    <li class="active"><a href="index3-horizontalmenu.html">Horizontal
-                                            Sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="ti-pie-chart"></i><span>Charts</span></a>
-                                <ul class="submenu">
-                                    <li><a href="barchart.html">bar chart</a></li>
-                                    <li><a href="linechart.html">line Chart</a></li>
-                                    <li><a href="piechart.html">pie chart</a></li>
-                                </ul>
-                            </li>
-                            <li class="mega-menu">
-                                <a href="javascript:void(0)"><i class="ti-palette"></i><span>UI
-                                        Features</span></a>
-                                <ul class="submenu">
-                                    <li><a href="accordion.html">Accordion</a></li>
-                                    <li><a href="alert.html">Alert</a></li>
-                                    <li><a href="badge.html">Badge</a></li>
-                                    <li><a href="button.html">Button</a></li>
-                                    <li><a href="button-group.html">Button Group</a></li>
-                                    <li><a href="cards.html">Cards</a></li>
-                                    <li><a href="dropdown.html">Dropdown</a></li>
-                                    <li><a href="list-group.html">List Group</a></li>
-                                    <li><a href="media-object.html">Media Object</a></li>
-                                    <li><a href="modal.html">Modal</a></li>
-                                    <li><a href="pagination.html">Pagination</a></li>
-                                    <li><a href="popovers.html">Popover</a></li>
-                                    <li><a href="progressbar.html">Progressbar</a></li>
-                                    <li><a href="tab.html">Tab</a></li>
-                                    <li><a href="typography.html">Typography</a></li>
-                                    <li><a href="form.html">Form</a></li>
-                                    <li><a href="grid.html">grid system</a></li>
-                                </ul>
-                            </li>
-                            <li class="mega-menu">
-                                <a href="javascript:void(0)"><i class="ti-layers-alt"></i>
-                                    <span>Pages</span></a>
-                                <ul class="submenu">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="login2.html">Login 2</a></li>
-                                    <li><a href="login3.html">Login 3</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="register2.html">Register 2</a></li>
-                                    <li><a href="register3.html">Register 3</a></li>
-                                    <li><a href="register4.html">Register 4</a></li>
-                                    <li><a href="screenlock.html">Lock Screen</a></li>
-                                    <li><a href="screenlock2.html">Lock Screen 2</a></li>
-                                    <li><a href="reset-pass.html">reset password</a></li>
-                                    <li><a href="pricing.html">Pricing</a></li>
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="500.html">Error 500</a></li>
-                                    <li><a href="invoice.html"><i class="ti-receipt"></i> <span>Invoice
-                                                Summary</span></a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="ti-slice"></i><span>icons</span></a>
-                                <ul class="submenu">
-                                    <li><a href="fontawesome.html">fontawesome icons</a></li>
-                                    <li><a href="themify.html">themify icons</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="fa fa-table"></i>
-                                    <span>Tables</span></a>
-                                <ul class="submenu">
-                                    <li><a href="table-basic.html">basic table</a></li>
-                                    <li><a href="table-layout.html">table layout</a></li>
-                                    <li><a href="datatable.html">datatable</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="maps.html"><i class="ti-map-alt"></i> <span>maps</span></a></li>
+                            <li class="{{ request()->is('emp') ? 'active' : '' }}"><a href="/emp"><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
+                            <li class="{{ request()->is('emp/joblist') ? 'active' : '' }}"><a href="/emp/joblist"><i class="ti-check-box"></i><span>To Do List</span></a></li>
+                            <li class="{{ request()->is('emp/report') ? 'active' : '' }}"><a href="/emp/report"><i class="ti-printer"></i><span>Report</span></a></li>
                         </ul>
                     </nav>
                 </div>

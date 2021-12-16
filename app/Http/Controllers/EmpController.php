@@ -12,6 +12,10 @@ class EmpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {   
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('pages.emp.emp');
@@ -82,4 +86,13 @@ class EmpController extends Controller
     {
         //
     }
+
+    // non-resource
+    // public function profile()
+    // {   
+    //     $id= Auth::user()->id;
+    //     $data_user = User::find($id);
+    //     $prof_list = Prof::all();
+    //     return view('pages.emp.empprofile');
+    // }
 }
