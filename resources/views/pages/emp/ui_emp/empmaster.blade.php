@@ -13,7 +13,7 @@
         <div class="horizontal-main-wrapper">
             @include('pages.emp.ui_emp.topnav')
             @include('sweetalert::alert')
-            <div class="content-wrapper">
+            <div class="content">
                 @yield('content')
             </div>
         </div>

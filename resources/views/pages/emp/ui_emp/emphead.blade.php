@@ -19,5 +19,41 @@
     <link rel="stylesheet" href="{{ asset('assetemp/css/responsive.css') }}">
     <!-- modernizr css -->
     <script src="{{ asset('assetemp/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {{-- AdminLTE --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    
+    <style>
+        .floating-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--gray-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            color: var(--white);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            transition: background 0.25s;
+    
+            /* button */
+            outline: gray;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .floating-btn:hover {
+            color: lawngreen;
+        }
+    
+        .floating-btn:active {
+            background: var(--gray);
+        }
+    </style>
     @yield('emphead')
 </head>

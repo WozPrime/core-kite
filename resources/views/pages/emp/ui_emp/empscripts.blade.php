@@ -32,4 +32,10 @@
 <!-- others plugins -->
 <script src="{{ asset('assetemp/js/plugins.js') }}"></script>
 <script src="{{ asset('assetemp/js/scripts.js') }}"></script>
+{{-- non srtdash --}}
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+{{-- DataTables --}}
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 @yield('empscript')

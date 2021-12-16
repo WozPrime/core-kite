@@ -42,7 +42,10 @@ class UserController extends Controller
         $id= Auth::user()->id;
         $data_user = User::find($id);
         $prof_list = Prof::all();
-        return view('pages.admin.profile_user', compact('data_user','prof_list'));
+        if (Auth::user()->role == 'admin') {
+            return view('pages.admin.profile_user', compact('data_user','prof_list'));
+        }
+        return view('pages.emp.empprofile', compact('data_user','prof_list'));
     }
 
     public function cpass($id)

@@ -86,13 +86,4 @@ class EmpController extends Controller
     {
         //
     }
-
-    // non-resource
-    public function profile()
-    {   
-        // $id= Auth::user()->id;
-        // $data_user = User::find($id);
-        // $prof_list = Prof::all();
-        return view('pages.emp.empprofile');
-    }
 }

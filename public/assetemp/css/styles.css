@@ -2870,6 +2870,16 @@ table.dataTable thead td {
 /* Style Luar */
 .center {
   margin: auto;
-  width: 50%;
+  /* width: 50%; */
   padding: 10px;
+}
+.left {
+  float: left;
+}
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
