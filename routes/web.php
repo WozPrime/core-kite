@@ -82,5 +82,5 @@ Route::middleware(['role', 'auth'])->group(function () {
 // EMPLOYEE
 Route::resource('/emp/home', EmpController::class)->middleware(['auth']);
 Route::resource('/emp/reports', EmpReportController::class)->middleware(['auth']);
-Route::get('/emp/profile/', [EmpController::class, 'profile'])->name('profile')->middleware(['auth']);
+Route::get('/emp/profile/', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);
 // // LANDING PAGE
