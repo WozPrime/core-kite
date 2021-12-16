@@ -2866,3 +2866,10 @@ table.dataTable thead td {
 .text-dark {
   color: #343a40 !important;
 }
+
+/* Style Luar */
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

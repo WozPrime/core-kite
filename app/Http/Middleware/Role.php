@@ -21,6 +21,6 @@ class Role
             return $next($request);
         }
 
-        return redirect('/emp');
+        return redirect('/emp/home');
     }
 }

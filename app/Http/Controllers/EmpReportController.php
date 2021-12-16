@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmpModel;
+use App\Models\EmpReport;
+use App\Models\ReportModel;
 use Illuminate\Http\Request;
 
-class EmpController extends Controller
+class EmpReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,9 @@ class EmpController extends Controller
     }
     public function index()
     {
-        return view('pages.emp.emp');
+        return view('pages.emp.empreport', [
+            'data' => ReportModel::all()
+        ]);
     }
 
     /**
@@ -45,10 +48,10 @@ class EmpController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EmpModel  $empModel
+     * @param  \App\Models\EmpReport  $empReport
      * @return \Illuminate\Http\Response
      */
-    public function show(EmpModel $empModel)
+    public function show(EmpReport $empReport)
     {
         //
     }
@@ -56,10 +59,10 @@ class EmpController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\EmpModel  $empModel
+     * @param  \App\Models\EmpReport  $empReport
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmpModel $empModel)
+    public function edit(EmpReport $empReport)
     {
         //
     }
@@ -68,10 +71,10 @@ class EmpController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EmpModel  $empModel
+     * @param  \App\Models\EmpReport  $empReport
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EmpModel $empModel)
+    public function update(Request $request, EmpReport $empReport)
     {
         //
     }
@@ -79,20 +82,11 @@ class EmpController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EmpModel  $empModel
+     * @param  \App\Models\EmpReport  $empReport
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmpModel $empModel)
+    public function destroy(EmpReport $empReport)
     {
         //
-    }
-
-    // non-resource
-    public function profile()
-    {   
-        // $id= Auth::user()->id;
-        // $data_user = User::find($id);
-        // $prof_list = Prof::all();
-        return view('pages.emp.empprofile');
     }
 }
