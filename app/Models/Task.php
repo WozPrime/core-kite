@@ -6,38 +6,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Post extends Model
+class Task extends Model
 {
     use HasFactory;
-    protected $table = 'posts';
+    protected $table = 'tasks';
     protected $fillable = [
-        'task',
+        'task_name',
         'code',
-        'point',
-        'prof_id',
+        'points',
     ];
 
-    public function insertData($data)
-    {
-        DB::table('posts')
-        ->insert($data);
-    }
     public function editData($id, $update_data)
     {
-        DB::table('posts')
+        DB::table('tasks')
         ->where('id', $id)
         ->update($update_data);
     }
     public function deleteData($id)
     {
-        DB::table('posts')
+        DB::table('tasks')
         ->where('id',$id)
         ->delete();
     }
 
-    public function prof()
+    public function profTask()
     {
-        return $this->belongsTo(Prof::class);
+        return $this->hasOne(ProfTask::class);
+    }
+    public function projectTask()
+    {
+        return $this->belongsToMany(ProjectTask::class);
     }
 
+    public function profs()
+    {
+        return $this->belongsToMany(ProfUser::class,'prof_task','task_id','prof_id');
+    }
 }

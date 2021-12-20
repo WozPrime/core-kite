@@ -15,7 +15,7 @@ class InstanceSeeder extends Seeder
      */
     public function run()
     {
-        Instance::truncate();
+        // Instance::truncate();
         Instance::create([
             'nama_instansi' => 'Berkas Biru',
             'alamat_instansi' => 'Nexon',
