@@ -398,6 +398,7 @@
 .header-area {
     padding: 15px 30px;
     background: #fff;
+    height: 65px;
     border-bottom: 1px solid #d8e3e7;
 }
 
@@ -445,7 +446,7 @@
     width: 350px;
     border-radius: 33px;
     border: none;
-    height: 40px;
+    height: 35px;
     padding-left: 20px;
     padding-right: 40px;
     letter-spacing: 0;
@@ -2882,4 +2883,8 @@ table.dataTable thead td {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.content-wrapper-center {
+    margin-left: 15rem !important;
+    margin-right: 15rem !important;
 }

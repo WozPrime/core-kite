@@ -8,29 +8,47 @@
 @section('empscript')
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
     <script>
-        $(function () {
-          $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          });
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
-      </script>
+    </script>
 @endsection
 
 @section('content')
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Fill Your Profile</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/emp/home">Home</a></li>
+                        <li class="breadcrumb-item active">Your Profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
     @if (Auth::user()->code == '' || Auth::user()->stats == '' || Auth::user()->gender == '')
         <div class="container-fluid">
             <section class="content">
-                <div class="col-md-9 center">
+                <div class="col-12">
                     <div class="alert alert-warning alert-dismissible ">
                         <button type="button" class="close" data-dismiss="alert"
                             aria-hidden="true">&times;</button>
@@ -51,7 +69,7 @@
     @if (Auth::user()->pp == '')
         <div class="container-fluid">
             <section class="content">
-                <div class="col-md-9 center">
+                <div class="col-12">
                     <div class="alert alert-warning alert-dismissible ">
                         <button type="button" class="close" data-dismiss="alert"
                             aria-hidden="true">&times;</button>
@@ -74,7 +92,7 @@
     <section class="content">
         <section class="container-fluid">
             <div class="row">
-                <div class="col-md-9 center">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header bg-primary">
                             <h3 class="card-title pt-1">Data Profile</h3>
@@ -189,7 +207,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-9 center">
+                <div class="col-4">
                     <div class="card card-danger">
                         <div class="card-header bg-warning">
                             <h3 class="card-title">Change Your Password</h3>

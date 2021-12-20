@@ -218,7 +218,7 @@
                                         </tr>
                                         <!-- /.modal -->
                                         <div class="modal fade" id="edit{{ $tbl_project->id }}">
-                                            <div class="modalphp-dialog">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
                                                         <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>

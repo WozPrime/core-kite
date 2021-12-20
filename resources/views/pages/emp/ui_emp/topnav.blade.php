@@ -172,9 +172,9 @@
                 <div class="clearfix d-md-inline-block d-block">
                     <div class="user-profile m-0">
                         <img class="avatar user-thumb" src="{{ asset('assetemp/images/author/avatar.png') }}" alt="avatar">
-                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                        <h4 class="user-name dropdown-toggle pt-2" data-toggle="dropdown">{{ Auth::user()->name }}<i class="fa fa-angle-down pb-1"></i></h4>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href={{ request()->is('emp/profile') ? '#' : 'profile/' }}>Profile</a>
+                            <a class="dropdown-item" href={{ request()->is('emp/profile') ? 'javascript:void(0)' : 'profile/' }}>Profile</a>
                             {{-- <a class="dropdown-item" href="#">Settings</a> --}}
                             <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
                         </div>
@@ -186,16 +186,21 @@
 </div>
 <!-- main header area end -->
 <!-- header area start -->
-<div class="header-area header-bottom">
+<div class="header-area">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-9  d-none d-lg-block">
+        <div class="row">
+            <div class="col-lg-9 d-none d-lg-block">
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href={{ request()->is('emp/home') ? '#' : '/emp/home' }}><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
-                            <li class="{{ request()->is('emp/joblist') ? 'active' : '' }}"><a href="/emp/joblist"><i class="ti-check-box"></i><span>To Do List</span></a></li>
-                            <li class="{{ request()->is('emp/reports') ? 'active' : '' }}"><a href={{ request()->is('emp/reports') ? '#' : '/emp/reports' }}><i class="ti-printer"></i><span>Report</span></a></li>
+                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href={{ request()->is('emp/home') ? 'javascript:void(0)' : '/emp/home' }}><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
+                            <li class="{{ request()->is('emp/joblist') || request()->is('emp/project') ? 'active' : '' }}"><a href="javascript:void(0)"><i class="ti-check-box"></i><span>To Do List</span></a>
+                                <ul class="submenu">
+                                    <li><a href={{ request()->is('emp/joblist') ? 'javascript:void(0)' : '/emp/joblist' }}>Joblist</a></li>
+                                    <li><a href={{ request()->is('emp/project') ? 'javascript:void(0)' : '/emp/project' }}>Project</a></li>
+                                </ul>
+                            </li>
+                            <li class="{{ request()->is('emp/reports') ? 'active' : '' }}"><a href={{ request()->is('emp/reports') ? 'javascript:void(0)' : '/emp/reports' }}><i class="ti-printer"></i><span>Report</span></a></li>
                         </ul>
                     </nav>
                 </div>
