@@ -41,7 +41,13 @@ class ProjectTaskController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $data = new ProjectTask;
+        $data->user_id = $request->user_id;
+        $data->project_id = $request->project_id;
+        $data->prof_id = $request->prof_id;
+        $data->save();
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        return redirect()->back();
     }
 
     /**

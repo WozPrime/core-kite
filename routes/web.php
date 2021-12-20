@@ -9,7 +9,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
 use App\Http\Controllers\ProjectTaskController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfController;
 use App\Http\Controllers\TaskController;
 use App\Models\ProjectTask;
 
@@ -54,10 +54,10 @@ Route::middleware(['role', 'auth'])->group(function () {
 
 
     //Profession
-    Route::get('/admin/role/', [RoleController::class, 'index'])->name('role');
-    Route::post('/admin/ins_role/', [RoleController::class, 'create'])->name('ins_role');
-    Route::post('/admin/edit_role/{id}', [RoleController::class, 'edit'])->name('edit_role');
-    Route::get('/admin/delete_role/{id}', [RoleController::class, 'delete'])->name('delete_role');
+    Route::get('/admin/prof/', [ProfController::class, 'index'])->name('prof');
+    Route::post('/admin/ins_prof/', [ProfController::class, 'create'])->name('ins_prof');
+    Route::post('/admin/edit_prof/{id}', [ProfController::class, 'edit'])->name('edit_prof');
+    Route::get('/admin/delete_prof/{id}', [ProfController::class, 'delete'])->name('delete_prof');
 
     //Joblist
     Route::get('/admin/joblist/', [TaskController::class, 'show'])->name('joblist');

@@ -41,18 +41,18 @@ class User extends Authenticatable
         'pp',
     ];
 
-    public function roleUser()
+    public function profUser()
     {
-        return $this->hasOne(RoleUserModel::class);
+        return $this->hasOne(ProfUserModel::class);
     }
 
     public function projectTask(){
         return $this->hasMany(ProjectTask::class);
     }
 
-    public function roles()
+    public function profs()
     {
-        return $this->belongsToMany(RoleUser::class,'user_role','user_id','role_id');
+        return $this->belongsToMany(ProfUser::class,'user_prof','user_id','prof_id');
     }
 
     /**

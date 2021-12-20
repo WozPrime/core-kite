@@ -29,17 +29,17 @@ class Task extends Model
         ->delete();
     }
 
-    public function roleTask()
+    public function profTask()
     {
-        return $this->hasOne(RoleTask::class);
+        return $this->hasOne(ProfTask::class);
     }
     public function projectTask()
     {
         return $this->belongsToMany(ProjectTask::class);
     }
 
-    public function roles()
+    public function profs()
     {
-        return $this->belongsToMany(RoleUser::class,'role_task','task_id','role_id');
+        return $this->belongsToMany(ProfUser::class,'prof_task','task_id','prof_id');
     }
 }

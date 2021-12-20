@@ -50,7 +50,7 @@
                                         <th style="width: 10px">No</th>
                                         <th>Full Name</th>
                                         <th>Email Address</th>
-                                        <th>Role</th>
+                                        <th>Prof</th>
                                         <th>Employee Code</th>
                                         <th>Profile Pic</th>
                                         <th>Action</th>
@@ -62,7 +62,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user['role'] }}</td>
+                                            <td>{{ $user['prof'] }}</td>
                                             <td>{{ $user['code'] }}</td>
                                             <td style="text-align: center">
                                                 @if ($user['pp'] == '')
@@ -123,14 +123,14 @@
                                                                                 class="float-right text-dark">{{ $user->code }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Role</b> <a
-                                                                                class="float-right text-dark">{{ $user->role }}</a>
+                                                                            <b>Prof</b> <a
+                                                                                class="float-right text-dark">{{ $user->prof }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <b>Profession</b> <a
                                                                                 class="float-right text-dark">
-                                                                                @if ($user->roles()->first())
-                                                                                    {{ $user->roles()->first()->role_name }}
+                                                                                @if ($user->profs()->first())
+                                                                                    {{ $user->profs()->first()->prof_name }}
                                                                                 @endif
                                                                             </a>
                                                                         </li>
@@ -265,21 +265,21 @@
 
                                                             <div class="form-group">
                                                                 <label for="Profession">Profession</label>
-                                                                <select name="role_id" id="role_id" class="form-control">
-                                                                    @if ($user->roles()->first())
-                                                                            <option value="" @if ($user->roles()->first()->id == '')
+                                                                <select name="prof_id" id="prof_id" class="form-control">
+                                                                    @if ($user->profs()->first())
+                                                                            <option value="" @if ($user->profs()->first()->id == '')
                                                                                 selected
                                                                         @endif disabled hidden>Pilih
                                                                         Profesi
                                                                         </option>
-                                                                        @foreach ($role_list as $role)
-                                                                            <option value="{{ $role->id }}" @if ($user->roles()->first()->id == $role->id) selected @endif>{{ $role->role_name }}
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}" @if ($user->profs()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
                                                                         </option>
                                                                         @endforeach
                                                                     @else
                                                                         <option value="" selected disabled hidden>Pilih Profesi</option>
-                                                                        @foreach ($role_list as $role)
-                                                                            <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
                                                                         @endforeach
                                                                         @endif
 

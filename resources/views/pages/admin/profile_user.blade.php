@@ -104,15 +104,25 @@
 
                                 <div class="form-group">
                                     <label for="Profession">Profession</label>
-                                    <select name="role_id" id="role_id" class="form-control">
-                                        <option value="" @if ($currentRoleUser->role_id == '')
-                                            selected @endif disabled hidden>Pilih Profesi
-                                        </option>
-                                        @foreach ($role_list as $role)
-                                            <option value="{{ $role->id }}" @if ($currentRoleUser->role_id == $role->id)
-                                                selected @endif>{{ $role->role_name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <select name="prof_id" id="prof_id" class="form-control">
+                                        @if ($data_user->profs()->first())
+                                                <option value="" @if ($data_user->profs()->first()->id == '')
+                                                    selected
+                                            @endif disabled hidden>Pilih
+                                            Profesi
+                                            </option>
+                                            @foreach ($prof_list as $prof)
+                                                <option value="{{ $prof->id }}" @if ($data_user->profs()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
+                                            </option>
+                                            @endforeach
+                                        @else
+                                            <option value="" selected disabled hidden>Pilih Profesi</option>
+                                            @foreach ($prof_list as $prof)
+                                                <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
+                                            @endforeach
+                                            @endif
+
+                                            </select>
                                 </div>
 
                                 <div class="form-group">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleTaskTable extends Migration
+class CreateProfTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRoleTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_task', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id');
+        Schema::create('prof_task', function (Blueprint $table) {
+            $table->unsignedBigInteger('prof_id');
             $table->unsignedBigInteger('task_id');
-            $table->foreign('role_id')
+            $table->foreign('prof_id')
                 ->references('id')
-                ->on('roles')
+                ->on('profs')
                 ->onDelete('cascade');
             $table->foreign('task_id')
                 ->references('id')
@@ -35,6 +35,6 @@ class CreateRoleTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_job');
+        Schema::dropIfExists('prof_job');
     }
 }

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoleTask extends Model
+class ProfTask extends Model
 {
     use HasFactory;
-    protected $table = 'role_task';
+    protected $table = 'prof_task';
     protected $primaryKey = 'task_id';
 
     protected $fillable = [
         'task_id',
-        'role_id',
+        'prof_id',
     ];
     
 
@@ -23,8 +23,8 @@ class RoleTask extends Model
     }
 
 
-    public function taskRole()
+    public function taskProf()
     {
-        return $this->hasMany(RoleUser::class);
+        return $this->hasMany(ProfUser::class);
     }
 }

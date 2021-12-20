@@ -49,9 +49,9 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'role' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
+                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
                     <a 
-                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'role' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
                             Management
@@ -69,8 +69,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/role/"
-                                class="nav-link  {{ \Request::route()->getName() == 'role' ? 'active' : '' }}">
+                            <a href="/admin/prof/"
+                                class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
                                     Profession

@@ -97,8 +97,8 @@
                                             <td>{{ $job['code'] }}</td>
                                             <td>{{ $job['task_name'] }}</td>
                                             <td>{{ $job['points'] }}</td>
-                                            <td>@if ($job->roles()->first())
-                                                {{ $job->roles()->first()->role_name }}
+                                            <td>@if ($job->profs()->first())
+                                                {{ $job->profs()->first()->prof_name }}
                                                 @endif
                                             </td>
                                             <td style="text-align: center">
@@ -158,21 +158,21 @@
 
                                                             <div class="form-group">
                                                                 <label for="Profession">Profession</label>
-                                                                <select name="role_id" id="role_id" class="form-control">
-                                                                    @if ($job->roles()->first())
-                                                                            <option value="" @if ($job->roles()->first()->id == '')
+                                                                <select name="prof_id" id="prof_id" class="form-control">
+                                                                    @if ($job->profs()->first())
+                                                                            <option value="" @if ($job->profs()->first()->id == '')
                                                                                 selected
                                                                         @endif disabled hidden>Pilih
                                                                         Profesi
                                                                         </option>
-                                                                        @foreach ($role_list as $role)
-                                                                            <option value="{{ $role->id }}" @if ($job->roles()->first()->id == $role->id) selected @endif>{{ $role->role_name }}
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}" @if ($job->profs()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
                                                                         </option>
                                                                         @endforeach
                                                                     @else
                                                                         <option value="" selected disabled hidden>Pilih Profesi</option>
-                                                                        @foreach ($role_list as $role)
-                                                                            <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
                                                                         @endforeach
                                                                         @endif
 
@@ -275,11 +275,11 @@
 
                                                                 <div class="form-group">
                                                                     <label for="Profession">Profession</label>
-                                                                    <select name="role_id" id="role_id" class="form-control">
+                                                                    <select name="prof_id" id="prof_id" class="form-control">
                                                                         <option value="" selected disabled hidden>Pilih Profesi
                                                                         </option>
-                                                                        @foreach ($role_list as $role)
-                                                                            <option value="{{ $role->id }}">{{$role->role_name}}</option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">{{$prof->prof_name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>

@@ -6,32 +6,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class RoleUser extends Model
+class ProfUser extends Model
 {
     use HasFactory;
-    protected $table = 'roles';
+    protected $table = 'profs';
 
     protected $fillable = [
-        'role_code',
-        'role_name',
+        'prof_code',
+        'prof_name',
         'detail',
-        'role_img',
+        'prof_img',
     ];
 
     public function insertData($data)
     {
-        DB::table('roles')
+        DB::table('profs')
         ->insert($data);
     }
     public function editData($id, $update_data)
     {
-        DB::table('roles')
+        DB::table('profs')
         ->where('id', $id)
         ->update($update_data);
     }
     public function deleteData($id)
     {
-        DB::table('roles')
+        DB::table('profs')
         ->where('id',$id)
         ->delete();
     }

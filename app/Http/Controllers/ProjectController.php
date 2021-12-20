@@ -10,7 +10,7 @@ use App\Models\InstancesModel;
 use App\Models\User;
 use App\Models\ProjectTask;
 use App\Models\Task;
-use App\Models\RoleUser;
+use App\Models\ProfUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,10 +21,12 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function __construct(ProjectModel $projectModel, ProjectTask $projectTask,User $user)
     {
-        $this->ProjectModel = new ProjectModel();
+        $this->projectModel = $projectModel;
         $this->middleware('auth');
+        $this->projectTask = $projectTask;
+        $this->user = $user;
     }
     public function index()
     {
@@ -42,7 +44,6 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -79,15 +80,19 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
-        $participant = DB::table('project_task')
-            ->join('users', 'users.id', '=', 'project_task.user_id')
-            ->select(['users.id as user_id', 'users.name', 'project_task.id as task_id', 'users.pp'])
-            ->get();
         $part_user = DB::table('project_task')
             ->join('users', 'users.id', '=', 'project_task.user_id', 'right outer')
-            ->select(['users.id', 'users.name', 'project_task.id as task_id'])
+            ->select(['users.id', 'users.name', 'project_task.id as pt_id'])
             ->whereNull('project_task.id')
             ->get();
+        $prof_part = $this->projectTask;
+        $participant = $prof_part->select('user_id')->groupBy('user_id')->get();
+        $user_task = $this->user;
+        $task_part = DB::table('project_task')
+            ->join('tasks', 'tasks.id', '=', 'project_task.task_id')
+            ->select(['tasks.id', 'tasks.task_name', 'project_task.id as pt_id'])
+            ->get();
+        
         // dd($participant);
 
         return view('pages.progress.p_detail', [
@@ -95,9 +100,12 @@ class ProjectController extends Controller
             'users' =>  User::get(['name', 'id', 'pp']),
             'part_user' => $part_user,
             'project_task' => ProjectTask::all(),
-            'roles' => RoleUser::all(),
+            'profs' => ProfUser::all(),
             'job_list' => Task::all(),
             'participant' => $participant,
+            'prof_part' => $prof_part,
+            'user_task' => $user_task,
+            'task_part' => $task_part,
         ]);
     }
 
@@ -107,7 +115,7 @@ class ProjectController extends Controller
         $data->user_id = $request->user_id;
         $data->project_id = $request->project_id;
         $data->save();
-        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!'); 
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
         return redirect()->back();
     }
     /**

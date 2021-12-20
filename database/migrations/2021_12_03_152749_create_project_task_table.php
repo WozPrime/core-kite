@@ -18,7 +18,7 @@ class CreateProjectTaskTable extends Migration
             $table->bigInteger('task_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('project_id')->unsigned();
-            $table->bigInteger('role_id')->unsigned()->nullable();
+            $table->bigInteger('prof_id')->unsigned()->nullable();
             $table->string('file_name')->nullable();
             $table->dateTime('expired_at')->nullable();
             $table->foreign('task_id')
@@ -33,9 +33,9 @@ class CreateProjectTaskTable extends Migration
                 ->references('id')
                 ->on('projects')
                 ->onDelete('cascade');
-            $table->foreign('role_id')
+            $table->foreign('prof_id')
                 ->references('id')
-                ->on('roles')
+                ->on('profs')
                 ->onDelete('cascade');
             $table->timestamps();
         });

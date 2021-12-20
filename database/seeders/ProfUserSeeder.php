@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\RoleUser;
+use App\Models\ProfUser;
 use Illuminate\Database\Seeder;
 
-class RoleUserSeeder extends Seeder
+class ProfUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,14 +14,14 @@ class RoleUserSeeder extends Seeder
      */
     public function run()
     {
-        RoleUser::create([
-            'role_code' => 'WP-001',
-            'role_name' => 'Web Programmer',
+        ProfUser::create([
+            'prof_code' => 'WP-001',
+            'prof_name' => 'Web Programmer',
             'detail' => 'Coding Web',
         ]);
-        RoleUser::create([
-            'role_code' => 'WP-002',
-            'role_name' => 'Web UI/UX',
+        ProfUser::create([
+            'prof_code' => 'WP-002',
+            'prof_name' => 'Web UI/UX',
             'detail' => 'Mendesain Web',
         ]);
     }

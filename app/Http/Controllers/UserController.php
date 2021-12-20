@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoleUser;
-use App\Models\RoleUserModel;
+use App\Models\ProfUser;
+use App\Models\ProfUserModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -42,9 +42,9 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $data_user = User::find($id);
-        $role_list = RoleUser::all();
-        $currentRoleUser = $data_user->roleUser;
-        return view('pages.admin.profile_user', compact('data_user', 'role_list','currentRoleUser'));
+        $prof_list = ProfUser::all();
+        // dd($data_user->profUser);
+        return view('pages.admin.profile_user', compact('data_user', 'prof_list'));
     }
 
     public function cpass($id)
@@ -75,11 +75,11 @@ class UserController extends Controller
     {
 
         $data_user = User::find($id);
-        $newRole = RoleUser::find(Request()->role_id);
-        if($data_user->roleUser){
-            $oldRole = $data_user->roleUser->role_id;
+        $newProf = ProfUser::find(Request()->prof_id);
+        if($data_user->profUser){
+            $oldProf = $data_user->profUser->prof_id;
         } else{
-            $oldRole = '';
+            $oldProf = '';
         }
         if (
             Request()->name == $data_user->name &&
@@ -87,7 +87,7 @@ class UserController extends Controller
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->role_id == $oldRole &&
+            Request()->prof_id == $oldProf &&
             Request()->pp == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
@@ -98,12 +98,12 @@ class UserController extends Controller
                 'code' => 'required|unique:users,code,' . $data_user->id,
                 'gender' => 'required',
                 'stats' => 'required',
-                'role_id' => 'required',
+                'prof_id' => 'required',
                 'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
             ], [
                 'name.required' => 'Wajib Isi!!',
                 'code.required' => 'Wajib Isi!!',
-                'role_id.required' => 'Wajib Isi!!',
+                'prof_id.required' => 'Wajib Isi!!',
                 'gender' => 'Wajib Isi!!',
                 'stats' => 'Wajib Isi!!',
             ]);
@@ -121,14 +121,14 @@ class UserController extends Controller
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
-                if ($data_user->roleUser) {
-                    $data_user->roleUser->role_id = Request()->role_id;
-                    $data_user->roleUser->user_id = $id;
-                    $data_user->roleUser->push();
+                if ($data_user->profUser) {
+                    $data_user->profUser->prof_id = Request()->prof_id;
+                    $data_user->profUser->user_id = $id;
+                    $data_user->profUser->push();
                 }else{
-                    $data_user->roleUser()->save(new RoleUserModel([
+                    $data_user->profUser()->save(new ProfUserModel([
                         "user_id"=>$id,
-                        "role_id"=>$newRole->id
+                        "prof_id"=>$newProf->id
                     ]));
                 }
             } else {
@@ -141,14 +141,14 @@ class UserController extends Controller
                     'address' => Request()->address,
                 ];
                 $this->user->editData($id, $update_data);
-                if ($data_user->roleUser) {
-                    $data_user->roleUser->role_id = Request()->role_id;
-                    $data_user->roleUser->user_id = $id;
-                    $data_user->roleUser->push();
+                if ($data_user->profUser) {
+                    $data_user->profUser->prof_id = Request()->prof_id;
+                    $data_user->profUser->user_id = $id;
+                    $data_user->profUser->push();
                 }else{
-                    $data_user->roleUser()->save(new RoleUserModel([
+                    $data_user->profUser()->save(new ProfUserModel([
                         "user_id"=>$id,
-                        "role_id"=>$newRole->id
+                        "prof_id"=>$newProf->id
                     ]));
                 }
             }
@@ -160,11 +160,11 @@ class UserController extends Controller
     public function edit2($id)
     {
         $data_user = User::find($id);
-        $newRole = RoleUser::find(Request()->role_id);
-        if($data_user->roleUser){
-            $oldRole = $data_user->roleUser->role_id;
+        $newProf = ProfUser::find(Request()->prof_id);
+        if($data_user->profUser){
+            $oldProf = $data_user->profUser->prof_id;
         } else{
-            $oldRole = '';
+            $oldProf = '';
         }
         if (
             Request()->name == $data_user->name &&
@@ -172,7 +172,7 @@ class UserController extends Controller
             Request()->gender == $data_user->gender &&
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
-            Request()->role_id == $oldRole &&
+            Request()->prof_id == $oldProf &&
             Request()->pp == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
@@ -199,14 +199,14 @@ class UserController extends Controller
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
-                if ($data_user->roleUser) {
-                    $data_user->roleUser->role_id = Request()->role_id;
-                    $data_user->roleUser->user_id = $id;
-                    $data_user->roleUser->push();
+                if ($data_user->profUser) {
+                    $data_user->profUser->prof_id = Request()->prof_id;
+                    $data_user->profUser->user_id = $id;
+                    $data_user->profUser->push();
                 }else{
-                    $data_user->roleUser()->save(new RoleUserModel([
+                    $data_user->profUser()->save(new ProfUserModel([
                         "user_id"=>$id,
-                        "role_id"=>$newRole->id
+                        "prof_id"=>$newProf->id
                     ]));
                 }
             } else {
@@ -219,14 +219,14 @@ class UserController extends Controller
                     'address' => Request()->address,
                 ];
                 $this->user->editData($id, $update_data);
-                if ($data_user->roleUser) {
-                    $data_user->roleUser->role_id = Request()->role_id;
-                    $data_user->roleUser->user_id = $id;
-                    $data_user->roleUser->push();
+                if ($data_user->profUser) {
+                    $data_user->profUser->prof_id = Request()->prof_id;
+                    $data_user->profUser->user_id = $id;
+                    $data_user->profUser->push();
                 }else{
-                    $data_user->roleUser()->save(new RoleUserModel([
+                    $data_user->profUser()->save(new ProfUserModel([
                         "user_id"=>$id,
-                        "role_id"=>$newRole->id
+                        "prof_id"=>$newProf->id
                     ]));
                 }
             }
@@ -238,8 +238,8 @@ class UserController extends Controller
     public function manage_user()
     {
         $data = User::all();
-        $role_list = RoleUser::all();
-        return view('pages.admin.manajemen.muser', ['users' => $data], ['role_list' => $role_list]);
+        $prof_list = ProfUser::all();
+        return view('pages.admin.manajemen.muser', ['users' => $data], ['prof_list' => $prof_list]);
     }
 
     public function delete_user($id)

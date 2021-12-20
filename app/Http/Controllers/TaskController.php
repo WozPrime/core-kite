@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoleTask;
+use App\Models\ProfTask;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\RoleUser;
+use App\Models\ProfUser;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskController extends Controller
@@ -38,12 +38,12 @@ class TaskController extends Controller
             'code' => 'required|unique:tasks,code,'.Request()->id,
             'task_name' => 'required',
             'points' => 'required|integer',
-            'role_id' => 'required',
+            'prof_id' => 'required',
         ], [
             'code.required' => 'Wajib Isi!!',
             'task_name.required' => 'Wajib Isi!!',
             'points.required' => 'Wajib Isi!!',
-            'role_id.required' => 'Wajib Isi!!',
+            'prof_id.required' => 'Wajib Isi!!',
         ]);
         $create = $this->task->create([
             'code' => Request()->code,
@@ -52,9 +52,9 @@ class TaskController extends Controller
         ]);
         $createId = $create->id;
         $createId = $this->task->find($createId);
-        $createId->roleTask()->save(new RoleTask([
+        $createId->profTask()->save(new ProfTask([
             "task_id" => $createId->id,
-            "role_id"=> Request()->role_id
+            "prof_id"=> Request()->prof_id
         ]));
         Alert::success('Sukses','Data berhasil Diperbaharui');
         return redirect()->back();
@@ -80,8 +80,8 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $joblist = Task::all();
-        $role_list = RoleUser::all();
-        return view('pages.admin.manajemen.mjob',compact('joblist','role_list'));
+        $prof_list = ProfUser::all();
+        return view('pages.admin.manajemen.mjob',compact('joblist','prof_list'));
     }
 
     /**
@@ -93,16 +93,16 @@ class TaskController extends Controller
     public function edit($id)
     {
         $data_task = $this->task->find($id);
-        $newRole = RoleUser::find(Request()->role_id);
-        if($data_task->roleTask){
-            $oldRole = $data_task->roleTask->role_id;
+        $newProf = ProfUser::find(Request()->prof_id);
+        if($data_task->profTask){
+            $oldProf = $data_task->profTask->prof_id;
         } else{
-            $oldRole = '';
+            $oldProf = '';
         }
         if (Request()->code == $data_task->code &&
         Request()->task == $data_task->task_name &&
         Request()->points == $data_task->points &&
-        Request()->role_id == $oldRole
+        Request()->prof_id == $oldProf
         ) {
             Alert::warning('sama','Data Tidak Berubah');
             return redirect()->back();
@@ -111,12 +111,12 @@ class TaskController extends Controller
                 'code' => 'required|unique:tasks,code,'.Request()->id,
                 'task_name' => 'required',
                 'points' => 'required|integer',
-                'role_id' => 'required',
+                'prof_id' => 'required',
             ], [
                 'code.required' => 'Wajib Isi!!',
                 'task_name.required' => 'Wajib Isi!!',
                 'points.required' => 'Wajib Isi!!',
-                'role_id.required' => 'Wajib Isi!!',
+                'prof_id.required' => 'Wajib Isi!!',
             ]);
             $update_data = [
                 'code' => Request()->code,
@@ -124,14 +124,14 @@ class TaskController extends Controller
                 'points' => Request()->points,
             ];
             $this->task->editData($id,$update_data);
-            if ($data_task->roleTask) {
-                $data_task->roleTask->role_id = Request()->role_id;
-                $data_task->roleTask->task_id = $id;
-                $data_task->roleTask->push();
+            if ($data_task->profTask) {
+                $data_task->profTask->prof_id = Request()->prof_id;
+                $data_task->profTask->task_id = $id;
+                $data_task->profTask->push();
             }else{
-                $data_task->roleTask()->save(new RoleTask([
+                $data_task->profTask()->save(new ProfTask([
                     "task_id"=>$id,
-                    "role_id"=>$newRole->id
+                    "prof_id"=>$newProf->id
                 ]));
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');

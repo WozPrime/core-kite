@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoleUserModel extends Model
+class ProfUserModel extends Model
 {
     use HasFactory;
-    protected $table = 'user_role';
+    protected $table = 'user_prof';
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
         'user_id',
-        'role_id',
+        'prof_id',
     ];
 
     public function users()
@@ -22,9 +22,9 @@ class RoleUserModel extends Model
     }
 
 
-    public function userRole()
+    public function userProf()
     {
-        return $this->hasMany(RoleUser::class);
+        return $this->hasMany(ProfUser::class);
     }
 
 }

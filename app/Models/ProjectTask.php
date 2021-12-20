@@ -50,9 +50,9 @@ class ProjectTask extends Model
         return $this->belongsTo(ProjectModel::class);
     }
 
-    public function roleUser()
+    public function profUser()
     {
-        return $this->hasOne(RoleUser::class);
+        return $this->hasMany(ProfUser::class,'id','prof_id');
     }
 
     
