@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prof;
+use App\Models\ProfUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -14,7 +14,7 @@ class ProfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(Prof $prof)
+    public function __construct(ProfUser $prof)
     {
         // İnitialize user property.
         $this->prof = $prof;
@@ -22,7 +22,7 @@ class ProfController extends Controller
 
     public function index()
     {
-        $prof_list = Prof::all();
+        $prof_list = ProfUser::all();
         return view('pages.admin.manajemen.mprof', compact('prof_list'));
     }
 
@@ -80,10 +80,10 @@ class ProfController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\ProfUser  $prof
      * @return \Illuminate\Http\Response
      */
-    public function show(Prof $prof)
+    public function show(ProfUser $prof)
     {
         //
     }
@@ -91,7 +91,7 @@ class ProfController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\ProfUser  $prof
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -143,10 +143,10 @@ class ProfController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\ProfUser  $prof
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prof $prof)
+    public function update(Request $request, ProfUser $prof)
     {
         //
     }
@@ -154,7 +154,7 @@ class ProfController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Prof  $prof
+     * @param  \App\Models\ProfUser  $prof
      * @return \Illuminate\Http\Response
      */
     public function delete($id)

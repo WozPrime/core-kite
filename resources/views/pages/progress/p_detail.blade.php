@@ -1,5 +1,5 @@
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
 @endphp
 @extends('pages.ui_admin.admin')
 
@@ -47,11 +47,14 @@
                     <div class="card mb-3" style="height: 375px">
                         <div class="card-body">
                             <b class="text-secondary-bold"> Detail Proyek </b>
-                            <p class="text-muted font-size-sm"> {{$data->project_detail}} </p>
+                            <p class="text-muted font-size-sm"> {{ $data->project_detail }} </p>
                             <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek</b>
-                            <p class="text-muted font-size-sm"> {{date('D, d M Y', strtotime($data->project_start_date))}} <b>s/d</b> {{date('D, d M Y', strtotime($data->project_deadline))}} </p>
+                            <p class="text-muted font-size-sm"> {{ date('D, d M Y', strtotime($data->project_start_date)) }}
+                                <b>s/d</b> {{ date('D, d M Y', strtotime($data->project_deadline)) }} </p>
                             <b class="text-secondary-bold"> Rentang Pengerjaan Waktu </b>
-                            <p class="text-muted font-size-sm"> {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date)}}  Hari</p>
+                            <p class="text-muted font-size-sm">
+                                {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date) }} Hari
+                            </p>
                             <b class="text-secondary-bold"> Klien </b>
                             <p class="text-muted font-size-sm"> {{ $data->client->name }} </p>
                             <b class="text-secondary-bold"> Instansi </b>
@@ -70,15 +73,24 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="../../admin/jobdata" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('upload_emp') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-9">
                                             <select name="users_id" id="users_id" class="form-control select2">
                                             <div class="form-group no-border">
                                                     @foreach ($users as $karyawan)
+                                                <select name="user_id" id="user_id" class="form-control select2">
+
+                                                    @if (count($part_user) == 0)
+                                                        <option value="">Karyawan Tidak Tersedia
+                                                        </option>
+
+                                                    @endif
+                                                    @foreach ($part_user as $karyawan)
                                                         <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
                                                         </option>
+
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" name="project_id" id="project_id"
@@ -86,7 +98,9 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button type="submit" class="btn btn-block btn-info">Tambah</button>
+                                            <button @if (count($part_user) == 0)
+                                                disabled
+                                                @endif type="submit" class="btn btn-block btn-info">Tambah</button>
                                         </div>
                                     </div>
                                 </form>
@@ -94,7 +108,7 @@
                                     <thead>
                                         <tr>
                                             <th style="min-width: 20px; max-width: 20px;" class="text-center">No.</th>
-                                            <th style="min-width: 100px; max-width: 100px;" class="text-center">Role &
+                                            <th style="min-width: 100px; max-width: 100px;" class="text-center">Prof &
                                                 Hak
                                                 Akses</th>
                                             <th class="text-center">Nama</th>
@@ -103,22 +117,115 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($job_data as $list)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td></td>
-                                            <td>{{ $users->where('id',$list->users_id)->pluck('name')->implode(' ') }}</td>
-                                            <td>
-                                                @if ($users->where('id', $list->users_id)->pluck('pp')->implode(' ') == '')
-                                                    <img src="{{ url('pp/default.jpg') }}" class="img-circle"
-                                                        width="70">
-                                                @else
-                                                    <img src="{{ url('pp/' . $users->where('id', $list->users_id)->pluck('pp')->implode(' ')) }}" class="img-circle"
-                                                        width="70">
-                                                @endif
-                                            </td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($participant as $list)
+                                            <tr>
+                                                {{-- {{dd($list)}} --}}
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">
+                                                    <a href="#insert{{$list->user_id}}" data-toggle="modal" class="btn btn-block">
+                                                        <div style="display: flex;
+                                                                    flex-direction:column;
+                                                                    justify-content:center;">
+                                                                @foreach ($project_task as $prof_task)
+                                                                    @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
+                                                                        <div style="padding: 3px">
+                                                                            <span class="badge @if (fmod($prof_task->prof_id,2) == 0)
+                                                                                bg-success
+                                                                                @else
+                                                                                bg-warning                                                                    
+                                                                            @endif">
+                                                                                {{ $prof_part->find($prof_task->id)->profUser()->first()->prof_name }}
+                                                                            </span>
+                                                                        </div>
+                                                                    @else
+                                                                        @continue
+                                                                    @endif
+                                                                @endforeach   
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td>{{ $user_task->find($list->user_id)->name }}</td>
+                                                <td>
+                                                    @if ($user_task->find($list->user_id)->pp == '')
+                                                        <img src="{{ url('pp/default.jpg') }}" class="img-circle"
+                                                            width="70">
+                                                    @else
+                                                        <img src="{{ url('pp/' . $user_task->find($list->user_id)->pp) }}" class="img-circle"
+                                                            width="70">
+                                                    @endif
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <a class="btn btn-primary" data-toggle="modal"
+                                                        href="#detail{{ $list->user_id }}"><i
+                                                            class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-success" data-toggle="modal"
+                                                        href="#edit{{ $list->user_id }}"><i
+                                                            class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-danger" data-toggle="modal"
+                                                        href="#delete{{ $list->user_id }}"><i
+                                                            class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade" id="insert{{$list->user_id}}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Input New Prof and Task</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/admin/project_task" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="Profession">Profession</label>
+                                                                    <select name="prof_id" id="prof_id" class="form-control">
+                                                                        @if ($prof_part->profUser()->first())
+                                                                                <option value="" @if ($prof_part->profUser()->first()->id == '')
+                                                                                    selected
+                                                                            @endif disabled hidden>Pilih
+                                                                            Profesi
+                                                                            </option>
+                                                                            @foreach ($profs as $prof)
+                                                                                <option value="{{ $prof->id }}" @if ($prof_part->profUser()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
+                                                                            </option>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <option value="" selected disabled hidden>Pilih Profesi</option>
+                                                                            @foreach ($profs as $prof)
+                                                                                <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
+                                                                            @endforeach
+                                                                            @endif
+                                                                            </select>
+                                                                </div>
+                                                                {{-- <div class="form-group">
+                                                                    <label>Hak Akses</label>
+                                                                    <select class="js-example-basic-multiple select2-hidden-accessible" id="hak_akses" name="hak_akses[]" multiple="" tabindex="-1" aria-hidden="true">
+                                                                        <option value="1">Menambah dan menghapus kolom</option>
+                                                                        <option value="2">Menambah task dan menghapus task</option>
+                                                                        <option value="3">Mengubah poin</option>
+                                                                        <option value="4">Melalukan assignee &amp; checking ke pengerja</option>
+                                                                      </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><span class="select2-selection__clear">×</span><li class="select2-selection__choice" title="Menambah dan menghapus kolom"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah dan menghapus kolom</li><li class="select2-selection__choice" title="Menambah task dan menghapus task"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah task dan menghapus task</li><li class="select2-selection__choice" title="Melalukan assignee &amp; checking ke pengerja"><span class="select2-selection__choice__remove" role="presentation">×</span>Melalukan assignee &amp; checking ke pengerja</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </div> --}}
+                                                                <input type="hidden" name="project_id" id="project_id"
+                                                                                value="{{ $data->id }}">
+                                                                <input type="hidden" name="user_id" id="user_id"
+                                                                                value="{{ $list->user_id }}">
+
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

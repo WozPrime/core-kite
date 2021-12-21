@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobData;
+use App\Models\ProjectTask;
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Task;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class JobDataController extends Controller
+class ProjectTaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class JobDataController extends Controller
     public function index()
     {   
         return view('pages.admin.todo',[
-            'jobdata'=>Jobdata::all(),
-            'posts'=>Post::all(),
+            'project_task'=>ProjectTask::all(),
+            'tasks'=>Task::all(),
         ]);
     }
 
@@ -41,18 +41,19 @@ class JobDataController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new JobData;
-        $data->users_id = $request->users_id;
+        $data = new ProjectTask;
+        $data->user_id = $request->user_id;
         $data->project_id = $request->project_id;
+        $data->prof_id = $request->prof_id;
         $data->save();
-        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!'); 
+        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\ProjectTask  $projectTask
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -63,10 +64,10 @@ class JobDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\ProjectTask  $projectTask
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobData $jobData)
+    public function edit(ProjectTask $projectTask)
     {
         //
     }
@@ -75,10 +76,10 @@ class JobDataController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\ProjectTask  $projectTask
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobData $jobData)
+    public function update(Request $request, ProjectTask $projectTask)
     {
         //
     }
@@ -86,10 +87,10 @@ class JobDataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\ProjectTask  $projectTask
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobData $jobData)
+    public function destroy(ProjectTask $projectTask)
     {
         //
     }
