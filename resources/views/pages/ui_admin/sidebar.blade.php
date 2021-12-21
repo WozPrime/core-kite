@@ -110,6 +110,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    {{-- <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}"> --}}
+                    <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Instansi
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/admin/proyek"
                         class="nav-link  {{ request()->is('admin/proyek*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
