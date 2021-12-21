@@ -17,6 +17,7 @@
 @section('content')
     <div class="container pt-3">
         <div class="main-body">
+
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card" style="height: 375px">
@@ -41,6 +42,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-8">
                     <div class="card mb-3" style="height: 375px">
                         <div class="card-body">
@@ -58,10 +60,11 @@
                     </div>
                 </div>
             </div>
+
             <div class="row gutters-sm">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card card-orange">
+                        <div class="card-orange">
                             <div class="card-header">
                                 <h3 class="card-title text-light">Anggota Proyek</h3>
                             </div>
@@ -71,8 +74,8 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-9">
+                                            <select name="users_id" id="users_id" class="form-control select2">
                                             <div class="form-group no-border">
-                                                <select name="users_id" id="users_id" class="form-control select2">
                                                     @foreach ($users as $karyawan)
                                                         <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
                                                         </option>
@@ -125,6 +128,46 @@
                     </div>
                 </div>
             </div>
+
+            <br>
+
+            <div class="row gutters-sm">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-orange">
+                            <div class="card-header">
+                                <h3 class="card-title text-light">Riwayat Pembayaran</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body" >
+                                <div class="mb-2">
+                                    <a href="#addpembayaran" class="badge bg-primary" data-toggle="modal" ><i class="fas fa-plus-circle"> Tambah Pembayaran</i></a>
+                                </div>
+                                <table class="table table-responsive-sm table-bordered" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No.</th>
+                                            <th class="text-center">Tanggal Pembayaran</th>
+                                            <th class="text-center">Jenis Pembayaran</th>
+                                            <th class="text-center">Deskripsi Pembayaran</th>
+                                            <th class="text-center">Nilai Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -170,6 +213,65 @@
                                 <select name="jenisinstansi" class="form-control" value="#">
 
                                 </select>
+                            </div>
+
+                            {{-- <div class="form-group">
+                            <label>Logo Instansi</label>
+                            <div>
+                                <input type="file" name="logoinstansi" id="logoinstansi">
+                                <div class="text-danger">
+                                    @error('logoinstansi')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                        </div> --}}
+
+                            <div class="form-group">
+                                <button class="btn btn-success float-right">Save Data</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+
+    <div class="modal fade" id="addpembayaran">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header bg-orange">
+                    <h3 class="card-title">Tambah Data Pembayaran</h3>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="content">
+                            <div class="form-group">
+                                <label>Tanggal Pembayaran</label>
+                                <input type="date" name="Tanggalpembayaran" class="form-control" value="#" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Pembayaran</label>
+                                <select name="jenispembayaran" id="jenispembayaran" class="form-select">
+                                    <option value="" selected hidden>Pilih Jenis Pembayaran</option>
+                                    <option value="Tunai">Tunai</option>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Cek">Cek</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Deskripsi Pembayaran</label>
+                                <textarea name="deskripsipembayaran" class="form-control" value="#" required></textarea>
+                                </div>
+
+                            <div class="form-group">
+                                <label>Nilai Pembayaran</label>
+                                <input name="Nilai Pembayaran" class="form-control" value="#" type="text" required>
                             </div>
 
                             {{-- <div class="form-group">

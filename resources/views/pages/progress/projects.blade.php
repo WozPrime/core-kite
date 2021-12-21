@@ -463,8 +463,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="seeAnotherFieldClient">Pilih Klien</label>
-                               
+                                <label for="seeAnotherFieldClient">Pilih Klien</label>  
                                 <select class='form-select' name='client_id' id='client_id' required>
                                 </select>
                                 {{-- <div id='listClient'> --}}

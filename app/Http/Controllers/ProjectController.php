@@ -67,7 +67,7 @@ class ProjectController extends Controller
         $data->save();
         DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
         Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
-        return redirect('/admin/proyek');
+        return redirect()->back();
     }
 
     /**
@@ -123,7 +123,7 @@ class ProjectController extends Controller
         ];
         ProjectModel::where('id', $id)->update($data);
         Alert::success('Sukses', 'Data Proyek berhasil diedit!');
-        return redirect('/admin/proyek');
+        return redirect()->back();
     }
 
     /**
@@ -136,7 +136,7 @@ class ProjectController extends Controller
     {
         ProjectModel::destroy($id);
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
-        return redirect('/admin/proyek');
+        return redirect()->back();
     }
 
 

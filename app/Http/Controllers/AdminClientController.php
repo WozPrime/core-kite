@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\ProjectModel;
 use App\Models\Instance;
 use Alert;
 
@@ -62,6 +63,7 @@ class AdminClientController extends Controller
     {
         return view('pages.admin.client.detail', [
             'klien'=>$client,
+            'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
         ]);
     }
 
@@ -105,6 +107,8 @@ class AdminClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Client::destroy('id',$id);
+        Alert::success('Sukses','Data Berhasil Dihapus');
+        return redirect('/admin/client');
     }
 }

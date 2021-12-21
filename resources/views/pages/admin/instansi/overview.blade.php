@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card card-dark">
+                    <div class="card-dark">
                         <div class="card-header">
                             <h3 class="card-title text-orange">Tabel Instansi</h3>
                         </div>
@@ -50,10 +50,69 @@
                                             <td> {{$i->nama_instansi}} </td>
                                             <td> {{$i->kota_instansi}} </td>
                                             <td><a href="/admin/instansi/{{$i->id}}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
-                                                <a href="/admin/instansi/{{$i->id}}/edit" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="#edit{{$i->id}}" class="badge bg-warning mr-1" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
                                             </td>
                                         </tr>
+
+                                        <div class="modal fade" id="edit{{ $i->id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="card-header bg-orange">
+                                                        <h3 class="card-title">Edit Data Klien : {{ $i->name }}</h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <form autocomplete="off" action="/admin/instansi/{{ $i->id }}" method="POST" enctype="multipart/form-data">
+                                                            @method('put')
+                                                            @csrf
+                                                            <div class="content">
+                                                                
+                                                                <div class="form-group">
+                                                                    <label>Nama Instansi</label>
+                                                                    <input type="text" name="namainstansi" class="form-control" value="{{ $i->nama_instansi }}" required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Alamat Instansi</label>
+                                                                    <textarea class="form-control" name="alamatinstansi" id="alamatinstansi" cols="30" rows="3">{{$i->alamat_instansi}}</textarea>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Kota Instansi</label>
+                                                                    <input type="text" class="form-control" name="kotainstansi" id="kotainstansi" value="{{$i->kota_instansi}}" required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Jenis Instansi</label>
+                                                                    <select name="jenisinstansi" class="form-control" value="{{$i->instances_model->jenis_instansi}}" >
+                                                                        <option value="1" @if ($i->instances_model->jenis_instansi == 'Pemerintah') selected @endif>Pemerintah</option>
+                                                                        <option value="2" @if ($i->instances_model->jenis_instansi == 'Swasta') selected @endif>Swasta</option>
+                                                                        <option value="3" @if ($i->instances_model->jenis_instansi == 'Perorangan') selected @endif>Perorangan</option>
+                                                                    </select>
+                                                                </div>
+                                        
+                                                                <div class="form-group">
+                                                                    <label>Logo Instansi</label>
+                                                                    <div>
+                                                                        <input type="file" name="logoinstansi" id="logoinstansi">
+                                                                        <div class="text-danger">
+                                                                            @error('logoinstansi')
+                                                                                {{ $message }}
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-success float-right">Save
+                                                                        Data</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                     {{-- <tr>
                                         <td>1</td>
