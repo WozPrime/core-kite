@@ -42,8 +42,18 @@ class UserController extends Controller
         $id= Auth::user()->id;
         $data_user = User::find($id);
         $prof_list = Prof::all();
+        if (Auth::user()->role == 'member') {
+            return redirect('emp/home');
+        }
+        return view('pages.admin.profile_user', compact('data_user','prof_list'));
+    }
+    public function empprofile()
+    {
+        $id= Auth::user()->id;
+        $data_user = User::find($id);
+        $prof_list = Prof::all();
         if (Auth::user()->role == 'admin') {
-            return view('pages.admin.profile_user', compact('data_user','prof_list'));
+            return redirect('admin');
         }
         return view('pages.emp.empprofile', compact('data_user','prof_list'));
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmpModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmpController extends Controller
 {
@@ -18,6 +19,9 @@ class EmpController extends Controller
     }
     public function index()
     {
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
         return view('pages.emp.emp');
     }
 

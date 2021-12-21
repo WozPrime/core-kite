@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmpReport;
 use App\Models\ReportModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmpReportController extends Controller
 {
@@ -19,6 +20,9 @@ class EmpReportController extends Controller
     }
     public function index()
     {
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
         return view('pages.emp.empreport', [
             'data' => ReportModel::all()
         ]);

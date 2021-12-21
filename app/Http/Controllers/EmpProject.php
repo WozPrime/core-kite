@@ -13,11 +13,15 @@ use App\Models\Post;
 use App\Models\Prof;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class EmpProject extends Controller
 {
     public function index()
     {  
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
         return view('pages.emp.empproject', [
             'data' => ProjectModel::all(),
             'instansi' => Instance::all(),
