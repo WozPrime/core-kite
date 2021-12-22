@@ -77,7 +77,6 @@ use Carbon\Carbon;
                                     @csrf
                                     <div class="row">
                                         <div class="col-9">
-                                            <select name="users_id" id="users_id" class="form-control select2">
                                             <div class="form-group no-border">
                                                 <select name="user_id" id="user_id" class="form-control">
                                                     <option value="" selected disabled hidden>Pilih
