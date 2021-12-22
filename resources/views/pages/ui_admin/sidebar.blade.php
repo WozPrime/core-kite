@@ -90,8 +90,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/admin/project_task"
-                        class="nav-link  {{ request()->is('admin/project_task*') ? 'active text-light' : '' }}">
+                    <a href="/admin/project_all"
+                        class="nav-link  {{ request()->is('admin/project_all*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-clipboard-check"></i>
                         <p>
                             To Do List

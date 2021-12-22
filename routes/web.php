@@ -7,11 +7,12 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\ProjectTaskController;
+use App\Http\Controllers\ProjectAllController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfController;
 use App\Http\Controllers\TaskController;
-use App\Models\ProjectTask;
+use App\Http\Middleware\Role;
+use App\Models\ProjectAll;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,8 +66,9 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/admin/edit_task/{id}', [TaskController::class, 'edit'])->name('edit_task');
     Route::get('/admin/delete_task/{id}', [TaskController::class, 'delete'])->name('delete_task');
 
-    //ProjectTask
-    Route::resource('admin/project_task/', ProjectTaskController::class);
+    //ProjectAll
+    Route::resource('admin/project_all/', ProjectAllController::class);
+    Route::post('/admin/project/task/add',[ProjectAllController::class, 'addTags'])->name('add_tags');
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
     Route::post('admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');

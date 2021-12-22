@@ -11,9 +11,9 @@ class ProjectTask extends Model
     use HasFactory;
     protected $table = 'project_task';
     protected $fillable = [
-        'tasks_id',
         'user_id',
         'project_id',
+        'task_id',
         'file_name',
         'expired_at',
     ];
@@ -40,21 +40,15 @@ class ProjectTask extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function task()
-    {
-        return $this->hasMany(Task::class);
-    }
 
     public function project()
     {
-        return $this->belongsTo(ProjectModel::class);
+        return $this->belongsToMany(ProjectModel::class);
     }
 
-    public function profUser()
+    public function tasks()
     {
-        return $this->hasMany(ProfUser::class,'id','prof_id');
+        return $this->belongsToMany(Task::class);
     }
-
-    
 
 }

@@ -16,8 +16,25 @@ class TaskSeeder extends Seeder
     {
         Task::create([
             'code' => 'WB-JOB-001',
-            'task_name' => 'Mengerjakan Proyek',
+            'task_name' => 'Membuat Rancangan Sistem',
+            'points' => 20,
+        ]);
+        Task::create([
+            'code' => 'WB-JOB-002',
+            'task_name' => 'Mendesain UI/UX',
+            'points' => 15,
+        ]);
+        
+        Task::create([
+            'code' => 'WB-JOB-003',
+            'task_name' => 'Mengawasi Web Programmer',
             'points' => 10,
+        ]);
+        
+        Task::create([
+            'code' => 'WB-JOB-004',
+            'task_name' => 'Membuat Back-End',
+            'points' => 30,
         ]);
     }
 }

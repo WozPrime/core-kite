@@ -24,5 +24,15 @@ class ProfUserSeeder extends Seeder
             'prof_name' => 'Web UI/UX',
             'detail' => 'Mendesain Web',
         ]);
+        ProfUser::create([
+            'prof_code' => 'WP-003',
+            'prof_name' => 'System Analyst',
+            'detail' => 'Merancang Sistem',
+        ]);
+        ProfUser::create([
+            'prof_code' => 'WP-004',
+            'prof_name' => 'Project Maintainer',
+            'detail' => 'Mengawasi Jalan Kerja Projek',
+        ]);
     }
 }
