@@ -44,7 +44,7 @@ use Illuminate\Support\Carbon;
                         <!-- /.card-header -->
                         <div class="card-body">
                             <ul class="todo-list ui-sortable" data-widget="todo-list">
-                                @foreach ($project_task as $job)
+                                @foreach ($project_all as $job)
                                     <li>
                                         <span class="handle ui-sortable-handle">
                                             <i class="fas fa-ellipsis-v"></i>

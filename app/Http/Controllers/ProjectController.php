@@ -8,9 +8,10 @@ use App\Models\Instance;
 use App\Models\Client;
 use App\Models\InstancesModel;
 use App\Models\User;
-use App\Models\ProjectTask;
+use App\Models\ProjectAll;
 use App\Models\Task;
 use App\Models\ProfUser;
+use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,12 +22,14 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(ProjectModel $projectModel, ProjectTask $projectTask,User $user)
+    public function __construct(ProjectModel $projectModel, ProjectAll $projectAll, User $user,Task $task, ProjectTask $project_task)
     {
         $this->projectModel = $projectModel;
         $this->middleware('auth');
-        $this->projectTask = $projectTask;
+        $this->projectAll = $projectAll;
         $this->user = $user;
+        $this->task = $task;
+        $this->projectTask = $project_task;
     }
     public function index()
     {
@@ -99,42 +102,50 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
-        $part_user = DB::table('project_task')
-            ->join('users', 'users.id', '=', 'project_task.user_id', 'right outer')
-            ->select(['users.id', 'users.name', 'project_task.id as pt_id'])
-            ->whereNull('project_task.id')
+        $part_user = DB::table('project_all')
+            ->join('users', 'users.id', '=', 'project_all.user_id', 'right outer')
+            ->select(['users.id', 'users.name', 'project_all.id as pt_id'])
+            ->whereNull('project_all.id')
             ->get();
-        $prof_part = $this->projectTask;
-        $participant = $prof_part->select('user_id')->groupBy('user_id')->get();
+        // $prof_part = $this->projectAll->select('prof_id','user_id')->get();
+        $participant = $this->projectAll->select('user_id')->groupBy('user_id')->get();
         $user_task = $this->user;
-        $task_part = DB::table('project_task')
-            ->join('tasks', 'tasks.id', '=', 'project_task.task_id')
-            ->select(['tasks.id', 'tasks.task_name', 'project_task.id as pt_id'])
-            ->get();
-        
-        // dd($participant);
+        $project_task = $this->projectTask;
+        // $task_prof = $this->task->find(3)->profs()->first()->id;
+
+        // dd($this->task->find(1)->profs()->first());
 
         return view('pages.progress.p_detail', [
             'data' => $proyek,
             'users' =>  User::get(['name', 'id', 'pp']),
             'part_user' => $part_user,
-            'project_task' => ProjectTask::all(),
+            'project_all' => ProjectAll::all(),
             'profs' => ProfUser::all(),
-            'job_list' => Task::all(),
+            'job_list' => $this->task,
             'participant' => $participant,
-            'prof_part' => $prof_part,
+            // 'prof_part' => $prof_part,
             'user_task' => $user_task,
-            'task_part' => $task_part,
+            'project_task' => $project_task,
         ]);
     }
 
     public function addParticipant(Request $request)
     {
-        $data = new ProjectTask;
-        $data->user_id = $request->user_id;
-        $data->project_id = $request->project_id;
-        $data->save();
-        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        // dd($this->user->find($request->user_id)->profUser()->first());
+        if ($this->user->find($request->user_id)->profUser()->first() == '') {
+            $data = new ProjectAll;
+            $data->user_id = $request->user_id;
+            $data->project_id = $request->project_id;
+            $data->save();
+            Alert::warning('Peringatan!!', 'Profesi Karyawan Masih Belum Terdata, Bagian Profesi Akan Dikosongkan');
+        } else {
+            $data = new ProjectAll;
+            $data->user_id = $request->user_id;
+            $data->project_id = $request->project_id;
+            $data->prof_id = $this->user->find($request->user_id)->profUser()->first()->prof_id;
+            $data->save();
+            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        }
         return redirect()->back();
     }
     /**

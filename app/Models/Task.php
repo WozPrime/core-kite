@@ -33,9 +33,9 @@ class Task extends Model
     {
         return $this->hasOne(ProfTask::class);
     }
-    public function projectTask()
+    public function users()
     {
-        return $this->belongsToMany(ProjectTask::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function profs()

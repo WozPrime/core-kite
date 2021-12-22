@@ -38,6 +38,11 @@
     {{-- DROPZONE --}}
     <link rel="stylesheet" href="{{ asset('/plugins/dropzone/min/dropzone.min.css') }}">
 
+    {{-- select2 --}}
+    <link rel="stylesheet" href="{{ asset('/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    
+
     <!-- show-hide-fields-form -->
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
 </head>
@@ -115,6 +120,9 @@
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
     <!-- dropzonejs -->
     <script src="{{ asset('/plugins/dropzone/min/dropzone.min.js') }}"></script>
+    {{-- Select2 --}}
+    <script src="{{ asset('/plugins/select2/js/select2.full.min.js') }}"></script>
+
 
     {{-- Multi Page Modal --}}
     <script src="{{ asset('dist/js/multipagemodal.js') }}"></script>
@@ -206,6 +214,19 @@
             });
 
         });
+    </script>
+    <script>
+        $(function () {
+             // Select2
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
+        })
     </script>
 
 </body>
