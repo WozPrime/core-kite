@@ -54,6 +54,25 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        Request()->validate([
+            'instance_id' => 'required',
+            'client_id' => 'required',
+            'project_code' => 'required|unique:projects,project_code',
+            'project_name' => 'required',
+            'project_status' => 'required',
+            'project_category' => 'required',
+            'project_start_date' => 'required',
+            'project_deadline' => 'required',
+        ], [
+            'instance_id.required' => 'Wajib diisi!!',
+            'client_id.required' => 'Wajib diisi!!',
+            'project_code.required' => 'Wajib diisi dan kode harus unik!!',
+            'project_name.required' => 'Wajib diisi!!',
+            'project_status.required' => 'Wajib dipilih!!',
+            'project_category.required' => 'Wajib diisi!!',
+            'project_start_date' => 'Wajib diisi!!',
+            'project_deadline' => 'Wajib diisi!!',
+        ]);
         $data = new ProjectModel;
         $data->instance_id = $request->instance_id;
         $data->client_id = $request->client_id;
@@ -138,21 +157,90 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = [
-            'instance_id' => $request->instance_id,
-            'client_id' => $request->client_id,
-            'project_code' => $request->project_code,
-            'project_name' => $request->project_name,
-            'project_detail' => $request->project_detail,
-            'project_status' => $request->project_status,
-            'project_category' => $request->project_category,
-            'project_start_date' => $request->project_start_date,
-            'project_deadline' => $request->project_deadline,
-            'project_value' => $request->project_value,
-        ];
-        ProjectModel::where('id', $id)->update($data);
-        Alert::success('Sukses', 'Data Proyek berhasil diedit!');
-        return redirect()->back();
+        $data = ProjectModel::find($id);
+        if (
+            Request()->instance_id == $data->instance_id &&
+            Request()->client_id == $data->client_id &&
+            Request()->project_code == $data->project_code &&
+            Request()->project_name == $data->project_name &&
+            Request()->project_status == $data->project_status &&
+            Request()->project_category == $data->project_category &&
+            Request()->project_start_date == $data->project_start_date &&
+            Request()->project_deadline == $data->project_deadline 
+        ) {
+            Alert::warning('Sama', 'Data Tidak Berubah');
+            return redirect()->back();
+        } else {
+            if (Request()->project_code != $data->project_code)
+            {
+            $request->validate([
+                'instance_id' => 'required',
+                'client_id' => 'required',
+                'project_code' => 'required|unique:projects',
+                'project_name' => 'required',
+                'project_status' => 'required',
+                'project_category' => 'required',
+                'project_start_date' => 'required',
+                'project_deadline' => 'required',
+            ], [
+                'instance_id.required' => 'Wajib diisi!!',
+                'client_id.required' => 'Wajib diisi!!',
+                'project_code.required' => 'Wajib diisi dan kode harus unik!!',
+                'project_name.required' => 'Wajib diisi!!',
+                'project_status.required' => 'Wajib dipilih!!',
+                'project_category.required' => 'Wajib diisi!!',
+                'project_start_date' => 'Wajib diisi!!',
+                'project_deadline' => 'Wajib diisi!!',
+            ]);
+            $data = [
+                'instance_id' => $request->instance_id,
+                'client_id' => $request->client_id,
+                'project_code' => $request->project_code,
+                'project_name' => $request->project_name,
+                'project_detail' => $request->project_detail,
+                'project_status' => $request->project_status,
+                'project_category' => $request->project_category,
+                'project_start_date' => $request->project_start_date,
+                'project_deadline' => $request->project_deadline,
+                'project_value' => $request->project_value,
+            ];
+            ProjectModel::where('id', $id)->update($data);
+            Alert::success('Sukses', 'Data Proyek berhasil diedit!');
+            return redirect()->back();
+            } else {
+                $request->validate([
+                    'instance_id' => 'required',
+                    'client_id' => 'required',
+                    'project_name' => 'required',
+                    'project_status' => 'required',
+                    'project_category' => 'required',
+                    'project_start_date' => 'required',
+                    'project_deadline' => 'required',
+                ], [
+                    'instance_id.required' => 'Wajib diisi!!',
+                    'client_id.required' => 'Wajib diisi!!',
+                    'project_name.required' => 'Wajib diisi!!',
+                    'project_status.required' => 'Wajib dipilih!!',
+                    'project_category.required' => 'Wajib diisi!!',
+                    'project_start_date' => 'Wajib diisi!!',
+                    'project_deadline' => 'Wajib diisi!!',
+                ]);
+                $data = [
+                    'instance_id' => $request->instance_id,
+                    'client_id' => $request->client_id,
+                    'project_name' => $request->project_name,
+                    'project_detail' => $request->project_detail,
+                    'project_status' => $request->project_status,
+                    'project_category' => $request->project_category,
+                    'project_start_date' => $request->project_start_date,
+                    'project_deadline' => $request->project_deadline,
+                    'project_value' => $request->project_value,
+                ];
+                ProjectModel::where('id', $id)->update($data);
+                Alert::success('Sukses', 'Data Proyek berhasil diedit!');
+                return redirect()->back();
+            }
+    }
     }
 
     /**
