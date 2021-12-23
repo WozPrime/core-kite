@@ -105,7 +105,7 @@ use Carbon\Carbon;
                                     </div>
                                     
                                 </form>
-                                <table class="table table-responsive-sm table-bordered" id="myTable">
+                                <table class="table table-responsive-sm table-bordered" id="myTable2">
                                     <thead>
                                         <tr>
                                             <th style="min-width: 20px; max-width: 20px;" class="text-center">No.</th>
@@ -307,10 +307,10 @@ use Carbon\Carbon;
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" >
-                                <div class="mb-2">
-                                    <a href="#addpembayaran" class="badge bg-primary" data-toggle="modal" ><i class="fas fa-plus-circle"> Tambah Pembayaran</i></a>
+                                <div class="col-md-3 mb-2">
+                                    <a href="#addpembayaran" class="btn btn-block btn-info" data-toggle="modal" ><i class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
                                 </div>
-                                <table class="table table-responsive-sm table-bordered" id="myTable">
+                                <table class="table table-responsive-sm table-bordered" id="myTable1">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No.</th>
@@ -468,5 +468,16 @@ use Carbon\Carbon;
 
 @section('footer')
 @endsection
-
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#myTable1').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#myTable2').DataTable();
+    });
+</script>
+@endsection
 @endsection
