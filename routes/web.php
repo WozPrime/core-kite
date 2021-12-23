@@ -73,6 +73,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     //ProjectAll
     Route::resource('admin/project_all/', ProjectAllController::class);
     Route::post('/admin/project/task/add',[ProjectAllController::class, 'addTags'])->name('add_tags');
+    Route::get('admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
     Route::post('admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');

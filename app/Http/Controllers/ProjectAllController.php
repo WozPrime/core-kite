@@ -49,26 +49,62 @@ class ProjectAllController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        $request->validate([
-            'prof_id' => 'required',
+        $req->validate([
+            'profs' => 'required',
         ], [
-            'prof_id.required' => 'Profesi Tidak Boleh Kosong!!',
+            'profs.required' => 'Profesi Tidak Boleh Kosong!!',
         ]);
-        $checkProf =$this->projectAll->where('user_id',$request->user_id);
-        // dd($checkProf);
-        if ($checkProf->first()->prof_id == ''){
-            $checkProf->update([
-                'prof_id' => $request->prof_id,
-            ]);
-        }else {
-            $data = new ProjectAll;
-            $data->user_id = $request->user_id;
-            $data->project_id = $request->project_id;
-            $data->prof_id = $request->prof_id;
-            $data->save();
+        $checkProf =$this->projectAll->where(['user_id' => $req->user_id, 'project_id' => $req->project_id]);
+        if (count($req->profs) < count($checkProf->get())){
+            $checkProf->delete();
+            for ($i=0; $i < count($req->profs); $i++){
+                $this->projectAll->create([
+                    'user_id' => $req->user_id,
+                    'project_id' => $req->project_id,
+                    'prof_id' => $req->profs[$i],
+                ]);
+            }
         }
+        elseif (count($req->profs) == count($checkProf->get())){
+            // dd(count($checkProf->get()));
+            // dd(count($req->profs));
+            $id = $checkProf->get()->first()->id;
+            for ($i=0; $i < count($req->profs); $i++){
+                // dd($if,$req->profs[$i],$id);
+                $this->projectAll->find($id+$i)->update([
+                    'prof_id' => $req->profs[$i],
+                ]);
+            }
+        }else {
+            $id = $checkProf->get()->first()->id;
+            for ($i=0; $i < count($req->profs); $i++){
+                // dd($if,$req->profs[$i],$id);
+                if ($i < count($checkProf->get())){
+                    $this->projectAll->find($id+$i)->update([
+                        'prof_id' => $req->profs[$i],
+                    ]);
+                } else{
+                    $this->projectAll->create([
+                        'user_id' => $req->user_id,
+                        'project_id' => $req->project_id,
+                        'prof_id' => $req->profs[$i],
+                    ]);
+                }
+            }
+        }
+        // if ($checkProf->first()->prof_id == ''){
+        //     $checkProf->update([
+        //         'prof_id' => $request->prof_id,
+        //     ]);
+        // }else {
+        //     $data = new ProjectAll;
+        //     $data->user_id = $request->user_id;
+        //     $data->project_id = $request->project_id;
+        //     $data->prof_id = $request->prof_id;
+        //     $data->save();
+        // }
         Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
         return redirect()->back();
     }
@@ -114,7 +150,17 @@ class ProjectAllController extends Controller
                 ]);
             }
         }
-        elseif (count($req->tags) <= count($checkTask->get())){
+        elseif (count($req->tags) < count($checkTask->get())) {
+            $checkTask->delete();
+            for ($i=0; $i < count($req->tags); $i++){
+                $this->projectTask->create([
+                    'user_id' => $req->user_id,
+                    'project_id' => $req->project_id,
+                    'task_id' => $req->tags[$i],
+                ]);
+            }
+        }
+        elseif (count($req->tags) == count($checkTask->get())){
             // dd(count($checkTask->get()));
             // dd(count($req->tags));
             $id = $checkTask->get()->first()->id;
@@ -165,8 +211,11 @@ class ProjectAllController extends Controller
      * @param  \App\Models\ProjectAll  $projectAll
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectAll $projectAll)
+    public function destroy($id)
     {
-        //
+        ProjectAll::where('user_id',$id)->delete();
+        ProjectTask::where('user_id',$id)->delete();
+        Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect()->back();
     }
 }

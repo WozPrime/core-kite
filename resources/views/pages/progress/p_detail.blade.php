@@ -131,10 +131,12 @@ use Carbon\Carbon;
                                                                 @foreach ($project_all as $prof_task)
                                                                     @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
                                                                         <div style="padding: 3px">
-                                                                            <span class="badge @if (fmod($prof_task->prof_id,2) == 0)
-                                                                                bg-success
+                                                                            <span class="badge @if (fmod($prof_task->prof_id,3) == 0)
+                                                                                bg-danger
+                                                                                @elseif(fmod($prof_task->prof_id,2) == 0)
+                                                                                bg-warning 
                                                                                 @else
-                                                                                bg-warning                                                                    
+                                                                                bg-success                                                                   
                                                                             @endif">
                                                                                 {{ $project_all->find($prof_task->id)->profUser()->first()->prof_name }}
                                                                                 @php
@@ -186,7 +188,19 @@ use Carbon\Carbon;
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="Profession">Profession</label>
-                                                                    <select name="prof_id" id="prof_id" class="form-control">
+                                                                    <div class="select2-primary">
+                                                                        <select class="select2" name="profs[]" data-dropdown-css-class="select2-primary"
+                                                                                multiple="multiple" data-placeholder="Select a Profession" style="width: 100%;" autocomplete="off">
+                                                                                @foreach ($profs as $prof)
+                                                                                <option @if (in_array($prof->id, $prof_part))
+                                                                                    selected @endif
+                                                                                    value="{{ $prof->id }}">{{ $prof->prof_name }}
+                                                                                </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                    </div>
+                                                                    
+                                                                    {{-- <select name="prof_id" id="prof_id" class="form-control">
                                                                         <option value="" selected disabled hidden>Pilih
                                                                             Profesi </option>
                                                                             @foreach ($profs as $prof)
@@ -196,19 +210,12 @@ use Carbon\Carbon;
                                                                                 <option value="{{ $prof->id }}">{{ $prof->prof_name }}
                                                                                 </option>
                                                                             @endforeach 
-                                                                            {{-- <option value="{{ $profession->id }}">{{ $profession->prof_name }}
-                                                                            </option> --}}
-                                                                            </select>
+                                                                            not this part
+                                                                             <option value="{{ $profession->id }}">{{ $profession->prof_name }}
+                                                                            </option> 
+                                                                            </select> --}}
                                                                 </div>
-                                                                {{-- <div class="form-group">
-                                                                    <label>Hak Akses</label>
-                                                                    <select class="js-example-basic-multiple select2-hidden-accessible" id="hak_akses" name="hak_akses[]" multiple="" tabindex="-1" aria-hidden="true">
-                                                                        <option value="1">Menambah dan menghapus kolom</option>
-                                                                        <option value="2">Menambah task dan menghapus task</option>
-                                                                        <option value="3">Mengubah poin</option>
-                                                                        <option value="4">Melalukan assignee &amp; checking ke pengerja</option>
-                                                                      </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><span class="select2-selection__clear">×</span><li class="select2-selection__choice" title="Menambah dan menghapus kolom"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah dan menghapus kolom</li><li class="select2-selection__choice" title="Menambah task dan menghapus task"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah task dan menghapus task</li><li class="select2-selection__choice" title="Melalukan assignee &amp; checking ke pengerja"><span class="select2-selection__choice__remove" role="presentation">×</span>Melalukan assignee &amp; checking ke pengerja</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                                                </div> --}}
+                                                                
                                                                 <input type="hidden" name="project_id" id="project_id"
                                                                                 value="{{ $data->id }}">
                                                                 <input type="hidden" name="user_id" id="user_id"
@@ -257,7 +264,7 @@ use Carbon\Carbon;
                                                                                 @endif
                                                                             @endif
                                                                             @endforeach
-                                                                          </select>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 {{-- <div class="form-group">
@@ -286,6 +293,33 @@ use Carbon\Carbon;
                                                 <!-- /.modal-dialog -->
 
                                             </div>
+                                            {{-- DELETE MODAL --}}
+                                            {{-- <form autocomplete="off" action="/admin/project_all/{{ $list->user_id }}" method="POST" class="d-inline">
+                                                @method('delete')
+                                                @csrf --}}
+                                            <div class="modal fade" id="delete{{ $list->user_id }}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content bg-danger">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Hapus Data User</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah anda yakin ingin Menghapus data dari {{  $user_task->find($list->user_id)->name }} ini?
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                                            <a href="/admin/project_all/delete/{{ $list->user_id }}" type="submit"
+                                                                class="btn btn-outline-light">Hapus Data</a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -303,13 +337,14 @@ use Carbon\Carbon;
                     <div class="card">
                         <div class="card-orange">
                             <div class="card-header">
-                                <h3 class="card-title text-light">Riwayat Pembayaran</h3>
+                                <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
+                                <div class="col-xs-3" style="float: right">
+                                    <a href="#addpembayaran" class="btn btn-block btn-info text-light" data-toggle="modal"><i class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" >
-                                <div class="col-md-3 mb-2">
-                                    <a href="#addpembayaran" class="btn btn-block btn-info" data-toggle="modal" ><i class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
-                                </div>
+                                
                                 <table class="table table-responsive-sm table-bordered" id="myTable1">
                                     <thead>
                                         <tr>
