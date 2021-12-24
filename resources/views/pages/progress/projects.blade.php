@@ -230,7 +230,7 @@
                                                             <div class="content">
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
+                                                                    <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansiEdit()" id="instance_id_edit" required>
                                                                             <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
                                                                         @foreach ($instansi as $i)
                                                                             <option value="{{ $i->id }}">
@@ -245,7 +245,7 @@
                                                                 <div class="form-group">
                                                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
                                                                    
-                                                                    <select class='form-select' name='client_id' id='client_id' required>
+                                                                    <select class='form-select' name='client_id' id='client_id_edit' required>
                                                                         <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
 
                                                                     </select>
@@ -535,6 +535,18 @@
                                     <label>Total Project</label>
                                     <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Foto Karyawan</label>
+                                    <div>
+                                        <input type="file" name="foto_karyawan">
+                                        <div class="text-danger">
+                                            @error('foto_karyawan')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
     
                                 <br>
     
@@ -580,7 +592,7 @@
 </script>
 <script>
     function pilihInstansiEdit() {
-    var data = 'id=' +document.getElementById('instance_id').value;
+    var data = 'id=' +document.getElementById('instance_id_edit').value;
 
     var baris = "";
     $.ajax({
@@ -597,7 +609,7 @@
         // if(typeof(document.getElementById('selectDefault') != 'undefined' && document.getElementById('selectDefault') != null)){
         //     document.getElementById('selectDefault').remove();
         // }
-        $('#client_id').html(baris);
+        $('#client_id_edit').html(baris);
       }
     });
     return false;
