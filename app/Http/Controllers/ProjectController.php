@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Payment;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use App\Models\Client;
@@ -106,6 +107,7 @@ class ProjectController extends Controller
             'prof_part' => $prof_part,
             'user_task' => $user_task,
             'task_part' => $task_part,
+            'pembayaran' => Payment::where('project_id',$proyek->id)->get(),
         ]);
     }
 

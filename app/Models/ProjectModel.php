@@ -24,4 +24,12 @@ class ProjectModel extends Model
     public function projectTask(){
         return $this->hasMany(ProjectTask::class);
     }
+
+    public function payment(){
+        return $this->hasMany(Payment::class);
+    }
+
+    public function meeting(){
+        return $this->hasMany(Meeting::class);
+    }
 }

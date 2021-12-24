@@ -218,7 +218,7 @@
                                         </tr>
                                         <!-- /.modal -->
                                         <div class="modal fade" id="edit{{ $tbl_project->id }}">
-                                            <div class="modalphp-dialog">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
                                                         <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>
@@ -443,54 +443,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-
-    <div class="modal fade" id="add-data">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="card-header bg-orange">
-                    <h3 class="card-title">Menambah Data proyek</h3>
-                </div>
-                <div class="card-body">
-                    <form autocomplete="off" action="/admin/proyek/" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="content">
-
-                            <div class="form-group">
-                                <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
-                                    <option selected hidden>Pilih Instansi</option>
-                                    @foreach ($instansi as $i)
-                                        <option value="{{ $i->id }}">
-                                            {{ $i->nama_instansi }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="seeAnotherFieldClient">Pilih Klien</label>  
-                                <select class='form-select' name='client_id' id='client_id' required>
-                                </select>
-                                {{-- <div id='listClient'> --}}
-
-                                {{-- </div> --}}
-                            </div>
-
-                            <div class="form-group">
-                                <label>Kode Proyek</label>
-                                <input name="project_code" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Name Proyek</label>
-                                <input name="project_name" class="form-control" required>
-                                <div class="text-danger">
-                                    @error('project_name')
-                                        {{ $message }}
-                                    @enderror
-=======
     
         <div class="modal fade" id="add-data">
             <div class="modal-dialog">
@@ -585,7 +537,6 @@
                                 <div class="form-group">
                                     <button class="btn btn-success float-right">Save
                                         Data</button>
->>>>>>> c793499b41ee15189a6f6a6299a26d49c90ec612
                                 </div>
                             </div>
                         </form>

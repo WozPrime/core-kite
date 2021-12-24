@@ -87,7 +87,7 @@ Profil Instansi
                         <div class="card-body">
                             <a href="#add-proyek" data-toggle="modal" class="badge bg-success mb-3"><i class="fa fa-plus-circle mr-1"></i> Tambah
                                 Proyek Baru</a>
-                            <table id="myTable1" class="table table-bordered table-hover">
+                            <table id="myTable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>

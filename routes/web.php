@@ -1,20 +1,21 @@
 <?php
 
+use App\Models\ProjectTask;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\ProjectTaskController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminClientController;
-use App\Http\Controllers\TaskController;
-use App\Models\ProjectTask;
+use App\Http\Controllers\ProjectTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::middleware(['role', 'auth'])->group(function () {
     //KLIEN
     Route::resource('/admin/instansi', InstanceController::class);
     Route::resource('/client', ClientController::class);
+
+    //Payment
+    Route::resource('/admin/payment', PaymentController::class);
 
     //profile
     Route::get('/admin/profile/{id}', [UserController::class, 'profile'])->name('profile');
