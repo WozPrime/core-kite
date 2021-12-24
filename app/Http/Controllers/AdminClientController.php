@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Payment;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use Alert;
@@ -63,6 +64,7 @@ class AdminClientController extends Controller
     {
         return view('pages.admin.client.detail', [
             'klien'=>$client,
+            'pembayaranklien'=>Payment::where('user_id', $client->id)->get(),
             'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
         ]);
     }
