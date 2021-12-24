@@ -13,6 +13,7 @@ class ProjectAll extends Model
     protected $fillable = [
         'user_id',
         'project_id',
+        'prof_id',
         'file_name',
         'expired_at',
     ];

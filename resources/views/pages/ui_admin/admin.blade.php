@@ -228,6 +228,7 @@
 
         })
     </script>
+    @yield('script')
 
 </body>
 
