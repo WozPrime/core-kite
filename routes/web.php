@@ -73,10 +73,13 @@ Route::middleware(['role', 'auth'])->group(function () {
     //ProjectAll
     Route::resource('admin/project_all/', ProjectAllController::class);
     Route::post('/admin/project/task/add',[ProjectAllController::class, 'addTags'])->name('add_tags');
-    Route::get('admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
+    Route::get('/admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
+    Route::get('/admin/manage/project_all', [ProjectAllController::class,'show'])->name('manage_task');
+    Route::get('/admin/task/delete/{id}', [ProjectAllController::class,'deleteTask'])->name('delete_active_task');
+    
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
-    Route::post('admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
+    Route::post('/admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
     Route::resource('/admin/reports', ReportController::class);
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');

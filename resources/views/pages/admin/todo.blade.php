@@ -3,7 +3,7 @@ use Illuminate\Support\Carbon;
 @endphp
 @extends('pages.ui_admin.admin')
 @section('title')
-    TO DO LIST
+    To Do List
 @endsection
 @section('body')
 @section('navbar')
@@ -18,12 +18,12 @@ use Illuminate\Support\Carbon;
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Joblist</h1>
+                    <h1>To Do List</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Joblist</li>
+                        <li class="breadcrumb-item active">TO DO List</li>
                     </ol>
                 </div>
             </div>
@@ -44,7 +44,7 @@ use Illuminate\Support\Carbon;
                         <!-- /.card-header -->
                         <div class="card-body">
                             <ul class="todo-list ui-sortable" data-widget="todo-list">
-                                @foreach ($project_all as $job)
+                                @foreach ($project_task as $job)
                                     <li>
                                         <span class="handle ui-sortable-handle">
                                             <i class="fas fa-ellipsis-v"></i>
@@ -56,7 +56,7 @@ use Illuminate\Support\Carbon;
                                             <label for="todoCheck{{ $job->id }}"></label>
                                         </div>
                                         <span
-                                            class="text">{{ $tasks->where('id', $job->tasks_id)->pluck('task')->implode(' ') }}</span>
+                                            class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
                                         <small class="badge badge-danger" id='deadline'><i class="far fa-clock"></i>
                                             {{ Carbon::parse($job->expired_at)->diffinDays() }} Days</small>
                                         <div class="tools">
