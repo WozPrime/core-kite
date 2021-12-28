@@ -8,7 +8,12 @@
 @section('sidebar')
 @endsection
 @section('content')
-
+    @error('deadline')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Peringatan!</strong>  Data Masih Kosong.
+    </div>
+    @enderror
     {{-- content --}}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -68,89 +73,40 @@
                                             <td>{{ $Project->find($ptask->project_id)->project_name }}</td>
                                             <td>
                                                 @if ($ptask->expired_at != '')
-                                                {{ date('D, d M Y, h:i', strtotime($ptask->expired_at)) }}
+                                                {{ date('D, d M Y, H:i', strtotime($ptask->expired_at)) }}
                                                 @endif
                                             </td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-primary" data-toggle="modal"
+                                                <a class="btn btn-success" data-toggle="modal"
                                                     data-target="#deadline{{ $ptask->id }}"><i
                                                         class="fa fa-calendar-minus"></i></a>
+                                                <a class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#details{{ $ptask->id }}"><i
+                                                        class="fa fa-info-circle"></i></a>
                                                 <a class="btn btn-danger" data-toggle="modal"
                                                     data-target="#delete{{ $ptask->id }}"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <!-- /.modal -->
-                                        {{-- <div class="modal fade" id="edit{{ $job->id }}">
+                                        <div class="modal fade" id="deadline{{ $ptask->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Job Details</h4>
+                                                        <h4 class="modal-title">Add Deadline</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/admin/edit_task/{{ $job->id }}" method="POST"
+                                                    <form action="/admin/project_all/{{ $ptask->id }}/edit" method="POST"
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="Job_code">Job Code</label>
-                                                                <input type="text" class="form-control" id="code"
-                                                                    name="code" value="{{ $job->code }}">
-                                                                <div class="text-danger">
-                                                                    @error('code')
-                                                                        {{ $message }}
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="Task">Task</label>
-                                                                <input type="text" class="form-control" id="task_name"
-                                                                    name="task_name" value="{{ $job->task_name }}">
-                                                                <div class="text-danger">
-                                                                    @error('task_name')
-                                                                        {{ $message }}
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="Points">Points</label>
-                                                                <input type="text" class="form-control" id="points"
-                                                                    name="points" value="{{ $job->points }}">
-                                                                <div class="text-danger">
-                                                                    @error('points')
-                                                                        {{ $message }}
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="Profession">Profession</label>
-                                                                <select name="prof_id" id="prof_id" class="form-control">
-                                                                    @if ($job->profs()->first())
-                                                                            <option value="" @if ($job->profs()->first()->id == '')
-                                                                                selected
-                                                                        @endif disabled hidden>Pilih
-                                                                        Profesi
-                                                                        </option>
-                                                                        @foreach ($prof_list as $prof)
-                                                                            <option value="{{ $prof->id }}" @if ($job->profs()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
-                                                                        </option>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <option value="" selected disabled hidden>Pilih Profesi</option>
-                                                                        @foreach ($prof_list as $prof)
-                                                                            <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
-                                                                        @endforeach
-                                                                        @endif
-
-                                                                        </select>
-                                                                
-                                                            </div>
-
-
+                                                                <label for="expired_at">Add Task Deadline</label>
+                                                                <input name="expired_at" class="form-control" type="datetime-local" value="{{ (new DateTime($ptask->expired_at))->format('Y-m-d').'T'.(new DateTime($ptask->expired_at))->format('H:i')}}">
+                                                              </div>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -163,7 +119,7 @@
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                                 <!-- /.modal -->
-                                            </div> --}}
+                                            </div>
                                         <div class="modal fade" id="delete{{ $ptask->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content bg-danger">
@@ -208,5 +164,21 @@
 <!-- /.content -->
 @section('footer')
 @endsection
+@section('script')
+<script>
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
 
+    console.log($('#reservationdatetime').find('input[name="expired_at"]').val());
+    //Date and time picker
+    $('#reservationdatetime').datetimepicker({
+        icons: {
+            time: 'far fa-clock',
+        },
+        defaultDate: $('#reservationdatetime').find('input[name="expired_at"]').val()
+    });
+</script>
+@endsection
 @endsection

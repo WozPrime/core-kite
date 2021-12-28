@@ -105,8 +105,19 @@ class ProjectAllController extends Controller
      * @param  \App\Models\ProjectAll  $projectAll
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $req)
+    public function edit($id, Request $req)
     {
+        $req->validate([
+            'expired_at' => 'required',
+        ], [
+            'expired_at.required' => 'Profesi Tidak Boleh Kosong!!',
+        ]);
+        $this->projectTask->find($id)->update([
+            'expired_at' => $req->expired_at,
+        ]);
+        Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
+        return redirect()->back();
+        
     }
 
     public function addTags(Request $req)

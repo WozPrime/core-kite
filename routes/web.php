@@ -76,6 +76,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::get('/admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
     Route::get('/admin/manage/project_all', [ProjectAllController::class,'show'])->name('manage_task');
     Route::get('/admin/task/delete/{id}', [ProjectAllController::class,'deleteTask'])->name('delete_active_task');
+    Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class,'edit'])->name('edit_task');
     
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
