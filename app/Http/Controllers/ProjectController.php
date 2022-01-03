@@ -69,7 +69,8 @@ class ProjectController extends Controller
         ], [
             'instance_id.required' => 'Wajib diisi!!',
             'client_id.required' => 'Wajib diisi!!',
-            'project_code.required' => 'Wajib diisi dan kode harus unik!!',
+            'project_code.required' => 'Wajib diisi!!',
+            'project_code.unique' => 'Kode harus unik!!',
             'project_name.required' => 'Wajib diisi!!',
             'project_status.required' => 'Wajib dipilih!!',
             'project_category.required' => 'Wajib diisi!!',
@@ -196,7 +197,8 @@ class ProjectController extends Controller
             ], [
                 'instance_id.required' => 'Wajib diisi!!',
                 'client_id.required' => 'Wajib diisi!!',
-                'project_code.required' => 'Wajib diisi dan kode harus unik!!',
+                'project_code.required' => 'Wajib diisi!!',
+                'project_code.unique' => 'Kode harus unik!!',
                 'project_name.required' => 'Wajib diisi!!',
                 'project_status.required' => 'Wajib dipilih!!',
                 'project_category.required' => 'Wajib diisi!!',

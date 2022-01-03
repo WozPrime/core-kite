@@ -23,14 +23,13 @@ use Carbon\Carbon;
                     <div class="card" style="height: 375px">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                {{-- @if ($instance->logo_instansi)
-                                <img src="#" alt="#" class="rounded-circle" width="150" height="150">
-                            @else --}}
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
+                                @if ($data->instance->logo_instansi)
+                                    <img src="/logoinstansi/{{$data->instance->logo_instansi}}" alt="logo {{$data->instance->nama_instansi}}" class="rounded-circle" width="150" height="150">
+                                @else
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
                                     alt="Logo Instansi" class="rounded-circle" width="150">
-                                {{-- @endif --}}
+                                @endif
                                 <div class="mt-3">
-                                    {{-- <h4>{{$instance->nama_instansi}}</h4> --}}
                                     <b class="text-secondary-bold"> {{ $data->project_name }} </b>
                                     <p class="text-muted font-size-sm"> [{{ $data->project_code }}] </p>
                                     <b class="text-secondary-bold"> Nilai Proyek </b>
@@ -121,7 +120,6 @@ use Carbon\Carbon;
                                                 $prof_part = [];
                                             @endphp 
                                             <tr>
-                                                {{-- {{dd($list)}} --}}
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-center">
                                                     <a href="#insert{{$list->user_id}}" data-toggle="modal" class="btn btn-block">
@@ -197,23 +195,8 @@ use Carbon\Carbon;
                                                                                     value="{{ $prof->id }}">{{ $prof->prof_name }}
                                                                                 </option>
                                                                                 @endforeach
-                                                                            </select>
+                                                                        </select>
                                                                     </div>
-                                                                    
-                                                                    {{-- <select name="prof_id" id="prof_id" class="form-control">
-                                                                        <option value="" selected disabled hidden>Pilih
-                                                                            Profesi </option>
-                                                                            @foreach ($profs as $prof)
-                                                                                @if (in_array($prof->id, $prof_part))
-                                                                                    @continue
-                                                                                @endif
-                                                                                <option value="{{ $prof->id }}">{{ $prof->prof_name }}
-                                                                                </option>
-                                                                            @endforeach 
-                                                                            not this part
-                                                                             <option value="{{ $profession->id }}">{{ $profession->prof_name }}
-                                                                            </option> 
-                                                                            </select> --}}
                                                                 </div>
                                                                 
                                                                 <input type="hidden" name="project_id" id="project_id"
@@ -231,7 +214,6 @@ use Carbon\Carbon;
                                                     <!-- /.modal-content -->
                                                 </div>
                                                 <!-- /.modal-dialog -->
-
                                             </div>
                                             
                                             <div class="modal fade" id="tambah{{$list->user_id}}">
