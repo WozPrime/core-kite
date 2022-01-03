@@ -93,7 +93,7 @@
                                     <label for="Status">Status</label>
                                     <select name="stats" id="stats" class="form-control">
                                         <option value="" @if ($data_user->stats == '')
-                                            selected @endif di sabled hidden>Pilih Status
+                                            selected @endif disabled hidden>Pilih Status
                                         </option>
                                         <option value="KT" @if ($data_user->stats == 'KT')
                                             selected @endif>Karyawan Tetap</option>

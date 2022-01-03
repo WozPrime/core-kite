@@ -91,7 +91,7 @@ class ProjectController extends Controller
         $data->save();
         DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
         Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
-        return redirect()->back();
+        return redirect('/admin/proyek');
     }
 
     /**
