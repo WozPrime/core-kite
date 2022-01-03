@@ -63,7 +63,7 @@ class ProfController extends Controller
                 $this->prof->insertData($insert_data);
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/prof');
     }
 
     /**
@@ -103,7 +103,7 @@ class ProfController extends Controller
         Request()->prof_img == ""
         ) {
             Alert::warning('Sama','Data Tidak Berubah');
-            return redirect()->back();
+            return redirect('/admin/prof');
         } else {
             Request()->validate([
                 'prof_code' => 'required|unique:profs,prof_code,'.Request()->id,
@@ -135,7 +135,7 @@ class ProfController extends Controller
                 $this->prof->editData($id, $update_data);
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/prof');
         }
     }
 
@@ -162,6 +162,6 @@ class ProfController extends Controller
         $this->prof->deleteData($id);
         DB::statement("ALTER TABLE profs AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus');
-        return redirect()->back();
+        return redirect('/admin/prof');
     }
 }

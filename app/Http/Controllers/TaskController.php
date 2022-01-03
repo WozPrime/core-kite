@@ -57,7 +57,7 @@ class TaskController extends Controller
             "prof_id"=> Request()->prof_id
         ]));
         Alert::success('Sukses','Data berhasil Diperbaharui');
-        return redirect()->back();
+        return redirect('/admin/joblist');
     }
 
     /**
@@ -105,7 +105,7 @@ class TaskController extends Controller
         Request()->prof_id == $oldProf
         ) {
             Alert::warning('sama','Data Tidak Berubah');
-            return redirect()->back();
+            return redirect('/admin/joblist');
         } else {
             Request()->validate([
                 'code' => 'required|unique:tasks,code,'.Request()->id,
@@ -135,7 +135,7 @@ class TaskController extends Controller
                 ]));
             }
             Alert::success('Sukses','Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/joblist');
         }
     }
 
@@ -162,6 +162,6 @@ class TaskController extends Controller
         $this->task->deleteData($id);
         DB::statement("ALTER TABLE tasks AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus!!');
-        return redirect()->back();
+        return redirect('/admin/joblist');
     }
 }

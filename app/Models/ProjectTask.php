@@ -14,8 +14,11 @@ class ProjectTask extends Model
         'user_id',
         'project_id',
         'task_id',
+        'details',
         'file_name',
+        'checked_at',
         'expired_at',
+        'post_date',
     ];
     public function insertData($data)
     {

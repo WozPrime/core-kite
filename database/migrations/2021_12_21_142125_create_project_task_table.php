@@ -22,8 +22,10 @@ class CreateProjectTaskTable extends Migration
             $table->unsignedBigInteger('project_id')->unsigned()->index();
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade'); 
             $table->text('details')->nullable();
+            $table->dateTime('checked_at')->nullable();
             $table->string('file_name')->nullable();
             $table->dateTime('expired_at')->nullable();
+            $table->dateTime('post_date')->nullable();
             $table->timestamps();
         });
     }

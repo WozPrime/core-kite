@@ -123,27 +123,39 @@ class ProjectAllController extends Controller
     public function addTags(Request $req)
     {
         // dd(count($this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->get()));
-        // dd($req->tags[1]);
-        $checkTask = $this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->pluck('task_id')->toArray();
+        // // dd($req->tags[1]);
+        // $checkTask = $this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->pluck('task_id')->toArray();
+        // dd($checkTask);
         $req->validate([
-            'tags' => 'required',
+            'task_id' => 'required',
+            'details' => 'required',
+            'expired_at' => 'required',
         ], [
-            'tags.required' => 'Profesi Tidak Boleh Kosong!!',
+            'task_id.required' => 'Task Tidak Boleh Kosong!!',
+            'details.required' => 'Detail Tidak Boleh Kosong!!',
+            'expired_at.required' => 'Deadline Tidak Boleh Kosong!!',
         ]);
-        $newTagsIds = array_map('intval', $req->tags);
-        // dd($newProfIds);
-        $compareDeleted = array_diff($checkTask,$newTagsIds);
-        $compareNew = array_diff($newTagsIds,$checkTask);
-        // dd($compareDeleted,$compareNew);
+        ProjectTask::create([
+                    'user_id'=>$req->user_id, 
+                    'project_id' => $req->project_id,
+                    'task_id' => $req->task_id,
+                    'details' => $req->details,
+                    'expired_at' => $req->expired_at,
+                ]);
+        // $newTagsIds = array_map('intval', $req->tags);
+        // // dd($newProfIds);
+        // $compareDeleted = array_diff($checkTask,$newTagsIds);
+        // $compareNew = array_diff($newTagsIds,$checkTask);
+        // // dd($compareDeleted,$compareNew);
         
-        foreach ($compareDeleted as $delete) {
-            ProjectTask::where(['user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $delete])->delete();
-        }
-        foreach ($compareNew as $new) {
-            ProjectTask::create([
-                'user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $new
-            ]);
-        }
+        // foreach ($compareDeleted as $delete) {
+        //     ProjectTask::where(['user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $delete])->delete();
+        // }
+        // foreach ($compareNew as $new) {
+        //     ProjectTask::create([
+        //         'user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $new
+        //     ]);
+        // }
 
         Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
         return redirect()->back();

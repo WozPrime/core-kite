@@ -23,7 +23,19 @@ use Carbon\Carbon;
                 <strong>Peringatan!</strong>  Data Masih Kosong.
             </div>
             @enderror
-            @error('tags')
+            @error('task_id')
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Peringatan!</strong>  Data Masih Kosong.
+            </div>
+            @enderror
+            @error('details')
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Peringatan!</strong>  Data Masih Kosong.
+            </div>
+            @enderror
+            @error('expired_at')
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>Peringatan!</strong>  Data Masih Kosong.
@@ -130,6 +142,7 @@ use Carbon\Carbon;
                                         @foreach ($participant as $list)
                                             @php
                                                 $prof_part = [];
+                                                $saved_task =[];
                                             @endphp 
                                             <tr>
                                                 {{-- {{dd($list)}} --}}
@@ -259,10 +272,10 @@ use Carbon\Carbon;
                                                             @csrf    
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="Profession">Task</label>
+                                                                    <label for="list_task">Task yang telah Dipilih</label>
                                                                     <div class="select2-success">
-                                                                        <select class="select2" name="tags[]" data-dropdown-css-class="select2-success"
-                                                                            multiple="multiple" data-placeholder="Select a Task" style="width: 100%;" autocomplete="off">
+                                                                        <select class="select2" data-dropdown-css-class="select2-success"
+                                                                            multiple="multiple" data-placeholder="Select a Task" style="width: 100%;" autocomplete="off" disabled>
                                                                             @foreach ($job_list->get() as $task)
                                                                             @if ($job_list->find($task->id)->profs()->first() == '')
                                                                                 @continue    
@@ -270,24 +283,46 @@ use Carbon\Carbon;
                                                                                 @if (in_array($task->profs()->first()->id, $prof_part))
                                                                                 <option
                                                                                 @if ($project_task->where(['user_id' => $list->user_id, 'project_id' => $data->id])->where('task_id',$task->id)->exists())
-                                                                                    selected
+                                                                                    @php
+                                                                                        $saved_task[] = $task->id
+                                                                                    @endphp
+                                                                                    selected value="{{$task->id}}">{{$task->task_name}}
                                                                                 @endif
-                                                                                value="{{$task->id}}">{{$task->task_name}}</option>
+                                                                                </option>
                                                                                 @endif
                                                                             @endif
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
+                                                                    <br>
+                                                                    <label for="add_task">Add new Task</label>
+                                                                    <select name="task_id" id="task_id" class="form-control">
+                                                                        <option value="" selected disabled hidden>Pilih Task Baru</option>
+                                                                        @foreach ($job_list->get() as $task)
+                                                                            @if ($job_list->find($task->id)->profs()->first() == '')
+                                                                                @continue    
+                                                                            @else
+                                                                                @if (in_array($task->profs()->first()->id, $prof_part))
+                                                                                    @if (in_array($task->id, $saved_task))
+                                                                                        @continue
+                                                                                    @else
+                                                                                        <option value="{{$task->id}}">{{$task->task_name}}</option>
+                                                                                    @endif
+                                                                                @endif
+                                                                            @endif
+                                                                            @endforeach
+                                                                    </select>
                                                                 </div>
-                                                                {{-- <div class="form-group">
-                                                                    <label>Hak Akses</label>
-                                                                    <select class="js-example-basic-multiple select2-hidden-accessible" id="hak_akses" name="hak_akses[]" multiple="" tabindex="-1" aria-hidden="true">
-                                                                        <option value="1">Menambah dan menghapus kolom</option>
-                                                                        <option value="2">Menambah task dan menghapus task</option>
-                                                                        <option value="3">Mengubah poin</option>
-                                                                        <option value="4">Melalukan assignee &amp; checking ke pengerja</option>
-                                                                      </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><span class="select2-selection__clear">×</span><li class="select2-selection__choice" title="Menambah dan menghapus kolom"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah dan menghapus kolom</li><li class="select2-selection__choice" title="Menambah task dan menghapus task"><span class="select2-selection__choice__remove" role="presentation">×</span>Menambah task dan menghapus task</li><li class="select2-selection__choice" title="Melalukan assignee &amp; checking ke pengerja"><span class="select2-selection__choice__remove" role="presentation">×</span>Melalukan assignee &amp; checking ke pengerja</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                                                </div> --}}
+                                                                <div class="form-group">
+                                                                    <label>Details</label>
+                                                                    <textarea class="form-control" id="details" name="details" rows="3"
+                                                                        placeholder="Enter Task Details ..."></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                  <label for="expired_at">Add Task Deadline</label>
+                                                                  <input name="expired_at" class="form-control" type="datetime-local">
+                                                                </div>
+                                                                
                                                                 <input type="hidden" name="project_id" id="project_id"
                                                                                 value="{{ $data->id }}">
                                                                 <input type="hidden" name="user_id" id="user_id"

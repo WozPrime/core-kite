@@ -91,7 +91,7 @@ class UserController extends Controller
             Request()->pp == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
-            return redirect()->back();
+            return redirect('/admin/profile');
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -153,7 +153,7 @@ class UserController extends Controller
                 }
             }
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/profile');
         }
     }
 
@@ -176,7 +176,7 @@ class UserController extends Controller
             Request()->pp == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
-            return redirect()->back();
+            return redirect('/admin/profile');
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -231,7 +231,7 @@ class UserController extends Controller
                 }
             }
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/profile');
         }
     }
 
@@ -247,7 +247,7 @@ class UserController extends Controller
         $this->user->deleteData($id);
         DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
         Alert::success('Sukses', 'Data berhasil Diperbaharui');
-        return redirect()->back();
+        return redirect('/admin/profile');
     }
     public function klien()
     {
