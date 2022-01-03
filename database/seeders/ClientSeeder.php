@@ -15,7 +15,7 @@ class ClientSeeder extends Seeder
      */
     public function run()
     {
-        Client::truncate();
+        //Client::truncate();
         Client::create([
             'instance_id' => '1',
             'name' => 'Hina',

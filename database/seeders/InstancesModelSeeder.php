@@ -15,7 +15,7 @@ class InstancesModelSeeder extends Seeder
      */
     public function run()
     {
-        InstancesModel::truncate();
+        //InstancesModel::truncate();
         InstancesModel::create([
             'jenis_instansi' => 'Pemerintah'
         ]);

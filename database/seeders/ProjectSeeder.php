@@ -15,7 +15,7 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        ProjectModel::truncate();
+        //ProjectModel::truncate();
         ProjectModel::create([
             'instance_id' => '1',
             'client_id' => '1',
