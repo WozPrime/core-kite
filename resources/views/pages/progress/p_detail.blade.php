@@ -17,7 +17,18 @@ use Carbon\Carbon;
 @section('content')
     <div class="container pt-3">
         <div class="main-body">
-
+            @error('profs')
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Peringatan!</strong>  Data Masih Kosong.
+            </div>
+            @enderror
+            @error('tags')
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Peringatan!</strong>  Data Masih Kosong.
+            </div>
+            @enderror
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card" style="height: 375px">
@@ -104,7 +115,7 @@ use Carbon\Carbon;
                                     </div>
                                     
                                 </form>
-                                <table class="table table-responsive-sm table-bordered" id="myTable2">
+                                <table class="table table-responsive-sm table-bordered" id="myTable">
                                     <thead>
                                         <tr>
                                             <th style="min-width: 20px; max-width: 20px;" class="text-center">No.</th>
@@ -188,22 +199,34 @@ use Carbon\Carbon;
                                                                     <label for="Profession">Profession</label>
                                                                     <div class="select2-primary">
                                                                         <select class="select2" name="profs[]" data-dropdown-css-class="select2-primary"
-                                                                                multiple="multiple" data-placeholder="Select a Profession" style="width: 100%;" autocomplete="off">
+                                                                                multiple="multiple" data-placeholder="Select a Profession" style="width: 100%;" autocomplete="off" >
                                                                                 @foreach ($profs as $prof)
                                                                                 <option @if (in_array($prof->id, $prof_part))
                                                                                     selected @endif
                                                                                     value="{{ $prof->id }}">{{ $prof->prof_name }}
                                                                                 </option>
                                                                                 @endforeach
-                                                                        </select>
+                                                                        </select>  
                                                                     </div>
+                                                                    {{-- <select name="prof_id" id="prof_id" class="form-control">
+                                                                        <option value="" selected disabled hidden>Pilih
+                                                                            Profesi </option>
+                                                                            @foreach ($profs as $prof)
+                                                                                @if (in_array($prof->id, $prof_part))
+                                                                                    @continue
+                                                                                @endif
+                                                                                <option value="{{ $prof->id }}">{{ $prof->prof_name }}
+                                                                                </option>
+                                                                            @endforeach 
+                                                                            not this part
+                                                                             <option value="{{ $profession->id }}">{{ $profession->prof_name }}
+                                                                            </option> 
+                                                                            </select> --}}
                                                                 </div>
-                                                                
                                                                 <input type="hidden" name="project_id" id="project_id"
                                                                                 value="{{ $data->id }}">
                                                                 <input type="hidden" name="user_id" id="user_id"
                                                                                 value="{{ $list->user_id }}">
-
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -489,11 +512,6 @@ use Carbon\Carbon;
 <script>
     $(document).ready(function() {
         $('#myTable1').DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#myTable2').DataTable();
     });
 </script>
 @endsection

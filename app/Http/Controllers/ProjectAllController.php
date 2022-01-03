@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProfTask;
 use App\Models\ProjectAll;
+use App\Models\ProjectModel;
 use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectAllController extends Controller
@@ -17,18 +20,20 @@ class ProjectAllController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(ProjectAll $projectAll, User $user, ProjectTask $projectTask)
+    public function __construct(ProjectAll $projectAll, User $user, ProjectTask $projectTask, ProjectModel $project, Task $task)
     {
         // İnitialize user property.
         $this->projectAll = $projectAll;
         $this->user = $user;
         $this->projectTask = $projectTask;
+        $this->project = $project;
+        $this->task = $task;
     }
     public function index()
-    {   
-        return view('pages.admin.todo',[
-            'project_all'=>ProjectAll::all(),
-            'tasks'=>Task::all(),
+    {
+        return view('pages.admin.todo', [
+            'project_task' => ProjectTask::all()->where('user_id', Auth::user()->id),
+            'tasks' => Task::all(),
         ]);
     }
 
@@ -56,55 +61,25 @@ class ProjectAllController extends Controller
         ], [
             'profs.required' => 'Profesi Tidak Boleh Kosong!!',
         ]);
-        $checkProf =$this->projectAll->where(['user_id' => $req->user_id, 'project_id' => $req->project_id]);
-        if (count($req->profs) < count($checkProf->get())){
-            $checkProf->delete();
-            for ($i=0; $i < count($req->profs); $i++){
-                $this->projectAll->create([
-                    'user_id' => $req->user_id,
-                    'project_id' => $req->project_id,
-                    'prof_id' => $req->profs[$i],
-                ]);
+        $checkProf = $this->projectAll->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->pluck('prof_id')->toArray();
+        $newProfIds = array_map('intval', $req->profs);
+        // dd($newProfIds);
+        $compareDeleted = array_diff($checkProf,$newProfIds);
+        $compareNew = array_diff($newProfIds,$checkProf);
+        // dd($compareDeleted,$compareNew);
+        
+        foreach ($compareDeleted as $delete) {
+            ProjectAll::where(['user_id'=>$req->user_id, 'project_id' => $req->project_id,'prof_id' => $delete])->delete();    
+            $deleteTask = ProfTask::where('prof_id',$delete)->pluck('task_id')->toArray();
+            foreach ($deleteTask as $delTask) {
+                ProjectTask::where(['user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $delTask])->delete();
             }
         }
-        elseif (count($req->profs) == count($checkProf->get())){
-            // dd(count($checkProf->get()));
-            // dd(count($req->profs));
-            $id = $checkProf->get()->first()->id;
-            for ($i=0; $i < count($req->profs); $i++){
-                // dd($if,$req->profs[$i],$id);
-                $this->projectAll->find($id+$i)->update([
-                    'prof_id' => $req->profs[$i],
-                ]);
-            }
-        }else {
-            $id = $checkProf->get()->first()->id;
-            for ($i=0; $i < count($req->profs); $i++){
-                // dd($if,$req->profs[$i],$id);
-                if ($i < count($checkProf->get())){
-                    $this->projectAll->find($id+$i)->update([
-                        'prof_id' => $req->profs[$i],
-                    ]);
-                } else{
-                    $this->projectAll->create([
-                        'user_id' => $req->user_id,
-                        'project_id' => $req->project_id,
-                        'prof_id' => $req->profs[$i],
-                    ]);
-                }
-            }
+        foreach ($compareNew as $new) {
+            ProjectAll::create([
+                'user_id'=>$req->user_id, 'project_id' => $req->project_id,'prof_id' => $new
+            ]);
         }
-        // if ($checkProf->first()->prof_id == ''){
-        //     $checkProf->update([
-        //         'prof_id' => $request->prof_id,
-        //     ]);
-        // }else {
-        //     $data = new ProjectAll;
-        //     $data->user_id = $request->user_id;
-        //     $data->project_id = $request->project_id;
-        //     $data->prof_id = $request->prof_id;
-        //     $data->save();
-        // }
         Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
         return redirect()->back();
     }
@@ -117,7 +92,11 @@ class ProjectAllController extends Controller
      */
     public function show()
     {
-        
+        $projectTask = $this->projectTask;
+        $Task = $this->task;
+        $User = $this->user;
+        $Project = $this->project;
+        return view('pages.admin.manajemen.mtask', compact('projectTask', 'Task', 'User', 'Project'));
     }
 
     /**
@@ -126,8 +105,18 @@ class ProjectAllController extends Controller
      * @param  \App\Models\ProjectAll  $projectAll
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $req)
+    public function edit($id, Request $req)
     {
+        $req->validate([
+            'expired_at' => 'required',
+        ], [
+            'expired_at.required' => 'Profesi Tidak Boleh Kosong!!',
+        ]);
+        $this->projectTask->find($id)->update([
+            'expired_at' => $req->expired_at,
+        ]);
+        Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
+        return redirect()->back();
         
     }
 
@@ -135,61 +124,28 @@ class ProjectAllController extends Controller
     {
         // dd(count($this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->get()));
         // dd($req->tags[1]);
-        $checkTask = $this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id]);
+        $checkTask = $this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->pluck('task_id')->toArray();
         $req->validate([
             'tags' => 'required',
         ], [
             'tags.required' => 'Profesi Tidak Boleh Kosong!!',
         ]);
-        if(count($checkTask->get()) == 0){
-            foreach ($req->tags as $tag) {
-                $this->projectTask->create([
-                    'user_id' => $req->user_id,
-                    'project_id' => $req->project_id,
-                    'task_id' => $tag,
-                ]);
-            }
+        $newTagsIds = array_map('intval', $req->tags);
+        // dd($newProfIds);
+        $compareDeleted = array_diff($checkTask,$newTagsIds);
+        $compareNew = array_diff($newTagsIds,$checkTask);
+        // dd($compareDeleted,$compareNew);
+        
+        foreach ($compareDeleted as $delete) {
+            ProjectTask::where(['user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $delete])->delete();
         }
-        elseif (count($req->tags) < count($checkTask->get())) {
-            $checkTask->delete();
-            for ($i=0; $i < count($req->tags); $i++){
-                $this->projectTask->create([
-                    'user_id' => $req->user_id,
-                    'project_id' => $req->project_id,
-                    'task_id' => $req->tags[$i],
-                ]);
-            }
+        foreach ($compareNew as $new) {
+            ProjectTask::create([
+                'user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $new
+            ]);
         }
-        elseif (count($req->tags) == count($checkTask->get())){
-            // dd(count($checkTask->get()));
-            // dd(count($req->tags));
-            $id = $checkTask->get()->first()->id;
-            for ($i=0; $i < count($req->tags); $i++){
-                $this->projectTask->find($id+$i)->update([
-                    'user_id' => $req->user_id,
-                    'project_id' => $req->project_id,
-                    'task_id' => $req->tags[$i],
-                ]);
-            }
-        } else {
-            $id = $checkTask->get()->first()->id;
-            for ($i=0; $i < count($req->tags); $i++){
-                if ($i < count($checkTask->get())){
-                    $this->projectTask->find($id+$i)->update([
-                        'user_id' => $req->user_id,
-                        'project_id' => $req->project_id,
-                        'task_id' => $req->tags[$i],
-                    ]);
-                } else{
-                    $this->projectTask->create([
-                        'user_id' => $req->user_id,
-                        'project_id' => $req->project_id,
-                        'task_id' => $req->tags[$i],
-                    ]);
-                }
-            }
-        }
-        Alert::success('Sukses','Tugas Berhasil Ditambahkan!!!');
+
+        Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
         return redirect()->back();
     }
 
@@ -202,7 +158,6 @@ class ProjectAllController extends Controller
      */
     public function update(Request $request, ProjectAll $projectAll)
     {
-        
     }
 
     /**
@@ -213,9 +168,16 @@ class ProjectAllController extends Controller
      */
     public function destroy($id)
     {
-        ProjectAll::where('user_id',$id)->delete();
-        ProjectTask::where('user_id',$id)->delete();
+        ProjectAll::where('user_id', $id)->delete();
+        ProjectTask::where('user_id', $id)->delete();
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect()->back();
+    }
+
+    public function deleteTask($id)
+    {
+        ProjectTask::find($id)->delete();
+        Alert::success('Sukses', 'Task berhasil dihapus!');
         return redirect()->back();
     }
 }
