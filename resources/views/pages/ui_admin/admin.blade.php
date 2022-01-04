@@ -79,6 +79,7 @@
     </div>
     <!-- ./wrapper -->
 
+    <script src="{{asset('plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->

@@ -11,7 +11,6 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-
 class ProjectAllController extends Controller
 {
     /**
@@ -168,8 +167,15 @@ class ProjectAllController extends Controller
      * @param  \App\Models\ProjectAll  $projectAll
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectAll $projectAll)
+    public function file_move(Request $request,$id)
     {
+        
+        $file = $request->file('file');
+        $fileName = time().'.'.$file->extension();
+        $file->move(public_path('files'),$fileName);
+        
+    
+        return response()->json(['success'=>$fileName]);
     }
 
     /**
