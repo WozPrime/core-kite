@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class Role
+class IsStudent
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class Role
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->role == 'student') {
             return $next($request);
         }
 
-        return redirect('/emp');
+        return redirect()->route('home');
     }
 }

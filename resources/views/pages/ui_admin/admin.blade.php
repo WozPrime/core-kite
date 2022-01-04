@@ -36,7 +36,7 @@
 
         @include('pages.ui_admin.navbar')
         @include('pages.ui_admin.sidebar')
-        
+
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

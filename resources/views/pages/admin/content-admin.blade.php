@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Profile
+    Admin   | Content
 @endsection
 @section('body')
 @section('navbar')
@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Dashboard</h1>
                 </div><!-- /.col -->
-                
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -62,7 +62,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ $user_count }}</h3>
 
                             <p>User Registrations</p>
                         </div>
@@ -424,7 +424,7 @@
                                     </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                                        <label for="todoCheck3"></label>
+                                        <label for="todoCheck3"></label>femp
                                     </div>
                                     <span class="text">Let theme shine like a star</span>
                                     <small class="badge badge-warning"><i class="far fa-clock"></i> 1

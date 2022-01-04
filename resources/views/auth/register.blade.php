@@ -65,6 +65,13 @@
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                    </div>Select Role
+                    <div class="input-group mb-3">
+                        <select name="role">
+                            <option value="admin">Admin</option>
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            </select>
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -95,7 +102,7 @@
                     </a>
                 </div> --}}
 
-                <a href="/login" class="text-center">I already have a membership</a>
+                <a href="/login" class="text-center">Login</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

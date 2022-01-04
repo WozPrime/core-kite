@@ -38,61 +38,56 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-responsive-lg">
                                     <thead>
                                         <tr>
-                                            <th style="width: 10px">No</th>
-                                            <th>Username</th>
-                                            <th>Progress</th>
-                                            <th style="width: 40px">Label</th>
+                                            <th style="width: 10px">Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th style="width: 40px">Level</th>
+                                            <th>Join</th>
+                                            <th>Option</th>
+                                            {{-- <th>Photo</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($users as $user)
                                         <tr>
-                                            <td>1.</td>
-                                            <td>Update software</td>
+                                            <td>UA2021-{{$user->id}}</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->role}}</td>
+                                            <td>{{$user->email_verified_at}}</td>
                                             <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                </div>
+                                                {{-- < action="{{ route('admin_destroy', $user->id) }}" method="POST"> --}}
+
+                                                    {{-- <a href="{{ route('admin.show', $user->id) }}" title="show">
+                                                        <i class="fas fa-eye text-success  fa-lg"></i>
+                                                    </a> --}}
+
+                                                    <a href="{{ route('admin.edit', $user->id) }}">
+                                                        <i class="fas fa-edit  fa-lg"></i>
+
+                                                    </a>
+
+                                                    <form action="{{ route('admin.destroy', $user->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                                            <i class="fas fa-trash fa-lg text-danger"></i>
+
+                                                        </button>
+                                                    </form>
                                             </td>
-                                            <td><span class="badge bg-danger">55%</span></td>
+                                            {{-- <td>{{$user->avatar}}</td> --}}
                                         </tr>
-                                        <tr>
-                                            <td>2.</td>
-                                            <td>Clean database</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-warning">70%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.</td>
-                                            <td>Cron job running</td>
-                                            <td>
-                                                <div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-primary">30%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4.</td>
-                                            <td>Fix and squish bugs</td>
-                                            <td>
-                                                <div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-success" style="width: 90%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-success">90%</span></td>
-                                        </tr>
+                                            @endforeach
                                     </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer clearfix">
+                            {{-- <div class="card-footer clearfix">
                                 <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -100,15 +95,33 @@
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                         <!-- /.card -->
                         <!-- /.card-body -->
                     </div>
     </section>
-    <!-- /.content -->
+
 
 
 @section('footer')
 @endsection
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
+
