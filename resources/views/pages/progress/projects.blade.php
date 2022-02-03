@@ -4,38 +4,6 @@
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-{{-- <style>
-    .floating-btn {
-        width: 50px;
-        height: 50px;
-        background: var(--gray-dark);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        border-radius: 50%;
-        color: var(--white);
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        transition: background 0.25s;
-
-        /* button */
-        outline: gray;
-        border: none;
-        cursor: pointer;
-    }
-
-    .floating-btn:hover {
-        color: lawngreen;
-    }
-
-    .floating-btn:active {
-        background: var(--gray);
-    }
-</style> --}}
-
 <style>
     * {
         margin: 0;
@@ -184,7 +152,7 @@
                                         <th width="10%" style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody height>
+                                <tbody>
                                     @foreach ($data as $tbl_project)
                                         <tr>
                                             <td style="text-align: center">{{ $loop->iteration }}</td>

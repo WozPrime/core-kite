@@ -30,7 +30,9 @@ class UserController extends Controller
 
     public function admin()
     {
-        return view('pages.admin.content-admin');
+        return view('pages.admin.content-admin',[
+            //'pr' => DB::table('projects')->offset(0)->limit(1)->get(),
+        ]);
     }
 
     public function tables()
@@ -66,7 +68,7 @@ class UserController extends Controller
             ];
             $this->user->editData($id, $update_data);
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
-            return redirect()->route('profile');
+            return redirect()->back();
         }
     }
 

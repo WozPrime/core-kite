@@ -89,11 +89,11 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $tbl_report)
-                                        <tr>
+                                        <tr data-widget="expandable-table" aria-expanded="false">
                                             <td>{{ $loop->iteration }}</td>
                                             <td></td>
                                             <td>{{ $tbl_report->report_status }}</td>
-                                            <td>{{ $tbl_report->report_date }}</td>
+                                            <td>{{ $tbl_report->created_at }}</td>
                                             <td></td>
                                             <td>{{ $tbl_report->project_name }}</td>
                                             <td style="text-align: center">
@@ -107,6 +107,14 @@
                                                     href="#delete{{ $tbl_project->report_id }}"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
+                                        </tr>
+                                        <tr class="expandable-body">
+                                            <td colspan="2">
+                                                <p>
+                                                    {{ $tbl_report->report_detail }}
+                                                </p>
+                                            </td>
+                                        </tr>
                                         <!-- /.modal -->
                                         <div class="modal fade" id="edit{{ $tbl_project->report_id }}">
                                             <div class="modal-dialog">
