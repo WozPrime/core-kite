@@ -95,6 +95,24 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/admin/manage/income"
+                                class="nav-link  {{ \Request::route()->getName() == 'income' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-funnel-dollar"></i>
+                                <p>
+                                    Income
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/manage/outcome"
+                                class="nav-link  {{ \Request::route()->getName() == 'Outcome' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-money-check-alt"></i>
+                                <p>
+                                    Outcome
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
