@@ -309,7 +309,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
-                        <h3 class="card-title">Add New Instansi</h3>
+                        <h3 class="card-title">Add New Instance</h3>
                     </div>
                     <div class="card-body">
                         <form autocomplete="off" action="/admin/instansi/" method="post"
