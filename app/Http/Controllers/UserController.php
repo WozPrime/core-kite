@@ -66,7 +66,7 @@ class UserController extends Controller
             ];
             $this->user->editData($id, $update_data);
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
-            return redirect()->route('profile');
+            return redirect()->back();
         }
     }
 

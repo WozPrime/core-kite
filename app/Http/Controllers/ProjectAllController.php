@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doc;
 use App\Models\ProfTask;
 use App\Models\ProjectAll;
 use App\Models\ProjectModel;
@@ -11,6 +12,8 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File; 
 class ProjectAllController extends Controller
 {
     /**
@@ -33,6 +36,7 @@ class ProjectAllController extends Controller
         return view('pages.admin.todo', [
             'project_task' => ProjectTask::all()->where('user_id', Auth::user()->id),
             'tasks' => Task::all(),
+            'file_task' => Doc::all(),
         ]);
     }
 
@@ -169,15 +173,41 @@ class ProjectAllController extends Controller
      */
     public function file_move(Request $request,$id)
     {
-        
         $file = $request->file('file');
-        $fileName = time().'.'.$file->extension();
-        $file->move(public_path('files'),$fileName);
-        
-    
-        return response()->json(['success'=>$fileName]);
+        $fileName = time().'_'.$file->getClientOriginalName();
+        $uploadedFile = $file->move(public_path('files/task/'),$fileName);
+        ProjectTask::find($id)->update([
+            'post_date' => Carbon::now(),
+        ]);
+        $newDoc = new Doc;
+        $newDoc->pt_id = $id;
+        $newDoc->file_name = $fileName;
+        $newDoc->save();
+
+        return response()->json(['success'=>$uploadedFile]);
     }
 
+    public function upload_details($id,Request $req)
+    {   
+        $req->validate([
+            'upload_details' => 'required',
+        ],[
+            'upload_details.required' => 'Keterangan Upload Tidak Boleh Kosong!!!!',
+        ]);
+        
+        if (Doc::where('pt_id',$id)->exists()) {
+            ProjectTask::find($id)->update([
+                'upload_details' => $req->upload_details,
+                'post_date' => Carbon::now(),
+            ]);
+    
+            Alert::success('Sukses', 'Upload Tugas Berhasil!!!');
+        }else{
+            Alert::warning('Peringatan', 'Upload Dokumen terlebih dahulu!!!');
+        }
+        
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -195,6 +225,16 @@ class ProjectAllController extends Controller
     public function deleteTask($id)
     {
         ProjectTask::find($id)->delete();
+        Alert::success('Sukses', 'Task berhasil dihapus!');
+        return redirect()->back();
+    }
+
+    public function deleteFile($file_name)
+    {
+        $file_path = public_path().'/files/task/'.$file_name;
+        File::delete($file_path);
+        Doc::where('file_name',$file_name)->delete();
+
         Alert::success('Sukses', 'Task berhasil dihapus!');
         return redirect()->back();
     }

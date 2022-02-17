@@ -19,6 +19,7 @@ class ProjectTask extends Model
         'checked_at',
         'expired_at',
         'post_date',
+        'upload_details',
     ];
     public function insertData($data)
     {

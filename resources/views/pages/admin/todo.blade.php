@@ -27,6 +27,12 @@ use Illuminate\Support\Carbon;
                     </ol>
                 </div>
             </div>
+            @error('upload_details')
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Peringatan!</strong> Data Masih Kosong.
+                </div>
+            @enderror
         </div><!-- /.container-fluid -->
     </section>
 
@@ -57,13 +63,14 @@ use Illuminate\Support\Carbon;
                                         if ($subsDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
                                             $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
-                                        
+                                            if (!$job->post_date){
                                             if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
                                                 $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
                                                 $nearestDeadline->task = $tasks
                                                     ->where('id', $job->task_id)
                                                     ->pluck('task_name')
                                                     ->implode(' ');
+                                            }
                                             }
                                         }
                                         
@@ -74,8 +81,11 @@ use Illuminate\Support\Carbon;
                                             <i class="fas fa-ellipsis-v"></i>
                                         </span>
                                         <div class="icheck-primary d-inline ml-2">
-                                            <input type="checkbox" value="" name="todo{{ $job->id }}"
-                                                id="todoCheck{{ $job->id }}">
+                                            <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
+                                                id="todoCheck{{ $job->id }}" 
+                                                @if ($job->upload_details && ($file_task->where('pt_id',$job->id)->count() > 0))
+                                                    checked
+                                                @endif>
                                             <label for="todoCheck{{ $job->id }}"></label>
                                         </div>
                                         <span
@@ -85,9 +95,9 @@ use Illuminate\Support\Carbon;
                                         @if ($subsDate > 0)
                                             @if ($diffMinutes > 7 * 1440)
                                             badge-success
-                                            @elseif ($diffMinutes <= 7*1440 && $diffMinutes > 4*1440)
+                                            @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
-                                            @elseif ($diffMinutes <= 4*1440 && $diffMinutes > 1*1440)
+                                            @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
                                             badge-warning
                                             @endif
                                         @else
@@ -105,9 +115,13 @@ use Illuminate\Support\Carbon;
                                                 EXPIRED
                                             @endif
                                         </small>
-                                        <div class="tools">
+                                        <div style="float: right; margin-left: 15px">
                                             <a data-toggle="modal" data-target="#assignment{{ $job->id }}">
-                                                <i class="fas fa-paper-plane"></i></a>
+                                                <i class="fas fa-paper-plane" style="color: var(--primary)"></i></a>
+                                        </div>
+                                        <div style="float: right">
+                                            <a data-toggle="modal" data-target="#edit_file{{ $job->id }}">
+                                                <i class="fas fa-edit" style="color: var(--gray)"></i></a>
                                         </div>
 
                                     </li>
@@ -118,81 +132,195 @@ use Illuminate\Support\Carbon;
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Add Assignment</h4>
+                                                    <h4 class="modal-title">{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}</h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div id="action{{ $job->id }}" class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="btn-group w-100">
-                                                                <span class="btn btn-success col fileinput-button{{$job->id}}">
-                                                                    <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
-                                                                </span>
-                                                                <button type="submit" class="btn btn-primary col start">
-                                                                    <i class="fas fa-upload"></i>
-                                                                    <span>Start upload</span>
-                                                                </button>
-                                                                <button type="reset" class="btn btn-warning col cancel">
-                                                                    <i class="fas fa-times-circle"></i>
-                                                                    <span>Cancel upload</span>
-                                                                </button>
+                                                    <div class="row">
+                                                        <div id="action{{ $job->id }}" class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="btn-group w-100">
+                                                                    <span
+                                                                        class="btn btn-success col fileinput-button{{ $job->id }}">
+                                                                        <i class="fas fa-plus"></i>
+                                                                        <span>Add files</span>
+                                                                    </span>
+                                                                    <button type="submit" class="btn btn-primary col start">
+                                                                        <i class="fas fa-upload"></i>
+                                                                        <span>Start upload</span>
+                                                                    </button>
+                                                                    <button type="reset" class="btn btn-warning col cancel">
+                                                                        <i class="fas fa-times-circle"></i>
+                                                                        <span>Cancel upload</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 d-flex align-items-center">
+                                                                <div class="fileupload-process w-100">
+                                                                    <div id="total-progress{{ $job->id }}"
+                                                                        class="progress progress-striped active"
+                                                                        role="progressbar" aria-valuemin="0"
+                                                                        aria-valuemax="100" aria-valuenow="0">
+                                                                        <div class="progress-bar progress-bar-success"
+                                                                            style="width:0%;" data-dz-uploadprogress></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6 d-flex align-items-center">
-                                                            <div class="fileupload-process w-100">
-                                                                <div id="total-progress{{ $job->id }}"
-                                                                    class="progress progress-striped active"
-                                                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                                                    aria-valuenow="0">
-                                                                    <div class="progress-bar progress-bar-success"
-                                                                        style="width:0%;" data-dz-uploadprogress></div>
+                                                        <div class="table table-striped files"
+                                                            id="preview{{ $job->id }}">
+                                                            <div id="template{{ $job->id }}" class="row mt-2">
+                                                                <div class="col-auto">
+                                                                    <span class="preview"><img src="data:," alt=""
+                                                                            data-dz-thumbnail /></span>
+                                                                </div>
+                                                                <div class="col d-flex align-items-center">
+                                                                    <p class="mb-0">
+                                                                        <span class="lead" data-dz-name></span>
+                                                                        (<span data-dz-size></span>)
+                                                                    </p>
+                                                                    <strong class="error text-danger"
+                                                                        data-dz-errormessage></strong>
+                                                                </div>
+                                                                <div class="col-4 d-flex align-items-center">
+                                                                    <div class="progress progress-striped active w-100"
+                                                                        role="progressbar" aria-valuemin="0"
+                                                                        aria-valuemax="100" aria-valuenow="0">
+                                                                        <div class="progress-bar progress-bar-success"
+                                                                            style="width:0%;" data-dz-uploadprogress></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto d-flex align-items-center">
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-primary start">
+                                                                            <i class="fas fa-upload"></i>
+                                                                            <span>Start</span>
+                                                                        </button>
+                                                                        <button data-dz-remove
+                                                                            class="btn btn-warning cancel">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            <span>Cancel</span>
+                                                                        </button>
+                                                                        <button data-dz-remove
+                                                                            class="btn btn-danger delete">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            <span>Delete</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="table table-striped files" id="preview{{ $job->id }}">
-                                                        <div id="template{{ $job->id }}" class="row mt-2">
-                                                            <div class="col-auto">
-                                                                <span class="preview"><img src="data:," alt=""
-                                                                        data-dz-thumbnail /></span>
-                                                            </div>
-                                                            <div class="col d-flex align-items-center">
-                                                                <p class="mb-0">
-                                                                    <span class="lead" data-dz-name></span>
-                                                                    (<span data-dz-size></span>)
-                                                                </p>
-                                                                <strong class="error text-danger"
-                                                                    data-dz-errormessage></strong>
-                                                            </div>
-                                                            <div class="col-4 d-flex align-items-center">
-                                                                <div class="progress progress-striped active w-100"
-                                                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                                                    aria-valuenow="0">
-                                                                    <div class="progress-bar progress-bar-success"
-                                                                        style="width:0%;" data-dz-uploadprogress></div>
+                                                    <div class="row">
+                                                        <form action="{{ route('up_details', $job->id) }}" method="POST"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label>Detail Pengumpulan</label>
+                                                                <textarea class="form-control" id="upload_details"
+                                                                    name="upload_details" rows="3"
+                                                                    placeholder="Enter Task Details ..."></textarea>
+                                                                <div class="text-danger">
+                                                                    @error('upload_details')
+                                                                        {{ $message }}
+                                                                    @enderror
                                                                 </div>
                                                             </div>
-                                                            <div class="col-auto d-flex align-items-center">
-                                                                <div class="btn-group">
-                                                                    <button class="btn btn-primary start">
-                                                                        <i class="fas fa-upload"></i>
-                                                                        <span>Start</span>
-                                                                    </button>
-                                                                    <button data-dz-remove class="btn btn-warning cancel">
-                                                                        <i class="fas fa-times-circle"></i>
-                                                                        <span>Cancel</span>
-                                                                    </button>
-                                                                    <button data-dz-remove class="btn btn-danger delete">
-                                                                        <i class="fas fa-trash"></i>
-                                                                        <span>Delete</span>
-                                                                    </button>
+                                                            <div class="col-4 float-right">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="edit_file{{ $job->id }}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit "{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}"</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <table class="table table-responsive-sm table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>File Name</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($file_task->where('pt_id',$job->id) as $file)
+                                                                <tr>
+                                                                    <th>{{$loop->iteration}}</th>
+                                                                    <th style="font-weight: 400">{{($file->file_name)}}</th>
+                                                                    <th style="text-align: center">
+                                                                        <a class="btn btn-danger" data-toggle="modal"
+                                                                            data-target="#delete{{$loop->index}}"><i
+                                                                                class="fa fa-trash"></i></a>
+                                                                    </th>
+                                                                </tr>
+                                                                <div class="modal fade" id="delete{{$loop->index}}">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content bg-danger">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Hapus File {{$loop->index + 1}}</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Apakah anda yakin ingin Menghapus File ini?
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                                                                <a href="/admin/file/delete/{{ $file->file_name }}" type="button" class="btn btn-outline-light">Hapus
+                                                                                    File</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- /.modal-content -->
+                                                                    </div>
+                                                                    <!-- /.modal-dialog -->
+                                                                </div> 
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="row">
+                                                        <form action="{{ route('up_details', $job->id) }}" method="POST"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label>Edit Detail Pengumpulan</label>
+                                                                <textarea class="form-control" id="upload_details"
+                                                                    name="upload_details" rows="3"
+                                                                    placeholder="Enter Task Details ...">{{$job->upload_details}}</textarea>
+                                                                <div class="text-danger">
+                                                                    @error('upload_details')
+                                                                        {{ $message }}
+                                                                    @enderror
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                            <div class="col-4 float-right">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="row">
+                                                        
                                                     </div>
                                                 </div>
 
@@ -205,8 +333,7 @@ use Illuminate\Support\Carbon;
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add
-                                item</button>
+                            <button type="button" class="btn btn-success float-right"><i class="fas fa-tasks"></i> Save Task</button>
                         </div>
                     </div>
                 </div>
@@ -252,9 +379,9 @@ use Illuminate\Support\Carbon;
             previewNode.id = ""
             var previewTemplate = previewNode.parentNode.innerHTML
             previewNode.parentNode.removeChild(previewNode)
-            
+
             var routeName = (document.getElementById('routeSend' + idJob).value)
-            var parentDropzone = document.getElementById('assignment'+idJob);
+            var parentDropzone = document.getElementById('assignment' + idJob);
             var myDropzone = new Dropzone(parentDropzone, { // Make the whole body a dropzone
                 url: routeName, // Set the url
                 thumbnailWidth: 80,
@@ -266,7 +393,9 @@ use Illuminate\Support\Carbon;
                 },
                 autoQueue: false, // Make sure the files aren't queued until manually added
                 previewsContainer: "#preview" + idJob, // Define the container to display the previews
-                clickable: ".fileinput-button"+  idJob // Define the element that should be used as click trigger to select files.
+                clickable: ".fileinput-button" +
+                    idJob // Define the element that should be used as click trigger to select files.
+
             })
 
             myDropzone.on("addedfile", function(file) {
@@ -297,7 +426,7 @@ use Illuminate\Support\Carbon;
                     'Data berhasil diupload!',
                     'success'
                 ).then((result) => {
-                    location.reload();
+                    // location.reload();
                 })
             })
 
@@ -316,7 +445,7 @@ use Illuminate\Support\Carbon;
         // Set the date we're counting down to
         var nearded = JSON.parse(document.getElementById("nearded").value);
         var countDownDate = new Date(nearded.time).getTime();
-        
+
         // Update the count down every 1 second
         var x = setInterval(function() {
 
