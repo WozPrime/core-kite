@@ -375,7 +375,7 @@ use Carbon\Carbon;
             <div class="row gutters-sm">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-orange">
+                        <div class="card-success">
                             <div class="card-header">
                                 <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
                                 <div class="col-xs-3" style="float: right">
