@@ -13,14 +13,17 @@ class CreateOutcomeTable extends Migration
      */
     public function up()
     {
-        Schema::create('income', function (Blueprint $table) {
+        Schema::create('outcome', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pengeluaran');
             $table->string('kode_pengeluaran');
             $table->string('kategori_pengeluaran');
-            $table->string('jenis_pemngeluaran');
+            $table->date('tanggal_pengeluaran');
+            $table->string('jenis_pengeluaran');
             $table->string('nominal_pengeluaran');
             $table->string('tujuan_pengeluaran');
+            $table->string('nota_pengeluaran');
+            $table->text('keterangan_pengeluaran')->nullable();
             $table->timestamps();
         });
     }

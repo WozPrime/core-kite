@@ -17,10 +17,13 @@ class CreateIncomeTable extends Migration
             $table->id();
             $table->string('nama_pemasukan');
             $table->string('kode_pemasukan');
+            $table->date('tanggal_pemasukan');
             $table->string('kategori_pemasukan');
             $table->string('jenis_pemasukan');
             $table->string('nominal_pemasukan');
             $table->string('tujuan_pemasukan');
+            $table->string('nota_pemasukan');
+            $table->text('keterangan_pemasukan');
             $table->timestamps();
         });
     }
