@@ -20,7 +20,7 @@ Dashboard
                                     alt="Logo Instansi" class="rounded-circle" width="150" height="150">
                             </div>
                             <div class="text-center mb-1 ml-2">
-                                Halo, Nama Pengguna
+                                Halo, {{auth()->user()->name}}
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -29,7 +29,7 @@ Dashboard
                                     <h6 class="mb-0">Asal Instansi</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    :
+                                    : {{$klien->instance->nama_instansi}}
                                 </div>
                             </div>
                             <hr>
@@ -85,18 +85,20 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($proyek as $p)
                             <tr>
-                                <td>1</td>
-                                <td>Aplikasi Judi Online Berbasis Website</td>
-                                <td>Aplikasi Website</td>
-                                <td>Rp 69.420.000</td>
-                                <td>In Progress</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$p->project_name}}</td>
+                                <td>{{$p->project_category}}</td>
+                                <td>{{$p->project_value}}</td>
+                                <td>{{$p->project_status}}</td>
                                 <td>
                                     <a href="#" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
                                     <a href="#" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
                                     <a href="#" class="badge bg-green mr-1" data-toggle="modal" data-target="#add-data"><i class="fa fa-clock"></i></a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -121,14 +123,16 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>31 Februari 2069</td>
-                                <td>Aplikasi Judi Online Berbasis Website</td>
-                                <td>Rp 6.942.000</td>
-                                <td>Pembayaran DP</td>
-                                <td>Tunai</td>
-                            </tr>
+                            @foreach ($pembayaran as $p)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$p->tanggal_pembayaran}}</td>
+                                    <td>{{$p->project->project_name}}</td>
+                                    <td>{{$p->nilai_pembayaran}}</td>
+                                    <td>{{$p->deskripsi_pembayaran}}</td>
+                                    <td>{{$p->jenis_pembayaran}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

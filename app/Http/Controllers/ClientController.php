@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Instance;
+use App\Models\User;
+use App\Models\ProjectModel;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -14,7 +18,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $klien=Client::where('user_id',auth()->user()->id)->first();
+        return view ('pages.klien.index',[
+            'klien'=>$klien,
+            'proyek'=>ProjectModel::where('client_id',$klien->id)->get(),
+            'pembayaran'=>Payment::where('user_id',$klien->id)->orderBy('updated_at','DESC')->get(),
+        ]);
     }
 
     /**
@@ -35,15 +44,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Client;
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = bcrypt($request->password);
-        $data->phone_number = $request->phone_number;
-        $data->instance_id = $request->instance_id;
-        $data->save();
-        Alert::success('Sukses', 'Data Klien berhasil ditambahkan!');
-        return redirect()->back();
+
     }
 
     /**

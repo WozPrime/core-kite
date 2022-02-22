@@ -28,7 +28,7 @@ use App\Http\Controllers\ProjectTaskController;
 |
 */
 
-Route::get('/', [UserController::class, 'welcome']);
+Route::get('/', [HomeController::class, 'index']);
 
 // AUTH
 Auth::routes();
@@ -47,8 +47,6 @@ Route::middleware(['role', 'auth'])->group(function () {
 
     //KLIEN
     Route::resource('/admin/instansi', InstanceController::class);
-    Route::resource('/client', ClientController::class);
-
     //Payment
     Route::resource('/admin/payment', PaymentController::class);
 
@@ -86,6 +84,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 });
 
+Route::resource('/client', ClientController::class)->middleware(['auth']);
 // EMPLOYEE
 Route::get('/emp', [UserController::class, 'emp'])->name('emp');
 
