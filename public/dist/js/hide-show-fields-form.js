@@ -1,12 +1,34 @@
 $("#seeAnotherFieldInstance").change(function() {
-    if ($(this).val() == "yes") {
+    if ($('#instance_id').val() == "yes") {
         $('#otherFieldDivInstance').show();
-        $('#otherField').attr('required','');
-        $('#otherField').attr('data-error', 'This field is required.');
+        $('#newnamainstansi').attr('required','');
+        $('#newnamainstansi').attr('data-error', 'This field is required.');
+        $('#newkotainstansi').attr('required','');
+        $('#newkotainstansi').attr('data-error', 'This field is required.');
+        $('#newjenisinstansi').attr('required','');
+        $('#newjenisinstansi').attr('data-error', 'This field is required.');
+        $('#otherFieldDivClient').show();
+        $('#newnamaklien').attr('required','');
+        $('#newnamaklien').attr('data-error', 'This field is required.');
+        $('#newemailklien').attr('required','');
+        $('#newemailklien').attr('data-error', 'This field is required.');
+        $('#newnomorteleponklien').attr('required','');
+        $('#newnomorteleponklien').attr('data-error', 'This field is required.');
     } else {
         $('#otherFieldDivInstance').hide();
-        $('#otherField').removeAttr('required');
-        $('#otherField').removeAttr('data-error');		
+        $('#newnamainstansi').removeAttr('required');
+        $('#newnamainstansi').removeAttr('data-error');		
+        $('#newkotainstansi').removeAttr('required');
+        $('#newkotainstansi').removeAttr('data-error');		
+        $('#newjenisinstansi').removeAttr('required');
+        $('#newjenisinstansi').removeAttr('data-error');
+        $('#otherFieldDivClient').hide();
+        $('#newnamaklien').removeAttr('required');
+        $('#newnamaklien').removeAttr('data-error');				
+        $('#newemailklien').removeAttr('required');
+        $('#newemailklien').removeAttr('data-error');				
+        $('#newnomorteleponklien').removeAttr('required');
+        $('#newnomorteleponklien').removeAttr('data-error');		
     }
 });
 $("#seeAnotherFieldInstance").trigger("change");
@@ -14,14 +36,22 @@ $("#seeAnotherFieldInstance").trigger("change");
 
 
 $("#seeAnotherFieldClient").change(function() {
-    if ($(this).val() == "yes") {
+    if ($('#client_id').val() == "yes") {
         $('#otherFieldDivClient').show();
-        $('#otherField').attr('required','');
-        $('#otherField').attr('data-error', 'This field is required.');
+        $('#newnamaklien').attr('required','');
+        $('#newnamaklien').attr('data-error', 'This field is required.');
+        $('#newemailklien').attr('required','');
+        $('#newemailklien').attr('data-error', 'This field is required.');
+        $('#newnomorteleponklien').attr('required','');
+        $('#newnomorteleponklien').attr('data-error', 'This field is required.');
     } else {
         $('#otherFieldDivClient').hide();
-        $('#otherField').removeAttr('required');
-        $('#otherField').removeAttr('data-error');				
+        $('#newnamaklien').removeAttr('required');
+        $('#newnamaklien').removeAttr('data-error');				
+        $('#newemailklien').removeAttr('required');
+        $('#newemailklien').removeAttr('data-error');				
+        $('#newnomorteleponklien').removeAttr('required');
+        $('#newnomorteleponklien').removeAttr('data-error');				
     }
 });
 $("#seeAnotherFieldClient").trigger("change");

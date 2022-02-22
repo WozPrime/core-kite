@@ -55,9 +55,51 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->instance_id == 'yes'){
+            $instansibaru = new Instance;
+            $instansibaru->nama_instansi = $request->newnamainstansi;
+            $instansibaru->alamat_instansi = $request->newalamatinstansi;
+            $instansibaru->kota_instansi = $request->newkotainstansi;
+            $instansibaru->instances_model_id = $request->newjenisinstansi;
+            $instansibaru->logo_instansi = $request->newlogoinstansi;
+            $instansibaru->save();
+        }
+        if($request->client_id == 'yes'){
+
+            $klienuser= new User;
+            $klienuser->name = $request->newnamaklien;
+            $klienuser->email =  $request->newemailklien;
+            $klienuser->password = bcrypt('default');
+            $klienuser->role = 'client';
+            $klienuser->save();
+
+            $klienbaru = new Client;
+            if($request->instance_id == 'yes'){
+                $klienbaru->instance_id = Instance::where('nama_instansi',$request->newnamainstansi)->first()->id;
+            }
+            else{
+                $klienbaru->instance_id = $request->instance_id;
+            }
+            $klienbaru->user_id = User::where('name',$request->newnamaklien)->first()->id;
+            $klienbaru->name = $request->newnamaklien;
+            $klienbaru->email = $request->newemailklien;
+            $klienbaru->password = bcrypt('default');
+            $klienbaru->phone_number = $request->newnomorteleponklien;
+            $klienbaru->save();
+        }
         $data = new ProjectModel;
-        $data->instance_id = $request->instance_id;
-        $data->client_id = $request->client_id;
+        if($request->instance_id == 'yes'){
+            $data->instance_id = Instance::where('nama_instansi',$request->newnamainstansi)->first()->id;
+        }
+        else{
+            $data->instance_id = $request->instance_id;
+        }
+        if($request->client_id == 'yes'){
+            $data->client_id = Client::where('name',$request->newnamaklien)->first()->id;
+        }
+        else{
+            $data->client_id = $request->client_id;
+        }
         $data->project_code = $request->project_code;
         $data->project_name = $request->project_name;
         $data->project_detail = $request->project_detail;
