@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMeetingsTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateMeetingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meetings', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('project_id');
-            $table->foreignId('client_id');
-            $table->timestamp('tanggal_pertemuan');
-            $table->text('deskripsi_pertemuan');
-            $table->text('hasil_pertemuan')->nullable();
-            $table->text('dokumen_pertemuan')->nullable();
-            $table->text('status_pertemuan');
+            $table->date('tanggal_pembayaran');
+            $table->string('jenis_pembayaran');
+            $table->text('deskripsi_pembayaran');
+            $table->string('nilai_pembayaran');
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateMeetingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meetings');
+        Schema::dropIfExists('payments');
     }
 }

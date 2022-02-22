@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
-use App\Models\Instance;
-use App\Models\User;
-use App\Models\ProjectModel;
+use Alert;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $klien=Client::where('user_id',auth()->user()->id)->first();
-        return view ('pages.klien.index',[
-            'klien'=>$klien,
-            'proyek'=>ProjectModel::where('client_id',$klien->id)->get(),
-            'pembayaran'=>Payment::where('user_id',$klien->id)->orderBy('updated_at','DESC')->get(),
-        ]);
+        //
     }
 
     /**
@@ -44,16 +36,25 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = new Payment;
+        $data->user_id = $request->userpembayaran;
+        $data->project_id = $request->proyekpembayaran;
+        $data->tanggal_pembayaran = $request->tanggalpembayaran;
+        $data->jenis_pembayaran = $request->jenispembayaran;
+        $data->deskripsi_pembayaran = $request->deskripsipembayaran;
+        $data->nilai_pembayaran = $request->nilaipembayaran;
+        $data->save();
+        Alert::success('Sukses', 'Data Pembayaran Berhasil Ditambahkan');
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Payment $payment)
     {
         //
     }
@@ -61,10 +62,10 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -73,10 +74,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
@@ -84,21 +85,13 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Payment $payment)
     {
-        //
-    }
-
-    public function pilihan(Request $data)
-    {
-        $valueClient = Client::select('id', 'name')->where('instance_id', $data->id)->get();
-        $this->message = 'Masuk';
-        return json_encode($valueClient);
-        // return response()->json([
-        //     'message' => $data->id
-        // ]);
+        Payment::destroy('id',$payment->id);
+        Alert::success('Sukses', 'Data Pembayaran Berhasil Dihapus');
+        return redirect()->back();
     }
 }

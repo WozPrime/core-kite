@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Payment;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use App\Models\Client;
@@ -57,29 +58,51 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        Request()->validate([
-            'instance_id' => 'required',
-            'client_id' => 'required',
-            'project_code' => 'required|unique:projects,project_code',
-            'project_name' => 'required',
-            'project_status' => 'required',
-            'project_category' => 'required',
-            'project_start_date' => 'required',
-            'project_deadline' => 'required',
-        ], [
-            'instance_id.required' => 'Wajib diisi!!',
-            'client_id.required' => 'Wajib diisi!!',
-            'project_code.required' => 'Wajib diisi!!',
-            'project_code.unique' => 'Kode harus unik!!',
-            'project_name.required' => 'Wajib diisi!!',
-            'project_status.required' => 'Wajib dipilih!!',
-            'project_category.required' => 'Wajib diisi!!',
-            'project_start_date' => 'Wajib diisi!!',
-            'project_deadline' => 'Wajib diisi!!',
-        ]);
+        if($request->instance_id == 'yes'){
+            $instansibaru = new Instance;
+            $instansibaru->nama_instansi = $request->newnamainstansi;
+            $instansibaru->alamat_instansi = $request->newalamatinstansi;
+            $instansibaru->kota_instansi = $request->newkotainstansi;
+            $instansibaru->instances_model_id = $request->newjenisinstansi;
+            $instansibaru->logo_instansi = $request->newlogoinstansi;
+            $instansibaru->save();
+        }
+        if($request->client_id == 'yes'){
+
+            $klienuser= new User;
+            $klienuser->name = $request->newnamaklien;
+            $klienuser->email =  $request->newemailklien;
+            $klienuser->password = bcrypt('default');
+            $klienuser->role = 'client';
+            $klienuser->save();
+
+            $klienbaru = new Client;
+            if($request->instance_id == 'yes'){
+                $klienbaru->instance_id = Instance::where('nama_instansi',$request->newnamainstansi)->first()->id;
+            }
+            else{
+                $klienbaru->instance_id = $request->instance_id;
+            }
+            $klienbaru->user_id = User::where('name',$request->newnamaklien)->first()->id;
+            $klienbaru->name = $request->newnamaklien;
+            $klienbaru->email = $request->newemailklien;
+            $klienbaru->password = bcrypt('default');
+            $klienbaru->phone_number = $request->newnomorteleponklien;
+            $klienbaru->save();
+        }
         $data = new ProjectModel;
-        $data->instance_id = $request->instance_id;
-        $data->client_id = $request->client_id;
+        if($request->instance_id == 'yes'){
+            $data->instance_id = Instance::where('nama_instansi',$request->newnamainstansi)->first()->id;
+        }
+        else{
+            $data->instance_id = $request->instance_id;
+        }
+        if($request->client_id == 'yes'){
+            $data->client_id = Client::where('name',$request->newnamaklien)->first()->id;
+        }
+        else{
+            $data->client_id = $request->client_id;
+        }
         $data->project_code = $request->project_code;
         $data->project_name = $request->project_name;
         $data->project_detail = $request->project_detail;
@@ -127,6 +150,8 @@ class ProjectController extends Controller
             // 'prof_part' => $prof_part,
             'user_task' => $user_task,
             'project_task' => $project_task,
+            'task_part' => $task_part,
+            'pembayaran' => Payment::where('project_id',$proyek->id)->get(),
         ]);
     }
 

@@ -18,4 +18,16 @@ class Client extends Model
     public function project_model(){
         return $this->hasMany(ProjectModel::class);
     }
+    
+    public function payment(){
+        return $this->hasMany(Payment::class);
+    }
+
+    public function client(){
+        return $this->hasMany(Client::class);
+    }
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
 }

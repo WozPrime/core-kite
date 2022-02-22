@@ -46,18 +46,21 @@ class User extends Authenticatable
         return $this->hasOne(ProfUserModel::class);
     }
 
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+
     public function task()
     {
         return $this->belongsToMany(Task::class);
     }
 
-    public function projectTask()
-    {
-        return $this->belongsToMany(ProjectTask::class);
-    }
-
     public function projectAll(){
         return $this->hasMany(ProjectAll::class);
+    }
+
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
     }
 
     public function profs()

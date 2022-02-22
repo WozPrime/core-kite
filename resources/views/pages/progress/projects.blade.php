@@ -305,6 +305,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="add-instance">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -425,7 +426,7 @@
                             @csrf
                             <div class="content">
     
-                                <div class="form-group">
+                                <div class="form-group" id="seeAnotherFieldInstance">
                                     <label for="seeAnotherFieldInstance">Pilih Instansi</label>
                                     <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
                                         <option selected hidden>Pilih Instansi</option>
@@ -433,17 +434,68 @@
                                             <option value="{{ $i->id }}">
                                                 {{ $i->nama_instansi }} </option>
                                         @endforeach
+                                        <option value="yes">Tambah Instansi Baru</option>
                                     </select>
                                     @error('project_name')
                                         {{ $message }}
                                     @enderror
                                 </div>
+                                
+                                <div id="otherFieldDivInstance">
+                                    <div class="form-group">
+                                        <label for="otherFieldDivInstance">Nama Instansi</label>
+                                        <input type="text" name="newnamainstansi" id="newnamainstansi" class="form-control" placeholder="Wajib Diisi">
+                                    </div>
     
-                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="otherFieldDivInstance">Kota Instansi</label>
+                                        <input type="text" name="newkotainstansi" id="newkotainstansi" class="form-control" placeholder="Wajib Diisi">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="otherFieldDivInstance">Jenis Instansi</label>
+                                        <select name="newjenisinstansi" id="newjenisinstansi" class="form-select">
+                                            <option selected hidden value=""> Pilih Jenis Instansi </option>
+                                            <option value="1">Pemerintah</option>
+                                            <option value="2">Swasta</option>
+                                            <option value="3">Perorangan</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="otherFieldDivInstance">Alamat Instansi</label>
+                                        <textarea name="newalamatinstansi" id="newalamatinstansi" class="form-control" cols="30" rows="3" placeholder="Isikan alamat instansi (opsional)"></textarea>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="otherfieldDivInstance">Logo Instansi</label>
+                                        <input type="file" class="form-control" id="newlogoinstansi" name="newlogoinstansi">
+                                    </div>
+                                    <br><hr><br>
+                                </div>
+
+                                <div class="form-group" id="seeAnotherFieldClient">
                                     <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                   
                                     <select class='form-select' name='client_id' id='client_id' required>
+                                        <option selected hidden>Pilih Klien</option>
+                                        <option value="yes">Tambah Klien Baru</option>
                                     </select>
+                                </div>
+                                
+                                <div id="otherFieldDivClient">
+                                    <div class="form-group">
+                                        <label>Nama Klien</label>
+                                        <input type="text" name="newnamaklien" id="newnamaklien" class="form-control" placeholder="Wajib Diiisi!">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Klien</label>
+                                        <input type="email" name="newemailklien" id="newemailklien" class="form-control" placeholder="Wajib Diisi!">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newnomorteleponklien">Nomor Telepon</label>
+                                        <input type="text" id="newnomorteleponklien" name="newnomorteleponklien" class="form-control" placeholder="Wajib Diisi!">
+                                    </div>
+                                    <br><hr><br>
                                 </div>
     
                                 <div class="form-group">
@@ -548,6 +600,7 @@
         for (var i = 0; i < data.length; i++) {
             baris += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
         }
+        baris += '<option value="yes">Tambah Klien Baru</option>'
         // baris = baris + '</select>'
         // if(typeof(document.getElementById('selectDefault') != 'undefined' && document.getElementById('selectDefault') != null)){
         //     document.getElementById('selectDefault').remove();
