@@ -129,7 +129,7 @@ use Illuminate\Support\Carbon;
                                     <input type="hidden" id="routeSend{{ $job->id }}"
                                         value="{{ route('add_docs', $job->id) }}">
                                     <div class="modal fade" id="assignment{{ $job->id }}">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}</h4>
@@ -242,7 +242,7 @@ use Illuminate\Support\Carbon;
                                         </div>
                                     </div>
                                     <div class="modal fade" id="edit_file{{ $job->id }}">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Edit "{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}"</h4>
@@ -265,7 +265,7 @@ use Illuminate\Support\Carbon;
                                                                 @foreach ($file_task->where('pt_id',$job->id) as $file)
                                                                 <tr>
                                                                     <th>{{$loop->iteration}}</th>
-                                                                    <th style="font-weight: 400">{{($file->file_name)}}</th>
+                                                                    <th style="font-weight: 400">{{Illuminate\Support\Str::limit($file->file_name, 80) }}</th>
                                                                     <th style="text-align: center">
                                                                         <a class="btn btn-danger" data-toggle="modal"
                                                                             data-target="#delete{{$loop->index}}"><i

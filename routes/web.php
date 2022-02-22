@@ -14,8 +14,8 @@ use App\Http\Controllers\ProjectAllController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\IncomeController;
-use App\Http\Controllers\OutcomeController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\FiCategoryController;
 use App\Http\Middleware\Role;
 use App\Models\ProjectAll;
 
@@ -85,12 +85,15 @@ Route::middleware(['role', 'auth'])->group(function () {
     
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
-    Route::resource('/admin/manage/income', IncomeController::class);
-    Route::resource('/admin/manage/outcome', OutcomeController::class);
     Route::post('/admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
     Route::resource('/admin/reports', ReportController::class);
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
+
+    //Umum
+    Route::resource('/admin/manage/finance', FinanceController::class);
+    Route::resource('/admin/manage/ficategory', FiCategoryController::class);
+
 });
 
 // EMPLOYEE

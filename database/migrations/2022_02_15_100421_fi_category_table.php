@@ -15,7 +15,7 @@ class FiCategoryTable extends Migration
     {
         Schema::create('FiCategory', function (Blueprint $table) {
             $table->id();
-            $table->string('name_kategori');
+            $table->string('nama_kategori');
             $table->string('jenis_kategori');
         });
     }

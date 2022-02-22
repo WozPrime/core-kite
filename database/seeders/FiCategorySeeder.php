@@ -21,7 +21,7 @@ class FiCategorySeeder extends Seeder
         ]);
         FiCategoryModel::create([
             'nama_kategori' => 'Non-Proyek [Pengeluaran]',
-            'jenis_kategori' => 'Pemasukan',
+            'jenis_kategori' => 'Pengeluaran',
         ]);
     }
 }
