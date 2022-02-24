@@ -18,6 +18,7 @@ class ClientSeeder extends Seeder
         // Client::truncate();
         Client::create([
             'instance_id' => '1',
+            'user_id' => '4',
             'name' => 'Hina',
             'password' => bcrypt('12345678'),
             'email' => 'hina@student.bluearchive.ac.id',
@@ -25,6 +26,7 @@ class ClientSeeder extends Seeder
         ]);
         Client::create([
             'instance_id' => '2',
+            'user_id' => '5',
             'name' => 'Amiya',
             'password' => bcrypt('12345678'),
             'email' => 'Amiya@rhodes.tr',
