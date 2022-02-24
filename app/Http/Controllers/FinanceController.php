@@ -129,8 +129,10 @@ class FinanceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(FinanceModel $financeModel)
+    public function destroy($id)
     {
-        //
+        FinanceModel::destroy('id', $id);
+        Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect()->back();
     }
 }

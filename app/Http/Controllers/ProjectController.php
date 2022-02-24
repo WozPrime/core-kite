@@ -289,7 +289,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        ProjectModel::destroy($id);
+        ProjectModel::destroy('id', $id);
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
         return redirect()->back();
     }

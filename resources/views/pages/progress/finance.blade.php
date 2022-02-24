@@ -177,9 +177,9 @@
                                                     <form autocomplete="off" action="/admin/manage/finance/{{ $tbl_finansial->id }}" method="POST" class="d-inline">
                                                         @method('delete')
                                                         @csrf
-                                                        <a class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_finansial->name_finance }}?')">
-                                                            <span class="fa fa-trash"></span>
-                                                        </a>
+                                                        <button class="btn btn-danger mr-1" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_finansial->name_finance }}?')">
+                                                            <span class="fas fa-trash"></span>
+                                                        </button>
                                                     </form>
                                                 </a>
                                             </td>
@@ -189,7 +189,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
-                                                        <h3 class="card-title">Edit Pengeluaran {{ $tbl_finansial->name_finance }}</h3>
+                                                        <h3 class="card-title">Edit Data Pemasukan {{ $tbl_finansial->name_finance }}</h3>
                                                     </div>
                                                     <div class="card-body">
                                                         <form autocomplete="off" action="/admin/manage/finance/{{ $tbl_finansial->id }}" method="POST" class="d-inline">
@@ -282,19 +282,89 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
-                                                        <h3 class="card-title">Edit Pengeluaran {{ $tbl_finansial->name_finance }}</h3>
+                                                        <h3 class="card-title">Edit Data Pengeluaran {{ $tbl_finansial->name_finance }}</h3>
                                                     </div>
                                                     <div class="card-body">
                                                         <form autocomplete="off" action="/admin/manage/finance/{{ $tbl_finansial->id }}" method="POST" class="d-inline">
                                                             @method('put')
                                                             @csrf
                                                             <div class="content">
+
+                                                                <div class="form-group" hidden>
+                                                                    <input required name="inout_finance" class="form-control" value="Pemasukan">
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Nama Pemasukan</label>
+                                                                    <input name="name_finance" class="form-control" required>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Tanggal Pemasukan</label>
+                                                                    <input type="Date" name="date_finance" class="form-control" required>
+                                                                </div>
+                                    
+                                                                <div class="form-group row">
+                                                                    <label>Kategori Pemasukan</label>
+                                                                    <div class="select2-primary col-12">
+                                                                        <select name="category_finance" class="select2 select2-success"
+                                                                            data-dropdown-css-class="select2-success" style="width: 100%;"
+                                                                            data-placeholder="Pilih Jenis Kategori">
+                                                                            <option></option>
+                                                                            @foreach ($category->where('jenis_kategori', 'Pemasukan') as $i)
+                                                                                <option value="{{ $i->nama_kategori }}">{{ $i->nama_kategori }} </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Proyek</label>
+                                                                    <select name="type_finance" class="select2 select2-success"
+                                                                        data-dropdown-css-class="select2-success" style="width: 100%;"
+                                                                        data-placeholder="Pilih Proyek" required>
+                                                                        <option></option>
+                                                                        <option value="Non-Proyek">Non-Proyek</option>
+                                                                        @foreach ($project as $i)
+                                                                            <option value="{{ $i->project_name }}">{{ $i->project_name }} </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Tujuan Saldo</label>
+                                                                    <select name="balance_finance" class="select2 select2-success"
+                                                                        data-dropdown-css-class="select2-success" style="width: 100%;"
+                                                                        data-placeholder="Pilih Tujuan Saldo" required>
+                                                                        <option></option>
+                                                                        <option value="KAS-UTAMA">KAS-UTAMA (Kas Besar)</option>
+                                                                        <option value="KAS-ADMIN">KAS-ADMIN (Kas Kecil)</option>
+                                                                        <option value="KAS-PEMASARAN">KAS-PEMASARAN</option>
+                                                                    </select>
+                                                                </div>
+                                    
+                                                                <div>
+                                                                    <label>Nominal Pemasukan</label>
+                                                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp"
+                                                                        name="nominal_finance" required>
+                                                                </div>
+                                    
+                                                                <div class="form-group">
+                                                                    <label>Detail Pemasukan</label>
+                                                                    <textarea name="detail_finance" class="form-control"></textarea>
+                                                                </div>
+                                    
+                                                                <div class="form-group my-2">
+                                                                    <label for="nota_finance">Bukti Nota</label>
+                                                                    <br>
+                                                                    <input type="file" class="form-control" name="nota_finance" id="nota_finance"
+                                                                        onchange="Image_preview(event)">
+                                                                </div>
                                     
                                                                 <br>
                                     
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-success float-right">Save
-                                                                        Data</button>
+                                                                    <button class="btn btn-success float-right">Save Data</button>
                                                                 </div>
                                                             </div>
                                                         </form>
