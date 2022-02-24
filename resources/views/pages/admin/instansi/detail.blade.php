@@ -422,7 +422,7 @@ Profil Instansi
                     @csrf
                     <div class="content">
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label for="seeAnotherFieldInstance">Pilih Instansi</label>
                             <select class="form-select" aria-label="Disable" name="instance_id" onclick="pilihInstansi()" id="instance_id" required>
                                 <option selected value="{{$instance->id}}">{{$instance->nama_instansi}}</option>
@@ -433,10 +433,10 @@ Profil Instansi
                             <label for="seeAnotherFieldClient">Pilih Klien</label>
                             
                             <select class='form-select' name='client_id' id='client_id' required>
+                                @foreach ($klieninstansi as $i)
+                                    <option value="{{ $i->id }}">{{ $i->name }} </option>
+                                @endforeach
                             </select>
-                            {{-- <div id='listClient'> --}}
-
-                            {{-- </div> --}}
                         </div>
 
                         <div class="form-group">
@@ -511,7 +511,7 @@ Profil Instansi
 
 @section('footer')
 @endsection
-<script>
+{{-- <script>
     function pilihInstansi() {
     var data = 'id=' +document.getElementById('instance_id').value;
 
@@ -535,5 +535,5 @@ Profil Instansi
     });
     return false;
     }
-</script>
+</script> --}}
 @endsection
