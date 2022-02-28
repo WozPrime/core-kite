@@ -46,8 +46,8 @@ Profil Proyek
                     <div class="card" style="height: 375px">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                @if ($data->instance->logo_instansi)
-                                    <img src="/logoinstansi/{{$data->instance->logo_instansi}}" alt="logo {{$data->instance->nama_instansi}}" class="rounded-circle" width="150" height="150">
+                                @if ($data->project_logo)
+                                    <img src="/projectLogo/{{$data->project_logo}}" alt="logo {{$data->project_name}}" class="rounded-circle" width="150" height="150">
                                 @else
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
                                     alt="Logo Instansi" class="rounded-circle" width="150">

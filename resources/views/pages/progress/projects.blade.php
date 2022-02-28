@@ -273,6 +273,11 @@
                                                                     <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
                                                                 </div>
                                     
+                                                                <div class="form-group my-2">
+                                                                    <label>Logo Instansi</label>
+                                                                    <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }} onchange="Image_preview(event)">
+                                                                </div>  
+
                                                                 <br>
                                     
                                                                 <div class="form-group">
@@ -326,7 +331,7 @@
                                 </div>
     
                                 <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Alamat Klien</label>
+                                    <label for="seeAnotherFieldClient">Alamat Instansi</label>
                                     <textarea name="instance_address" id="instance_address" class="form-control" cols="30" rows="3" placeholder="Isikan Alamat Instansi Disini"></textarea>
                                 </div>
     
@@ -347,8 +352,7 @@
     
                                 <div class="form-group my-2">
                                     <label for="instance_logo">Logo Instansi</label>
-                                    <br>
-                                    <input type="file" name="instance_logo" id="instance_logo" onchange="Image_preview(event)">
+                                    <input type="file" class="form-control" name="instance_logo" id="instance_logo" onchange="Image_preview(event)">
                                 </div>
     
                                 <br>
@@ -565,6 +569,12 @@
                                             <label>Total Proyek</label>
                                             <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" required>
                                         </div>
+
+                                        <div class="form-group my-2">
+                                            <label>Logo Proyek</label>
+                                            <input type="file" class="form-control" name="project_logo" id="project_logo" onchange="Image_preview(event)">
+                                        </div>
+
                                     </div>
                                 </div>
     
