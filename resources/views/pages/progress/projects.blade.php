@@ -167,7 +167,27 @@
                                                 </span>
                                             </td>
                                             <td>{{ $tbl_project->project_category }}</td>
-                                            <td></td>
+                                            <td style="text-align: center">
+                                                <div {{ $count = Illuminate\Support\Facades\DB::table('project_task', 'project_id')->count() }} 
+                                                    {{ $status = Illuminate\Support\Facades\DB::table('project_task', 'status')->count() }} 
+                                                    @if($count == 0) {{ $progress = 0 }}
+                                                    @elseif($count > 0) {{ $progress = ($status / $count) * 100 }} @endif 
+                                                    @if($count == '0') class="badge bg-danger" 
+                                                    @elseif ($count > '0')  class="progress-bar
+                                                        @if($progress < '25') " style="width: {{ $progress }}%;background-color:red !important;"
+                                                        @elseif($progress > '25' && $progress < '50') progress-bar-warning" style="width: {{ $progress }}%"
+                                                        @elseif($progress > '50' && $progress < '75') progress-bar-danger" style="width: {{ $progress }}%"
+                                                        @elseif($progress > '75' && $progress < '100') progress-bar-success" style="width: {{ $progress }}%"
+                                                        @elseif($count == '100') class="badge bg-success" 
+                                                        @endif">
+                                                    @endif
+                                                    <div>
+                                                        @if($count == '0') Belum ada tugas yang disiapkan
+                                                        @elseif($count == '100') Tugas proyek sudah terselesaikan
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary mr-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
