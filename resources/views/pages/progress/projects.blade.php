@@ -275,7 +275,7 @@
                                     
                                                                 <div class="form-group my-2">
                                                                     <label>Logo Instansi</label>
-                                                                    <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }} onchange="Image_preview(event)">
+                                                                    <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }}" onchange="Image_preview(event)">
                                                                 </div>  
 
                                                                 <br>

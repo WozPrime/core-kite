@@ -125,22 +125,24 @@ class FinanceController extends Controller
     public function update(Request $request, $id)
     {
         $data = FinanceModel::find($id);
+        //dd($data);
         if (
-            Request()->id == $data->id &&
             Request()->name_finance == $data->name_finance &&
             Request()->date_finance == $data->date_finance &&
             Request()->category_finance == $data->category_finance &&
             Request()->type_finance == $data->type_finance &&
             Request()->nominal_finance == $data->nominal_finance &&
             Request()->balance_finance == $data->balance_finance &&
-            Request()->detail_finance == $data->detail_finance &&
-            Request()->nota_finance == ""
+            Request()->nota_finance == "" &&
+            // Request()->nota_finance == $data->nota_finance &&
+            Request()->inout_finance == $data->inout_finance &&
+            Request()->detail_finance == $data->detail_finance
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->back();
         }
         else {
-            if($request->nota_finance <> ""){
+            if($request->nota_finance <> $data->nota_finance && $request->nota_finance <> ""){
                 $file = $request->nota_finance;
                 $fileName = 'logo' . '_' . Request()->name_finance . '.' . $file->extension();
                 $file->move(public_path('notaFinansial'), $fileName);
@@ -156,27 +158,38 @@ class FinanceController extends Controller
                     'detail_finance' => $request->detail_finance,
                     'nota_finance' => $fileName,
                 ];
-            }
-            else {
-                $data = [
-                'name_finance' => $request->name_finance,
-                'date_finance' => $request->date_finance,
-                'category_finance' => $request->category_finance,
-                'type_finance' => $request->type_finance,
-                'nominal_finance' => $request->nominal_finance,
-                'balance_finance' => $request->balance_finance,
-                'inout_finance' => $request->inout_finance,
-                'detail_finance' => $request->detail_finance,
-                ];
-            }
-            FinanceModel::where('id', $id)->update($data);
-            if (Request()->inout_finance == "Pemasukan")
-            {
-                Alert::success('Sukses', 'Data Pemasukan berhasil diubah!');
+                FinanceModel::where('id', $id)->update($data);
+                if (Request()->inout_finance == "Pemasukan")
+                {
+                    Alert::success('Sukses', 'Data Pemasukan berhasil diubah!');
+                    return redirect()->back();
+                }
+                Alert::success('Sukses', 'Data Pengeluaran berhasil diubah!');
                 return redirect()->back();
             }
-            Alert::success('Sukses', 'Data Pengeluaran berhasil diubah!');
-            return redirect()->back();
+            else {
+                if($request->nota_finance == ""){
+                    $data = [
+                        'name_finance' => $request->name_finance,
+                        'date_finance' => $request->date_finance,
+                        'category_finance' => $request->category_finance,
+                        'type_finance' => $request->type_finance,
+                        'nominal_finance' => $request->nominal_finance,
+                        'balance_finance' => $request->balance_finance,
+                        'inout_finance' => $request->inout_finance,
+                        'detail_finance' => $request->detail_finance,
+                        ];
+                        FinanceModel::where('id', $id)->update($data);
+                        if (Request()->inout_finance == "Pemasukan")
+                        {
+                            Alert::success('Sukses', 'Data Pemasukan berhasil diubah!');
+                            return redirect()->back();
+                        }
+                        Alert::success('Sukses', 'Data Pengeluaran berhasil diubah!');
+                        return redirect()->back();
+                }
+            }
+            // return redirect()->back();
         }
     }
 

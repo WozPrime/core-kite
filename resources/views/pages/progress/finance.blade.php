@@ -207,20 +207,20 @@
                                                             <div class="content">
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
-                                                                        <div class="form-group my-2">
-                                                                            <label for="nota_finance">Bukti Nota</label>
+                                                                        <div>
+                                                                            <label>Bukti Nota</label>
                                                                             <br>
                                                                             <img src="/notaFinansial/{{ $tbl_finansial->nota_finance }}"
                                                                                 alt="img {{ $tbl_finansial->name_finance }}"
                                                                                 width="450" height="450">
-                                                                            <br>
-                                                                            <br>
-                                                                            <label for="nota_finance">Ganti Bukti
+                                                                        </div>
+                                                                        <div class="form-group my-2">
+                                                                            <label>Ganti Bukti
                                                                                 Nota</label>
                                                                             <input type="file" class="form-control"
                                                                                 name="nota_finance" id="nota_finance"
-                                                                                onchange="Image_preview(event)"
-                                                                                value="{{ $tbl_finansial->nota_finance }}">
+                                                                                onchange="Image_preview(event)">
+                                                                                {{-- value="{{ $tbl_finansial->nota_finance }}"> --}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
@@ -254,10 +254,7 @@
                                                                                     style="width: 100%;"
                                                                                     value="{{ $tbl_finansial->category_finance }}">
                                                                                     @foreach ($category->where('jenis_kategori', 'Pemasukan') as $i)
-                                                                                        <option
-                                                                                            value="{{ $i->nama_kategori }}">
-                                                                                            {{ $i->nama_kategori }}
-                                                                                        </option>
+                                                                                        <option value="{{ $i->nama_kategori }}" @if($i->nama_kategori == $tbl_finansial->category_finance) selected @endif>{{ $i->nama_kategori }}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
@@ -268,15 +265,10 @@
                                                                             <select name="type_finance"
                                                                                 class="select2 select2-success"
                                                                                 data-dropdown-css-class="select2-success"
-                                                                                style="width: 100%;"
-                                                                                value="{{ $tbl_finansial->type_finance }}"
-                                                                                required>
-                                                                                <option value="Non-Proyek">Non-Proyek
-                                                                                </option>
+                                                                                style="width: 100%;" required>
+                                                                                <option value="Non-Proyek" @if($i->project_name == 'Non-Proyek') selected @endif>Non-Proyek</option>
                                                                                 @foreach ($project as $i)
-                                                                                    <option
-                                                                                        value="{{ $i->project_name }}">
-                                                                                        {{ $i->project_name }}</option>
+                                                                                    <option value="{{ $i->project_name }}" @if($i->project_name == $tbl_finansial->type_finance ) selected @endif> {{ $i->project_name }}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
@@ -286,15 +278,10 @@
                                                                             <select name="balance_finance"
                                                                                 class="select2 select2-success"
                                                                                 data-dropdown-css-class="select2-success"
-                                                                                style="width: 100%;"
-                                                                                value="{{ $tbl_finansial->balance_finance }}"
-                                                                                required>
-                                                                                <option value="KAS-UTAMA">KAS-UTAMA (Kas
-                                                                                    Besar)</option>
-                                                                                <option value="KAS-ADMIN">KAS-ADMIN (Kas
-                                                                                    Kecil)</option>
-                                                                                <option value="KAS-PEMASARAN">KAS-PEMASARAN
-                                                                                </option>
+                                                                                style="width: 100%;" required>
+                                                                                <option value="KAS-UTAMA" @if($tbl_finansial->balance_finance == 'KAS-UTAMA') selected @endif>KAS-UTAMA (Kas Besar)</option>
+                                                                                <option value="KAS-ADMIN" @if($tbl_finansial->balance_finance == 'KAS-ADMIN') selected @endif>KAS-ADMIN (Kas Kecil)</option>
+                                                                                <option value="KAS-PEMASARAN" @if($tbl_finansial->balance_finance == 'KAS-PEMASARAN') selected @endif>KAS-PEMASARAN </option>
                                                                             </select>
                                                                         </div>
 
@@ -309,8 +296,7 @@
 
                                                                         <div class="form-group">
                                                                             <label>Detail Pemasukan</label>
-                                                                            <textarea name="detail_finance"
-                                                                                class="form-control">{{ $tbl_finansial->detail_finance }}</textarea>
+                                                                            <textarea name="detail_finance" class="form-control">{{ $tbl_finansial->detail_finance }}</textarea>
                                                                         </div>
                                                                     </div>
 
@@ -415,19 +401,19 @@
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
                                                                         <div class="form-group my-2">
-                                                                            <label for="nota_finance">Bukti Nota</label>
+                                                                            <label>Bukti Nota</label>
                                                                             <br>
                                                                             <img src="/notaFinansial/{{ $tbl_finansial->nota_finance }}"
                                                                                 alt="img {{ $tbl_finansial->name_finance }}"
                                                                                 width="450" height="450">
                                                                             <br>
                                                                             <br>
-                                                                            <label for="nota_finance">Ganti Bukti
+                                                                            <label>Ganti Bukti
                                                                                 Nota</label>
                                                                             <input type="file" class="form-control"
                                                                                 name="nota_finance" id="nota_finance"
-                                                                                onchange="Image_preview(event)"
-                                                                                value="{{ $tbl_finansial->nota_finance }}">
+                                                                                onchange="Image_preview(event)">
+                                                                                {{-- value="{{ $tbl_finansial->nota_finance }}"> --}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
@@ -458,13 +444,9 @@
                                                                                 <select name="category_finance"
                                                                                     class="select2 select2-danger"
                                                                                     data-dropdown-css-class="select2-danger"
-                                                                                    style="width: 100%;"
-                                                                                    value="{{ $tbl_finansial->category_finance }}">
+                                                                                    style="width: 100%;">
                                                                                     @foreach ($category->where('jenis_kategori', 'Pengeluaran') as $i)
-                                                                                        <option
-                                                                                            value="{{ $i->nama_kategori }}">
-                                                                                            {{ $i->nama_kategori }}
-                                                                                        </option>
+                                                                                        <option value="{{ $i->nama_kategori }}" @if($i->nama_kategori == $tbl_finansial->category_finance) selected @endif>{{ $i->nama_kategori }}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
@@ -475,15 +457,10 @@
                                                                             <select name="type_finance"
                                                                                 class="select2 select2-danger"
                                                                                 data-dropdown-css-class="select2-danger"
-                                                                                style="width: 100%;"
-                                                                                value="{{ $tbl_finansial->type_finance }}"
-                                                                                required>
-                                                                                <option value="Non-Proyek">Non-Proyek
-                                                                                </option>
+                                                                                style="width: 100%;" required>
+                                                                                <option value="Non-Proyek" @if($i->project_name == 'Non-Proyek') selected @endif>Non-Proyek</option>
                                                                                 @foreach ($project as $i)
-                                                                                    <option
-                                                                                        value="{{ $i->project_name }}">
-                                                                                        {{ $i->project_name }}</option>
+                                                                                    <option value="{{ $i->project_name }}" @if($i->project_name == $tbl_finansial->type_finance ) selected @endif> {{ $i->project_name }}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
@@ -493,15 +470,11 @@
                                                                             <select name="balance_finance"
                                                                                 class="select2 select2-danger"
                                                                                 data-dropdown-css-class="select2-danger"
-                                                                                style="width: 100%;"
-                                                                                value="{{ $tbl_finansial->balance_finance }}"
-                                                                                required>
-                                                                                <option value="KAS-UTAMA">KAS-UTAMA (Kas
-                                                                                    Besar)</option>
-                                                                                <option value="KAS-ADMIN">KAS-ADMIN (Kas
-                                                                                    Kecil)</option>
-                                                                                <option value="KAS-PEMASARAN">KAS-PEMASARAN
-                                                                                </option>
+                                                                                style="width: 100%;" required>
+                                                                                <option value="KAS-UTAMA" @if($tbl_finansial->balance_finance == 'KAS-UTAMA') selected @endif>KAS-UTAMA (Kas Besar)</option>
+                                                                                <option value="KAS-ADMIN" @if($tbl_finansial->balance_finance == 'KAS-ADMIN') selected @endif>KAS-ADMIN (Kas Kecil)</option>
+                                                                                <option value="KAS-PEMASARAN" @if($tbl_finansial->balance_finance == 'KAS-PEMASARAN') selected @endif>KAS-PEMASARAN </option>
+                                                                            </select>
                                                                             </select>
                                                                         </div>
 
@@ -613,21 +586,20 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <form autocomplete="off"
-                                                            action="/admin/manage/ficategori/{{ $tbl_category->id }}"
+                                                            action="/admin/manage/ficategory/{{ $tbl_category->id }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             @method('put')
                                                             @csrf
                                                             <div class="content">
-                                                                <div class="form-group">
+                                                                <div class="form-group row">
                                                                     <label>Jenis Kategori</label>
-                                                                    <div>
-                                                                        <select name="category_finance"
-                                                                            class="form-control"
+                                                                    <div class="col-12">
+                                                                        <select name="jenis_kategori" class="select2 select2-success"
                                                                             data-dropdown-css-class="select2-success"
                                                                             style="width: 100%;"
                                                                             value="{{ $tbl_category->jenis_kategori }}">
-                                                                            <option value="Pemasukan">Pemasukan</option>
-                                                                            <option value="Pengeluaran">Pengeluaran</option>
+                                                                            <option value="Pemasukan" @if($tbl_category->jenis_kategori == 'Pemasukan') selected @endif>Pemasukan</option>
+                                                                            <option value="Pengeluaran" @if($tbl_category->jenis_kategori == 'Pengeluaran') selected @endif>Pengeluaran</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -677,17 +649,17 @@
                     <h3 class="card-title">Tambah Kategori Baru</h3>
                 </div>
                 <div class="card-body">
-                    <form autocomplete="off" action="/admin/manage/ficategori/{{ $tbl_category->id }}" method="POST"
+                    <form autocomplete="off" action="/admin/manage/ficategory/" method="POST"
                         enctype="multipart/form-data">
-                        @method('put')
                         @csrf
                         <div class="content">
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <label>Jenis Kategori</label>
-                                <div>
-                                    <select name="category_finance" class="form-control"
+                                <div class="col-12">
+                                    <select name="jenis_kategori" class="select2 select2-success"
                                         data-dropdown-css-class="select2-success" style="width: 100%;"
-                                        value="{{ $tbl_category->jenis_kategori }}">
+                                        data-placeholder="Pilih Jenis Kategori">
+                                        <option></option>
                                         <option value="Pemasukan">Pemasukan</option>
                                         <option value="Pengeluaran">Pengeluaran</option>
                                     </select>
@@ -696,8 +668,7 @@
 
                             <div class="form-group">
                                 <label>Nama Kategori</label>
-                                <input name="nama_kategori" class="form-control"
-                                    value="{{ $tbl_category->nama_kategori }}" required>
+                                <input name="nama_kategori" class="form-control" required>
                             </div>
 
                             {{-- <div>
@@ -801,7 +772,7 @@
                             </div>
 
                             <div class="form-group my-2">
-                                <label for="nota_finance">Bukti Nota</label>
+                                <label>Bukti Nota</label>
                                 <br>
                                 <input type="file" class="form-control" name="nota_finance" id="nota_finance"
                                     onchange="Image_preview(event)">
@@ -903,7 +874,7 @@
                             </div>
 
                             <div class="form-group my-2">
-                                <label for="nota_finance">Bukti Nota</label>
+                                <label>Bukti Nota</label>
                                 <br>
                                 <input type="file" class="form-control" name="nota_finance" id="nota_finance"
                                     onchange="Image_preview(event)">
