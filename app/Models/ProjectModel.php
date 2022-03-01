@@ -24,4 +24,7 @@ class ProjectModel extends Model
     public function projectAll(){
         return $this->hasMany(ProjectAll::class);
     }
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
+    }
 }

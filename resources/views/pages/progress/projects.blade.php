@@ -201,17 +201,15 @@
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td></td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-primary mr-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
+                                                <a class="btn btn-primary mr-1 mb-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a class="btn btn-success mr-1" data-toggle="modal"
+                                                <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
-                                                <a>
+                                                <a class="btn btn-danger mr-1 mb-1" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
+                                                    <span class="fa fa-trash"></span>
                                                     <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
                                                         @method('delete')
                                                         @csrf
-                                                        <a class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
-                                                            <span class="fa fa-trash"></span>
-                                                        </a>
                                                     </form>
                                                 </a>
                                             </td>

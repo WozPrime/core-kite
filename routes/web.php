@@ -85,6 +85,8 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::resource('/admin/proyek', ProjectController::class);
     Route::post('/admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
     Route::resource('/admin/reports', ReportController::class);
+    Route::post('/admin/reports/grade/{id}', [ReportController::class,'store'])->name('grade_task');
+    Route::get('/admin/file/download/{file_name}', [ReportController::class,'downloadFile'])->name('download_file');
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 });

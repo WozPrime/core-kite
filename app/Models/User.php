@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function projectTask()
     {
-        return $this->belongsToMany(ProjectTask::class);
+        return $this->hasMany(ProjectTask::class);
     }
 
     public function projectAll(){

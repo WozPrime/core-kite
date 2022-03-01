@@ -18,28 +18,28 @@ use Carbon\Carbon;
     <div class="container pt-3">
         <div class="main-body">
             @error('profs')
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Peringatan!</strong>  Data Masih Kosong.
-            </div>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Peringatan!</strong> Data Masih Kosong.
+                </div>
             @enderror
             @error('task_id')
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Peringatan!</strong>  Data Masih Kosong.
-            </div>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Peringatan!</strong> Data Masih Kosong.
+                </div>
             @enderror
             @error('details')
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Peringatan!</strong>  Data Masih Kosong.
-            </div>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Peringatan!</strong> Data Masih Kosong.
+                </div>
             @enderror
             @error('expired_at')
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Peringatan!</strong>  Data Masih Kosong.
-            </div>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Peringatan!</strong> Data Masih Kosong.
+                </div>
             @enderror
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
@@ -72,8 +72,10 @@ use Carbon\Carbon;
                             <b class="text-secondary-bold"> Detail Proyek </b>
                             <p class="text-muted font-size-sm"> {{ $data->project_detail }} </p>
                             <b class="text-secondary-bold"> Perkiraan Waktu Pengerjaan Proyek</b>
-                            <p class="text-muted font-size-sm"> {{ date('D, d M Y', strtotime($data->project_start_date)) }}
-                                <b>s/d</b> {{ date('D, d M Y', strtotime($data->project_deadline)) }} </p>
+                            <p class="text-muted font-size-sm">
+                                {{ date('D, d M Y', strtotime($data->project_start_date)) }}
+                                <b>s/d</b> {{ date('D, d M Y', strtotime($data->project_deadline)) }}
+                            </p>
                             <b class="text-secondary-bold"> Rentang Pengerjaan Waktu </b>
                             <p class="text-muted font-size-sm">
                                 {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date) }} Hari
@@ -103,7 +105,7 @@ use Carbon\Carbon;
                                             <div class="form-group no-border">
                                                 <select name="user_id" id="user_id" class="form-control">
                                                     <option value="" selected disabled hidden>Pilih
-                                                    Karyawan
+                                                        Karyawan
                                                     </option>
                                                     @if (count($part_user) == 0)
                                                         <option value="">Karyawan Tidak Tersedia
@@ -113,7 +115,6 @@ use Carbon\Carbon;
                                                     @foreach ($part_user as $karyawan)
                                                         <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
                                                         </option>
-
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" name="project_id" id="project_id"
@@ -121,12 +122,11 @@ use Carbon\Carbon;
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button @if (count($part_user) == 0)
-                                                disabled
-                                                @endif type="submit" class="btn btn-block btn-info">Tambah</button>
+                                            <button @if (count($part_user) == 0) disabled @endif type="submit"
+                                                class="btn btn-block btn-info">Tambah</button>
                                         </div>
                                     </div>
-                                    
+
                                 </form>
                                 <table class="table table-responsive-sm table-bordered" id="myTable">
                                     <thead>
@@ -142,36 +142,36 @@ use Carbon\Carbon;
                                         @foreach ($participant as $list)
                                             @php
                                                 $prof_part = [];
-                                                $saved_task =[];
-                                            @endphp 
+                                                $saved_task = [];
+                                            @endphp
                                             <tr>
                                                 {{-- {{dd($list)}} --}}
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-center">
-                                                    <a href="#insert{{$list->user_id}}" data-toggle="modal" class="btn btn-block">
+                                                    <a href="#insert{{ $list->user_id }}" data-toggle="modal"
+                                                        class="btn btn-block">
                                                         <div style="display: flex;
-                                                                    flex-direction:column;
-                                                                    justify-content:center;">
-                                                                @foreach ($project_all as $prof_task)
-                                                                    @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
-                                                                        <div style="padding: 3px">
-                                                                            <span class="badge @if (fmod($prof_task->prof_id,3) == 0)
-                                                                                bg-danger
-                                                                                @elseif(fmod($prof_task->prof_id,2) == 0)
+                                                                        flex-direction:column;
+                                                                        justify-content:center;">
+                                                            @foreach ($project_all as $prof_task)
+                                                                @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
+                                                                    <div style="padding: 3px">
+                                                                        <span
+                                                                            class="badge @if (fmod($prof_task->prof_id, 3) == 0) bg-danger
+                                                                                @elseif(fmod($prof_task->prof_id, 2) == 0)
                                                                                 bg-warning 
                                                                                 @else
-                                                                                bg-success                                                                   
-                                                                            @endif">
-                                                                                {{ $project_all->find($prof_task->id)->profUser()->first()->prof_name }}
-                                                                                @php
-                                                                                    $prof_part[] = $prof_task->prof_id
-                                                                                @endphp
-                                                                            </span>
-                                                                        </div>
-                                                                    @else
-                                                                        @continue
-                                                                    @endif
-                                                                @endforeach   
+                                                                                bg-success @endif">
+                                                                            {{ $project_all->find($prof_task->id)->profUser()->first()->prof_name }}
+                                                                            @php
+                                                                                $prof_part[] = $prof_task->prof_id;
+                                                                            @endphp
+                                                                        </span>
+                                                                    </div>
+                                                                @else
+                                                                    @continue
+                                                                @endif
+                                                            @endforeach
                                                         </div>
                                                     </a>
                                                 </td>
@@ -181,8 +181,8 @@ use Carbon\Carbon;
                                                         <img src="{{ url('pp/default.jpg') }}" class="img-circle"
                                                             width="70">
                                                     @else
-                                                        <img src="{{ url('pp/' . $user_task->find($list->user_id)->pp) }}" class="img-circle"
-                                                            width="70">
+                                                        <img src="{{ url('pp/' . $user_task->find($list->user_id)->pp) }}"
+                                                            class="img-circle" width="70">
                                                     @endif
                                                 </td>
                                                 <td style="text-align: center">
@@ -198,32 +198,38 @@ use Carbon\Carbon;
                                                             class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
-                                            <div class="modal fade" id="insert{{$list->user_id}}">
+                                            <div class="modal fade" id="insert{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">Tambah Role</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="/admin/project_all" method="POST" enctype="multipart/form-data">
+                                                        <form action="/admin/project_all" method="POST"
+                                                            enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="Profession">Profession</label>
                                                                     <div class="select2-primary">
-                                                                        <select class="select2" name="profs[]" data-dropdown-css-class="select2-primary"
-                                                                                multiple="multiple" data-placeholder="Select a Profession" style="width: 100%;" autocomplete="off" >
-                                                                                @foreach ($profs as $prof)
-                                                                                <option @if (in_array($prof->id, $prof_part))
-                                                                                    selected @endif
-                                                                                    value="{{ $prof->id }}">{{ $prof->prof_name }}
+                                                                        <select class="select2" name="profs[]"
+                                                                            data-dropdown-css-class="select2-primary"
+                                                                            multiple="multiple"
+                                                                            data-placeholder="Select a Profession"
+                                                                            style="width: 100%;" autocomplete="off">
+                                                                            @foreach ($profs as $prof)
+                                                                                <option
+                                                                                    @if (in_array($prof->id, $prof_part)) selected @endif
+                                                                                    value="{{ $prof->id }}">
+                                                                                    {{ $prof->prof_name }}
                                                                                 </option>
-                                                                                @endforeach
-                                                                               
-                                                                            </select>
-                                                                          
+                                                                            @endforeach
+
+                                                                        </select>
+
                                                                     </div>
                                                                     {{-- <select name="prof_id" id="prof_id" class="form-control">
                                                                         <option value="" selected disabled hidden>Pilih
@@ -240,16 +246,18 @@ use Carbon\Carbon;
                                                                             </option> 
                                                                             </select> --}}
                                                                 </div>
-                                                                
+
                                                                 <input type="hidden" name="project_id" id="project_id"
-                                                                                value="{{ $data->id }}">
+                                                                    value="{{ $data->id }}">
                                                                 <input type="hidden" name="user_id" id="user_id"
-                                                                                value="{{ $list->user_id }}">
+                                                                    value="{{ $list->user_id }}">
 
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save
+                                                                    changes</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -258,166 +266,170 @@ use Carbon\Carbon;
                                                 <!-- /.modal-dialog -->
 
                                             </div>
-                                            
-                                            <div class="modal fade" id="tambah{{$list->user_id}}">
+
+                                            <div class="modal fade" id="tambah{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">Tambah Task</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="/admin/project/task/add" method="POST" enctype="multipart/form-data">
-                                                            @csrf    
+                                                        <form action="/admin/project/task/add" method="POST"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="list_task">Task yang telah Dipilih</label>
                                                                     <div class="select2-success">
-                                                                        <select class="select2" data-dropdown-css-class="select2-success"
-                                                                            multiple="multiple" data-placeholder="Select a Task" style="width: 100%;" autocomplete="off" disabled>
+                                                                        <select class="select2"
+                                                                            data-dropdown-css-class="select2-success"
+                                                                            multiple="multiple"
+                                                                            data-placeholder="Select a Task"
+                                                                            style="width: 100%;" autocomplete="off"
+                                                                            disabled>
                                                                             @foreach ($job_list->get() as $task)
-                                                                            @if ($job_list->find($task->id)->profs()->first() == '')
-                                                                                @continue    
-                                                                            @else
-                                                                                @if (in_array($task->profs()->first()->id, $prof_part))
-                                                                                <option
-                                                                                @if ($project_task->where(['user_id' => $list->user_id, 'project_id' => $data->id])->where('task_id',$task->id)->exists())
-                                                                                    @php
-                                                                                        $saved_task[] = $task->id
-                                                                                    @endphp
-                                                                                    selected value="{{$task->id}}">{{$task->task_name}}
-                                                                                @endif
-                                                                                </option>
-                                                                                @endif
-                                                                            @endif
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <br>
-                                                                    <label for="add_task">Add new Task</label>
-                                                                    <select name="task_id" id="task_id" class="form-control">
-                                                                        <option value="" selected disabled hidden>Pilih Task Baru</option>
-                                                                        @foreach ($job_list->get() as $task)
-                                                                            @if ($job_list->find($task->id)->profs()->first() == '')
-                                                                                @continue    
-                                                                            @else
-                                                                                @if (in_array($task->profs()->first()->id, $prof_part))
-                                                                                    @if (in_array($task->id, $saved_task))
-                                                                                        @continue
-                                                                                    @else
-                                                                                        <option value="{{$task->id}}">{{$task->task_name}}</option>
+                                                                                @if ($job_list->find($task->id)->profs()->first() == '')
+                                                                                    @continue
+                                                                                @else
+                                                                                    @if (in_array($task->profs()->first()->id, $prof_part))
+                                                                                        <option
+                                                                                            @if ($project_task->where(['user_id' => $list->user_id, 'project_id' => $data->id])->where('task_id', $task->id)->exists()) @php
+                                                                                        $saved_task[] = $task->id @endphp
+                                                                                            selected
+                                                                                            value="{{ $task->id }}">
+                                                                                            {{ $task->task_name }}
                                                                                     @endif
+                                                                                    </option>
                                                                                 @endif
                                                                             @endif
-                                                                            @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Details</label>
-                                                                    <textarea class="form-control" id="details" name="details" rows="3"
-                                                                        placeholder="Enter Task Details ..."></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                  <label for="expired_at">Add Task Deadline</label>
-                                                                  <input name="expired_at" class="form-control" type="datetime-local">
-                                                                </div>
-                                                                
-                                                                <input type="hidden" name="project_id" id="project_id"
-                                                                                value="{{ $data->id }}">
-                                                                <input type="hidden" name="user_id" id="user_id"
-                                                                                value="{{ $list->user_id }}">
-
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-
-                                            </div>
-                                            {{-- DELETE MODAL --}}
-                                            {{-- <form autocomplete="off" action="/admin/project_all/{{ $list->user_id }}" method="POST" class="d-inline">
-                                                @method('delete')
-                                                @csrf --}}
-                                            <div class="modal fade" id="delete{{ $list->user_id }}">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content bg-danger">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Hapus Data User</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah anda yakin ingin Menghapus data dari {{  $user_task->find($list->user_id)->name }} ini?
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                                            <a href="/admin/project_all/delete/{{ $list->user_id }}" type="submit"
-                                                                class="btn btn-outline-light">Hapus Data</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-
                                         @endforeach
-                                    </tbody>
-                                </table>
+                                        </select>
                             </div>
-                            <!-- /.card-body -->
+                            <br>
+                            <label for="add_task">Add new Task</label>
+                            <select name="task_id" id="task_id" class="form-control">
+                                <option value="" selected disabled hidden>Pilih Task Baru</option>
+                                @foreach ($job_list->get() as $task)
+                                    @if ($job_list->find($task->id)->profs()->first() == '')
+                                        @continue
+                                    @else
+                                        @if (in_array($task->profs()->first()->id, $prof_part))
+                                            @if (in_array($task->id, $saved_task))
+                                                @continue
+                                            @else
+                                                <option value="{{ $task->id }}">{{ $task->task_name }}</option>
+                                            @endif
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="row gutters-sm">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-success">
-                            <div class="card-header">
-                                <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
-                                <div class="col-xs-3" style="float: right">
-                                    <a href="#addpembayaran" class="btn btn-block btn-info text-light" data-toggle="modal"><i class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" >
-                                
-                                <table class="table table-responsive-sm table-bordered" id="myTable1">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">No.</th>
-                                            <th class="text-center">Tanggal Pembayaran</th>
-                                            <th class="text-center">Jenis Pembayaran</th>
-                                            <th class="text-center">Deskripsi Pembayaran</th>
-                                            <th class="text-center">Nilai Pembayaran</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                        <div class="form-group">
+                            <label>Details</label>
+                            <textarea class="form-control" id="details" name="details" rows="3"
+                                placeholder="Enter Task Details ..."></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="expired_at">Add Task Deadline</label>
+                            <input name="expired_at" class="form-control" type="datetime-local">
+                        </div>
+
+                        <input type="hidden" name="project_id" id="project_id" value="{{ $data->id }}">
+                        <input type="hidden" name="user_id" id="user_id" value="{{ $list->user_id }}">
+
                     </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
                 </div>
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
 
         </div>
+        {{-- DELETE MODAL --}}
+        {{-- <form autocomplete="off" action="/admin/project_all/{{ $list->user_id }}" method="POST" class="d-inline">
+                                                @method('delete')
+                                                @csrf --}}
+        <div class="modal fade" id="delete{{ $list->user_id }}">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Data User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah anda yakin ingin Menghapus data dari {{ $user_task->find($list->user_id)->name }} ini?
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <a href="/admin/project_all/delete/{{ $list->user_id }}" type="submit"
+                            class="btn btn-outline-light">Hapus Data</a>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        @endforeach
+        </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <br>
+
+    <div class="row gutters-sm">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-success">
+                    <div class="card-header">
+                        <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
+                        <div class="col-xs-3" style="float: right">
+                            <a href="#addpembayaran" class="btn btn-block btn-info text-light" data-toggle="modal"><i
+                                    class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <table class="table table-responsive-sm table-bordered" id="myTable1">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th class="text-center">Tanggal Pembayaran</th>
+                                    <th class="text-center">Jenis Pembayaran</th>
+                                    <th class="text-center">Deskripsi Pembayaran</th>
+                                    <th class="text-center">Nilai Pembayaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
     </div>
 
     <div class="modal fade" id="edit-data-instansi">
@@ -500,30 +512,30 @@ use Carbon\Carbon;
                             <div class="form-group">
                                 <label>Tanggal Pembayaran</label>
                                 <input type="date" name="Tanggalpembayaran" class="form-control" value="#" required>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label>Jenis Pembayaran</label>
-                                <select name="jenispembayaran" id="jenispembayaran" class="form-select">
-                                    <option value="" selected hidden>Pilih Jenis Pembayaran</option>
-                                    <option value="Tunai">Tunai</option>
-                                    <option value="Transfer">Transfer</option>
-                                    <option value="Cek">Cek</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label>Jenis Pembayaran</label>
+                            <select name="jenispembayaran" id="jenispembayaran" class="form-select">
+                                <option value="" selected hidden>Pilih Jenis Pembayaran</option>
+                                <option value="Tunai">Tunai</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="Cek">Cek</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label>Deskripsi Pembayaran</label>
-                                <textarea name="deskripsipembayaran" class="form-control" value="#" required></textarea>
-                                </div>
+                        <div class="form-group">
+                            <label>Deskripsi Pembayaran</label>
+                            <textarea name="deskripsipembayaran" class="form-control" value="#" required></textarea>
+                        </div>
 
-                            <div class="form-group">
-                                <label>Nilai Pembayaran</label>
-                                <input name="Nilai Pembayaran" class="form-control" value="#" type="text" required>
-                            </div>
+                        <div class="form-group">
+                            <label>Nilai Pembayaran</label>
+                            <input name="Nilai Pembayaran" class="form-control" value="#" type="text" required>
+                        </div>
 
-                            {{-- <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Logo Instansi</label>
                             <div>
                                 <input type="file" name="logoinstansi" id="logoinstansi">
@@ -535,26 +547,25 @@ use Carbon\Carbon;
                             </div>
                         </div> --}}
 
-                            <div class="form-group">
-                                <button class="btn btn-success float-right">Save Data</button>
-                            </div>
+                        <div class="form-group">
+                            <button class="btn btn-success float-right">Save Data</button>
                         </div>
                 </div>
             </div>
-            </form>
         </div>
-        <!-- /.modal-content -->
+        </form>
     </div>
-
+    <!-- /.modal-content -->
+    </div>
 @endsection
 
 @section('footer')
 @endsection
 @section('script')
-<script>
-    $(document).ready(function() {
-        $('#myTable1').DataTable();
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable1').DataTable();
+        });
+    </script>
 @endsection
 @endsection

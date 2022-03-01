@@ -33,10 +33,12 @@ class ProjectAllController extends Controller
     }
     public function index()
     {
+        $pt =  ProjectTask::all()->where('user_id', Auth::user()->id);
         return view('pages.admin.todo', [
-            'project_task' => ProjectTask::all()->where('user_id', Auth::user()->id),
+            'project_task' => $pt->where('status','<',2),
             'tasks' => Task::all(),
             'file_task' => Doc::all(),
+            'task_list' => $pt->where('status', '>=',2),
         ]);
     }
 
@@ -199,6 +201,7 @@ class ProjectAllController extends Controller
             ProjectTask::find($id)->update([
                 'upload_details' => $req->upload_details,
                 'post_date' => Carbon::now(),
+                'status' => 1,
             ]);
     
             Alert::success('Sukses', 'Upload Tugas Berhasil!!!');
@@ -231,10 +234,17 @@ class ProjectAllController extends Controller
 
     public function deleteFile($file_name)
     {
+        $pt_id =  Doc::where('file_name',$file_name)->first()->pt_id;
         $file_path = public_path().'/files/task/'.$file_name;
         File::delete($file_path);
         Doc::where('file_name',$file_name)->delete();
-
+        if(Doc::where('pt_id',$pt_id)->count() == 0){
+            ProjectTask::find($pt_id)->update([
+                'upload_details' => null,
+                'post_date' => null,
+                'status' => null,
+            ]);
+        }
         Alert::success('Sukses', 'Task berhasil dihapus!');
         return redirect()->back();
     }
