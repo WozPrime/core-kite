@@ -112,7 +112,7 @@
 @endsection
 
 @section('size')
-    style="min-height: 1100px;"
+    style="min-height: 1200px;"
 @endsection
 
 @section('content')
