@@ -58,7 +58,7 @@
 
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" @yield('size')>
             @yield('content')
         </div>
         <!-- /.content-wrapper -->

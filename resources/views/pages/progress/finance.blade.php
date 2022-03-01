@@ -111,9 +111,13 @@
 @section('sidebar')
 @endsection
 
+@section('size')
+    style="min-height: 1100px;"
+@endsection
+
 @section('content')
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -127,7 +131,7 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
     {{-- End Content Header --}}
     <!-- Main content -->
     <section class="content">
