@@ -178,19 +178,23 @@ class ProjectController extends Controller
     public function addParticipant(Request $request)
     {
         // dd($this->user->find($request->user_id)->profUser()->first());
-        if ($this->user->find($request->user_id)->profUser()->first() == '') {
-            $data = new ProjectAll;
-            $data->user_id = $request->user_id;
-            $data->project_id = $request->project_id;
-            $data->save();
-            Alert::warning('Peringatan!!', 'Profesi Karyawan Masih Belum Terdata, Bagian Profesi Akan Dikosongkan');
-        } else {
-            $data = new ProjectAll;
-            $data->user_id = $request->user_id;
-            $data->project_id = $request->project_id;
-            $data->prof_id = $this->user->find($request->user_id)->profUser()->first()->prof_id;
-            $data->save();
-            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        if($request->user_id == ""){
+            Alert::warning('Warning!!', 'Tidak Ada Karyawan yang dipilih');
+        } else{
+            if ($this->user->find($request->user_id)->profUser()->first() == '') {
+                $data = new ProjectAll;
+                $data->user_id = $request->user_id;
+                $data->project_id = $request->project_id;
+                $data->save();
+                Alert::warning('Peringatan!!', 'Profesi Karyawan Masih Belum Terdata, Bagian Profesi Akan Dikosongkan');
+            } else {
+                $data = new ProjectAll;
+                $data->user_id = $request->user_id;
+                $data->project_id = $request->project_id;
+                $data->prof_id = $this->user->find($request->user_id)->profUser()->first()->prof_id;
+                $data->save();
+                Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+            }
         }
         return redirect()->back();
     }

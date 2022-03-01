@@ -63,14 +63,14 @@ use Illuminate\Support\Carbon;
                                         if ($subsDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
                                             $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
-                                            if (!$job->post_date){
-                                            if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
-                                                $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
-                                                $nearestDeadline->task = $tasks
-                                                    ->where('id', $job->task_id)
-                                                    ->pluck('task_name')
-                                                    ->implode(' ');
-                                            }
+                                            if (!$job->post_date) {
+                                                if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
+                                                    $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
+                                                    $nearestDeadline->task = $tasks
+                                                        ->where('id', $job->task_id)
+                                                        ->pluck('task_name')
+                                                        ->implode(' ');
+                                                }
                                             }
                                         }
                                         
@@ -82,26 +82,22 @@ use Illuminate\Support\Carbon;
                                         </span>
                                         <div class="icheck-primary d-inline ml-2">
                                             <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
-                                                id="todoCheck{{ $job->id }}" 
-                                                @if ($job->upload_details && ($file_task->where('pt_id',$job->id)->count() > 0))
-                                                    checked
-                                                @endif>
+                                                id="todoCheck{{ $job->id }}"
+                                                @if ($job->upload_details && $file_task->where('pt_id', $job->id)->count() > 0) checked @endif>
                                             <label for="todoCheck{{ $job->id }}"></label>
                                         </div>
                                         <span
                                             class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
                                         <small
                                             class="badge 
-                                        @if ($subsDate > 0)
-                                            @if ($diffMinutes > 7 * 1440)
+                                        @if ($subsDate > 0) @if ($diffMinutes > 7 * 1440)
                                             badge-success
                                             @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
                                             @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
-                                            badge-warning
-                                            @endif
-                                        @else
-                                          badge-danger
+                                            badge-warning @endif
+@else
+badge-danger
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
@@ -132,7 +128,9 @@ use Illuminate\Support\Carbon;
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}</h4>
+                                                    <h4 class="modal-title">
+                                                        {{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}
+                                                    </h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -245,7 +243,9 @@ use Illuminate\Support\Carbon;
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Edit "{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}"</h4>
+                                                    <h4 class="modal-title">Edit
+                                                        "{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}"
+                                                    </h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -289,11 +289,10 @@ use Illuminate\Support\Carbon;
                                                                                 <a href="/admin/file/delete/{{ $file->file_name }}" type="button" class="btn btn-outline-light">Hapus
                                                                                     File</a>
                                                                             </div>
+                                                                            <!-- /.modal-content -->
                                                                         </div>
-                                                                        <!-- /.modal-content -->
+                                                                        <!-- /.modal-dialog -->
                                                                     </div>
-                                                                    <!-- /.modal-dialog -->
-                                                                </div> 
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
@@ -306,7 +305,7 @@ use Illuminate\Support\Carbon;
                                                                 <label>Edit Detail Pengumpulan</label>
                                                                 <textarea class="form-control" id="upload_details"
                                                                     name="upload_details" rows="3"
-                                                                    placeholder="Enter Task Details ...">{{$job->upload_details}}</textarea>
+                                                                    placeholder="Enter Task Details ...">{{ $job->upload_details }}</textarea>
                                                                 <div class="text-danger">
                                                                     @error('upload_details')
                                                                         {{ $message }}
@@ -320,7 +319,7 @@ use Illuminate\Support\Carbon;
                                                         </form>
                                                     </div>
                                                     <div class="row">
-                                                        
+
                                                     </div>
                                                 </div>
 
@@ -333,22 +332,25 @@ use Illuminate\Support\Carbon;
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-success float-right"><i class="fas fa-tasks"></i> Save Task</button>
+                            <button type="button" class="btn btn-success float-right"><i class="fas fa-tasks"></i> Save
+                                Task</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4" style="text-align: center">
-                    <div class="info-box bg-warning">
+                    <div class="info-box bg-white">
                         <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">@isset($nearestDeadline->task)
+                            <span class="info-box-text">
+                                @isset($nearestDeadline->task)
                                     {{ $nearestDeadline->task }}
-                                @endisset</span>
-                            <h4 id="demo" style="text-align: center"></h4>
+                                @endisset
+                            </span>
+                            <h4 id="demo" class="bg-primary" style="text-align: center; border-radius: 5px;"></h4>
                             <input type="hidden" id="nearded" name="nearded" value="{{ json_encode($nearestDeadline) }}">
                             <div class="progress">
-                                <div class="progress-bar" style="width: 70%"></div>
+                                <div class="progress-bar bg-dark" style="width: 70%"></div>
                             </div>
                             <span class="progress-description">
                                 70% Increase in 30 Days
@@ -357,6 +359,78 @@ use Illuminate\Support\Carbon;
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
+                    <div class="info-box bg-gradient-info" style="text-align: left; height: 100px;">
+                        <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Bookmarks</span>
+                            <span class="info-box-number">41,410</span>
+                            <span class="progress-description">
+                                70% Increase in 30 Days
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title pt-1">List of Reports</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered" id="myTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">No</th>
+                                        <th class="col-3">Task</th>
+                                        <th class="col-2">Status</th>
+                                        <th class="col-3">Checked At</th>
+                                        <th class="col-2">Project Name</th>
+                                        <th class="col-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($task_list as $tl)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$tl->details}}</td>
+                                        <td>
+                                            <small
+                                                    class="badge 
+                                                    @if ($tl->status == 2)
+                                                    badge-success
+                                                    @elseif ($tl->status == 3)
+                                                    badge-danger 
+                                                    @else
+                                                    badge-warning @endif
+                                                    "
+                                                    id='deadline'>
+                                                    @if ($tl->status == 2)
+                                                        Checked
+                                                    @elseif ($tl->status == 3)
+                                                        Not Passed
+                                                    @endif
+                                                </small>
+                                        </td>
+                                        <td>
+                                            {{ date('D, d M Y H:i', strtotime($tl->checked_at)) }}
+                                        </td>
+                                        <td>
+                                            {{ $tl->project()->first()->project_name }}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -32,4 +32,7 @@ class ProjectModel extends Model
     public function meeting(){
         return $this->hasMany(Meeting::class);
     }
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
+    }
 }

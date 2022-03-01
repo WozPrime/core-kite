@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ReportModel;
+use App\Models\Report;
 use Illuminate\Http\Request;
+use App\Models\ProjectTask;
+use App\Models\Doc;
 Use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReportController extends Controller
 {
@@ -15,16 +18,23 @@ class ReportController extends Controller
      */
     public function __construct()
     {   
-        $this->ReportModel = new ReportModel();
+        $this->report = new Report();
         $this->middleware('auth');
     }
     public function index()
     {
         return view('pages.progress.reports', [
-            'data' => ReportModel::all()
+            'data' => Report::all(),
+            'project_task' => ProjectTask::all(),
+            'doc' => Doc::all(),
         ]);
     }
 
+    public function downloadFile($file_name)
+    {
+        $file_path = public_path().'/files/task/'.$file_name;
+        return response()->download($file_path);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,9 +51,28 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id,Request $req)
     {
-        //
+        if ($req->task_points == 0) {
+            ProjectTask::find($id)->update([
+                'status' => 3,
+                'points' => null,
+                'checked_at' => Carbon::now(),
+                'feedback' => $req->feedback,
+            ]);
+            
+        }
+        else {
+            ProjectTask::find($id)->update([
+                'status' => 2,
+                'points' => $req->task_points,
+                'checked_at' => Carbon::now(),
+                'feedback' => $req->feedback,
+            ]);
+        }
+        
+        Alert::success('Sukses', 'Tugas Berhasil Di Nilai!!!');
+        return redirect()->back();
     }
 
     /**
