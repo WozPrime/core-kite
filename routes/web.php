@@ -82,7 +82,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::get('/admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
     Route::get('/admin/manage/project_all', [ProjectAllController::class,'show'])->name('manage_task');
     Route::get('/admin/task/delete/{id}', [ProjectAllController::class,'deleteTask'])->name('delete_active_task');
-    Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class,'edit'])->name('edit_task');
+    Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class,'edit'])->name('edit_project_task');
     Route::post('/admin/document/post/{id}',[ProjectAllController::class,'file_move'])->name('add_docs');
     Route::post('/admin/task/upload_details/{id}',[ProjectAllController::class,'upload_details'])->name('up_details');
     Route::get('/admin/file/delete/{file_name}', [ProjectAllController::class,'deleteFile'])->name('delete_file');

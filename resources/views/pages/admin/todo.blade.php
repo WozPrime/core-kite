@@ -96,8 +96,8 @@ use Illuminate\Support\Carbon;
                                             badge-primary
                                             @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
                                             badge-warning @endif
-@else
-badge-danger
+                                            @else
+                                            badge-danger
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
@@ -332,8 +332,7 @@ badge-danger
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-success float-right"><i class="fas fa-tasks"></i> Save
-                                Task</button>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -353,7 +352,7 @@ badge-danger
                                 <div class="progress-bar bg-dark" style="width: 70%"></div>
                             </div>
                             <span class="progress-description">
-                                70% Increase in 30 Days
+                                Task That You Must Do Before Deadline
                             </span>
                         </div>
                         <!-- /.info-box-content -->

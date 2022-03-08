@@ -102,9 +102,15 @@ use Carbon\Carbon;
                                         <div class="col-9">
                                             <div class="form-group no-border">
                                                 <select name="user_id" id="user_id" class="form-control">
-                                                    <option value="" selected disabled hidden>Pilih
-                                                        Karyawan
+                                                    <option value="" selected disabled hidden>Pilih Karyawan
                                                     </option>
+                                                    @php
+                                                        $pusers = array();
+                                                        foreach ($project_all->where('project_id',$data->id) as $p) {
+                                                            $pusers[]=$p->user_id;
+                                                        }
+                                                        $part_user = $users->whereNotIn('id',$pusers);
+                                                    @endphp
                                                     @if (count($part_user) == 0)
                                                         <option value="">Karyawan Tidak Tersedia
                                                         </option>
@@ -136,7 +142,7 @@ use Carbon\Carbon;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($participant as $list)
+                                        @foreach ($participant->where('project_id',$data->id)->get() as $list)
                                             @php
                                                 $prof_part = [];
                                                 $saved_task = [];
@@ -190,6 +196,89 @@ use Carbon\Carbon;
                                                         href="#delete{{ $list->user_id }}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="detail{{ $list->user_id }}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Detail Anggota</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                            <div class="modal-body">
+                                                                <div class="card card-primary card-outline">
+                                                                    <div class="card-body box-profile">
+                                                                        <div class="text-center">
+                                                                        @if ($user_task->find($list->user_id)->pp == '')
+                                                                                <img src="{{ url('pp/default.jpg') }}"
+                                                                                    class="profile-user-img img-fluid img-circle">
+                                                                            @else
+                                                                            <img src="{{ url('pp/' . $user_task->find($list->user_id)->pp) }}"
+                                                                                    class="profile-user-img img-fluid img-circle">
+                                                                            @endif
+                                                                        </div>
+    
+                                                                        <h3 class="profile-username text-center">
+                                                                        {{ $user_task->find($list->user_id)->name }}
+                                                                        </h3>
+    
+                                                                        <p class="text-muted text-center">Software Engineer</p>
+    
+                                                                        <ul class="list-group list-group-unbordered mb-3">
+                                                                            <li class="list-group-item">
+                                                                                <b>Email</b> <a
+                                                                                class="float-right">{{ $user_task->find($list->user_id)->email }}</a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Employee Code</b> <a
+                                                                                class="float-right text-dark">{{ $user_task->find($list->user_id)->code }}</a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Prof</b> <a
+                                                                                class="float-right text-dark">@if ($user_task->find($list->user_id)->profs()->first())
+                                                                                {{ $user_task->find($list->user_id)->profs()->first()->prof_code }}
+                                                                                @endif</a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Profession</b> <a
+                                                                                    class="float-right text-dark">
+                                                                                @if ($user_task->find($list->user_id)->profs()->first())
+                                                                                    {{ $user_task->find($list->user_id)->profs()->first()->prof_name }}
+                                                                                    @endif
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <h3>Task List</h3>
+                                                                <div class="card card-success card-outline">
+                                                                    <div class="card-body box-profile">
+                                                                        @if ($project_task->where('user_id',$list->user_id)->where('project_id',$data->id)->exists())
+                                                                            <ul class="list-group list-group-unbordered mb-3">
+                                                                                @foreach ($project_task->where('user_id',$list->user_id)->where('project_id',$data->id)->get() as $pt)
+                                                                                <li class="list-group-item">
+                                                                                    <b class="font-weight-normal">{{$loop->iteration}}. {{$pt->details}}</b>
+                                                                                    <a class="float-right text-dark font-weight-bold">({{$job_list->find($pt->task_id)->task_name}})</a>
+                                                                                </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @else
+                                                                            <h4 style="text-align: center" class="text-red">No Task Added</h4>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                            </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                             <div class="modal fade" id="insert{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -256,7 +345,6 @@ use Carbon\Carbon;
                                                 </div>
                                                 <!-- /.modal-dialog -->
                                             </div>
-        
                                             <div class="modal fade" id="tambah{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">

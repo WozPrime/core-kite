@@ -168,6 +168,7 @@
                                             </td>
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td style="text-align: center">
+                                                {{-- IF ELSE TIDAK BISA DIGABUNG DENGAN STYLE --}}
                                                 <div {{ $count = Illuminate\Support\Facades\DB::table('project_task', 'project_id')->count() }} 
                                                     {{ $status = Illuminate\Support\Facades\DB::table('project_task', 'status')->count() }} 
                                                     @if($count == 0) {{ $progress = 0 }}

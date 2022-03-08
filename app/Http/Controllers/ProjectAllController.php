@@ -22,7 +22,7 @@ class ProjectAllController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(ProjectAll $projectAll, User $user, ProjectTask $projectTask, ProjectModel $project, Task $task)
+    public function __construct(ProjectAll $projectAll, User $user, ProjectTask $projectTask, ProjectModel $project, Task $task,Doc $doc)
     {
         // İnitialize user property.
         $this->projectAll = $projectAll;
@@ -30,6 +30,7 @@ class ProjectAllController extends Controller
         $this->projectTask = $projectTask;
         $this->project = $project;
         $this->task = $task;
+        $this->doc = $doc;
     }
     public function index()
     {
@@ -101,7 +102,9 @@ class ProjectAllController extends Controller
         $Task = $this->task;
         $User = $this->user;
         $Project = $this->project;
-        return view('pages.admin.manajemen.mtask', compact('projectTask', 'Task', 'User', 'Project'));
+        $projectAll = $this->projectAll;
+        $Doc = $this->doc;
+        return view('pages.admin.manajemen.mtask', compact('projectTask', 'Task', 'User', 'Project','projectAll','Doc'));
     }
 
     /**
@@ -112,16 +115,52 @@ class ProjectAllController extends Controller
      */
     public function edit($id, Request $req)
     {
+        $ptask = $this->projectTask->find($id);
         $req->validate([
             'expired_at' => 'required',
+            'user_id' => 'required',
+            'task_id' => 'required',
+            'details' => 'required',
         ], [
             'expired_at.required' => 'Profesi Tidak Boleh Kosong!!',
+            'user_id.required' => 'User Tidak Boleh Kosong!!',
+            'task_id.required' => 'Task Tidak Boleh Kosong!!',
+            'details.required' => 'Detail Tidak Boleh Kosong!!',
         ]);
-        $this->projectTask->find($id)->update([
-            'expired_at' => $req->expired_at,
-        ]);
-        Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
-        return redirect()->back();
+        if (
+            $req->user_id == $ptask->user_id &&
+            $req->task_id == $ptask->task_id &&
+            $req->details == $ptask->details &&
+            strtotime($req->expired_at) == strtotime($ptask->expired_at) 
+        ){
+            Alert::warning('Sama', 'Data Tidak Berubah');
+            return redirect('/admin/manage/project_all');
+        } else
+        {
+            if (($ptask->status == 1 || $ptask->status == 2) && $req->user_id != $ptask->user_id) {
+                Alert::warning('Peringatan', 'Tugas Karyawan Tidak Bisa Dipindahkan karena Karyawan Sudah Mengupload atau Tugas Sudah Dinilai');
+                return redirect('/admin/manage/project_all');
+            } elseif(($ptask->status == 3) && $req->user_id != $ptask->user_id) {
+                $this->projectTask->find($id)->update([
+                    'expired_at' => $req->expired_at,
+                    'user_id' => $req->user_id,
+                    'task_id' => $req->task_id,
+                    'details' => $req->details,
+                    'status' => null,
+                ]);
+                Alert::success('Sukses', 'Tugas Berhasil Diperbaharui!!!');
+                return redirect()->back();
+            } else{
+                $this->projectTask->find($id)->update([
+                    'expired_at' => $req->expired_at,
+                    'user_id' => $req->user_id,
+                    'task_id' => $req->task_id,
+                    'details' => $req->details,
+                ]);
+                Alert::success('Sukses', 'Tugas Berhasil Diperbaharui!!!');
+                return redirect()->back();
+            }
+        }
         
     }
 

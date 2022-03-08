@@ -145,11 +145,11 @@
                                                                 <div class="card card-primary card-outline">
                                                                     <div class="card-body box-profile">
                                                                         <div class="text-center">
-                                                                            {{-- @if ($user->pp == '')
+                                                                            {{-- @if ($p_task->project()->first()->project_logo == '')
                                                                                 <img src="{{ url('pp/default.jpg') }}"
                                                                                     class="profile-user-img img-fluid img-circle">
                                                                             @else
-                                                                                <img src="{{ url('pp/' . $user->pp) }}"
+                                                                                <img src="{{ url('pp/' . $p_task->project()->first()->project_name) }}"
                                                                                     class="profile-user-img img-fluid img-circle">
                                                                             @endif --}}
                                                                         </div>
@@ -189,6 +189,41 @@
                                                                                     ">
                                                                                     @if ($p_task->post_date)
                                                                                         {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
+                                                                                    @else
+                                                                                        Not Uploaded Yet
+                                                                                    @endif
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Deadline</b> <a
+                                                                                    class="float-right 
+                                                                                    @if ($p_task->post_date) text-success
+                                                                                    @else
+                                                                                        text-red @endif
+                                                                                    ">
+                                                                                        {{ date('D, d M Y H:i', strtotime($p_task->expired_at)) }}
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Deadline Intervals</b>
+                                                                                <a class="float-right
+                                                                                @if ($p_task->post_date) text-dark
+                                                                                    @else
+                                                                                        text-red @endif
+                                                                                    ">
+                                                                                    @if ($p_task->post_date)
+                                                                                        @php
+                                                                                            $diff =  floor((strtotime($p_task->expired_at)- strtotime($p_task->post_date)) / 86400);
+                                                                                        @endphp
+                                                                                        @if ($diff >= 1)
+                                                                                            {{$diff}} Days
+                                                                                        @else
+                                                                                            @if ($diff > 0 && $diff < 1)
+                                                                                                {{floor((strtotime($p_task->expired_at)- strtotime($p_task->post_date)) / 1440)}} Minutes
+                                                                                            @else
+                                                                                                Deadline Expired
+                                                                                            @endif
+                                                                                        @endif
                                                                                     @else
                                                                                         Not Uploaded Yet
                                                                                     @endif
