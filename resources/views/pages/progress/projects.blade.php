@@ -169,7 +169,7 @@
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td style="text-align: center">
                                                 {{-- <div class="row"> --}}
-                                                    <div 
+                                                <div 
                                                     @php
                                                     $pcount = $ptask->where('project_id', $tbl_project->id)->count('id');
                                                     $pstatus = $ptask->where('project_id', $tbl_project->id)->where('status', '==', 2)->count('id');

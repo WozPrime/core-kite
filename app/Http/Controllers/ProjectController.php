@@ -148,13 +148,13 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
-        $part_user = DB::table('project_all')
-            ->join('users', 'users.id', '=', 'project_all.user_id', 'right outer')
-            ->select(['users.id', 'users.name', 'project_all.id as pt_id'])
-            ->whereNull('project_all.id')
-            ->get();
+        // $part_user = DB::table('project_all')
+        //     ->join('users', 'users.id', '=', 'project_all.user_id', 'right outer')
+        //     ->select(['users.id', 'users.name', 'project_all.id as pt_id'])
+        //     ->whereNull('project_all.id')
+        //     ->get();
         // $prof_part = $this->projectAll->select('prof_id','user_id')->get();
-        $participant = $this->projectAll->select('user_id')->groupBy('user_id')->get();
+        $participant = $this->projectAll->select('user_id')->groupBy('user_id');
         $user_task = $this->user;
         $project_task = $this->projectTask;
         // $task_prof = $this->task->find(3)->profs()->first()->id;
@@ -164,7 +164,7 @@ class ProjectController extends Controller
         return view('pages.progress.p_detail', [
             'data' => $proyek,
             'users' =>  User::get(['name', 'id', 'pp']),
-            'part_user' => $part_user,
+            // 'part_user' => $part_user,
             'project_all' => ProjectAll::all(),
             'profs' => ProfUser::all(),
             'job_list' => $this->task,

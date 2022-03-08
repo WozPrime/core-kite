@@ -62,7 +62,9 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user['prof'] }}</td>
+                                            <td>@if ($user->profs()->first())
+                                                {{ $user->profs()->first()->prof_code }}
+                                            @endif</td>
                                             <td>{{ $user['code'] }}</td>
                                             <td style="text-align: center">
                                                 @if ($user['pp'] == '')
@@ -124,7 +126,9 @@
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <b>Prof</b> <a
-                                                                                class="float-right text-dark">{{ $user->prof }}</a>
+                                                                                class="float-right text-dark">@if ($user->profs()->first())
+                                                                                {{ $user->profs()->first()->prof_code }}
+                                                                            @endif</a>
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <b>Profession</b> <a
