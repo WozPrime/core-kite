@@ -168,25 +168,43 @@
                                             </td>
                                             <td>{{ $tbl_project->project_category }}</td>
                                             <td style="text-align: center">
-                                                <div {{ $count = Illuminate\Support\Facades\DB::table('project_task', 'project_id')->count() }} 
-                                                    {{ $status = Illuminate\Support\Facades\DB::table('project_task', 'status')->count() }} 
-                                                    @if($count == 0) {{ $progress = 0 }}
-                                                    @elseif($count > 0) {{ $progress = ($status / $count) * 100 }} @endif 
-                                                    @if($count == '0') class="badge bg-danger" 
-                                                    @elseif ($count > '0')  class="progress-bar
-                                                        @if($progress < '25') " style="width: {{ $progress }}%;background-color:red !important;"
-                                                        @elseif($progress > '25' && $progress < '50') progress-bar-warning" style="width: {{ $progress }}%"
-                                                        @elseif($progress > '50' && $progress < '75') progress-bar-danger" style="width: {{ $progress }}%"
-                                                        @elseif($progress > '75' && $progress < '100') progress-bar-success" style="width: {{ $progress }}%"
-                                                        @elseif($count == '100') class="badge bg-success" 
-                                                        @endif">
-                                                    @endif
-                                                    <div>
-                                                        @if($count == '0') Belum ada tugas yang disiapkan
-                                                        @elseif($count == '100') Tugas proyek sudah terselesaikan
+                                                {{-- <div class="row"> --}}
+                                                    <div 
+                                                    @php
+                                                    $pcount = $ptask->where('project_id', $tbl_project->id)->count('id');
+                                                    $pstatus = $ptask->where('project_id', $tbl_project->id)->where('status', '==', 2)->count('id');
+                                                    if($pcount == 0) {$progress = 0;}
+                                                    elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
+                                                    @endphp 
+                                                    @if($pcount == 0) class="badge bg-danger" 
+                                                    @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
+                                                    @elseif($pcount > 0 && $progress == 100) class="badge bg-success" 
+                                                    @endif>
+                                                    <div @if($pcount > 0 && $progress >= 0 && $progress <= 25) class="progress-bar progress-bar-danger pb-3"
+                                                        @elseif($pcount > 0 && $progress > 25 && $progress <= 50) class="progress-bar progress-bar-warning pb-3"
+                                                        @elseif($pcount > 0 && $progress > 50 && $progress <= 75) class="progress-bar progress-bar-danger pb-3"
+                                                        @elseif($pcount > 0 && $progress > 75 && $progress < 100) class="progress-bar progress-bar-success pb-3"
+                                                        @endif
+                                                        @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
+                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
+                                                        @endif>
+                                                        @if($pcount == 0) Belum ada tugas yang disiapkan
+                                                        @elseif($pcount > 0 && $progress == 100) Seluruh tugas proyek sudah terselesaikan
                                                         @endif
                                                     </div>
                                                 </div>
+
+                                                @if($pcount > 0 && $progress >= 0 && $progress < 100) <span class="badge 
+                                                    @if($pcount > 0 && $progress >= 0 && $progress < 25) bg-danger float-left
+                                                    @elseif($pcount > 0 && $progress >= 25 && $progress <= 50) bg-warning 
+                                                    @elseif($pcount > 0 && $progress > 50 && $progress <= 75) bg-primary 
+                                                    @elseif($pcount > 0 && $progress > 75 && $progress < 100) bg-success float-right
+                                                    @endif col-2" 
+                                                    @if($pcount > 0 && $progress >= 25 && $progress < 50) style="margin-right:130px"
+                                                    @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"
+                                                    @endif>{{ $progress }}%</span>
+                                                @endif
+                                                {{-- </div> --}}
                                             </td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary mr-1 mb-1" href="/admin/proyek/{{ $tbl_project->id }}"><i

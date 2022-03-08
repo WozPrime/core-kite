@@ -39,6 +39,7 @@ class ProjectController extends Controller
             'instansi' => Instance::all(),
             'klien' => Client::all(),
             'modelinstansi' => InstancesModel::all(),
+            'ptask' => ProjectTask::all(),
         ]);
     }
     /**
@@ -348,7 +349,6 @@ class ProjectController extends Controller
             }
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *
