@@ -222,7 +222,7 @@
                                         </tr>
                                         <!-- /.modal -->
                                         <div class="modal fade" id="edit{{ $tbl_project->id }}">
-                                            <div class="modal-dialog">
+                                            <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
                                                         <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>
@@ -232,86 +232,91 @@
                                                             @method('put')
                                                             @csrf
                                                             <div class="content">
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansiEdit()" id="instance_id_edit" required>
-                                                                            <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
-                                                                        @foreach ($instansi as $i)
-                                                                            <option value="{{ $i->id }}">
-                                                                                {{ $i->nama_instansi }} </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('project_name')
-                                                                        {{ $message }}
-                                                                    @enderror
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                   
-                                                                    <select class='form-select' name='client_id' id='client_id_edit' required>
-                                                                        <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Kode Proyek</label>
-                                                                    <input name="project_code" class="form-control" value="{{ $tbl_project->project_code }}">
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Nama Proyek</label>
-                                                                    <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
-                                                                    <div class="text-danger">
-                                                                        @error('project_name')
-                                                                            {{ $message }}
-                                                                        @enderror
+                                                                <div class="form-group row">
+                                                                    <div class="col-6">
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                                                            <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansiEdit()" id="instance_id_edit" required>
+                                                                                    <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
+                                                                                @foreach ($instansi as $i)
+                                                                                    <option value="{{ $i->id }}">
+                                                                                        {{ $i->nama_instansi }} </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                            @error('project_name')
+                                                                                {{ $message }}
+                                                                            @enderror
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Klien</label>
+                                                                           
+                                                                            <select class='form-select' name='client_id' id='client_id_edit' required>
+                                                                                <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Kode Proyek</label>
+                                                                            <input name="project_code" class="form-control" value="{{ $tbl_project->project_code }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Nama Proyek</label>
+                                                                            <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
+                                                                            <div class="text-danger">
+                                                                                @error('project_name')
+                                                                                    {{ $message }}
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                                                            <select class="form-select" name="project_category" required>
+                                                                                <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
+                                                                                    <option value="Web">Web</option>
+                                                                                    <option value="Mobile App">Mobile App</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        
+                                                                        <div class="form-group">
+                                                                            <label>Detail Proyek</label>
+                                                                            <textarea name="project_detail" class="form-control" type="date" >{{ $tbl_project->project_detail }}</textarea>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
-                                                                    <select class="form-select" name="project_category" required>
-                                                                        <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
-                                                                            <option value="Web">Web</option>
-                                                                            <option value="Mobile App">Mobile App</option>
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Detail Proyek</label>
-                                                                    <textarea name="project_detail" class="form-control" type="date" >{{ $tbl_project->project_detail }}</textarea>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                                                    <select class="form-select" name="project_status" required>
-                                                                        <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
-                                                                            <option value="Baru">Baru</option>
-                                                                            <option value="Sedang Berjalan">Sedang Berjalan</option>
-                                                                            <option value="Tertunda">Tertunda</option>
-                                                                            <option value="Selesai">Selesai</option>
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Starting Date</label>
-                                                                    <input name="project_start_date" class="form-control" type="date" value="{{ $tbl_project->project_start_date }}">
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Deadline</label>
-                                                                    <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
-                                                                </div>
-                                    
-                                                                <div>
-                                                                    <label>Total Project</label>
-                                                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
-                                                                </div>
-                                    
-                                                                <div class="form-group my-2">
-                                                                    <label>Logo Instansi</label>
-                                                                    <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }}" onchange="Image_preview(event)">
+                                                                    <div class="col-6">
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
+                                                                            <select class="form-select" name="project_status" required>
+                                                                                <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
+                                                                                    <option value="Baru">Baru</option>
+                                                                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                                                    <option value="Tertunda">Tertunda</option>
+                                                                                    <option value="Selesai">Selesai</option>
+                                                                            </select>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Starting Date</label>
+                                                                            <input name="project_start_date" class="form-control" type="date" value="{{ $tbl_project->project_start_date }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Deadline</label>
+                                                                            <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
+                                                                        </div>
+                                            
+                                                                        <div>
+                                                                            <label>Total Project</label>
+                                                                            <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group my-2">
+                                                                            <label>Logo Instansi</label>
+                                                                            <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }}" onchange="Image_preview(event)">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>  
 
                                                                 <br>

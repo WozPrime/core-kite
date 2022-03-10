@@ -247,7 +247,7 @@
 
                                                                         <div class="form-group row">
                                                                             <label>Kategori Pemasukan</label>
-                                                                            <div class="select2-primary col-12">
+                                                                            <div class="col-10">
                                                                                 <select name="category_finance"
                                                                                     class="select2 select2-success"
                                                                                     data-dropdown-css-class="select2-success"
@@ -257,6 +257,10 @@
                                                                                         <option value="{{ $i->nama_kategori }}" @if($i->nama_kategori == $tbl_finansial->category_finance) selected @endif>{{ $i->nama_kategori }}</option>
                                                                                     @endforeach
                                                                                 </select>
+                                                                            </div>
+                                                                            <div class="col-2">
+                                                                                <a href="" class="btn btn-success float-right" data-toggle="modal"
+                                                                                    data-target="#categoryIncome">Tambah</a>
                                                                             </div>
                                                                         </div>
 
@@ -440,7 +444,7 @@
 
                                                                         <div class="form-group row">
                                                                             <label>Kategori Pengeluaran</label>
-                                                                            <div class="col-12">
+                                                                            <div class="col-10">
                                                                                 <select name="category_finance"
                                                                                     class="select2 select2-danger"
                                                                                     data-dropdown-css-class="select2-danger"
@@ -449,6 +453,10 @@
                                                                                         <option value="{{ $i->nama_kategori }}" @if($i->nama_kategori == $tbl_finansial->category_finance) selected @endif>{{ $i->nama_kategori }}</option>
                                                                                     @endforeach
                                                                                 </select>
+                                                                            </div>
+                                                                            <div class="col-2">
+                                                                                <a href="" class="btn btn-success float-right" data-toggle="modal"
+                                                                                    data-target="#categoryOutcome">Tambah</a>
                                                                             </div>
                                                                         </div>
 
