@@ -62,6 +62,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::get('/admin/profile/delete/{id}', [UserController::class, 'delete_user'])->name('delete');
     Route::post('/admin/profile/cpass/{id}', [UserController::class, 'cpass'])->name('cpass');
     Route::get('/admin/manage_user/', [UserController::class, 'manage_user'])->name('manage_user');
+    Route::post('/admin/manage_user/new', [UserController::class, 'newUser'])->name('newUser');
 
 
     //Profession

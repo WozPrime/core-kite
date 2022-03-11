@@ -92,7 +92,7 @@ use Carbon\Carbon;
                     <div class="card">
                         <div class="card-orange">
                             <div class="card-header">
-                                <h3 class="card-title text-light">Anggota Proyek</h3>
+                                <h3 class="card-title text-light pt-2">Anggota Proyek</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -386,22 +386,29 @@ use Carbon\Carbon;
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="add_task">Add new Task</label>
-                                                                    <select name="task_id" id="task_id" class="form-control">
-                                                                        <option value="" selected disabled hidden>Pilih Task Baru</option>
-                                                                        @foreach ($job_list->get() as $task)
-                                                                            @if ($job_list->find($task->id)->profs()->first() == '')
-                                                                                @continue
-                                                                            @else
-                                                                                @if (in_array($task->profs()->first()->id, $prof_part))
-                                                                                    @if (in_array($task->id, $saved_task))
+                                                                    <div class="row">
+                                                                        <div class="col-9">
+                                                                            <select name="task_id" id="task_id" class="form-control">
+                                                                                <option value="" selected disabled hidden>Pilih Task </option>
+                                                                                @foreach ($job_list->get() as $task)
+                                                                                    @if ($job_list->find($task->id)->profs()->first() == '')
                                                                                         @continue
                                                                                     @else
-                                                                                        <option value="{{ $task->id }}">{{ $task->task_name }}</option>
+                                                                                        @if (in_array($task->profs()->first()->id, $prof_part))
+                                                                                            @if (in_array($task->id, $saved_task))
+                                                                                                @continue
+                                                                                            @else
+                                                                                                <option value="{{ $task->id }}">{{ $task->task_name }}</option>
+                                                                                            @endif
+                                                                                        @endif
                                                                                     @endif
-                                                                                @endif
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </select>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-3">
+                                                                            <a href="/admin/joblist" class="btn btn-success pr-4"><i class="fas fa-plus-circle mr-1"></i> New</a>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Details</label>
@@ -630,6 +637,7 @@ use Carbon\Carbon;
 @section('footer')
 @endsection
 @section('script')
+    
     <script>
         $(document).ready(function() {
             $('#myTable1').DataTable();
