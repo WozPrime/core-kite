@@ -56,8 +56,8 @@ class TaskController extends Controller
             "task_id" => $createId->id,
             "prof_id"=> Request()->prof_id
         ]));
-        Alert::success('Sukses','Data berhasil Diperbaharui');
-        return redirect('/admin/joblist');
+        Alert::success('Sukses','Task Berhasil Ditambahkan!!');
+        return redirect()->back();
     }
 
     /**

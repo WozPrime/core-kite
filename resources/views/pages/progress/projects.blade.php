@@ -196,9 +196,9 @@
 
                                                 @if($pcount > 0 && $progress >= 0 && $progress < 100) <span class="badge 
                                                     @if($pcount > 0 && $progress >= 0 && $progress < 25) bg-danger float-left
-                                                    @elseif($pcount > 0 && $progress >= 25 && $progress <= 50) bg-warning 
-                                                    @elseif($pcount > 0 && $progress > 50 && $progress <= 75) bg-primary 
-                                                    @elseif($pcount > 0 && $progress > 75 && $progress < 100) bg-success float-right
+                                                    @elseif($pcount > 0 && $progress >= 25 && $progress < 50) bg-warning 
+                                                    @elseif($pcount > 0 && $progress >= 50 && $progress < 75) bg-primary 
+                                                    @elseif($pcount > 0 && $progress >= 75 && $progress < 100) bg-success float-right
                                                     @endif col-2" 
                                                     @if($pcount > 0 && $progress >= 25 && $progress < 50) style="margin-right:130px"
                                                     @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"

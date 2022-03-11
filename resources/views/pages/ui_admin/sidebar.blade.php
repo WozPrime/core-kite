@@ -48,8 +48,7 @@
                         </p>
                     </a>
                 </li>
-                <li
-                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'menu-open' : 'menu-closed' }}">
+                <li class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'menu-open' : '' }}">
                     <a href=""
                         class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
