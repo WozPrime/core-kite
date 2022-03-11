@@ -135,13 +135,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header p-2">
+                        <div class="card-header p-2 bg-orange">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#pemasukan"
+                                <li class="nav-item text-light"><a class="nav-link text-light active" href="#pemasukan"
                                         data-toggle="tab">Pemasukan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#pengeluaran"
+                                <li class="nav-item text-light"><a class="nav-link text-light" href="#pengeluaran"
                                         data-toggle="tab">Pengeluaran</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#kategori"
+                                <li class="nav-item text-light"><a class="nav-link text-light" href="#kategori"
                                         data-toggle="tab">Kategori</a></li>
                             </ul>
                         </div>
