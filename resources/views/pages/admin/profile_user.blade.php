@@ -54,7 +54,11 @@
 
                             <h3 class="profile-username text-center">{{$data_user->name}}</h3>
 
-                            <p class="text-muted text-center">{{$data_user->profs()->first()->prof_name }}</p>
+                            <p class="text-muted text-center">@if ($data_user->profs()->first())
+                                {{$data_user->profs()->first()->prof_name }}
+                                @else
+                                -
+                                @endif</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
