@@ -282,7 +282,7 @@
                                                                         
                                                                         <div class="form-group">
                                                                             <label>Detail Proyek</label>
-                                                                            <textarea name="project_detail" class="form-control" type="date" >{{ $tbl_project->project_detail }}</textarea>
+                                                                            <textarea name="project_detail" class="form-control" >{{ $tbl_project->project_detail }}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
