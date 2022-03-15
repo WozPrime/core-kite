@@ -33,8 +33,6 @@ $("#seeAnotherFieldInstance").change(function() {
 });
 $("#seeAnotherFieldInstance").trigger("change");
 
-
-
 $("#seeAnotherFieldClient").change(function() {
     if ($('#client_id').val() == "yes") {
         $('#otherFieldDivClient').show();
@@ -55,6 +53,25 @@ $("#seeAnotherFieldClient").change(function() {
     }
 });
 $("#seeAnotherFieldClient").trigger("change");
+
+$("#seeAnotherFieldReport").change(function() {
+    if ($('#reportList').val() == "Karyawan") {
+        $('#otherFieldDivReport').show();
+        $('#dataKaryawan').attr('required','');
+        $('#dataKaryawan').attr('data-error', 'This field is required.');
+    } else if ($('#reportList').val() == "Tanggal") {
+        $('#otherFieldDivReport').show();
+        $('#dataTanggal').attr('required');  
+        $('#dataTanggal').attr('data-error', 'This field is required.');				
+    } else {
+        $('#otherFieldDivReport').hide();
+        $('#dataKaryawan').removeAttr('required');
+        $('#dataKaryawan').removeAttr('data-error');				
+        $('#dataTanggal').removeAttr('required');
+        $('#dataTanggal').removeAttr('data-error');				
+    }
+});
+$("#seeAnotherFieldReport").trigger("change");
 
 $("#seeAnotherFieldGroup").change(function() {
     if ($(this).val() == "yes") {

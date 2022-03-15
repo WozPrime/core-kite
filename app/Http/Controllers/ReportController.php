@@ -6,6 +6,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Models\ProjectTask;
 use App\Models\Doc;
+use App\Models\User;
 Use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -27,6 +28,7 @@ class ReportController extends Controller
             'data' => Report::all(),
             'project_task' => ProjectTask::all(),
             'doc' => Doc::all(),
+            'users' => User::all(),
         ]);
     }
 
