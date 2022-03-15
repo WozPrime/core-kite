@@ -65,12 +65,10 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Reports</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
-                                    title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
+                            <h2 class="card-title pt-2">List of Reports</h2>
+                            <div class="col-xs-3" style="float: right">
+                                {{-- <a href="#pdf" class="btn btn-block btn-info text-light" data-toggle="modal"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a> --}}
+                                <a href="generate-pdf" target="_blank" class="btn btn-block btn-info"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -356,12 +354,63 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <!-- /.card -->
-                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
         </div>
+
+        {{-- <div class="modal fade" id="pdf">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="card-header bg-orange">
+                        <h3 class="card-title">Add New Instance</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form autocomplete="off" action="/admin/instansi/" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="content">
+                                <div class="form-group" id="seeAnotherFieldReport">
+                                    <label for="seeAnotherFieldReport">Pilih Data Laporan</label>
+                                    <select class="form-select" aria-label="Disable" name="reportList" id="reportList" required>
+                                        <option selected hidden>Pilih Asal Data</option>
+                                        <option value="Karyawan"> Pilih Berdasar Karyawan</option>
+                                        <option value="Tanggal"> Pilih Berdasar Tanggal</option>
+                                        <option value="All"> Seluruh Data</option>
+                                    </select>
+                                    @error('project_name')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                            <div id="otherFieldDivReport">
+                                <div class="form-group">
+                                    <label for="otherFieldDivReport">Pilih Karyawan</label>
+                                    <select name="dataKaryawan" id="dataKaryawan" class="form-select">
+                                        @foreach ($project_task->where('status', 2) as $data)
+                                            <option value="{{ $data->user_id }}">{{ $data->users->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="otherFieldDivReport">
+                                <div class="form-group">
+                                    <label for="otherFieldDivReport">Starting Date</label>
+                                    <input name="dataTanggal" class="form-control" type="date" value="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
     </section>
     <!-- /.content -->
 

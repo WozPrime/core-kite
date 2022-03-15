@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FiCategoryController;
 use App\Http\Controllers\ProjectTaskController;
+use App\Http\Controllers\PDFController;
 use App\Http\Middleware\Role;
 use App\Models\ProjectAll;
 
@@ -100,6 +101,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     //Umum
     Route::resource('/admin/manage/finance', FinanceController::class);
     Route::resource('/admin/manage/ficategory', FiCategoryController::class);
+    Route::get('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
 
 });
 
