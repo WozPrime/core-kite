@@ -102,7 +102,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     //Umum
     Route::resource('/admin/manage/finance', FinanceController::class);
     Route::resource('/admin/manage/ficategory', FiCategoryController::class);
-    Route::get('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
+    Route::post('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
 
 });
 

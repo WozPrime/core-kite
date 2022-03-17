@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Models\ProjectTask;
+use App\Models\ProjectModel;
+use App\Models\ProfUser;
 use App\Models\Doc;
 use App\Models\User;
 Use Carbon\Carbon;
@@ -29,6 +31,8 @@ class ReportController extends Controller
             'project_task' => ProjectTask::all(),
             'doc' => Doc::all(),
             'users' => User::all(),
+            'proyek' => ProjectModel::all(),
+            'profesi' => ProfUser::all(),
         ]);
     }
 

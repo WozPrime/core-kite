@@ -19,16 +19,22 @@ class PDFController extends Controller
     //     ]);
     // }
 
-    public function generatePDF()
+    public function generatePDF(Request $req)
     {
-        $data = [
-            // 'doc' => Doc::all(),
-            'project_task' => ProjectTask::all(),
-        ];
+        if (Request()->reportList == "Karyawan") $input = $req->dataKaryawan;
+        if (Request()->reportList == "Tanggal") $input = $req->dataTanggal;
+        if (Request()->reportList == "Proyek") $input = $req->dataProyek;
+        if (Request()->reportList == "Profesi") $input = $req->dataProfesi;
+        // dd($input);
+
+        // $data = [
+        //     // 'doc' => Doc::all(),
+        //     'project_task' => ProjectTask::all(),
+        // ];
           
-        // $pdf = PDF::loadView('pages.progress.generatedPDF', $data);
-        // $pdf->setPaper('A4', 'Landscape');
-        // return $pdf->stream('ReportPDF.pdf');
-        return view('pages.progress.generatedPDF', $data);
+        $pdf = PDF::loadView('pages.progress.generatedPDF', $data);
+        $pdf->setPaper('A4', 'Landscape');
+        return $pdf->stream('ReportPDF.pdf');
+        // return view('pages.progress.generatedPDF', $data);
     }
 }
