@@ -67,8 +67,9 @@
                         <div class="card-header">
                             <h2 class="card-title pt-2">List of Reports</h2>
                             <div class="col-xs-3" style="float: right">
-                                {{-- <a href="#pdf" class="btn btn-block btn-info text-light" data-toggle="modal"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a> --}}
-                                <a href="generate-pdf" target="_blank" class="btn btn-block btn-info"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a>
+                                <a href="#pdf" class="btn btn-block btn-info text-light" data-toggle="modal"><i
+                                        class="fas fa-file-alt mr-2"></i>Generate PDF</a>
+                                {{-- <a href="generate-pdf" target="_blank" class="btn btn-block btn-info"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a> --}}
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -199,25 +200,27 @@
                                                                                     @else
                                                                                         text-red @endif
                                                                                     ">
-                                                                                        {{ date('D, d M Y H:i', strtotime($p_task->expired_at)) }}
+                                                                                    {{ date('D, d M Y H:i', strtotime($p_task->expired_at)) }}
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
                                                                                 <b>Deadline Intervals</b>
-                                                                                <a class="float-right
+                                                                                <a
+                                                                                    class="float-right
                                                                                 @if ($p_task->post_date) text-dark
                                                                                     @else
                                                                                         text-red @endif
                                                                                     ">
                                                                                     @if ($p_task->post_date)
                                                                                         @php
-                                                                                            $diff =  floor((strtotime($p_task->expired_at)- strtotime($p_task->post_date)) / 86400);
+                                                                                            $diff = floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 86400);
                                                                                         @endphp
                                                                                         @if ($diff >= 1)
-                                                                                            {{$diff}} Days
+                                                                                            {{ $diff }} Days
                                                                                         @else
                                                                                             @if ($diff > 0 && $diff < 1)
-                                                                                                {{floor((strtotime($p_task->expired_at)- strtotime($p_task->post_date)) / 1440)}} Minutes
+                                                                                                {{ floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 1440) }}
+                                                                                                Minutes
                                                                                             @else
                                                                                                 Deadline Expired
                                                                                             @endif
@@ -329,10 +332,9 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Feedbacks</label>
-                                                                            <textarea class="form-control" id="feedback"
-                                                                                name="feedback" rows="3" required
-                                                                                placeholder="Enter Task Feedbacks ...">{{$p_task->feedback}}</textarea>
-                                                                            </div>
+                                                                            <textarea class="form-control" id="feedback" name="feedback" rows="3" required
+                                                                                placeholder="Enter Task Feedbacks ...">{{ $p_task->feedback }}</textarea>
+                                                                        </div>
                                                                     @endif
                                                                 </section>
                                                             </div>
@@ -359,7 +361,7 @@
             </div>
         </div>
 
-        {{-- <div class="modal fade" id="pdf">
+        <div class="modal fade" id="pdf">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
@@ -368,17 +370,20 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="card-body">
-                        <form autocomplete="off" action="/admin/instansi/" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
+                    <form autocomplete="off" action="/admin/generate-pdf" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+
                             <div class="content">
                                 <div class="form-group" id="seeAnotherFieldReport">
                                     <label for="seeAnotherFieldReport">Pilih Data Laporan</label>
-                                    <select class="form-select" aria-label="Disable" name="reportList" id="reportList" required>
+                                    <select class="form-select" aria-label="Disable" name="reportList" id="reportList"
+                                        required>
                                         <option selected hidden>Pilih Asal Data</option>
-                                        <option value="Karyawan"> Pilih Berdasar Karyawan</option>
-                                        <option value="Tanggal"> Pilih Berdasar Tanggal</option>
+                                        <option value="Karyawan">Pilih Berdasar Karyawan</option>
+                                        <option value="Tanggal">Pilih Berdasar Tanggal</option>
+                                        <option value="Proyek">Pilih Berdasar Proyek</option>
+                                        <option value="Profesi">Pilih Berdasar Profesi</option>
                                         <option value="All"> Seluruh Data</option>
                                     </select>
                                     @error('project_name')
@@ -386,30 +391,50 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div id="otherFieldDivReport">
-                                <div class="form-group">
-                                    <label for="otherFieldDivReport">Pilih Karyawan</label>
+                            <div>
+                                <div class="form-group" id="otherFieldReportEmp">
+                                    <label for="otherFieldReportEmp">Pilih Karyawan</label>
                                     <select name="dataKaryawan" id="dataKaryawan" class="form-select">
+                                        <option value="" selected hidden>Pilih Data Karyawan</option>
                                         @foreach ($project_task->where('status', 2) as $data)
                                             <option value="{{ $data->user_id }}">{{ $data->users->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div id="otherFieldDivReport">
-                                <div class="form-group">
-                                    <label for="otherFieldDivReport">Starting Date</label>
-                                    <input name="dataTanggal" class="form-control" type="date" value="">
+                                <div class="form-group" id="otherFieldReportDate">
+                                    <label for="otherFieldReportDate">Tentukan Tanggal</label>
+                                    <input name="dataTanggal" id="dataTanggal" class="form-control" type="date">
+                                </div>
+                                <div class="form-group" id="otherFieldReportProj">
+                                    <label for="otherFieldReportProj">Pilih Proyek</label>
+                                    <select name="dataProyek" id="dataProyek" class="form-select">
+                                        <option value="" selected hidden>Pilih Data Proyek</option>
+                                        @foreach ($proyek as $data)
+                                            <option value="{{ $data->id }}">{{ $data->project_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group" id="otherFieldReportProf">
+                                    <label for="otherFieldReportProf">Pilih Profesi</label>
+                                    <select name="dataProfesi" id="dataProfesi" class="form-select">
+                                        <option value="" selected hidden>Pilih Data Profesi</option>
+                                        @foreach ($profesi as $data)
+                                            <option value="{{ $data->id }}">{{ $data->prof_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-file-alt mr-2"></i>Generate
+                                PDF</a></button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
     </section>
     <!-- /.content -->

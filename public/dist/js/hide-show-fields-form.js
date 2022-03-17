@@ -56,19 +56,73 @@ $("#seeAnotherFieldClient").trigger("change");
 
 $("#seeAnotherFieldReport").change(function() {
     if ($('#reportList').val() == "Karyawan") {
-        $('#otherFieldDivReport').show();
-        $('#dataKaryawan').attr('required','');
+        $('#otherFieldReportEmp').show();
+        $('#dataKaryawan').attr('required');
         $('#dataKaryawan').attr('data-error', 'This field is required.');
-    } else if ($('#reportList').val() == "Tanggal") {
-        $('#otherFieldDivReport').show();
-        $('#dataTanggal').attr('required');  
-        $('#dataTanggal').attr('data-error', 'This field is required.');				
-    } else {
-        $('#otherFieldDivReport').hide();
-        $('#dataKaryawan').removeAttr('required');
-        $('#dataKaryawan').removeAttr('data-error');				
+        $('#otherFieldReportDate').hide();
+        $('#dataTanggal').Attr('value', '');
         $('#dataTanggal').removeAttr('required');
-        $('#dataTanggal').removeAttr('data-error');				
+        $('#dataTanggal').removeAttr('data-error');	
+        $('#otherFieldReportProj').hide();
+        $('#dataTanggal').Attr('value', '');
+        $('#dataProyek').removeAttr('required');
+        $('#dataProyek').removeAttr('data-error');
+        $('#otherFieldReportProf').hide();
+        $('#dataTanggal').Attr('value', '');
+        $('#dataProfesi').removeAttr('required');
+        $('#dataProfesi').removeAttr('data-error');
+    } else if ($('#reportList').val() == "Tanggal") {
+        $('#otherFieldReportDate').show();
+        $('#dataTanggal').attr('required');  
+        $('#dataTanggal').attr('data-error', 'This field is required.');
+        $('#otherFieldReportEmp').hide();
+        $('#dataKaryawan').removeAttr('required');
+        $('#dataKaryawan').removeAttr('data-error');
+        $('#otherFieldReportProj').hide();
+        $('#dataProyek').removeAttr('required');
+        $('#dataProyek').removeAttr('data-error');
+        $('#otherFieldReportProf').hide();
+        $('#dataProfesi').removeAttr('required');
+        $('#dataProfesi').removeAttr('data-error');
+    } else if ($('#reportList').val() == "Proyek") {
+        $('#otherFieldReportProj').show();
+        $('#dataProyek').attr('required');  
+        $('#dataProyek').attr('data-error', 'This field is required.');
+        $('#otherFieldReportEmp').hide();
+        $('#dataKaryawan').removeAttr('required');
+        $('#dataKaryawan').removeAttr('data-error');
+        $('#otherFieldReportDate').hide();
+        $('#dataTanggal').removeAttr('required');
+        $('#dataTanggal').removeAttr('data-error');
+        $('#otherFieldReportProf').hide();
+        $('#dataProfesi').removeAttr('required');
+        $('#dataProfesi').removeAttr('data-error');	
+    } else if ($('#reportList').val() == "Profesi") {
+        $('#otherFieldReportProf').show();
+        $('#dataProfesi').attr('required');  
+        $('#dataProfesi').attr('data-error', 'This field is required.');
+        $('#otherFieldReportEmp').hide();
+        $('#dataKaryawan').removeAttr('required');
+        $('#dataKaryawan').removeAttr('data-error');
+        $('#otherFieldReportDate').hide();
+        $('#dataTanggal').removeAttr('required');
+        $('#dataTanggal').removeAttr('data-error');	
+        $('#otherFieldReportProj').hide();
+        $('#dataProyek').removeAttr('required');
+        $('#dataProyek').removeAttr('data-error');
+    } else {
+        $('#otherFieldReportEmp').hide();
+        $('#dataKaryawan').removeAttr('required');
+        $('#dataKaryawan').removeAttr('data-error');
+        $('#otherFieldReportDate').hide();
+        $('#dataTanggal').removeAttr('required');
+        $('#dataTanggal').removeAttr('data-error');
+        $('#otherFieldReportProj').hide();
+        $('#dataProyek').removeAttr('required');
+        $('#dataProyek').removeAttr('data-error');
+        $('#otherFieldReportProf').hide();
+        $('#dataProfesi').removeAttr('required');
+        $('#dataProfesi').removeAttr('data-error');				
     }
 });
 $("#seeAnotherFieldReport").trigger("change");
@@ -78,13 +132,13 @@ $("#seeAnotherFieldGroup").change(function() {
         $('#otherFieldGroupDiv').show();
         $('#otherField1').attr('required','');
         $('#otherField1').attr('data-error', 'This field is required.');
-$('#otherField2').attr('required','');
+        $('#otherField2').attr('required','');
         $('#otherField2').attr('data-error', 'This field is required.');
     } else {
         $('#otherFieldGroupDiv').hide();
         $('#otherField1').removeAttr('required');
         $('#otherField1').removeAttr('data-error');
-$('#otherField2').removeAttr('required');
+        $('#otherField2').removeAttr('required');
         $('#otherField2').removeAttr('data-error');	
     }
 });

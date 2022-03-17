@@ -2,67 +2,65 @@
 <html>
 
 <style>
-table , td, th {
-	border: 1px solid #595959;
-	border-collapse: collapse;
-    width: 100%;
-}
-td, th {
-	padding: 3px;
-	width: 30px;
-	height: 25px;
-}
-th {
-	background: #f0e6cc;
-}
-.even {
-	background: #fbf8f0;
-}
-.odd {
-	background: #fefcf9;
-}
-.wrapper {
-  margin-right: auto; 
-  margin-left:  auto; 
+    table,
+    td,
+    th {
+        border: 1px solid #595959;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-  padding-right: 100px; 
-  padding-left:  100px; 
-}
+    td,
+    th {
+        padding: 3px;
+        width: 30px;
+        height: 25px;
+    }
+
+    th {
+        background: #f0e6cc;
+    }
+
+    .even {
+        background: #fbf8f0;
+    }
+
+    .odd {
+        background: #fefcf9;
+    }
 </style>
+
 <body>
-    
+
 </body>
 <header>
-    <div class="wrapper">
-        <table>
-            <tbody>
-                <tr>
-                    <td rowspan="3"></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="width:100px"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</header>
-<br>
-<div class="wrapper">
     <table>
         <tbody>
             <tr>
-                <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b></td>
+                <td rowspan="3"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="width:100px"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
         </tbody>
     </table>
-    <br>
-    <table>
+</header>
+<br>
+<table>
+    <tbody>
+        <tr>
+            <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<table>
     <tbody>
         <tr>
             <td></td>
@@ -73,17 +71,16 @@ th {
             <td></td>
         </tr>
     </tbody>
-    </table>
-    <br>
-    <table>
-        <tbody>
-            <tr>
-                <td></td>
-                <td style="width:137px"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+</table>
+<br>
+<table>
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="width:137px"></td>
+        </tr>
+    </tbody>
+</table>
 
 {{-- <head>
     <!-- Theme style -->
