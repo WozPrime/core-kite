@@ -1,89 +1,150 @@
 <!DOCTYPE html>
 <html>
-
+@php
+use Illuminate\Support\Carbon;
+@endphp
 <style>
-table , td, th {
-	border: 1px solid #595959;
-	border-collapse: collapse;
-    width: 100%;
-}
-td, th {
-	padding: 3px;
-	width: 30px;
-	height: 25px;
-}
-th {
-	background: #f0e6cc;
-}
-.even {
-	background: #fbf8f0;
-}
-.odd {
-	background: #fefcf9;
-}
-.wrapper {
-  margin-right: auto; 
-  margin-left:  auto; 
+    table,
+    td,
+    th {
+        border: 1px solid #595959;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-  padding-right: 100px; 
-  padding-left:  100px; 
-}
+    td,
+    th {
+        width: 30px;
+        height: 25px;
+    }
+
+    h4,
+    p {
+        text-align: center;
+    }
+
+    th {
+        background: #f0e6cc;
+    }
+
+    .even {
+        background: #fbf8f0;
+    }
+
+    .odd {
+        background: #fefcf9;
+    }
+
+    .wrapper {
+        margin-right: auto;
+        margin-left: auto;
+
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+
 </style>
+
 <body>
-    
+
 </body>
 <header>
-    <div class="wrapper">
-        <table>
-            <tbody>
-                <tr>
-                    <td rowspan="3"></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="width:100px"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</header>
-<br>
-<div class="wrapper">
+
     <table>
         <tbody>
             <tr>
-                <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b></td>
+                <td rowspan="3" style="max-width: 30px; max-height: 70px;"><img
+                        src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;
+                        margin-left: 60px; margin-right: 20px; margin-top: 20px;">
+                    <p>IDEKITE<br>INDONESIA</p>
+                </td>
+                <td>
+                    <h3 style="text-align: center;">LAPORAN HASIL PEKERJAAN
+                        <br><i style="font-weight: 100">JOB RESULT REPORT</i>
+                    </h3>
+                </td>
+                <td>
+                    <p style="text-align: left">Ref No.</p>
+                    <p style="text-align: right">JR-IDEKITE-</p>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="width:100px">
+                    <h3>
+                        <p>LAPORAN PERBULAN PERPROYEK</p>
+                    </h3>
+                </td>
+                <td>Tanggal Terbit : <p style="float: right;"> {{ date('D, d M Y', strtotime(Carbon::now())) }}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Halaman :
+                    <p></p>
+                </td>
             </tr>
         </tbody>
     </table>
-    <br>
-    <table>
+
+</header>
+<br>
+
+<table>
     <tbody>
         <tr>
-            <td></td>
+            <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<table>
+    <tbody>
+        <tr>
+            <td>Penanggung Jawab Proyek: </td>
             <td style="width:137px"></td>
         </tr>
         <tr>
+            <td>Anggota Kelompok: </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<table>
+    <tbody>
+        <tr>
+            <td>Deskripsi Proyek</td>
+            <td style="width:137px"></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<table>
+    <thead>
+        <tr>
+            <td style="width: 5%; font-weight: 1000" >No</td>
+            <td style="font-weight: 1000">Penanggung Jawab</td>
+            <td style="font-weight: 1000">Tugas</td>
+            <td style="font-weight: 1000">Kategori</td>
+            <td style="font-weight: 1000">Lama Pengerjaan</td>
+            <td style="font-weight: 1000">Nama Proyek</td>
+            <td style="font-weight: 1000">Poin</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
     </tbody>
-    </table>
-    <br>
-    <table>
-        <tbody>
-            <tr>
-                <td></td>
-                <td style="width:137px"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+</table>
+
 
 {{-- <head>
     <!-- Theme style -->
