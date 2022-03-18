@@ -360,7 +360,7 @@ use Carbon\Carbon;
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="list_task">Task yang telah Dipilih</label>
+                                                                    <label for="list_task">Task yang sudah diberikan pada karyawan</label>
                                                                     <div class="select2-success">
                                                                         <select class="select2"
                                                                             data-dropdown-css-class="select2-success"
