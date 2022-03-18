@@ -42,6 +42,14 @@ use Illuminate\Support\Carbon;
         padding-right: 100px;
         padding-left: 100px;
     }
+    .center {
+                text-align: center;
+            }
+            .center img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
 </style>
 
@@ -53,9 +61,11 @@ use Illuminate\Support\Carbon;
     <table>
         <tbody>
             <tr>
-                <td rowspan="3" style="max-width: 30px; max-height: 70px;"><img
-                        src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;
-                        margin-left: 50px; margin-right: 20px; margin-top: 20px; margin-bottom:10px;">
+                <td rowspan="3" style="max-width: 30px; max-height: 70px;">
+                    <div class="center">
+                        <img
+                        src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;">
+                        </div>
                     <p>IDEKITE<br>INDONESIA</p>
                 </td>
                 <td>
@@ -142,7 +152,7 @@ use Illuminate\Support\Carbon;
 <br>
 <table>
     <thead>
-        <tr>
+        <tr style="text-align: center">
             <td style="width: 5%; font-weight: 1000" >No</td>
             @if ($report_opt <> "Karyawan")
                 <td style="font-weight: 1000">Penanggung Jawab</td>
@@ -161,7 +171,7 @@ use Illuminate\Support\Carbon;
     <tbody>
         @foreach ($project_task->where('status',2) as $p_task)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td style="text-align: center">{{$loop->iteration}}</td>
                 @if ($report_opt <> "Karyawan")
                     <td>{{$p_task->users()->first()->name}}</td>
                 @endif
@@ -173,7 +183,7 @@ use Illuminate\Support\Carbon;
                 @if ($report_opt <> "Proyek")
                     <td>{{ $p_task->project()->first()->project_name }}</td>
                 @endif
-                <td>{{$p_task->points}}</td>
+                <td style="text-align: center">{{$p_task->points}}</td>
             </tr>
         @endforeach
     </tbody>
