@@ -54,8 +54,8 @@ use Illuminate\Support\Carbon;
         <tbody>
             <tr>
                 <td rowspan="3" style="max-width: 30px; max-height: 70px;"><img
-                        src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;
-                        margin-left: 60px; margin-right: 20px; margin-top: 20px;">
+                        src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;
+                        margin-left: 70px; margin-right: 20px; margin-top: 20px;">
                     <p>IDEKITE<br>INDONESIA</p>
                 </td>
                 <td>
@@ -71,7 +71,24 @@ use Illuminate\Support\Carbon;
             <tr>
                 <td rowspan="2" style="width:100px">
                     <h3>
-                        <p>LAPORAN PERBULAN PERPROYEK</p>
+                        @if ($report_opt == "Proyek")
+                            <p>LAPORAN PROYEK :<br>
+                                <h2 style="text-align: center">{{$project_task->where('project_id',$input)->first()->project()->first()->project_name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Karyawan")
+                            <p>LAPORAN KARYAWAN :<br>
+                                <h2 style="text-align: center">{{$project_task->where('user_id',$input)->first()->users()->first()->name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Tanggal")
+                            <p>LAPORAN PER :<br>
+                                <h2 style="text-align: center">{{$input[0]}} - {{$input[1]}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Profesi")
+                            <p>LAPORAN PEKERJAAN :<br>
+                                <h2 style="text-align: center">{{$prof_name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Semua")
+                        @endif
                     </h3>
                 </td>
                 <td>Tanggal Terbit : <p style="float: right;"> {{ date('D, d M Y', strtotime(Carbon::now())) }}</p>
@@ -87,7 +104,6 @@ use Illuminate\Support\Carbon;
 
 </header>
 <br>
-
 <table>
     <tbody>
         <tr>
@@ -96,14 +112,15 @@ use Illuminate\Support\Carbon;
     </tbody>
 </table>
 <br>
+@if ($report_opt == "Proyek")
 <table>
     <tbody>
         <tr>
-            <td>Penanggung Jawab Proyek: </td>
-            <td style="width:137px"></td>
+            <td style="width:15%">Penanggung Jawab Proyek: </td>
+            <td></td>
         </tr>
         <tr>
-            <td>Anggota Kelompok: </td>
+            <td style="width:15%">Anggota Kelompok: </td>
             <td></td>
         </tr>
     </tbody>
@@ -112,36 +129,50 @@ use Illuminate\Support\Carbon;
 <table>
     <tbody>
         <tr>
-            <td>Deskripsi Proyek</td>
-            <td style="width:137px"></td>
+            <td style="width:15%">Deskripsi Proyek</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
 <br>
+@endif
 <br>
 <table>
     <thead>
         <tr>
             <td style="width: 5%; font-weight: 1000" >No</td>
-            <td style="font-weight: 1000">Penanggung Jawab</td>
+            @if ($report_opt <> "Karyawan")
+                <td style="font-weight: 1000">Penanggung Jawab</td>
+            @endif
             <td style="font-weight: 1000">Tugas</td>
-            <td style="font-weight: 1000">Kategori</td>
+            @if ($report_opt <> "Profesi")
+                <td style="font-weight: 1000">Kategori</td>
+            @endif
             <td style="font-weight: 1000">Lama Pengerjaan</td>
-            <td style="font-weight: 1000">Nama Proyek</td>
+            @if ($report_opt <> "Proyek")
+                <td style="font-weight: 1000">Nama Proyek</td>
+            @endif
             <td style="font-weight: 1000">Poin</td>
         </tr>
     </thead>
     <tbody>
-
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @foreach ($project_task->where('status',2) as $p_task)
+            <tr>
+                <td>{{$loop->iteration}}</td>
+                @if ($report_opt <> "Karyawan")
+                    <td>{{$p_task->users()->first()->name}}</td>
+                @endif
+                <td>{{$p_task->details}}</td>
+                @if ($report_opt <> "Profesi")
+                    <td>{{ $p_task->tasks()->first()->task_name }}</td>
+                @endif
+                <td>{{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}</td>
+                @if ($report_opt <> "Proyek")
+                    <td>{{ $p_task->project()->first()->project_name }}</td>
+                @endif
+                <td>{{$p_task->points}}</td>
+            </tr>
+        @endforeach
     </tbody>
 </table>
 

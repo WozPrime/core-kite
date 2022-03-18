@@ -265,7 +265,9 @@
                                                                                 <a class="btn btn-primary mr-1 float-right"
                                                                                     href="/admin/file/download/{{ $file->file_name }}"><i
                                                                                         class="fas fa-download"></i></a>
-                                                                                <a class="btn btn-primary mr-1 float-right" href="/admin/file/view/{{ $file->file_name }}" target="_blank"><i
+                                                                                <a class="btn btn-primary mr-1 float-right"
+                                                                                    href="/admin/file/view/{{ $file->file_name }}"
+                                                                                    target="_blank"><i
                                                                                         class="fas fa-eye"></i></a>
                                                                                 <hr>
                                                                             @endforeach
@@ -372,7 +374,8 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <form autocomplete="off" action="/admin/generate-pdf" method="post" enctype="multipart/form-data">
+                    <form autocomplete="off" action="/admin/generate-pdf" method="post" enctype="multipart/form-data"
+                        target="_blank">
                         @csrf
                         <div class="card-body">
 
@@ -381,11 +384,11 @@
                                     <label for="seeAnotherFieldReport">Pilih Data Laporan</label>
                                     <select class="form-select" aria-label="Disable" name="reportList" id="reportList"
                                         required>
-                                        <option selected hidden>Pilih Asal Data</option>
-                                        <option value="Karyawan">Pilih Berdasar Karyawan</option>
-                                        <option value="Tanggal">Pilih Berdasar Tanggal</option>
-                                        <option value="Proyek">Pilih Berdasar Proyek</option>
-                                        <option value="Profesi">Pilih Berdasar Profesi</option>
+                                        <option value="" selected hidden>Pilih Asal Data</option>
+                                        <option value="Karyawan">Pilih Berdasarkan Karyawan</option>
+                                        <option value="Tanggal">Pilih Berdasarkan Waktu</option>
+                                        <option value="Proyek">Pilih Berdasarkan Proyek</option>
+                                        <option value="Profesi">Pilih Berdasarkan Profesi</option>
                                         <option value="All"> Seluruh Data</option>
                                     </select>
                                     @error('project_name')
@@ -405,7 +408,12 @@
                                 </div>
                                 <div class="form-group" id="otherFieldReportDate">
                                     <label for="otherFieldReportDate">Tentukan Tanggal</label>
-                                    <input name="dataTanggal" id="dataTanggal" class="form-control" type="date">
+                                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <span></span> <i class="fa fa-caret-down"></i>
+                                    </div>
+                                    <input type="hidden" name="startDate" value="" />
+                                    <input type="hidden" name="endDate" value="" />
                                 </div>
                                 <div class="form-group" id="otherFieldReportProj">
                                     <label for="otherFieldReportProj">Pilih Proyek</label>
@@ -430,7 +438,8 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-file-alt mr-2"></i>Generate
+                            <button type="submit" id="saveBtn" class="btn btn-primary"><i
+                                    class="fas fa-file-alt mr-2"></i>Generate
                                 PDF</a></button>
                         </div>
                     </form>
@@ -444,5 +453,35 @@
 
 
 @section('footer')
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $(function() {
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                $('input[name="startDate"]').val(start.format('MM/DD/YYYY'));
+                $('input[name="endDate"]').val(end.format('MM/DD/YYYY'));
+            }
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+            
+            
+        });
+    </script>
 @endsection
 @endsection
