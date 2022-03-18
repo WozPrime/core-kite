@@ -88,6 +88,9 @@ use Illuminate\Support\Carbon;
                                 <h2 style="text-align: center">{{$prof_name}}</h2 style="text-align: center">
                             </p>
                         @elseif ($report_opt == "Semua")
+                            <p>LAPORAN :<br>
+                                <h2 style="text-align: center">KESELURUHAN PROYEK DAN TUGAS</h2 style="text-align: center">
+                            </p>
                         @endif
                     </h3>
                 </td>
