@@ -55,7 +55,7 @@ use Illuminate\Support\Carbon;
             <tr>
                 <td rowspan="3" style="max-width: 30px; max-height: 70px;"><img
                         src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;
-                        margin-left: 70px; margin-right: 20px; margin-top: 20px;">
+                        margin-left: 50px; margin-right: 20px; margin-top: 20px; margin-bottom:10px;">
                     <p>IDEKITE<br>INDONESIA</p>
                 </td>
                 <td>
@@ -94,7 +94,7 @@ use Illuminate\Support\Carbon;
                         @endif
                     </h3>
                 </td>
-                <td>Tanggal Terbit : <p style="float: right;"> {{ date('D, d M Y', strtotime(Carbon::now())) }}</p>
+                <td>Tanggal Terbit : <br><p style="float: right;"> {{ date('D, d M Y', strtotime(Carbon::now())) }}</p>
                 </td>
             </tr>
             <tr>
