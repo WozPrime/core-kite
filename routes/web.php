@@ -95,6 +95,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::resource('/admin/reports', ReportController::class);
     Route::post('/admin/reports/grade/{id}', [ReportController::class,'store'])->name('grade_task');
     Route::get('/admin/file/download/{file_name}', [ReportController::class,'downloadFile'])->name('download_file');
+    Route::get('/admin/file/view/{file_name}', [ReportController::class,'viewFile'])->name('view_file');
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 

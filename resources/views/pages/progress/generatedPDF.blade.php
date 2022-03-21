@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-
+@php
+use Illuminate\Support\Carbon;
+@endphp
 <style>
     table,
     td,
@@ -12,9 +14,13 @@
 
     td,
     th {
-        padding: 3px;
         width: 30px;
         height: 25px;
+    }
+
+    h4,
+    p {
+        text-align: center;
     }
 
     th {
@@ -28,28 +34,87 @@
     .odd {
         background: #fefcf9;
     }
+
+    .wrapper {
+        margin-right: auto;
+        margin-left: auto;
+
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+    .center {
+                text-align: center;
+            }
+            .center img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
 </style>
 
 <body>
 
 </body>
 <header>
+
     <table>
         <tbody>
             <tr>
-                <td rowspan="3"></td>
-                <td></td>
-                <td></td>
+                <td rowspan="3" style="max-width: 30px; max-height: 70px;">
+                    <div class="center">
+                        <img
+                        src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;">
+                        </div>
+                    <p>IDEKITE<br>INDONESIA</p>
+                </td>
+                <td>
+                    <h3 style="text-align: center;">LAPORAN HASIL PEKERJAAN
+                        <br><i style="font-weight: 100">JOB RESULT REPORT</i>
+                    </h3>
+                </td>
+                <td>
+                    <p style="text-align: left">Ref No.</p>
+                    <p style="text-align: right">JR-IDEKITE-</p>
+                </td>
             </tr>
             <tr>
-                <td rowspan="2" style="width:100px"></td>
-                <td></td>
+                <td rowspan="2" style="width:100px">
+                    <h3>
+                        @if ($report_opt == "Proyek")
+                            <p>LAPORAN PROYEK :<br>
+                                <h2 style="text-align: center">{{$project_task->where('project_id',$input)->first()->project()->first()->project_name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Karyawan")
+                            <p>LAPORAN KARYAWAN :<br>
+                                <h2 style="text-align: center">{{$project_task->where('user_id',$input)->first()->users()->first()->name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Tanggal")
+                            <p>LAPORAN PER :<br>
+                                <h2 style="text-align: center">{{$input[0]}} - {{$input[1]}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "Profesi")
+                            <p>LAPORAN PEKERJAAN :<br>
+                                <h2 style="text-align: center">{{$prof_name}}</h2 style="text-align: center">
+                            </p>
+                        @elseif ($report_opt == "All")
+                            <p>LAPORAN :<br>
+                                <h2 style="text-align: center">KESELURUHAN PROYEK DAN TUGAS</h2 style="text-align: center">
+                            </p>
+                        @endif
+                    </h3>
+                </td>
+                <td>Tanggal Terbit : <br><p style="float: right;"> {{ date('D, d M Y', strtotime(Carbon::now())) }}</p>
+                </td>
             </tr>
             <tr>
-                <td></td>
+                <td>Halaman :
+                    <p></p>
+                </td>
             </tr>
         </tbody>
     </table>
+
 </header>
 <br>
 <table>
@@ -60,14 +125,15 @@
     </tbody>
 </table>
 <br>
+@if ($report_opt == "Proyek")
 <table>
     <tbody>
         <tr>
+            <td style="width:15%">Penanggung Jawab Proyek: </td>
             <td></td>
-            <td style="width:137px"></td>
         </tr>
         <tr>
-            <td></td>
+            <td style="width:15%">Anggota Kelompok: </td>
             <td></td>
         </tr>
     </tbody>
@@ -76,9 +142,50 @@
 <table>
     <tbody>
         <tr>
+            <td style="width:15%">Deskripsi Proyek</td>
             <td></td>
-            <td style="width:137px"></td>
         </tr>
+    </tbody>
+</table>
+<br>
+@endif
+<br>
+<table>
+    <thead>
+        <tr style="text-align: center">
+            <td style="width: 5%; font-weight: 1000" >No</td>
+            @if ($report_opt <> "Karyawan")
+                <td style="font-weight: 1000">Penanggung Jawab</td>
+            @endif
+            <td style="font-weight: 1000">Tugas</td>
+            @if ($report_opt <> "Profesi")
+                <td style="font-weight: 1000">Kategori</td>
+            @endif
+            <td style="font-weight: 1000">Lama Pengerjaan</td>
+            @if ($report_opt <> "Proyek")
+                <td style="font-weight: 1000">Nama Proyek</td>
+            @endif
+            <td style="font-weight: 1000">Poin</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($project_task->where('status',2) as $p_task)
+            <tr>
+                <td style="text-align: center">{{$loop->iteration}}</td>
+                @if ($report_opt <> "Karyawan")
+                    <td>{{$p_task->users()->first()->name}}</td>
+                @endif
+                <td>{{$p_task->details}}</td>
+                @if ($report_opt <> "Profesi")
+                    <td>{{ $p_task->tasks()->first()->task_name }}</td>
+                @endif
+                <td>{{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}</td>
+                @if ($report_opt <> "Proyek")
+                    <td>{{ $p_task->project()->first()->project_name }}</td>
+                @endif
+                <td style="text-align: center">{{$p_task->points}}</td>
+            </tr>
+        @endforeach
     </tbody>
 </table>
 
