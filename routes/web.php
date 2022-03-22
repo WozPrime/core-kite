@@ -87,7 +87,7 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class,'edit'])->name('edit_project_task');
     Route::post('/admin/document/post/{id}',[ProjectAllController::class,'file_move'])->name('add_docs');
     Route::post('/admin/task/upload_details/{id}',[ProjectAllController::class,'upload_details'])->name('up_details');
-    Route::get('/admin/file/delete/{file_name}', [ProjectAllController::class,'deleteFile'])->name('delete_file');
+    Route::post('/admin/file/delete/', [ProjectAllController::class,'deleteFile'])->name('delete_file');
     
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
@@ -95,7 +95,6 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::resource('/admin/reports', ReportController::class);
     Route::post('/admin/reports/grade/{id}', [ReportController::class,'store'])->name('grade_task');
     Route::get('/admin/file/download/{file_name}', [ReportController::class,'downloadFile'])->name('download_file');
-    Route::get('/admin/file/view/{file_name}', [ReportController::class,'viewFile'])->name('view_file');
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 

@@ -271,8 +271,9 @@ class ProjectAllController extends Controller
         return redirect()->back();
     }
 
-    public function deleteFile($file_name)
+    public function deleteFile(Request $req)
     {
+        $file_name = $req->file_name;
         $pt_id =  Doc::where('file_name',$file_name)->first()->pt_id;
         $file_path = public_path().'/files/task/'.$file_name;
         File::delete($file_path);

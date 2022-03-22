@@ -265,10 +265,6 @@
                                                                                 <a class="btn btn-primary mr-1 float-right"
                                                                                     href="/admin/file/download/{{ $file->file_name }}"><i
                                                                                         class="fas fa-download"></i></a>
-                                                                                <a class="btn btn-primary mr-1 float-right"
-                                                                                    href="/admin/file/view/{{ $file->file_name }}"
-                                                                                    target="_blank"><i
-                                                                                        class="fas fa-eye"></i></a>
                                                                                 <hr>
                                                                             @endforeach
                                                                         @endif

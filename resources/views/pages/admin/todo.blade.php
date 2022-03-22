@@ -275,6 +275,9 @@ use Illuminate\Support\Carbon;
                                                                 <div class="modal fade" id="delete{{$loop->index}}">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content bg-danger">
+                                                                            <form action="{{ route('delete_file') }}" method="POST"
+                                                                                enctype="multipart/form-data">
+                                                                                @csrf
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Hapus File {{$loop->index + 1}}</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -284,11 +287,13 @@ use Illuminate\Support\Carbon;
                                                                             <div class="modal-body">
                                                                                 Apakah anda yakin ingin Menghapus File ini?
                                                                             </div>
+                                                                            <input type="hidden" name="file_name" value="{{ strval($file->file_name) }}">
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                                                                <a href="/admin/file/delete/{{ $file->file_name }}" type="button" class="btn btn-outline-light">Hapus
-                                                                                    File</a>
+                                                                                <button class="btn btn-outline-light">Hapus
+                                                                                    File</button>
                                                                             </div>
+                                                                            </form>
                                                                             <!-- /.modal-content -->
                                                                         </div>
                                                                         <!-- /.modal-dialog -->
@@ -423,8 +428,183 @@ use Illuminate\Support\Carbon;
                                         <td>
                                             {{ $tl->project()->first()->project_name }}
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <a class="btn btn-primary mr-1 mb-1" data-toggle="modal"
+                                                    href="#detail{{ $tl->id }}"><i class="fa fa-eye"></i></a>
+                                        </td>
                                     </tr>
+                                    <div class="modal fade" id="detail{{ $tl->id }}">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Task Detail</h4>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <section class="container-fluid">
+                                                        <div class="card card-primary card-outline">
+                                                            <div class="card-body box-profile">
+                                                                <div class="text-center">
+                                                                    {{-- @if ($tl->project()->first()->project_logo == '')
+                                                                        <img src="{{ url('pp/default.jpg') }}"
+                                                                            class="profile-user-img img-fluid img-circle">
+                                                                    @else
+                                                                        <img src="{{ url('pp/' . $tl->project()->first()->project_name) }}"
+                                                                            class="profile-user-img img-fluid img-circle">
+                                                                    @endif --}}
+                                                                </div>
+
+                                                                <h3 class="profile-username text-center">
+                                                                    {{ $tl->project()->first()->project_name }}
+                                                                </h3>
+
+                                                                <p class="text-muted text-center">
+                                                                    {{ $tl->instance()->first()->nama_instansi }}
+                                                                </p>
+
+                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                    <li class="list-group-item">
+                                                                        <b>Task</b> <a
+                                                                            class="float-right text-dark">
+                                                                            {{ $tl->details }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>PJ</b> <a class="float-right text-dark">
+                                                                            {{ $tl->users()->first()->name }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Category</b> <a
+                                                                            class="float-right text-dark">
+                                                                            {{ $tl->tasks()->first()->task_name }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Date Uploaded</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->post_date) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->post_date)
+                                                                                {{ date('D, d M Y H:i', strtotime($tl->post_date)) }}
+                                                                            @else
+                                                                                Not Uploaded Yet
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Deadline</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->post_date) text-success
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            {{ date('D, d M Y H:i', strtotime($tl->expired_at)) }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Deadline Intervals</b>
+                                                                        <a
+                                                                            class="float-right
+                                                                        @if ($tl->post_date) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->post_date)
+                                                                                @php
+                                                                                    $diff = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 86400);
+                                                                                @endphp
+                                                                                @if ($diff >= 1)
+                                                                                    {{ $diff }} Days
+                                                                                @else
+                                                                                    @if ($diff > 0 && $diff < 1)
+                                                                                        {{ floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 1440) }}
+                                                                                        Minutes
+                                                                                    @else
+                                                                                        Deadline Expired
+                                                                                    @endif
+                                                                                @endif
+                                                                            @else
+                                                                                Not Uploaded Yet
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Upload Details</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->upload_details) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->upload_details)
+                                                                                {{ $tl->upload_details }}
+                                                                            @else
+                                                                                Not Uploaded Yet
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Nilai</b> <a class="@if ($tl->points/$tl->tasks()->first()->points > 0.7)
+                                                                            text-success
+                                                                        @else
+                                                                            text-orange
+                                                                        @endif float-right" style="font-weight: bold">
+                                                                            {{ $tl->points}}/{{$tl->tasks()->first()->points}}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Feedback:</b> 
+                                                                        <br>
+                                                                        <a class="text-dark" style="display:block;text-overflow: ellipsis;width: 700px;overflow: hidden; white-space: nowrap;text-align: right">
+                                                                            {{ $tl->feedback }}
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                        <div class="card card-secondary">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title">Download File</h3>
+                                                            </div>
+                                                            <!-- /.card-header -->
+                                                            <div class="card-body">
+                                                                @if ($file_task->where('pt_id', $tl->id)->count() == 0)
+                                                                    <strong class="text-red">No File
+                                                                        Added</strong>
+                                                                @else
+                                                                    @foreach ($file_task->where('pt_id', $tl->id) as $file)
+                                                                        <strong>{{ $file->file_name }}</strong>
+                                                                        <a class="btn btn-primary mr-1 float-right"
+                                                                            href="/admin/file/download/{{ $file->file_name }}"><i
+                                                                                class="fas fa-download"></i></a>
+                                                                        <hr>
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                    </section>
+
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -541,7 +721,7 @@ use Illuminate\Support\Carbon;
             // If the count down is over, write some text 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("demo").innerHTML = " - ";
             }
         }, 1000);
     </script>

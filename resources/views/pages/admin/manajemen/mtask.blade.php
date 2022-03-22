@@ -273,6 +273,24 @@
                                                                                 @endif
                                                                             </a>
                                                                         </li>
+                                                                        @if ($ptask->status == 2)
+                                                                            <li class="list-group-item">
+                                                                                <b>Nilai</b> <a class="@if ($ptask->points/$ptask->tasks()->first()->points > 0.7)
+                                                                                    text-success
+                                                                                @else
+                                                                                    text-orange
+                                                                                @endif float-right" style="font-weight: bold">
+                                                                                    {{ $ptask->points}}/{{$ptask->tasks()->first()->points}}
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Feedback:</b> 
+                                                                                <br>
+                                                                                <a class="text-dark" style="display:block;text-overflow: ellipsis;width: 700px;overflow: hidden; white-space: nowrap;text-align: right">
+                                                                                    {{ $ptask->feedback }}
+                                                                                </a>
+                                                                            </li> 
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /.card-body -->
