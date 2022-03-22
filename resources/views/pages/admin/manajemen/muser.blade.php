@@ -2,6 +2,38 @@
 @section('title')
     Manage Users
 @endsection
+<style>
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        background: var(--gray-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 50%;
+        color: var(--white);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        transition: background 0.25s;
+
+        /* button */
+        outline: gray;
+        border: none;
+        cursor: pointer;
+    }
+
+    .floating-btn:hover {
+        color: lawngreen;
+    }
+
+    .floating-btn:active {
+        background: var(--gray);
+    }
+
+</style>
 @section('body')
 @section('navbar')
 @endsection
@@ -50,7 +82,7 @@
                                         <th style="width: 10px">No</th>
                                         <th>Full Name</th>
                                         <th>Email Address</th>
-                                        <th>Role</th>
+                                        <th>Prof</th>
                                         <th>Employee Code</th>
                                         <th>Profile Pic</th>
                                         <th>Action</th>
@@ -62,7 +94,11 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user['role'] }}</td>
+                                            <td>
+                                                @if ($user->profs()->first())
+                                                    {{ $user->profs()->first()->prof_code }}
+                                                @endif
+                                            </td>
                                             <td>{{ $user['code'] }}</td>
                                             <td style="text-align: center">
                                                 @if ($user['pp'] == '')
@@ -76,14 +112,11 @@
                                             <td style="text-align: center">
 
                                                 <a class="btn btn-primary" data-toggle="modal"
-                                                    href="#detail{{ $user->id }}"><i
-                                                        class="fa fa-eye"></i></a>
+                                                    href="#detail{{ $user->id }}"><i class="fa fa-eye"></i></a>
                                                 <a class="btn btn-success" data-toggle="modal"
-                                                    href="#edit{{ $user->id }}"><i
-                                                        class="fa fa-edit"></i></a>
+                                                    href="#edit{{ $user->id }}"><i class="fa fa-edit"></i></a>
                                                 <a class="btn btn-danger" data-toggle="modal"
-                                                    href="#delete{{ $user->id }}"><i
-                                                        class="fa fa-trash"></i></a>
+                                                    href="#delete{{ $user->id }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="detail{{ $user->id }}">
@@ -109,41 +142,51 @@
                                                                                 class="profile-user-img img-fluid img-circle">
                                                                         @endif
                                                                     </div>
-                
-                                                                    <h3 class="profile-username text-center">{{ $user->name }}
+
+                                                                    <h3 class="profile-username text-center">
+                                                                        {{ $user->name }}
                                                                     </h3>
-                
+
                                                                     <p class="text-muted text-center">Software Engineer</p>
-                
+
                                                                     <ul class="list-group list-group-unbordered mb-3">
                                                                         <li class="list-group-item">
-                                                                            <b>Email</b> <a class="float-right">{{ $user->email }}</a>
+                                                                            <b>Email</b> <a
+                                                                                class="float-right">{{ $user->email }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <b>Employee Code</b> <a
                                                                                 class="float-right text-dark">{{ $user->code }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Role</b> <a
-                                                                                class="float-right text-dark">{{ $user->role }}</a>
+                                                                            <b>Prof</b> <a class="float-right text-dark">
+                                                                                @if ($user->profs()->first())
+                                                                                    {{ $user->profs()->first()->prof_code }}
+                                                                                @endif
+                                                                            </a>
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <b>Profession</b> <a
-                                                                                class="float-right text-dark">{{ $prof_list->where('id', $user->prof_id)->pluck('prof_name')->implode(' ') }}</a>
+                                                                                class="float-right text-dark">
+                                                                                @if ($user->profs()->first())
+                                                                                    {{ $user->profs()->first()->prof_name }}
+                                                                                @endif
+                                                                            </a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /.card-body -->
                                                             </div>
-                
-                
+
+
                                                             <div class="card card-primary">
                                                                 <div class="card-header">
                                                                     <h3 class="card-title">About Me</h3>
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <div class="card-body">
-                                                                    <strong><i class="fas fa-venus-mars mr-1"></i> Gender</strong>
+                                                                    <strong><i class="fas fa-venus-mars mr-1"></i>
+                                                                        Gender</strong>
                                                                     <p class="text-muted">
                                                                         @if ($user->gender == 'L')
                                                                             Laki-laki
@@ -154,7 +197,7 @@
                                                                         @endif
                                                                     </p>
                                                                     <hr>
-                
+
                                                                     <strong><i class="fas fa-map-marker-alt mr-1"></i>
                                                                         Address</strong>
                                                                     <p class="text-muted">
@@ -164,12 +207,12 @@
                                                                             {{ $user->address }}
                                                                         @endif
                                                                     </p>
-                
+
                                                                     <hr>
-                
+
                                                                     <strong><i class="fas fa-user-circle mr-1"></i>
                                                                         Position</strong>
-                
+
                                                                     <p class="text-muted">
                                                                         @if ($user->stats == 'KT')
                                                                             Karyawan Tetap
@@ -179,19 +222,20 @@
                                                                             -
                                                                         @endif
                                                                     </p>
-                
+
                                                                     <hr>
-                
+
                                                                 </div>
                                                                 <!-- /.card-body -->
                                                             </div>
-                
-                
+
+
                                                         </section>
-                
+
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -215,8 +259,8 @@
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="Name">Full Name</label>
-                                                                <input type="text" class="form-control" id="name" name="name"
-                                                                    value="{{ $user->name }}">
+                                                                <input type="text" class="form-control" id="name"
+                                                                    name="name" value="{{ $user->name }}">
                                                                 <div class="text-danger">
                                                                     @error('name')
                                                                         {{ $message }}
@@ -225,65 +269,89 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="Code">Employee Code</label>
-                                                                <input type="text" class="form-control" id="code" name="code"
-                                                                    value="{{ $user->code }}">
+                                                                <input type="text" class="form-control" id="code"
+                                                                    name="code" value="{{ $user->code }}">
                                                                 <div class="text-danger">
                                                                     @error('code')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </div>
-                
+
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="Gender">Gender</label>
                                                                 <select name="gender" id="gender" class="form-control">
-                                                                    <option value="" @if ($user->gender == '')
-                                                                        selected
-                                                                @endif disabled hidden>Pilih jenis kelamin
-                                                                </option>
-                                                                <option value="L" @if ($user->gender == 'L')
-                                                                    selected @endif>Laki-laki</option>
-                                                                <option value="P" @if ($user->gender == 'P')
-                                                                    selected @endif>Perempuan</option>
+                                                                    <option value=""
+                                                                        @if ($user->gender == '') selected @endif
+                                                                        disabled hidden>Pilih jenis kelamin
+                                                                    </option>
+                                                                    <option value="L"
+                                                                        @if ($user->gender == 'L') selected @endif>
+                                                                        Laki-laki
+                                                                    </option>
+                                                                    <option value="P"
+                                                                        @if ($user->gender == 'P') selected @endif>
+                                                                        Perempuan
+                                                                    </option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="Status">Status</label>
                                                                 <select name="stats" id="stats" class="form-control">
-                                                                    <option value="" @if ($user->stats == '')
-                                                                        selected @endif di sabled hidden>Pilih Status
-                                                                    </option>
-                                                                    <option value="KT" @if ($user->stats == 'KT')
-                                                                        selected @endif>Karyawan Tetap</option>
-                                                                    <option value="KM" @if ($user->stats == 'KM')
-                                                                        selected @endif>Karyawan Magang</option>
+                                                                    <option value=""
+                                                                        @if ($user->stats == '') selected @endif
+                                                                        di sabled hidden>Pilih Status </option>
+                                                                    <option value="KT"
+                                                                        @if ($user->stats == 'KT') selected @endif>
+                                                                        Karyawan
+                                                                        Tetap</option>
+                                                                    <option value="KM"
+                                                                        @if ($user->stats == 'KM') selected @endif>
+                                                                        Karyawan
+                                                                        Magang</option>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="Profession">Profession</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">
-                                                                    <option value="" @if ($user->prof_id == '')
-                                                                        selected @endif disabled hidden>Pilih Profesi
-                                                                    </option>
-                                                                    @foreach ($prof_list as $prof)
-                                                                        <option value="{{ $prof->id }}" @if ($user->prof_id == $prof->id)
-                                                                            selected @endif>{{ $prof->prof_name }}</option>
-                                                                    @endforeach
+                                                                    @if ($user->profs()->first())
+                                                                        <option value=""
+                                                                            @if ($user->profs()->first()->id == '') selected @endif
+                                                                            disabled hidden>Pilih
+                                                                            Profesi
+                                                                        </option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}"
+                                                                                @if ($user->profs()->first()->id == $prof->id) selected @endif>
+                                                                                {{ $prof->prof_name }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <option value="" selected disabled hidden>Pilih
+                                                                            Profesi</option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">
+                                                                                {{ $prof->prof_name }}</option>
+                                                                        @endforeach
+                                                                    @endif
+
                                                                 </select>
                                                             </div>
-                
+
                                                             <div class="form-group">
                                                                 <label>Alamat</label>
-                                                                <textarea class="form-control" id="address" name="address" rows="3"
+                                                                <textarea class="form-control" id="address" name="address"
+                                                                    rows="3"
                                                                     placeholder="Enter Your Address ...">{{ $user->address }}</textarea>
                                                             </div>
-                
+
                                                             <div class="form-group">
                                                                 <label for="ProfilePicture">Profile Picture/Avatar</label>
                                                                 <div>
                                                                     <div id="pp" class="mb-1"></div>
-                                                                    <input type="file" name="pp" onchange="Image_preview(event)">
+                                                                    <input type="file" name="pp"
+                                                                        onchange="Image_preview(event)">
                                                                     <div class="text-danger">
                                                                         @error('pp')
                                                                             {{ $message }}
@@ -293,48 +361,55 @@
                                                                 <label>Saved Photo</label>
                                                                 <div>
                                                                     @if ($user->pp == '')
-                                                                        <img src="{{ url('pp/default.jpg') }}" class="img-circle" width="150">
+                                                                        <img src="{{ url('pp/default.jpg') }}"
+                                                                            class="img-circle" width="150">
                                                                     @else
-                                                                        <img src="{{ url('pp/' . $user->pp) }}" class="img-circle" width="150">
+                                                                        <img src="{{ url('pp/' . $user->pp) }}"
+                                                                            class="img-circle" width="150">
                                                                     @endif
                                                                 </div>
                                                             </div>
-                
+
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
                                                         </div>
-                                                        </form>
-                                                    </div>
-                                                    <!-- /.modal-content -->
+                                                    </form>
                                                 </div>
-                                                    <!-- /.modal-dialog -->
+                                                <!-- /.modal-content -->
                                             </div>
-                                                    <!-- /.modal -->
-                                            <div class="modal fade" id="delete{{ $user->id }}">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content bg-danger">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Hapus Data User</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah anda yakin ingin Menghapus data dari {{ $user->name }} ini?
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                                            <a href="/admin/profile/delete/{{ $user->id }}" type="button"
-                                                                class="btn btn-outline-light">Hapus Data</a>
-                                                        </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                        <div class="modal fade" id="delete{{ $user->id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-danger">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Hapus Data User</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
-                                                    <!-- /.modal-content -->
+                                                    <div class="modal-body">
+                                                        Apakah anda yakin ingin Menghapus data dari {{ $user->name }}
+                                                        ini?
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-light"
+                                                            data-dismiss="modal">Close</button>
+                                                        <a href="/admin/profile/delete/{{ $user->id }}" type="button"
+                                                            class="btn btn-outline-light">Hapus Data</a>
+                                                    </div>
                                                 </div>
-                                                <!-- /.modal-dialog -->
+                                                <!-- /.modal-content -->
                                             </div>
-                                            <!-- /.modal -->
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
                                     @endforeach
                                 </tbody>
                             </table>
@@ -349,8 +424,127 @@
         </div>
     </section>
     <!-- /.content -->
+    <button class="material-icons floating-btn" data-toggle="modal" data-target="#insert">add</button>
+    <div class="modal fade" id="insert">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Input User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/admin/manage_user/new" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="Name">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="text-danger">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password"
+                                required autocomplete="new-password" placeholder="Password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirm">Confirm Password</label>
+                            <input id="password-confirm" type="password" class="form-control"
+                                name="password_confirmation" required autocomplete="new-password"
+                                placeholder="Confirm Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="Code">Employee Code</label>
+                            <input type="text" class="form-control" id="code" name="code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Gender">Gender</label>
+                            <select name="gender" id="gender" class="form-control" required>
+                                <option selected disabled hidden>Pilih jenis kelamin
+                                </option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Status">Status</label>
+                            <select name="stats" id="stats" class="form-control" required>
+                                <option selected disabled hidden>Pilih Status
+                                </option>
+                                <option value="KT">Karyawan Tetap</option>
+                                <option value="KM">Karyawan Magang</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Profession">Profession</label>
+                            <select name="prof_id" id="prof_id" class="form-control" required>
+                            <option selected disabled hidden>Pilih Profesi</option>
+                                @foreach ($prof_list as $prof)
+                                    <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <textarea class="form-control" id="address" name="address" rows="3"
+                                placeholder="Enter Your Address ..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ProfilePicture">Profile Picture/Avatar</label>
+                            <div>
+                                <div id="ava" class="mb-1"></div>
+                                <input type="file" name="ava" onchange="Image_preview2(event)">
+                                <div class="text-danger">
+                                    @error('pp')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+
+    </div>
 
 
 @section('footer')
+@endsection
+@section('script')
+    
+<script type="text/javascript">
+    function Image_preview2(event) {
+        var image = URL.createObjectURL(event.target.files[0]);
+        var imagediv = document.getElementById('ava');
+        var newimg = document.createElement('img');
+        newimg.src = image;
+        newimg.width = 100;
+        newimg.height = 100;
+        imagediv.appendChild(newimg);
+    }
+</script>
 @endsection
 @endsection

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\ProfTask;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Prof;
+use App\Models\ProfUser;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PostController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +21,10 @@ class PostController extends Controller
         //
     }
 
-    public function __construct(Post $post)
+    public function __construct(Task $task)
     {
         // İnitialize user property.
-        $this->post = $post;
+        $this->task = $task;
     }
 
     /**
@@ -34,24 +35,28 @@ class PostController extends Controller
     public function create()
     {
         Request()->validate([
-            'code' => 'required|unique:posts,code,'.Request()->id,
-            'task' => 'required',
+            'code' => 'required|unique:tasks,code,'.Request()->id,
+            'task_name' => 'required',
             'points' => 'required|integer',
             'prof_id' => 'required',
         ], [
             'code.required' => 'Wajib Isi!!',
-            'task.required' => 'Wajib Isi!!',
+            'task_name.required' => 'Wajib Isi!!',
             'points.required' => 'Wajib Isi!!',
             'prof_id.required' => 'Wajib Isi!!',
         ]);
-        $insert_data = [
+        $create = $this->task->create([
             'code' => Request()->code,
-            'task' => Request()->task,
+            'task_name' => Request()->task_name,
             'points' => Request()->points,
-            'prof_id' => Request()->prof_id,
-        ];
-        $this->post->insertData($insert_data);
-        Alert::success('Sukses','Data berhasil Diperbaharui');
+        ]);
+        $createId = $create->id;
+        $createId = $this->task->find($createId);
+        $createId->profTask()->save(new ProfTask([
+            "task_id" => $createId->id,
+            "prof_id"=> Request()->prof_id
+        ]));
+        Alert::success('Sukses','Task Berhasil Ditambahkan!!');
         return redirect()->back();
     }
 
@@ -69,52 +74,68 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Task $task)
     {
-        $joblist = Post::all();
-        $prof_list = Prof::all();
+        $joblist = Task::all();
+        $prof_list = ProfUser::all();
         return view('pages.admin.manajemen.mjob',compact('joblist','prof_list'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data_post = $this->post->find($id);
-        if (Request()->code == $data_post->code &&
-        Request()->task == $data_post->task &&
-        Request()->points == $data_post->points 
+        $data_task = $this->task->find($id);
+        $newProf = ProfUser::find(Request()->prof_id);
+        if($data_task->profTask){
+            $oldProf = $data_task->profTask->prof_id;
+        } else{
+            $oldProf = '';
+        }
+        if (Request()->code == $data_task->code &&
+        Request()->task == $data_task->task_name &&
+        Request()->points == $data_task->points &&
+        Request()->prof_id == $oldProf
         ) {
             Alert::warning('sama','Data Tidak Berubah');
-            return redirect()->back();
+            return redirect('/admin/joblist');
         } else {
             Request()->validate([
-                'code' => 'required|unique:posts,code,'.Request()->id,
-                'task' => 'required',
+                'code' => 'required|unique:tasks,code,'.Request()->id,
+                'task_name' => 'required',
                 'points' => 'required|integer',
                 'prof_id' => 'required',
             ], [
                 'code.required' => 'Wajib Isi!!',
-                'task.required' => 'Wajib Isi!!',
+                'task_name.required' => 'Wajib Isi!!',
                 'points.required' => 'Wajib Isi!!',
                 'prof_id.required' => 'Wajib Isi!!',
             ]);
             $update_data = [
                 'code' => Request()->code,
-                'task' => Request()->task,
+                'task_name' => Request()->task_name,
                 'points' => Request()->points,
-                'prof_id' => Request()->prof_id,
             ];
-            $this->post->editData($id,$update_data);
+            $this->task->editData($id,$update_data);
+            if ($data_task->profTask) {
+                $data_task->profTask->prof_id = Request()->prof_id;
+                $data_task->profTask->task_id = $id;
+                $data_task->profTask->push();
+            }else{
+                $data_task->profTask()->save(new ProfTask([
+                    "task_id"=>$id,
+                    "prof_id"=>$newProf->id
+                ]));
+            }
             Alert::success('Sukses','Data berhasil Diperbaharui');
-            return redirect()->back();
+            return redirect('/admin/joblist');
         }
     }
 
@@ -122,10 +143,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Task $task)
     {
         //
     }
@@ -133,14 +154,14 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
     {
-        $this->post->deleteData($id);
-        DB::statement("ALTER TABLE posts AUTO_INCREMENT = 1;");
+        $this->task->deleteData($id);
+        DB::statement("ALTER TABLE tasks AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus!!');
-        return redirect()->back();
+        return redirect('/admin/joblist');
     }
 }

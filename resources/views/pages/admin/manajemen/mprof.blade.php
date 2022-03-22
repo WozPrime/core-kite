@@ -144,12 +144,12 @@
                                                                                 height="150">
                                                                         @endif
                                                                     </div>
-                
+
                                                                     <h3 class="profile-username text-center">{{ $prof->prof_name }}
                                                                     </h3>
-                
+
                                                                     <p class="text-muted text-center">{{ $prof->prof_code }}</p>
-                
+
                                                                     <ul class="list-group list-group-unbordered mb-3">
                                                                         <li class="list-group-item">
                                                                             <b>Detail</b>
@@ -161,7 +161,7 @@
                                                                 <!-- /.card-body -->
                                                             </div>
                                                         </section>
-                
+
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -216,7 +216,7 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                
+
                                                             <div class="form-group">
                                                                 <label for="Profession_Img">Profession Image</label>
                                                                 <div>
@@ -239,7 +239,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                
+
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"

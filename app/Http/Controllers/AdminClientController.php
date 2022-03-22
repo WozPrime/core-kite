@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Payment;
+use App\Models\ProjectModel;
 use App\Models\Instance;
+use App\Models\User;
 use Alert;
 
 class AdminClientController extends Controller
@@ -40,12 +43,22 @@ class AdminClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $klienuser= new User;
+        $klienuser->name = $request->client_name;
+        $klienuser->email =  $request->client_email;
+        $klienuser->password = bcrypt('default');
+        $klienuser->role = 'client';
+        $klienuser->save();
+        
+        $k= User::where('name',$request->client_name)->first(); 
         $klien= new Client;
         $klien->instance_id = $request->client_instance;
         $klien->name = $request->client_name;
         $klien->email = $request->client_email;
         $klien->password = bcrypt('default');
         $klien->phone_number = $request->client_phone_number;
+        $klien->user_id = $k->id;
         $klien->save();
         // DB::statement("ALTER TABLE `clients` AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil ditambahkan');
@@ -62,6 +75,8 @@ class AdminClientController extends Controller
     {
         return view('pages.admin.client.detail', [
             'klien'=>$client,
+            'pembayaranklien'=>Payment::where('user_id', $client->id)->get(),
+            'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
         ]);
     }
 
@@ -105,6 +120,8 @@ class AdminClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Client::destroy('id',$id);
+        Alert::success('Sukses','Data Berhasil Dihapus');
+        return redirect('/admin/client');
     }
 }

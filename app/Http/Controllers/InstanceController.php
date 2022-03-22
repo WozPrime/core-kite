@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Alert;
+use App\Models\Client;
 use App\Models\Instance;
+use App\Models\ProjectModel;
 use App\Models\InstancesModel;
 use Illuminate\Http\Request;
 
@@ -18,6 +20,7 @@ class InstanceController extends Controller
     {
         return view('pages.admin.instansi.overview',[
             'instance'=>Instance::all(),
+            'jenisinstansi'=>InstancesModel::all()
         ]);
     }
 
@@ -62,7 +65,9 @@ class InstanceController extends Controller
     {
         return view( 'pages.admin.instansi.detail', [
             'instance'=>$instansi,
-            'jenis'=>InstancesModel::all()
+            'jenis'=>InstancesModel::all(),
+            'proyekinstansi'=>ProjectModel::where('instance_id',$instansi->id)->get(),
+            'klieninstansi'=>Client::where('instance_id',$instansi->id)->get(),
         ]);
     }
 

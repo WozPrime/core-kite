@@ -95,9 +95,11 @@
                                         <tr>
                                             <td style="text-align: center">{{ $loop->iteration }}</td>
                                             <td>{{ $job['code'] }}</td>
-                                            <td>{{ $job['task'] }}</td>
+                                            <td>{{ $job['task_name'] }}</td>
                                             <td>{{ $job['points'] }}</td>
-                                            <td>{{ $prof_list->where('id', $job['prof_id'])->pluck('prof_name')->implode(' ') }}
+                                            <td>@if ($job->profs()->first())
+                                                {{ $job->profs()->first()->prof_name }}
+                                                @endif
                                             </td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-success" data-toggle="modal"
@@ -119,7 +121,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/admin/edit_post/{{ $job->id }}" method="POST"
+                                                    <form action="/admin/edit_task/{{ $job->id }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
@@ -135,10 +137,10 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="Task">Task</label>
-                                                                <input type="text" class="form-control" id="task"
-                                                                    name="task" value="{{ $job->task }}">
+                                                                <input type="text" class="form-control" id="task_name"
+                                                                    name="task_name" value="{{ $job->task_name }}">
                                                                 <div class="text-danger">
-                                                                    @error('task')
+                                                                    @error('task_name')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </div>
@@ -157,137 +159,145 @@
                                                             <div class="form-group">
                                                                 <label for="Profession">Profession</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">
-                                                                    <option value="" @if ($job['prof_id'] == '')
-                                                                        selected
-                                                                @endif disabled hidden>Pilih Profesi
-                                                                </option>
-                                                                @foreach ($prof_list as $prof)
-                                                                    <option value="{{ $prof->id }}" @if ($job['prof_id'] == $prof->id)
-                                                                        selected
-                                                                @endif>{{ $prof->prof_name }}</option>
-                                                                @endforeach
-                                                                </select>
+                                                                    @if ($job->profs()->first())
+                                                                            <option value="" @if ($job->profs()->first()->id == '')
+                                                                                selected
+                                                                        @endif disabled hidden>Pilih
+                                                                        Profesi
+                                                                        </option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}" @if ($job->profs()->first()->id == $prof->id) selected @endif>{{ $prof->prof_name }}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <option value="" selected disabled hidden>Pilih Profesi</option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
+                                                                        @endforeach
+                                                                        @endif
+
+                                                                        </select>
                                                                 
-                        </div>
+                                                            </div>
 
 
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save
-                            changes</button>
-                    </div>
-                    </form>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
-        </div>
-        <div class="modal fade" id="delete{{ $job->id }}">
-            <div class="modal-dialog">
-                <div class="modal-content bg-danger">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Hapus Job</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah anda yakin ingin Menghapus data dari
-                        {{ $job->code }} ini?
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <a href="/admin/delete_post/{{ $job->id }}" type="button" class="btn btn-outline-light">Hapus
-                            Data</a>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-        @endforeach
-        </tbody>
-        </table>
-        </div>
-        <!-- /.card-body -->
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                        </form>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+                                            </div>
+                                            <div class="modal fade" id="delete{{ $job->id }}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content bg-danger">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Hapus Job</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah anda yakin ingin Menghapus data dari
+                                                            {{ $job->code }} ini?
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                                            <a href="/admin/delete_task/{{ $job->id }}" type="button" class="btn btn-outline-light">Hapus
+                                                                Data</a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                            <!-- /.modal -->
+                                            @endforeach
+                                            </tbody>
+                                            </table>
+                                            </div>
+                                            <!-- /.card-body -->
 
-        <!-- /.card -->
-        <!-- /.card-body -->
-        </div>
-        </div>
-        </div>
-        </div>
-        <button class="material-icons floating-btn" data-toggle="modal" data-target="#insert">add</button>
-
-
-        <div class="modal fade" id="insert">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Input New Task</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="/admin/ins_post" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="Code">Code</label>
-                                <input type="text" class="form-control" id="code" name="code">
-                                <div class="text-danger">
-                                    @error('code')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Task">Task</label>
-                                <input type="text" class="form-control" id="task" name="task">
-                                <div class="text-danger">
-                                    @error('task')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Points">Points</label>
-                                <input type="text" class="form-control" id="points" name="points">
-                                <div class="text-danger">
-                                    @error('points')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Profession">Profession</label>
-                                <select name="prof_id" id="prof_id" class="form-control">
-                                    <option value="" selected disabled hidden>Pilih Profesi
-                                    </option>
-                                    @foreach ($prof_list as $prof)
-                                        <option value="{{ $prof->id }}">{{$prof->prof_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                            <!-- /.card -->
+                                            <!-- /.card-body -->
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <button class="material-icons floating-btn" data-toggle="modal" data-target="#insert">add</button>
 
 
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+                                            <div class="modal fade" id="insert">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Input New Task</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/admin/ins_task" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="Code">Code</label>
+                                                                    <input type="text" class="form-control" id="code" name="code">
+                                                                    <div class="text-danger">
+                                                                        @error('code')
+                                                                            {{ $message }}
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="Task">Task</label>
+                                                                    <input type="text" class="form-control" id="task_name" name="task_name">
+                                                                    <div class="text-danger">
+                                                                        @error('task_name')
+                                                                            {{ $message }}
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="Points">Points</label>
+                                                                    <input type="text" class="form-control" id="points" name="points">
+                                                                    <div class="text-danger">
+                                                                        @error('points')
+                                                                            {{ $message }}
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
 
-        </div>
-    </section>
+                                                                <div class="form-group">
+                                                                    <label for="Profession">Profession</label>
+                                                                    <select name="prof_id" id="prof_id" class="form-control">
+                                                                        <option value="" selected disabled hidden>Pilih Profesi
+                                                                        </option>
+                                                                        @foreach ($prof_list as $prof)
+                                                                            <option value="{{ $prof->id }}">{{$prof->prof_name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+
+                                            </div>
+                                        </section>
 
 
 @endsection

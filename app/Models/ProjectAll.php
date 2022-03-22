@@ -6,38 +6,51 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Post extends Model
+class ProjectAll extends Model
 {
     use HasFactory;
-    protected $table = 'posts';
+    protected $table = 'project_all';
     protected $fillable = [
-        'task',
-        'code',
-        'point',
+        'user_id',
+        'project_id',
         'prof_id',
+        'file_name',
+        'expired_at',
     ];
-
     public function insertData($data)
     {
-        DB::table('posts')
+        DB::table('project_all')
         ->insert($data);
     }
     public function editData($id, $update_data)
     {
-        DB::table('posts')
+        DB::table('project_all')
         ->where('id', $id)
         ->update($update_data);
     }
     public function deleteData($id)
     {
-        DB::table('posts')
+        DB::table('project_all')
         ->where('id',$id)
         ->delete();
     }
 
-    public function prof()
+    public function users()
     {
-        return $this->belongsTo(Prof::class);
+        return $this->belongsToMany(User::class);
     }
+
+
+    public function project()
+    {
+        return $this->belongsTo(ProjectModel::class);
+    }
+
+    public function profUser()
+    {
+        return $this->hasMany(ProfUser::class,'id','prof_id');
+    }
+
+    
 
 }

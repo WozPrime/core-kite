@@ -4,38 +4,6 @@
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-{{-- <style>
-    .floating-btn {
-        width: 50px;
-        height: 50px;
-        background: var(--gray-dark);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        border-radius: 50%;
-        color: var(--white);
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        transition: background 0.25s;
-
-        /* button */
-        outline: gray;
-        border: none;
-        cursor: pointer;
-    }
-
-    .floating-btn:hover {
-        color: lawngreen;
-    }
-
-    .floating-btn:active {
-        background: var(--gray);
-    }
-</style> --}}
-
 <style>
     * {
         margin: 0;
@@ -184,7 +152,7 @@
                                         <th width="10%" style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody height>
+                                <tbody>
                                     @foreach ($data as $tbl_project)
                                         <tr>
                                             <td style="text-align: center">{{ $loop->iteration }}</td>
@@ -199,26 +167,62 @@
                                                 </span>
                                             </td>
                                             <td>{{ $tbl_project->project_category }}</td>
-                                            <td></td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-primary mr-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
+                                                {{-- <div class="row"> --}}
+                                                <div 
+                                                    @php
+                                                    $pcount = $ptask->where('project_id', $tbl_project->id)->count('id');
+                                                    $pstatus = $ptask->where('project_id', $tbl_project->id)->where('status', '==', 2)->count('id');
+                                                    if($pcount == 0) {$progress = 0;}
+                                                    elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
+                                                    @endphp 
+                                                    @if($pcount == 0) class="badge bg-danger" 
+                                                    @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
+                                                    @elseif($pcount > 0 && $progress == 100) class="badge bg-success" 
+                                                    @endif>
+                                                    <div @if($pcount > 0 && $progress >= 0 && $progress <= 25) class="progress-bar progress-bar-danger pb-3"
+                                                        @elseif($pcount > 0 && $progress > 25 && $progress <= 50) class="progress-bar progress-bar-warning pb-3"
+                                                        @elseif($pcount > 0 && $progress > 50 && $progress <= 75) class="progress-bar progress-bar-danger pb-3"
+                                                        @elseif($pcount > 0 && $progress > 75 && $progress < 100) class="progress-bar progress-bar-success pb-3"
+                                                        @endif
+                                                        @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
+                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
+                                                        @endif>
+                                                        @if($pcount == 0) Belum ada tugas yang disiapkan
+                                                        @elseif($pcount > 0 && $progress == 100) Seluruh tugas proyek sudah terselesaikan
+                                                        @endif
+                                                    </div>
+                                                </div>
+
+                                                @if($pcount > 0 && $progress >= 0 && $progress < 100) <span class="badge 
+                                                    @if($pcount > 0 && $progress >= 0 && $progress < 25) bg-danger float-left
+                                                    @elseif($pcount > 0 && $progress >= 25 && $progress < 50) bg-warning 
+                                                    @elseif($pcount > 0 && $progress >= 50 && $progress < 75) bg-primary 
+                                                    @elseif($pcount > 0 && $progress >= 75 && $progress < 100) bg-success float-right
+                                                    @endif col-2" 
+                                                    @if($pcount > 0 && $progress >= 25 && $progress < 50) style="margin-right:130px"
+                                                    @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"
+                                                    @endif>{{ $progress }}%</span>
+                                                @endif
+                                                {{-- </div> --}}
+                                            </td>
+                                            <td style="text-align: center">
+                                                <a class="btn btn-primary mr-1 mb-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a class="btn btn-success mr-1" data-toggle="modal"
+                                                <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
-                                                <a>
-                                                    <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <a class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
-                                                            <span class="fa fa-trash"></span>
-                                                        </a>
-                                                    </form>
-                                                </a>
+                                                <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data {{ $tbl_project->project_name }}?')">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                         <!-- /.modal -->
                                         <div class="modal fade" id="edit{{ $tbl_project->id }}">
-                                            <div class="modal-dialog">
+                                            <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="card-header bg-orange">
                                                         <h3 class="card-title">Edit Proyek {{ $tbl_project->project_name }}</h3>
@@ -228,83 +232,93 @@
                                                             @method('put')
                                                             @csrf
                                                             <div class="content">
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldInstance">Pilih
-                                                                        Instansi</label>
-                                                                    <select class="form-select" aria-label="Disable" name="instance_id" required>
-                                                                            <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
-                                                                        @foreach ($instansi as $i)
-                                                                            <option value="{{ $i->id }}">
-                                                                                {{ $i->nama_instansi }} </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                                                    <select class="form-select" name="client_id" required>
-                                                                        <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
-                                                                        @foreach ($klien as $k)
-                                                                            <option value=" {{ $k->id }} ">{{ $k->name }} </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Kode Proyek</label>
-                                                                    <input name="project_code" class="form-control" value="{{ $tbl_project->project_code }}">
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Nama Proyek</label>
-                                                                    <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
-                                                                    <div class="text-danger">
-                                                                        @error('project_name')
-                                                                            {{ $message }}
-                                                                        @enderror
+                                                                <div class="form-group row">
+                                                                    <div class="col-6">
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                                                            <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansiEdit()" id="instance_id_edit" required>
+                                                                                    <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
+                                                                                @foreach ($instansi as $i)
+                                                                                    <option value="{{ $i->id }}">
+                                                                                        {{ $i->nama_instansi }} </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                            @error('project_name')
+                                                                                {{ $message }}
+                                                                            @enderror
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Klien</label>
+                                                                           
+                                                                            <select class='form-select' name='client_id' id='client_id_edit' required>
+                                                                                <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Kode Proyek</label>
+                                                                            <input name="project_code" class="form-control" value="{{ $tbl_project->project_code }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Nama Proyek</label>
+                                                                            <input name="project_name" class="form-control" value="{{ $tbl_project->project_name }}">
+                                                                            <div class="text-danger">
+                                                                                @error('project_name')
+                                                                                    {{ $message }}
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                                                            <select class="form-select" name="project_category" required>
+                                                                                <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
+                                                                                    <option value="Web">Web</option>
+                                                                                    <option value="Mobile App">Mobile App</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        
+                                                                        <div class="form-group">
+                                                                            <label>Detail Proyek</label>
+                                                                            <textarea name="project_detail" class="form-control" >{{ $tbl_project->project_detail }}</textarea>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
-                                                                    <select class="form-select" name="project_category" required>
-                                                                        <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
-                                                                            <option value="Web">Web</option>
-                                                                            <option value="Mobile App">Mobile App</option>
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Detail Proyek</label>
-                                                                    <textarea name="project_detail" class="form-control" type="date" >{{ $tbl_project->project_detail }}</textarea>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                                                    <select class="form-select" name="project_status" required>
-                                                                        <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
-                                                                            <option value="Baru">Baru</option>
-                                                                            <option value="Sedang Berjalan">Sedang Berjalan</option>
-                                                                            <option value="Tertunda">Tertunda</option>
-                                                                            <option value="Selesai">Selesai</option>
-                                                                    </select>
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Starting Date</label>
-                                                                    <input name="project_start_date" class="form-control" type="date" value="{{ $tbl_project->project_start_date }}">
-                                                                </div>
-                                    
-                                                                <div class="form-group">
-                                                                    <label>Deadline</label>
-                                                                    <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
-                                                                </div>
-                                    
-                                                                <div>
-                                                                    <label>Total Project</label>
-                                                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
-                                                                </div>
-                                    
+                                                                    <div class="col-6">
+                                                                        <div class="form-group">
+                                                                            <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
+                                                                            <select class="form-select" name="project_status" required>
+                                                                                <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
+                                                                                    <option value="Baru">Baru</option>
+                                                                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                                                    <option value="Tertunda">Tertunda</option>
+                                                                                    <option value="Selesai">Selesai</option>
+                                                                            </select>
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Starting Date</label>
+                                                                            <input name="project_start_date" class="form-control" type="date" value="{{ $tbl_project->project_start_date }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group">
+                                                                            <label>Deadline</label>
+                                                                            <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
+                                                                        </div>
+                                            
+                                                                        <div>
+                                                                            <label>Total Project</label>
+                                                                            <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" value="{{ $tbl_project->project_value }}">
+                                                                        </div>
+                                            
+                                                                        <div class="form-group my-2">
+                                                                            <label>Logo Instansi</label>
+                                                                            <input type="file" class="form-control" name="project_logo" id="project_logo" value="{{ $tbl_project->project_logo }}" onchange="Image_preview(event)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>  
+
                                                                 <br>
                                     
                                                                 <div class="form-group">
@@ -336,11 +350,15 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="add-instance">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
-                        <h3 class="card-title">Add New Instansi</h3>
+                        <h3 class="card-title">Add New Instance</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <form autocomplete="off" action="/admin/instansi/" method="post"
@@ -354,7 +372,7 @@
                                 </div>
     
                                 <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Alamat Klien</label>
+                                    <label for="seeAnotherFieldClient">Alamat Instansi</label>
                                     <textarea name="instance_address" id="instance_address" class="form-control" cols="30" rows="3" placeholder="Isikan Alamat Instansi Disini"></textarea>
                                 </div>
     
@@ -375,8 +393,7 @@
     
                                 <div class="form-group my-2">
                                     <label for="instance_logo">Logo Instansi</label>
-                                    <br>
-                                    <input type="file" name="instance_logo" id="instance_logo" onchange="Image_preview(event)">
+                                    <input type="file" class="form-control" name="instance_logo" id="instance_logo" onchange="Image_preview(event)">
                                 </div>
     
                                 <br>
@@ -397,6 +414,9 @@
                 <div class="modal-content">
                     <div class="card-header bg-orange">
                         <h3 class="card-title">Add New Client</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <form autocomplete="off" action="/admin/client/" method="post"
@@ -445,10 +465,13 @@
         </div>
     
         <div class="modal fade" id="add-data">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="width:100%;max-width:1500px;">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
                         <h3 class="card-title">Menambah Data proyek</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <form autocomplete="off" action="/admin/proyek/" method="post"
@@ -456,80 +479,144 @@
                             @csrf
                             <div class="content">
     
-                                <div class="form-group">
-                                    <label for="seeAnotherFieldInstance">Pilih Instansi</label>
-                                    <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
-                                        <option selected hidden>Pilih Instansi</option>
-                                        @foreach ($instansi as $i)
-                                            <option value="{{ $i->id }}">
-                                                {{ $i->nama_instansi }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Pilih Klien</label>
-                                   
-                                    <select class='form-select' name='client_id' id='client_id' required>
-                                    </select>
-                                    {{-- <div id='listClient'> --}}
-    
-                                    {{-- </div> --}}
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Kode Proyek</label>
-                                    <input name="project_code" class="form-control" required>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Name Proyek</label>
-                                    <input name="project_name" class="form-control" required>
-                                    <div class="text-danger">
-                                        @error('project_name')
-                                            {{ $message }}
-                                        @enderror
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <div class="form-group" id="seeAnotherFieldInstance">
+                                            <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                            <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
+                                                <option selected hidden>Pilih Instansi</option>
+                                                @foreach ($instansi as $i)
+                                                    <option value="{{ $i->id }}">
+                                                        {{ $i->nama_instansi }} </option>
+                                                @endforeach
+                                                <option value="yes">Tambah Instansi Baru</option>
+                                            </select>
+                                            @error('project_name')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                        
+                                        <div id="otherFieldDivInstance">
+                                            <div class="form-group">
+                                                <label for="otherFieldDivInstance">Nama Instansi</label>
+                                                <input type="text" name="newnamainstansi" id="newnamainstansi" class="form-control" placeholder="Wajib Diisi">
+                                            </div>
+            
+                                            <div class="form-group">
+                                                <label for="otherFieldDivInstance">Kota Instansi</label>
+                                                <input type="text" name="newkotainstansi" id="newkotainstansi" class="form-control" placeholder="Wajib Diisi">
+                                            </div>
+            
+                                            <div class="form-group">
+                                                <label for="otherFieldDivInstance">Jenis Instansi</label>
+                                                <select name="newjenisinstansi" id="newjenisinstansi" class="form-select">
+                                                    <option selected hidden value=""> Pilih Jenis Instansi </option>
+                                                    <option value="1">Pemerintah</option>
+                                                    <option value="2">Swasta</option>
+                                                    <option value="3">Perorangan</option>
+                                                </select>
+                                            </div>
+            
+                                            <div class="form-group">
+                                                <label for="otherFieldDivInstance">Alamat Instansi</label>
+                                                <textarea name="newalamatinstansi" id="newalamatinstansi" class="form-control" cols="30" rows="3" placeholder="Isikan alamat instansi (opsional)"></textarea>
+                                            </div>
+            
+                                            <div class="form-group">
+                                                <label for="otherfieldDivInstance">Logo Instansi</label>
+                                                <input type="file" class="form-control" id="newlogoinstansi" name="newlogoinstansi">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
-                                    <select class="form-select" name="project_category" required>
-                                        <option selected hidden> Pilih Kategori </option>
-                                            <option value="Web">Web</option>
-                                            <option value="Mobile App">Mobile App</option>
-                                    </select>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Detail Proyek</label>
-                                    <textarea name="project_detail" class="form-control" type="date" required></textarea>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                    <select class="form-select" name="project_status" required>
-                                        <option selected hidden> Pilih Status </option>
-                                            <option value="Baru">Baru</option>
-                                            <option value="Sedang Berjalan">Sedang Berjalan</option>
-                                            <option value="Tertunda">Tertunda</option>
-                                            <option value="Selesai">Selesai</option>
-                                    </select>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Starting Date</label>
-                                    <input name="project_start_date" class="form-control" type="date" required>
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Deadline</label>
-                                    <input name="project_deadline" class="form-control" type="date" required>
-                                </div>
-    
-                                <div>
-                                    <label>Total Project</label>
-                                    <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" required>
+                                    <div class="col-4">
+                                        <div class="form-group" id="seeAnotherFieldClient">
+                                            <label for="seeAnotherFieldClient">Pilih Klien</label>
+                                            <select class='form-select' name='client_id' id='client_id' required>
+                                                <option selected hidden>Pilih Klien</option>
+                                                <option value="yes">Tambah Klien Baru</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div id="otherFieldDivClient">
+                                            <div class="form-group">
+                                                <label>Nama Klien</label>
+                                                <input type="text" name="newnamaklien" id="newnamaklien" class="form-control" placeholder="Wajib Diiisi!">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email Klien</label>
+                                                <input type="email" name="newemailklien" id="newemailklien" class="form-control" placeholder="Wajib Diisi!">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="newnomorteleponklien">Nomor Telepon</label>
+                                                <input type="text" id="newnomorteleponklien" name="newnomorteleponklien" class="form-control" placeholder="Wajib Diisi!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label>Kode Proyek</label>
+                                            <input name="project_code" class="form-control" required>
+                                            @error('project_name')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label>Nama Proyek</label>
+                                            <input name="project_name" class="form-control" required>
+                                            <div class="text-danger">
+                                                @error('project_name')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                            <select class="form-select" name="project_category" required>
+                                                <option selected hidden> Pilih Kategori </option>
+                                                    <option value="Web">Web</option>
+                                                    <option value="Mobile App">Mobile App</option>
+                                            </select>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label>Detail Proyek</label>
+                                            <textarea name="project_detail" class="form-control" type="date" required></textarea>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
+                                            <select class="form-select" name="project_status" required>
+                                                <option selected hidden> Pilih Status </option>
+                                                    <option value="Baru">Baru</option>
+                                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                    <option value="Tertunda">Tertunda</option>
+                                                    <option value="Selesai">Selesai</option>
+                                            </select>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label>Starting Date</label>
+                                            <input name="project_start_date" class="form-control" type="date" required>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label>Deadline</label>
+                                            <input name="project_deadline" class="form-control" type="date" required>
+                                        </div>
+            
+                                        <div>
+                                            <label>Total Proyek</label>
+                                            <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="project_value" required>
+                                        </div>
+
+                                        <div class="form-group my-2">
+                                            <label>Logo Proyek</label>
+                                            <input type="file" class="form-control" name="project_logo" id="project_logo" onchange="Image_preview(event)">
+                                        </div>
+
+                                    </div>
                                 </div>
     
                                 <br>
@@ -564,6 +651,7 @@
         for (var i = 0; i < data.length; i++) {
             baris += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
         }
+        baris += '<option value="yes">Tambah Klien Baru</option>'
         // baris = baris + '</select>'
         // if(typeof(document.getElementById('selectDefault') != 'undefined' && document.getElementById('selectDefault') != null)){
         //     document.getElementById('selectDefault').remove();
@@ -574,7 +662,31 @@
     return false;
   }
 </script>
+<script>
+    function pilihInstansiEdit() {
+    var data = 'id=' +document.getElementById('instance_id_edit').value;
 
+    var baris = "";
+    $.ajax({
+      url: "{{ route('clientData') }}",
+      data: data,
+      cache: false,
+      dataType: 'json',
+      success: function(data) {
+        //   alert(response.message);
+        for (var i = 0; i < data.length; i++) {
+            baris += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+        }
+        // baris = baris + '</select>'
+        // if(typeof(document.getElementById('selectDefault') != 'undefined' && document.getElementById('selectDefault') != null)){
+        //     document.getElementById('selectDefault').remove();
+        // }
+        $('#client_id_edit').html(baris);
+      }
+    });
+    return false;
+  }
+</script>
 <script type="text/javascript">
     function actionToggle() {
         var action = document.querySelector('.action')

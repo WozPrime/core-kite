@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobDataTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateJobDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_data', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('posts_id')->nullable();
-            $table->foreignId('users_id');
+            $table->foreignId('user_id');
             $table->foreignId('project_id');
-            $table->foreignId('prof_id')->nullable();
-            $table->string('file_name')->nullable();
-            $table->dateTime('expired_at')->nullable();
+            $table->date('tanggal_pembayaran');
+            $table->string('jenis_pembayaran');
+            $table->text('deskripsi_pembayaran');
+            $table->string('nilai_pembayaran');
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateJobDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_data');
+        Schema::dropIfExists('payments');
     }
 }

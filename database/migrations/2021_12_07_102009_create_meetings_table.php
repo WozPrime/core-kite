@@ -15,6 +15,13 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id');
+            $table->foreignId('client_id');
+            $table->timestamp('tanggal_pertemuan');
+            $table->text('deskripsi_pertemuan');
+            $table->text('hasil_pertemuan')->nullable();
+            $table->text('dokumen_pertemuan')->nullable();
+            $table->text('status_pertemuan');
             $table->timestamps();
         });
     }

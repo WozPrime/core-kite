@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ProjectModel;
 use Illuminate\Support\Facades\DB;
 
-class ReportModel extends Model
+class Report extends Model
 {
     use HasFactory;
     public function allData()

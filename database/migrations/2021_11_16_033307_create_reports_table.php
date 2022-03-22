@@ -16,7 +16,6 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->dateTime('report_date');
             $table->string('report_status');
             $table->text('report_detail')->nullable();
             $table->timestamps();

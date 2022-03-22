@@ -15,11 +15,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //User::truncate();
+        // User::truncate();
         User::create([
             'name' => 'Husni Ramadhan',
             'email' => 'husniramadhan@student.untan.ac.id',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('123123123'),
             'role' => 'admin',
         ]);
         User::create([
@@ -35,10 +35,15 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
         User::create([
-            'name' => 'Io',
-            'email' => 'inertia.1094@gmail.com',
-            'password' => bcrypt('123123123'),
-            'role' => 'member',
+            'name' => 'Hina',
+            'email' => 'hina@student.bluearchive.ac.id',
+            'password' => bcrypt('12345678'),
+            'role' => 'client',
+        ]);        User::create([
+            'name' => 'Amiya',
+            'email' => 'Amiya@rhodes.tr',
+            'password' => bcrypt('12345678'),
+            'role' => 'client',
         ]);
     }
 }

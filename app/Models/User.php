@@ -39,12 +39,33 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
-        'prof_id',
     ];
 
-    public function prof()
+    public function profUser()
     {
-        return $this->belongsTo(Prof::class);
+        return $this->hasOne(ProfUserModel::class);
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+
+    public function task()
+    {
+        return $this->belongsToMany(Task::class);
+    }
+
+    public function projectAll(){
+        return $this->hasMany(ProjectAll::class);
+    }
+
+    public function projectTask(){
+        return $this->hasMany(ProjectTask::class);
+    }
+
+    public function profs()
+    {
+        return $this->belongsToMany(ProfUser::class,'user_prof','user_id','prof_id');
     }
 
     /**

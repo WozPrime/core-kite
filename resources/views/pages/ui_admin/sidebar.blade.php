@@ -48,15 +48,14 @@
                         </p>
                     </a>
                 </li>
-                <li
-                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'menu-open' : 'menu-closed' }}">
-                    <a 
-                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' ? 'active text-light' : '' }}">
+                <li class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'menu-open' : '' }}">
+                    <a href=""
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
                             Management
-                            <i class="fas fa-angle-left right"></i>
                         </p>
+                        <i class="fas fa-angle-left right"></i>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -86,12 +85,30 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/admin/manage/project_all"
+                                class="nav-link  {{ \Request::route()->getName() == 'manage_task' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-thumbtack"></i>
+                                <p>
+                                    Task Manager
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/manage/finance"
+                                class="nav-link  {{ request()->is('admin/manage/finance*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-money-check-alt"></i>
+                                <p>
+                                    Finance
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/admin/jobdata"
-                        class="nav-link  {{ request()->is('admin/jobdata*') ? 'active text-light' : '' }}">
+                    <a href="/admin/project_all"
+                        class="nav-link  {{ request()->is('admin/project_all*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-clipboard-check"></i>
                         <p>
                             To Do List
@@ -106,6 +123,17 @@
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
                             Client
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {{-- <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}"> --}}
+                    <a href="/admin/instansi"
+                        class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Instansi
                         </p>
                     </a>
                 </li>

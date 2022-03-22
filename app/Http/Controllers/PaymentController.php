@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobData;
+use Alert;
+use App\Models\Payment;
 use Illuminate\Http\Request;
-use App\Models\Post;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class JobDataController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +14,9 @@ class JobDataController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        return view('pages.admin.todo',[
-            'jobdata'=>Jobdata::all(),
-            'posts'=>Post::all(),
-        ]);
+    {
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,32 +36,36 @@ class JobDataController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new JobData;
-        $data->users_id = $request->users_id;
-        $data->project_id = $request->project_id;
+        $data = new Payment;
+        $data->user_id = $request->userpembayaran;
+        $data->project_id = $request->proyekpembayaran;
+        $data->tanggal_pembayaran = $request->tanggalpembayaran;
+        $data->jenis_pembayaran = $request->jenispembayaran;
+        $data->deskripsi_pembayaran = $request->deskripsipembayaran;
+        $data->nilai_pembayaran = $request->nilaipembayaran;
         $data->save();
-        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!'); 
+        Alert::success('Sukses', 'Data Pembayaran Berhasil Ditambahkan');
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Payment $payment)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobData $jobData)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -75,10 +74,10 @@ class JobDataController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobData $jobData)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
@@ -86,11 +85,13 @@ class JobDataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\JobData  $jobData
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobData $jobData)
+    public function destroy(Payment $payment)
     {
-        //
+        Payment::destroy('id',$payment->id);
+        Alert::success('Sukses', 'Data Pembayaran Berhasil Dihapus');
+        return redirect()->back();
     }
 }

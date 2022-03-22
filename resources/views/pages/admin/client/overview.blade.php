@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Overview Instansi
+    Overview Klien
 @endsection
 @section('body')
 @section('navbar')
@@ -56,7 +56,15 @@
 
                                                 <a href="#edit{{$c->id}}" class="badge bg-warning mr-1" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a>
 
-                                                <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
+                                                <a>
+                                                    <form autocomplete="off" action="/admin/client/{{ $c->id }}" method="POST" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="badge bg-danger" onclick="return confirm('Yakin untuk menghapus data {{ $c->name }}?')">
+                                                            <span class="fas fa-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                </a>
                                             </td>
                                         </tr>
 
