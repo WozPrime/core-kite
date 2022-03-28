@@ -20,6 +20,9 @@ use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FiCategoryController;
 use App\Http\Controllers\ProjectTaskController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\EmpController;
+use App\Http\Controllers\EmpProject;
+use App\Http\Controllers\EmpReportController;
 use App\Http\Middleware\Role;
 use App\Models\ProjectAll;
 
@@ -80,21 +83,21 @@ Route::middleware(['role', 'auth'])->group(function () {
 
     //ProjectAll
     Route::resource('admin/project_all/', ProjectAllController::class);
-    Route::post('/admin/project/task/add',[ProjectAllController::class, 'addTags'])->name('add_tags');
-    Route::get('/admin/project_all/delete/{id}', [ProjectAllController::class,'destroy'])->name('delete_participant');
-    Route::get('/admin/manage/project_all', [ProjectAllController::class,'show'])->name('manage_task');
-    Route::get('/admin/task/delete/{id}', [ProjectAllController::class,'deleteTask'])->name('delete_active_task');
-    Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class,'edit'])->name('edit_project_task');
-    Route::post('/admin/document/post/{id}',[ProjectAllController::class,'file_move'])->name('add_docs');
-    Route::post('/admin/task/upload_details/{id}',[ProjectAllController::class,'upload_details'])->name('up_details');
-    Route::post('/admin/file/delete/', [ProjectAllController::class,'deleteFile'])->name('delete_file');
-    
+    Route::post('/admin/project/task/add', [ProjectAllController::class, 'addTags'])->name('add_tags');
+    Route::get('/admin/project_all/delete/{id}', [ProjectAllController::class, 'destroy'])->name('delete_participant');
+    Route::get('/admin/manage/project_all', [ProjectAllController::class, 'show'])->name('manage_task');
+    Route::get('/admin/task/delete/{id}', [ProjectAllController::class, 'deleteTask'])->name('delete_active_task');
+    Route::post('/admin/project_all/{id}/edit', [ProjectAllController::class, 'edit'])->name('edit_project_task');
+    Route::post('/admin/document/post/{id}', [ProjectAllController::class, 'file_move'])->name('add_docs');
+    Route::post('/admin/task/upload_details/{id}', [ProjectAllController::class, 'upload_details'])->name('up_details');
+    Route::post('/admin/file/delete/', [ProjectAllController::class, 'deleteFile'])->name('delete_file');
+
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
-    Route::post('/admin/proyek/emp/upload',[ProjectController::class,'addParticipant'])->name('upload_emp');
+    Route::post('/admin/proyek/emp/upload', [ProjectController::class, 'addParticipant'])->name('upload_emp');
     Route::resource('/admin/reports', ReportController::class);
-    Route::post('/admin/reports/grade/{id}', [ReportController::class,'store'])->name('grade_task');
-    Route::get('/admin/file/download/{file_name}', [ReportController::class,'downloadFile'])->name('download_file');
+    Route::post('/admin/reports/grade/{id}', [ReportController::class, 'store'])->name('grade_task');
+    Route::get('/admin/file/download/{file_name}', [ReportController::class, 'downloadFile'])->name('download_file');
     Route::get('/admin/carbontest ', [UserController::class, 'carbontest'])->name('carbontest');
     Route::get('/admin/dataclient', [ClientController::class, 'pilihan'])->name('clientData');
 
@@ -102,13 +105,19 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::resource('/admin/manage/finance', FinanceController::class);
     Route::resource('/admin/manage/ficategory', FiCategoryController::class);
     Route::post('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
-
 });
 
 Route::resource('/client', ClientController::class)->middleware(['auth']);
-// EMPLOYEE
-Route::resource('/emp/home', EmpController::class)->middleware(['auth']);
-Route::resource('/emp/reports', EmpReportController::class)->middleware(['auth']);
-Route::resource('/emp/project', EmpProject::class)->middleware(['auth']);
-Route::get('/emp/profile/', [UserController::class, 'empprofile'])->name('empprofile')->middleware(['auth']);
+
+Route::middleware(['auth'])->group(function () {
+    // EMPLOYEE
+    Route::resource('/emp/home', EmpController::class);
+    Route::resource('/emp/reports', EmpReportController::class);
+    Route::get('/emp/joblist/', [EmpController::class, 'jobList'])->name('jobList');
+    Route::resource('/emp/project', EmpProject::class);
+    Route::get('/emp/profile/', [UserController::class, 'empprofile'])->name('empprofile');
+    Route::get('/emp/file/download/{file_name}', [EmpReportController::class, 'downloadFile'])->name('empDownload');
+    Route::post('/emp/generate-pdf', [PDFController::class, 'generatePDF']);
+});
+
 // // LANDING PAGE

@@ -91,7 +91,7 @@ use Illuminate\Support\Carbon;
                             </p>
                         @elseif ($report_opt == "Tanggal")
                             <p>LAPORAN PER :<br>
-                                <h2 style="text-align: center">{{$input[0]}} - {{$input[1]}}</h2 style="text-align: center">
+                                <h2 style="text-align: center">{{date('d/m/Y',strtotime($input[0]))}} - {{date('d/m/Y',strtotime($input[1]))}}</h2 style="text-align: center">
                             </p>
                         @elseif ($report_opt == "Profesi")
                             <p>LAPORAN PEKERJAAN :<br>

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmpReport;
-use App\Models\ReportModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ProjectTask;
+use App\Models\Doc;
+use App\Models\User;
+use App\Models\ProjectModel;
+use App\Models\ProfUser;
 
 class EmpReportController extends Controller
 {
@@ -24,8 +28,18 @@ class EmpReportController extends Controller
             return redirect('admin');
         }
         return view('pages.emp.empreport', [
-            'data' => ReportModel::all()
+            'project_task' => ProjectTask::all()->where('user_id',Auth::user()->id),
+            'doc' => Doc::all(),
+            'users' => User::all(),
+            'proyek' => ProjectModel::all(),
+            'profesi' => ProfUser::all(),
         ]);
+    }
+
+    public function downloadFile($file_name)
+    {
+        $file_path = public_path().'/files/task/'.$file_name;
+        return response()->download($file_path);
     }
 
     /**

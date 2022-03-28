@@ -20,10 +20,9 @@ class Role
         if (Auth::user()->role == 'admin') {
             return $next($request);
         }
-        if (Auth::user()->role == 'client'){
+        elseif (Auth::user()->role == 'client'){
             return redirect('/client');
         }
-
         else {return redirect('/emp/home');}
     }
 }

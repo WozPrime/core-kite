@@ -9,18 +9,16 @@
     </div> --}}
     <!-- preloader area end -->
     @yield('body')
-    <div class="wrapper">
         <div class="horizontal-main-wrapper">
             @include('pages.emp.ui_emp.topnav')
             @include('sweetalert::alert')
-            <div class="content">
-                <div class="content-wrapper-center">
+            <div class="main-content-inner">
+                <div class="container">
                     @yield('content')
                 </div>
             </div>
         </div>
         @include('pages.emp.ui_emp.empfooter')
-    </div>
     @include('pages.emp.ui_emp.empscripts')
 </body>
 

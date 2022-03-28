@@ -7,9 +7,9 @@ use App\Models\ProjectTask;
 use App\Models\Doc;
 use App\Models\ProfTask;
 use App\Models\ProfUser;
-use App\Models\User;
 use Dompdf\Dompdf;
-use PDF;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -27,6 +27,9 @@ class PDFController extends Controller
     public function generatePDF(Request $req)
     {
         $project_task = ProjectTask::all();
+        if (Auth::user()->role == 'member') {
+            $project_task = $project_task->where('user_id',Auth::user()->id);
+        }
         $input = null;
         $prof_task = ProfTask::all();
         $prof_name= null;
@@ -35,7 +38,20 @@ class PDFController extends Controller
             $project_task = $project_task->where('user_id',$input);
         } 
         if ($req->reportList == "Tanggal") {
-            $input= [$req->startDate,$req->endDate]; 
+            if ($req->startDate > $req->endDate) {
+                $temp = $req->startDate; 
+                $req->startDate = $req->endDate;
+                $req->endDate = $temp;
+            }
+            $from    = Carbon::parse($req->startDate)
+                 ->startOfDay()        // 2018-09-29 00:00:00.000000
+                 ->toDateTimeString(); // 2018-09-29 00:00:00
+
+            $to      = Carbon::parse($req->endDate)
+                            ->endOfDay()          // 2018-09-29 23:59:59.000000
+                            ->toDateTimeString(); // 2018-09-29 23:59:59
+            $input= [$from,$to];
+            $project_task = $project_task->whereBetween('checked_at',$input);
         } 
         if ($req->reportList == "Proyek") {
             $input = $req->dataProyek;

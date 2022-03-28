@@ -20,13 +20,22 @@
     <!-- modernizr css -->
     <script src="{{ asset('assetemp/js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <!-- Font Awesome -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     {{-- AdminLTE --}}
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    {{-- DataTables --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    {{-- DROPZONE --}}
+    <link rel="stylesheet" href="{{ asset('/plugins/dropzone/min/dropzone.min.css') }}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- show-hide-fields-form -->
+    <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
+    
     <style>
         .floating-btn {
             width: 50px;

@@ -144,13 +144,13 @@
                                                                 <div class="card card-primary card-outline">
                                                                     <div class="card-body box-profile">
                                                                         <div class="text-center">
-                                                                            {{-- @if ($p_task->project()->first()->project_logo == '')
-                                                                                <img src="{{ url('pp/default.jpg') }}"
+                                                                            @if ($p_task->project()->first()->project_logo == '')
+                                                                                <img src="{{ url('prof/default.png') }}"
                                                                                     class="profile-user-img img-fluid img-circle">
                                                                             @else
                                                                                 <img src="{{ url('pp/' . $p_task->project()->first()->project_name) }}"
                                                                                     class="profile-user-img img-fluid img-circle">
-                                                                            @endif --}}
+                                                                            @endif
                                                                         </div>
 
                                                                         <h3 class="profile-username text-center">

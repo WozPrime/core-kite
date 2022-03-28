@@ -53,13 +53,17 @@ class UserController extends Controller
     }
     public function empprofile()
     {
-        $id= Auth::user()->id;
-        $data_user = User::find($id);
-        $prof_list = ProfUser::all();
         if (Auth::user()->role == 'admin') {
             return redirect('admin');
         }
-        return view('pages.emp.empprofile', compact('data_user','prof_list'));
+        $id= Auth::user()->id;
+        $data_user = User::find($id);
+        $prof_list = ProfUser::all();
+        $task_list = ProjectTask::all();
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
+        return view('pages.emp.empprofile', compact('data_user','prof_list','task_list'));
     }
 
     public function cpass($id)

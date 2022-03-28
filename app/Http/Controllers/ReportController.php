@@ -27,7 +27,6 @@ class ReportController extends Controller
     public function index()
     {
         return view('pages.progress.reports', [
-            'data' => Report::all(),
             'project_task' => ProjectTask::all(),
             'doc' => Doc::all(),
             'users' => User::all(),

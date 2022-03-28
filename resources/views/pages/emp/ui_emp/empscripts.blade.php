@@ -38,4 +38,27 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 {{-- DataTables --}}
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<!-- dropzonejs -->
+<script src="{{ asset('/plugins/dropzone/min/dropzone.min.js') }}"></script>
+<!-- hide-show-fields-form -->
+<script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+<script src="{{ asset('dist/js/hide-show-fields-form-float.js') }}"></script>
+<script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<script type="text/javascript">
+    function Image_preview(event) {
+        var image = URL.createObjectURL(event.target.files[0]);
+        var imagediv = document.getElementById('pp');
+        var newimg = document.createElement('img');
+        newimg.src = image;
+        newimg.width = 150;
+        newimg.height = 150;
+        imagediv.appendChild(newimg);
+    }
+</script>
 @yield('empscript')
