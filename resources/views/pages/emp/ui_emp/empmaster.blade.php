@@ -15,7 +15,6 @@
             <div class="main-content-inner">
                 <div class="container">
                     @yield('content')
-                </div>
             </div>
         </div>
         @include('pages.emp.ui_emp.empfooter')
