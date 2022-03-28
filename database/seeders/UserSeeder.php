@@ -39,7 +39,8 @@ class UserSeeder extends Seeder
             'email' => 'hina@student.bluearchive.ac.id',
             'password' => bcrypt('12345678'),
             'role' => 'client',
-        ]);        User::create([
+        ]);
+        User::create([
             'name' => 'Amiya',
             'email' => 'Amiya@rhodes.tr',
             'password' => bcrypt('12345678'),
