@@ -14,9 +14,7 @@
             @include('pages.emp.ui_emp.topnav')
             @include('sweetalert::alert')
             <div class="content">
-                <div class="content-wrapper-center">
                     @yield('content')
-                </div>
             </div>
         </div>
         @include('pages.emp.ui_emp.empfooter')
