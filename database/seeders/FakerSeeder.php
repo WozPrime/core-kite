@@ -60,7 +60,7 @@ class FakerSeeder extends Seeder
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('profs')->insert([
-    			'prof_code' => $faker->unique()->bothify('##-???'),
+    			'prof_code' => $faker->unique()->bothify('??-###'),
     			'prof_name' => $faker->jobTitle,
     			'detail' => $faker->word,
     		]);
@@ -69,7 +69,7 @@ class FakerSeeder extends Seeder
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('profs')->insert([
-    			'prof_code' => $faker->unique()->bothify('##-???'),
+    			'prof_code' => $faker->unique()->bothify('??-###'),
     			'prof_name' => $faker->jobTitle,
     			'detail' => $faker->word,
     		]);
@@ -78,7 +78,7 @@ class FakerSeeder extends Seeder
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('tasks')->insert([
-                'code' => $faker->unique()->bothify('##-JOB-???'),
+                'code' => $faker->unique()->bothify('??-JOB-###'),
                 'task_name' => $faker->word,
                 'points' => $faker->numberBetween(10,30),
     		]);
@@ -97,10 +97,10 @@ class FakerSeeder extends Seeder
             DB::table('projects')->insert([
                 'instance_id' => $faker->numberBetween(1,10),
                 'client_id' => $faker->numberBetween(1,2),
-                'project_code' => $faker->bothify('####'),
+                'project_code' => $faker->bothify('????'),
                 'project_name' => $faker->jobTitle,
                 'project_category' => $faker->jobTitle,
-                'project_value' => $faker->bothify('Rp ??.???.???'),
+                'project_value' => $faker->bothify('Rp ##.###.###'),
                 'project_detail' => $faker->text($maxNbChars = 50) ,
                 'project_status' => $faker->randomElement(['Selesai', 'Tertunda', 'Baru']),
                 'project_start_date' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = '-30 years', $endDate = '+10 years'),
@@ -113,10 +113,10 @@ class FakerSeeder extends Seeder
             DB::table('projects')->insert([
                 'instance_id' => $faker->numberBetween(1,10),
                 'client_id' => $faker->numberBetween(1,2),
-                'project_code' => $faker->bothify('####'),
+                'project_code' => $faker->bothify('????'),
                 'project_name' => $faker->jobTitle,
                 'project_category' => $faker->jobTitle,
-                'project_value' => $faker->bothify('Rp ??.???.???'),
+                'project_value' => $faker->bothify('Rp ##.###.###'),
                 'project_detail' => $faker->text($maxNbChars = 50) ,
                 'project_status' => $faker->randomElement(['Selesai', 'Tertunda', 'Baru']),
                 'project_start_date' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = '-30 years', $endDate = '+10 years'),
