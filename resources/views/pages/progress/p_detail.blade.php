@@ -98,7 +98,7 @@ use Carbon\Carbon;
                             <div class="card-body">
                                 <form action="{{ route('upload_emp') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="row">
+                                    <div class="row" @if($data->project_status == 'Selesai') hidden @endif>
                                         <div class="col-9">
                                             <div class="form-group no-border">
                                                 <select name="user_id" id="user_id" class="form-control">
@@ -191,9 +191,9 @@ use Carbon\Carbon;
                                                     <a class="btn btn-primary" data-toggle="modal"
                                                         href="#detail{{ $list->user_id }}"><i class="fa fa-eye"></i></a>
                                                     <a class="btn btn-success" data-toggle="modal"
-                                                        href="#tambah{{ $list->user_id }}"><i class="fa fa-edit"></i></a>
+                                                        href="#tambah{{ $list->user_id }}" @if($data->project_status == 'Selesai') hidden @endif><i class="fa fa-edit"></i></a>
                                                     <a class="btn btn-danger" data-toggle="modal"
-                                                        href="#delete{{ $list->user_id }}"><i class="fa fa-trash"></i></a>
+                                                        href="#delete{{ $list->user_id }}" @if($data->project_status == 'Selesai') hidden @endif><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="detail{{ $list->user_id }}">
@@ -279,72 +279,74 @@ use Carbon\Carbon;
                                                 </div>
                                                 <!-- /.modal-dialog -->
                                             </div>
-                                            <div class="modal fade" id="insert{{ $list->user_id }}">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Tambah Role</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form action="/admin/project_all" method="POST"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="Profession">Profession</label>
-                                                                    <div class="select2-primary">
-                                                                        <select class="select2" name="profs[]"
-                                                                            data-dropdown-css-class="select2-primary"
-                                                                            multiple="multiple"
-                                                                            data-placeholder="Select a Profession"
-                                                                            style="width: 100%;" autocomplete="off">
-                                                                            @foreach ($profs as $prof)
-                                                                                <option
-                                                                                    @if (in_array($prof->id, $prof_part)) selected @endif
-                                                                                    value="{{ $prof->id }}">
-                                                                                    {{ $prof->prof_name }}
-                                                                                </option>
-                                                                            @endforeach
-        
-                                                                        </select>
-        
+                                            @if($data->project_status != 'Selesai') 
+                                                <div class="modal fade" id="insert{{ $list->user_id }}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Tambah Role</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="/admin/project_all" method="POST"
+                                                                enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="Profession">Profession</label>
+                                                                        <div class="select2-primary">
+                                                                            <select class="select2" name="profs[]"
+                                                                                data-dropdown-css-class="select2-primary"
+                                                                                multiple="multiple"
+                                                                                data-placeholder="Select a Profession"
+                                                                                style="width: 100%;" autocomplete="off">
+                                                                                @foreach ($profs as $prof)
+                                                                                    <option
+                                                                                        @if (in_array($prof->id, $prof_part)) selected @endif
+                                                                                        value="{{ $prof->id }}">
+                                                                                        {{ $prof->prof_name }}
+                                                                                    </option>
+                                                                                @endforeach
+            
+                                                                            </select>
+            
+                                                                        </div>
+                                                                        {{-- <select name="prof_id" id="prof_id" class="form-control">
+                                                                                    <option value="" selected disabled hidden>Pilih
+                                                                                        Profesi </option>
+                                                                                        @foreach ($profs as $prof)
+                                                                                            @if (in_array($prof->id, $prof_part))
+                                                                                                @continue
+                                                                                            @endif
+                                                                                            <option value="{{ $prof->id }}">{{ $prof->prof_name }}
+                                                                                            </option>
+                                                                                        @endforeach 
+                                                                                        not this part
+                                                                                        <option value="{{ $profession->id }}">{{ $profession->prof_name }}
+                                                                                        </option> 
+                                                                                        </select> --}}
                                                                     </div>
-                                                                    {{-- <select name="prof_id" id="prof_id" class="form-control">
-                                                                                <option value="" selected disabled hidden>Pilih
-                                                                                    Profesi </option>
-                                                                                    @foreach ($profs as $prof)
-                                                                                        @if (in_array($prof->id, $prof_part))
-                                                                                            @continue
-                                                                                        @endif
-                                                                                        <option value="{{ $prof->id }}">{{ $prof->prof_name }}
-                                                                                        </option>
-                                                                                    @endforeach 
-                                                                                    not this part
-                                                                                     <option value="{{ $profession->id }}">{{ $profession->prof_name }}
-                                                                                    </option> 
-                                                                                    </select> --}}
+                                                                    <input type="hidden" name="project_id" id="project_id"
+                                                                        value="{{ $data->id }}">
+                                                                    <input type="hidden" name="user_id" id="user_id"
+                                                                        value="{{ $list->user_id }}">
+            
                                                                 </div>
-                                                                <input type="hidden" name="project_id" id="project_id"
-                                                                    value="{{ $data->id }}">
-                                                                <input type="hidden" name="user_id" id="user_id"
-                                                                    value="{{ $list->user_id }}">
-        
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save
-                                                                    changes</button>
-                                                            </div>
-                                                        </form>
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
                                                     </div>
-                                                    <!-- /.modal-content -->
+                                                    <!-- /.modal-dialog -->
                                                 </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
+                                            @endif  
                                             <div class="modal fade" id="tambah{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -360,7 +362,7 @@ use Carbon\Carbon;
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="list_task">Task yang telah Dipilih</label>
+                                                                    <label for="list_task">Task yang sudah diberikan pada karyawan</label>
                                                                     <div class="select2-success">
                                                                         <select class="select2"
                                                                             data-dropdown-css-class="select2-success"
