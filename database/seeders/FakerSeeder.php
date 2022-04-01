@@ -74,7 +74,7 @@ class FakerSeeder extends Seeder
     			'detail' => $faker->word,
     		]);
         }
-        for($i = 1; $i <= 5; $i++){
+        for($i = 1; $i <= 10; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('tasks')->insert([
@@ -83,12 +83,12 @@ class FakerSeeder extends Seeder
                 'points' => $faker->numberBetween(10,30),
     		]);
         }
-        for($i = 1; $i <= 5; $i++){
+        for($i = 1; $i <= 10; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('prof_task')->insert([
-    			'prof_id' => $faker->numberBetween(1,7),
-    			'task_id' => $faker->numberBetween(1,7),
+    			'prof_id' => $faker->numberBetween(1,15),
+    			'task_id' => $faker->unique()->numberBetween(5,14),
     		]);
         }
         for($i = 1; $i <= 5; $i++){
