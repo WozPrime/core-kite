@@ -116,7 +116,7 @@
                                                                 @if ($ptask->status == 2)
                                                                     disabled
                                                                 @endif >
-                                                                    @foreach ($User->whereIn('id', $projectAll->get('user_id'))->get() as $karyawan)
+                                                                    @foreach ($User->where('role','<>','client')->whereIn('id', $projectAll->get('user_id'))->get() as $karyawan)
                                                                         <option value="{{ $karyawan->id }}"@if ($ptask->user_id == $karyawan->id)
                                                                             selected
                                                                         @endif>{{ $karyawan->name }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProfUser;
 use App\Models\ProfUserModel;
+use App\Models\ProjectModel;
 use App\Models\ProjectTask;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -32,9 +33,10 @@ class UserController extends Controller
 
     public function admin()
     {
-        return view('pages.admin.content-admin',[
-            //'pr' => DB::table('projects')->offset(0)->limit(1)->get(),
-        ]);
+        $project = ProjectModel::all();
+        $task = ProjectTask::all();
+        $user = User::all();
+        return view('pages.admin.content-admin', compact('project','task','user'));
     }
 
     public function tables()

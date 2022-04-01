@@ -5,17 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
-use DB;
-use App\Models\User;
-use App\Models\Client;
-use App\Models\FiCategoryModel;
-use App\Models\FinanceModel;
-use App\Models\Instance;
-use App\Models\ProfTask;
-use App\Models\ProfUser;
-use App\Models\ProjectModel;
-use App\Models\ProjectAll;
-use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 
 class FakerSeeder extends Seeder
 {
@@ -56,7 +46,7 @@ class FakerSeeder extends Seeder
     			'jenis_kategori' => $faker->randomElement(['Pemasukan', 'Pengeluaran']),
     		]);
         }
-        for($i = 1; $i <= 5; $i++){
+        for($i = 1; $i <= 11; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('profs')->insert([
@@ -65,16 +55,7 @@ class FakerSeeder extends Seeder
     			'detail' => $faker->word,
     		]);
         }
-        for($i = 1; $i <= 6; $i++){
- 
-    	    // insert data ke table tertentu menggunakan Faker
-            DB::table('profs')->insert([
-    			'prof_code' => $faker->unique()->bothify('??-###'),
-    			'prof_name' => $faker->jobTitle,
-    			'detail' => $faker->word,
-    		]);
-        }
-        for($i = 1; $i <= 5; $i++){
+        for($i = 1; $i <= 10; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('tasks')->insert([
@@ -83,12 +64,12 @@ class FakerSeeder extends Seeder
                 'points' => $faker->numberBetween(10,30),
     		]);
         }
-        for($i = 1; $i <= 5; $i++){
+        for($i = 1; $i <= 10; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('prof_task')->insert([
-    			'prof_id' => $faker->numberBetween(1,7),
-    			'task_id' => $faker->numberBetween(1,7),
+    			'prof_id' => $faker->numberBetween(1,15),
+    			'task_id' => $faker->unique()->numberBetween(5,14),
     		]);
         }
         for($i = 1; $i <= 5; $i++){

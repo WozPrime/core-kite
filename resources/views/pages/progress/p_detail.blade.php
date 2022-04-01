@@ -415,7 +415,7 @@ use Carbon\Carbon;
                                                                 <div class="form-group">
                                                                     <label>Details</label>
                                                                     <textarea class="form-control" id="details" name="details" rows="3"
-                                                                        placeholder="Enter Task Details ..."></textarea>
+                                                                        placeholder="Enter Task Details ..." required></textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="expired_at">Add Task Deadline</label>

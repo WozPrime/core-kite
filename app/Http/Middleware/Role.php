@@ -23,6 +23,6 @@ class Role
         elseif (Auth::user()->role == 'client'){
             return redirect('/client');
         }
-        else {return redirect('/emp/home');}
+        else {return redirect('/emp');}
     }
 }

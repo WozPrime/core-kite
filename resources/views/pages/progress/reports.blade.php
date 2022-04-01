@@ -126,8 +126,10 @@
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary mr-1 mb-1" data-toggle="modal"
                                                     href="#detail{{ $p_task->id }}"><i class="fa fa-eye"></i></a>
+                                                @if (Auth::user()->id != $p_task->user_id)
                                                 <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
                                                     href="#edit{{ $p_task->id }}"><i class="fa fa-edit"></i></a>
+                                                @endif
                                             </td>
                                             <div class="modal fade" id="detail{{ $p_task->id }}">
                                                 <div class="modal-dialog modal-lg">

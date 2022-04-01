@@ -163,7 +163,7 @@ class ProjectController extends Controller
 
         return view('pages.progress.p_detail', [
             'data' => $proyek,
-            'users' =>  User::get(['name', 'id', 'pp']),
+            'users' =>  User::where('role','<>','client')->get(['name', 'id', 'pp']),
             // 'part_user' => $part_user,
             'project_all' => ProjectAll::all(),
             'profs' => ProfUser::all(),
