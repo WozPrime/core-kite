@@ -12,7 +12,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\ProjectModel;
 
 class UserController extends Controller
 {

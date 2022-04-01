@@ -33,7 +33,12 @@
                             @php
                                 $comp = $task->where('status',2)->count();
                                 $sumt = $task->count();
-                                $ct = (round($comp/$sumt,2) * 100);
+                                if ($sumt != 0) {
+                                    $ct = (round($comp/$sumt,2) * 100);
+                                }
+                                else {
+                                    $ct = 0;
+                                }
                             @endphp
                             <h3>{{$ct}}<sup style="font-size: 20px">%</sup></h3>
 
@@ -139,8 +144,8 @@
                                             {{-- <div class="row"> --}}
                                             <div 
                                                 @php
-                                                $pcount = $ptask->where('project_id', $tbl_project->id)->count('id');
-                                                $pstatus = $ptask->where('project_id', $tbl_project->id)->where('status', '==', 2)->count('id');
+                                                $pcount = $task->where('project_id', $tbl_project->id)->count('id');
+                                                $pstatus = $task->where('project_id', $tbl_project->id)->where('status', '==', 2)->count('id');
                                                 if($pcount == 0) {$progress = 0;}
                                                 elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
                                                 @endphp 
