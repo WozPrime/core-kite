@@ -426,7 +426,7 @@
     <!-- /.content -->
     <button class="material-icons floating-btn" data-toggle="modal" data-target="#insert">add</button>
     <div class="modal fade" id="insert">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Input User</h4>
@@ -436,87 +436,89 @@
                 </div>
                 <form action="/admin/manage_user/new" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="Name">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                            <div class="text-danger">
+                    <div class="modal-body row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="Name">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="new-password" placeholder="Password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="password-confirm">Confirm Password</label>
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required autocomplete="new-password"
+                                    placeholder="Confirm Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="Code">Employee Code</label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="Gender">Gender</label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option selected disabled hidden>Pilih jenis kelamin
+                                    </option>
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                required autocomplete="new-password" placeholder="Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="password-confirm">Confirm Password</label>
-                            <input id="password-confirm" type="password" class="form-control"
-                                name="password_confirmation" required autocomplete="new-password"
-                                placeholder="Confirm Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="Code">Employee Code</label>
-                            <input type="text" class="form-control" id="code" name="code" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Gender">Gender</label>
-                            <select name="gender" id="gender" class="form-control" required>
-                                <option selected disabled hidden>Pilih jenis kelamin
-                                </option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Status">Status</label>
-                            <select name="stats" id="stats" class="form-control" required>
-                                <option selected disabled hidden>Pilih Status
-                                </option>
-                                <option value="KT">Karyawan Tetap</option>
-                                <option value="KM">Karyawan Magang</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Profession">Profession</label>
-                            <select name="prof_id" id="prof_id" class="form-control" required>
-                            <option selected disabled hidden>Pilih Profesi</option>
-                                @foreach ($prof_list as $prof)
-                                    <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Alamat</label>
-                            <textarea class="form-control" id="address" name="address" rows="3"
-                                placeholder="Enter Your Address ..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ProfilePicture">Profile Picture/Avatar</label>
-                            <div>
-                                <div id="ava" class="mb-1"></div>
-                                <input type="file" name="ava" onchange="Image_preview2(event)">
-                                <div class="text-danger">
-                                    @error('pp')
-                                        {{ $message }}
-                                    @enderror
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                <select name="stats" id="stats" class="form-control" required>
+                                    <option selected disabled hidden>Pilih Status
+                                    </option>
+                                    <option value="KT">Karyawan Tetap</option>
+                                    <option value="KM">Karyawan Magang</option>
+                                </select>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="Profession">Profession</label>
+                                <select name="prof_id" id="prof_id" class="form-control" required>
+                                <option selected disabled hidden>Pilih Profesi</option>
+                                    @foreach ($prof_list as $prof)
+                                        <option value="{{ $prof->id }}">{{ $prof->prof_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <textarea class="form-control" id="address" name="address" rows="3"
+                                    placeholder="Enter Your Address ..."></textarea>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="ProfilePicture">Profile Picture/Avatar</label>
+                                <div>
+                                    <div id="ava" class="mb-1"></div>
+                                    <input type="file" name="ava" onchange="Image_preview2(event)">
+                                    <div class="text-danger">
+                                        @error('pp')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

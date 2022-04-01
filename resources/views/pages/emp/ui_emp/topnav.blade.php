@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <a href="/emp/home" class="brand-link">
+                <a href="/emp" class="brand-link">
                     <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
                         class="brand-image img-circle elevation-3" style="opacity: .8">
                     <h4 class="brand-text font-weight-bold text-dark">IDEKITE<span class="text-orange">CORE</span> </h4>
@@ -198,7 +198,7 @@
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li class="{{ request()->is('emp/home') ? 'active' : '' }}"><a href={{ request()->is('emp/home') ? 'javascript:void(0)' : '/emp/home' }}><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
+                            <li class="{{ request()->is('emp') ? 'active' : '' }}"><a href={{ request()->is('emp') ? 'javascript:void(0)' : '/emp' }}><i class="ti-dashboard"></i><span>Dashboard</span></a></li>
                             <li class="{{ request()->is('emp/joblist') || request()->is('emp/project*') ? 'active' : '' }}"><a href="javascript:void(0)"><i class="ti-check-box"></i><span>To Do List</span></a>
                                 <ul class="submenu">
                                     <li><a href={{ request()->is('emp/joblist') ? 'javascript:void(0)' : '/emp/joblist' }}>Joblist</a></li>

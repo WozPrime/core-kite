@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,10 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('admin');
-    }
-
-    function carbontest(){
-        $begin = Carbon::now();
+        if(Auth::user()->role == 'admin'){
+            
+            return redirect('admin');
+        }else {
+            return redirect('emp');
+        }
+        
     }
 }

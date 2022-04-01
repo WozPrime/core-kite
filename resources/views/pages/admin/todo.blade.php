@@ -56,6 +56,10 @@ use Illuminate\Support\Carbon;
                                     $nearestDeadline = new stdClass();
                                     $nearestDeadline->time = null;
                                     $diffMinutes = null;
+                                    $date[]= null;
+                                    $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
+                                    $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
+                                    $date = [$firstDayofMonth,$lastDayofMonth];
                                 @endphp
                                 @foreach ($project_task as $job)
                                     @php
@@ -367,10 +371,10 @@ use Illuminate\Support\Carbon;
                         <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Bookmarks</span>
-                            <span class="info-box-number">41,410</span>
+                            <span class="info-box-text">Task Completed this Month</span>
+                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
                             <span class="progress-description">
-                                70% Increase in 30 Days
+                                Work Hard Play Hard!
                             </span>
                         </div>
                         <!-- /.info-box-content -->

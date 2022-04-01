@@ -5,17 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
-use DB;
-use App\Models\User;
-use App\Models\Client;
-use App\Models\FiCategoryModel;
-use App\Models\FinanceModel;
-use App\Models\Instance;
-use App\Models\ProfTask;
-use App\Models\ProfUser;
-use App\Models\ProjectModel;
-use App\Models\ProjectAll;
-use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 
 class FakerSeeder extends Seeder
 {
@@ -56,16 +46,7 @@ class FakerSeeder extends Seeder
     			'jenis_kategori' => $faker->randomElement(['Pemasukan', 'Pengeluaran']),
     		]);
         }
-        for($i = 1; $i <= 5; $i++){
- 
-    	    // insert data ke table tertentu menggunakan Faker
-            DB::table('profs')->insert([
-    			'prof_code' => $faker->unique()->bothify('??-###'),
-    			'prof_name' => $faker->jobTitle,
-    			'detail' => $faker->word,
-    		]);
-        }
-        for($i = 1; $i <= 6; $i++){
+        for($i = 1; $i <= 11; $i++){
  
     	    // insert data ke table tertentu menggunakan Faker
             DB::table('profs')->insert([

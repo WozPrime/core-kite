@@ -50,6 +50,9 @@
                                 $nearestDeadline = new stdClass();
                                 $nearestDeadline->time = null;
                                 $diffMinutes = null;
+                                $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
+                                $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
+                                $date = [$firstDayofMonth,$lastDayofMonth];
                             @endphp
                             @foreach ($project_task as $job)
                                 @php
@@ -362,11 +365,11 @@
                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Completed Task This Week</span>
-                        <span class="info-box-number">0</span>
-                        <span class="progress-description">
-                            Just Do It!
-                        </span>
+                        <span class="info-box-text">Task Completed this Month</span>
+                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
+                            <span class="progress-description">
+                                Work Hard Play Hard!
+                            </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

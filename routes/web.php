@@ -111,7 +111,7 @@ Route::resource('/client', ClientController::class)->middleware(['auth']);
 
 Route::middleware(['auth'])->group(function () {
     // EMPLOYEE
-    Route::resource('/emp/home', EmpController::class);
+    Route::get('/emp', [EmpController::class, 'index'])->name('emp');
     Route::resource('/emp/reports', EmpReportController::class);
     Route::get('/emp/joblist/', [EmpController::class, 'jobList'])->name('jobList');
     Route::resource('/emp/project', EmpProject::class);

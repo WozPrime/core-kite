@@ -28,14 +28,19 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>150</h3>
+                            @php
+                                $comp = $task->where('status',2)->count();
+                                $sumt = $task->count();
+                                $ct = (round($comp/$sumt,2) * 100);
+                            @endphp
+                            <h3>{{$ct}}<sup style="font-size: 20px">%</sup></h3>
 
-                            <p>New Orders</p>
+                            <p>Task Completed</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="ion ion-clipboard"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -43,14 +48,18 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            @php
+                                $pdone = $project->where('project_status','Selesai')->count();
+                                $psum = $project->count();
+                            @endphp
+                            <h3>{{$pdone}} / {{$psum}}</sup></h3>
 
-                            <p>Bounce Rate</p>
+                            <p>Project Finished</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-pie-graph"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -60,9 +69,9 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{$user->count()}}</h3>
 
-                            <p>User Registrations</p>
+                            <p>Total User</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -80,7 +89,7 @@
                             <p>Unique Visitors</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="ion ion-stats-bars"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
