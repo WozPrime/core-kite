@@ -180,7 +180,7 @@
                                             {{-- </div> --}}
                                         </td>
                                         <td style="text-align: center">
-                                            <a href="#" class="text-muted">
+                                            <a href="/admin/proyek/{{ $tbl_project->id }}">
                                                 <i class="fas fa-search"></i>
                                             </a>
                                         </td>
