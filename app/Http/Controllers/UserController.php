@@ -11,6 +11,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\ProjectModel;
 
 class UserController extends Controller
 {
@@ -33,7 +34,8 @@ class UserController extends Controller
     public function admin()
     {
         return view('pages.admin.content-admin',[
-            //'pr' => DB::table('projects')->offset(0)->limit(1)->get(),
+            'data' => ProjectModel::all(),
+            'ptask' => ProjectTask::all(),
         ]);
     }
 
