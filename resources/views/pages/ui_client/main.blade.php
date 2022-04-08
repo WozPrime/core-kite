@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!-- show-hide-fields-form -->
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/main.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -98,9 +101,14 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <!-- hide-show-fields-form -->
     <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
+    <script src="{{ asset('dist/js/checkpasswordvalidity.js') }}"></script>
     <script src="{{ asset('dist/js/selectclientbasedoption.js') }}"></script>
     {{-- Get Current Date and Time --}}
     <script src="{{ asset('dist/js/currentdatetime.js') }}"></script>
+    <!-- fullCalendar 2.2.5 -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/fullcalendar/main.js') }}"></script>
+
 
     {{-- script gambar preview --}}
     <script type="text/javascript">

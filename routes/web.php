@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\ProjectAll;
 use App\Models\ProjectTask;
+use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -10,17 +12,16 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\ProjectAllController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\AdminClientController;
-use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FiCategoryController;
+use App\Http\Controllers\ProjectAllController;
+use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\ProjectTaskController;
-use App\Http\Middleware\Role;
-use App\Models\ProjectAll;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,8 @@ Route::middleware(['role', 'auth'])->group(function () {
 });
 
 Route::resource('/client', ClientController::class)->middleware(['auth']);
+Route::resource('/meetings', MeetingController::class)->middleware(['auth']);
+Route::post('/client/gantipassword/{id}', [ClientController::class, 'gantipassword'])->middleware(['auth']);
 // EMPLOYEE
 Route::get('/emp', [UserController::class, 'emp'])->name('emp');
 

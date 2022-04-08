@@ -120,6 +120,8 @@ class AdminClientController extends Controller
      */
     public function destroy($id)
     {
+        $klien=Client::where('id',$id)->first();
+        User::destroy('id',$klien->user_id);
         Client::destroy('id',$id);
         Alert::success('Sukses','Data Berhasil Dihapus');
         return redirect('/admin/client');

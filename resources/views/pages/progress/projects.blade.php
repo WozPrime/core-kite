@@ -439,7 +439,7 @@
                                         <div class="form-group" id="seeAnotherFieldInstance">
                                             <label for="seeAnotherFieldInstance">Pilih Instansi</label>
                                             <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
-                                                <option selected hidden>Pilih Instansi</option>
+                                                <option selected hidden value="">Pilih Instansi</option>
                                                 @foreach ($instansi as $i)
                                                     <option value="{{ $i->id }}">
                                                         {{ $i->nama_instansi }} </option>
@@ -453,17 +453,17 @@
                                         
                                         <div id="otherFieldDivInstance">
                                             <div class="form-group">
-                                                <label for="otherFieldDivInstance">Nama Instansi</label>
+                                                <label for="newnamainstansi">Nama Instansi</label>
                                                 <input type="text" name="newnamainstansi" id="newnamainstansi" class="form-control" placeholder="Wajib Diisi">
                                             </div>
             
                                             <div class="form-group">
-                                                <label for="otherFieldDivInstance">Kota Instansi</label>
+                                                <label for="newkotainstansi">Kota Instansi</label>
                                                 <input type="text" name="newkotainstansi" id="newkotainstansi" class="form-control" placeholder="Wajib Diisi">
                                             </div>
             
                                             <div class="form-group">
-                                                <label for="otherFieldDivInstance">Jenis Instansi</label>
+                                                <label for="newjenisinstansi">Jenis Instansi</label>
                                                 <select name="newjenisinstansi" id="newjenisinstansi" class="form-select">
                                                     <option selected hidden value=""> Pilih Jenis Instansi </option>
                                                     <option value="1">Pemerintah</option>
@@ -473,13 +473,13 @@
                                             </div>
             
                                             <div class="form-group">
-                                                <label for="otherFieldDivInstance">Alamat Instansi</label>
+                                                <label for="newalamatinstansi">Alamat Instansi</label>
                                                 <textarea name="newalamatinstansi" id="newalamatinstansi" class="form-control" cols="30" rows="3" placeholder="Isikan alamat instansi (opsional)"></textarea>
                                             </div>
             
                                             <div class="form-group">
-                                                <label for="otherfieldDivInstance">Logo Instansi</label>
-                                                <input type="file" class="form-control" id="newlogoinstansi" name="newlogoinstansi">
+                                                <label for="newlogoinstansi">Logo Instansi (opsional)</label>
+                                                <input type="file" class="form-control" id="newlogoinstansi" name="newlogoinstansi" onchange="Image_preview(event)">
                                             </div>
                                         </div>
                                     </div>
@@ -487,7 +487,7 @@
                                         <div class="form-group" id="seeAnotherFieldClient">
                                             <label for="seeAnotherFieldClient">Pilih Klien</label>
                                             <select class='form-select' name='client_id' id='client_id' required>
-                                                <option selected hidden>Pilih Klien</option>
+                                                <option selected hidden value="">Pilih Klien</option>
                                                 <option value="yes">Tambah Klien Baru</option>
                                             </select>
                                         </div>
@@ -529,7 +529,7 @@
                                         <div class="form-group">
                                             <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
                                             <select class="form-select" name="project_category" required>
-                                                <option selected hidden> Pilih Kategori </option>
+                                                <option selected hidden value=""> Pilih Kategori </option>
                                                     <option value="Web">Web</option>
                                                     <option value="Mobile App">Mobile App</option>
                                             </select>
@@ -543,7 +543,7 @@
                                         <div class="form-group">
                                             <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
                                             <select class="form-select" name="project_status" required>
-                                                <option selected hidden> Pilih Status </option>
+                                                <option selected hidden value=""> Pilih Status </option>
                                                     <option value="Baru">Baru</option>
                                                     <option value="Sedang Berjalan">Sedang Berjalan</option>
                                                     <option value="Tertunda">Tertunda</option>

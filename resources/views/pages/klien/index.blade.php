@@ -8,158 +8,274 @@ Dashboard
 @section('sidebar')
 @endsection
 @section('content')
-<div class="container pt-3">
-    <div class="main-body">
-        <div class="col-lg-12 mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="d-flex flex-column align-items-center my-2 ml-2">
-                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                    alt="Logo Instansi" class="rounded-circle" width="150" height="150">
-                            </div>
-                            <div class="text-center mb-1 ml-2">
-                                Halo, {{auth()->user()->name}}
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col-sm-3 pt-1">
-                                    <h6 class="mb-0">Asal Instansi</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    : {{$klien->instance->nama_instansi}}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row pb-xl-4">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Alamat</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    :
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Nomor Telepon</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    :
-                                </div>
-                            </div>
-                            
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Jumlah Proyek</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    :
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-12 col-lg-12 col sm-12 mx-auto">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <b> My Projects </b>
-                    </div>
-                    <table class="table table-bordered table-hover">
-                        <thead class="bg-primary">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Proyek</th>
-                                <th>Jenis Proyek</th>
-                                <th>Nilai Proyek</th>
-                                <th>Status Proyek</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($proyek as $p)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$p->project_name}}</td>
-                                <td>{{$p->project_category}}</td>
-                                <td>{{$p->project_value}}</td>
-                                <td>{{$p->project_status}}</td>
-                                <td>
-                                    <a href="#" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
-                                    <a href="#" class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                    <a href="#" class="badge bg-green mr-1" data-toggle="modal" data-target="#add-data"><i class="fa fa-clock"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+<!-- Content Header (Page header) -->
 
-        <div class="col-md-12 col-lg-12 col sm-12 mx-auto">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <b> Riwayat Pembayaran </b>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg"
+                                alt="User profile picture">
+                        </div>
+
+                        <p class="text-muted text-center">Selamat Datang,</p>
+                        <h3 class="profile-username text-center">{{$klien->name}}</h3>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Proyek Berjalan : </b> <a class="float-right">{{$proyekberjalan}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Proyek Selesai : </b> <a class="float-right">{{$proyekselesai}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Proyek Terkendala : </b> <a class="float-right">{{$proyektertunda}}</a>
+                            </li>
+                        </ul>
                     </div>
-                    <table class="table table-bordered table-hover">
-                        <thead class="bg-primary">
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal Pembayaran</th>
-                                <th>Nama Proyek</th>
-                                <th>Nilai Pembayaran</th>
-                                <th>Deskripsi</th>
-                                <th>Jenis Pembayaran</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pembayaran as $p)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$p->tanggal_pembayaran}}</td>
-                                    <td>{{$p->project->project_name}}</td>
-                                    <td>{{$p->nilai_pembayaran}}</td>
-                                    <td>{{$p->deskripsi_pembayaran}}</td>
-                                    <td>{{$p->jenis_pembayaran}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <!-- /.card-body -->
                 </div>
+                <!-- /.card -->
+
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">About Me</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <strong><i class="fas fa-building mr-1"></i> Instansi</strong>
+
+                        <p class="text-muted">
+                            {{$klien->instance->nama_instansi}}
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+
+                        <p class="text-muted">{{$klien->email}}</p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-pencil-alt mr-1"></i> Nomor Telepon</strong>
+
+                        <p class="text-muted">{{$klien->phone_number}}</p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-lock mr-1"></i> Ganti Password</strong> <br>
+                        <form action="/client/gantipassword/{{auth()->user()->id}}" method="POST">
+                            @csrf
+                            <input type="password" name="plama" id="plama" placeholder="isi password lama" class="form-control my-1">
+                            <input type="password" name="pbaru" id="pbaru" placeholder="isi password baru" class="form-control mb-1">
+                            <input type="password" name="pulang" id="pulang" placeholder="ulangi password baru" class="form-control mb-1">
+                            <button class="mt-2">Save Data</button>
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card" style="height: 98%">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#project" data-toggle="tab">Proyek
+                                    Saya</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#mymeeting" data-toggle="tab">Meeting
+                                    Saya</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#mypayments" data-toggle="tab">Riwayat
+                                    Pembayaran</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="project">
+
+                                <div class="mb-2">
+                                    <b> Proyek Saya </b>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Proyek</th>
+                                            <th>Jenis Proyek</th>
+                                            <th>Nilai Proyek</th>
+                                            <th>Status Proyek</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($proyek as $p)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$p->project_name}}</td>
+                                            <td>{{$p->project_category}}</td>
+                                            <td>{{$p->project_value}}</td>
+                                            <td>{{$p->project_status}}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                <a href="#" class="btn btn-success mr-1" data-toggle="modal"
+                                                    data-target="#add-data"><i class="fa fa-clock"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="mymeeting">
+                                <section class="content">
+                                    <p><b>Meeting Saya</b></p>
+                                    @if ($meeting->count()==0)
+                                        <div class="text-muted">Belum Ada Jadwal Pertemuan Aktif</div><br>
+                                    @endif <br>
+                                    <a href="#add-data" data-toggle="modal" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajukan Jadwal Pertemuan Dengan Perusahaan</a>      
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <b>Riwayat Meeting</b>
+                                            <table class="table table-bordered table-hover">
+                                                <thead class="bg-primary">
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Tanggal Pertemuan</th>
+                                                        <th>Proyek Pertemuan</th>
+                                                        <th>Status Pertemuan</th>
+                                                        <th>Deskripsi Pertemuan</th>
+                                                        <th>Hasil Pertemuan</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($meeting as $m)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{$m->tanggal_pertemuan}}</td>
+                                                            <td>{{$m->project->project_name}}</td>
+                                                            @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI')
+                                                            <td class="badge bg-warning my-2 mx-2">{{$m->status_pertemuan}}</td>
+                                                            @endif
+                                                            @if ($m->status_pertemuan == 'DISETUJUI')
+                                                            <td class="badge bg-success my-2 mx-2">{{$m->status_pertemuan}}</td>
+                                                            @endif
+                                                            @if ($m->status_pertemuan == 'SELESAI')
+                                                            <td class="badge bg-success my-2 mx-2">{{$m->status_pertemuan}}</td>
+                                                            @endif
+                                                            @if ($m->status_pertemuan == 'DITOLAK')
+                                                            <td class="badge bg-danger my-2 mx-2">{{$m->status_pertemuan}}</td>
+                                                            @endif
+                                                            <td>{{$m->deskripsi_pertemuan}}</td>
+                                                            <td>{{$m->hasil_pertemuan}}</td>
+                                                            <td>
+                                                                <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                                @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI')
+                                                                    <a href="#" class="btn btn-warning mr-1" data-toggle="modal" data-target="#edit-data"><i class="fas fa-pencil-alt"></i></a>
+                                                                    <a>
+                                                                        <form autocomplete="off" action="/meetings/{{ $m->id }}" method="POST" class="d-inline">
+                                                                            @method('delete')
+                                                                            @csrf
+                                                                            <button class="btn btn-danger" onclick="return confirm('Yakin untuk menghapus data?')">
+                                                                                <span class="fas fa-trash"></span>
+                                                                            </button>
+                                                                        </form>
+                                                                    </a>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="mypayments">
+                                <div class="mb-2">
+                                    <b> Riwayat Pembayaran </b>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pembayaran</th>
+                                            <th>Nama Proyek</th>
+                                            <th>Nilai Pembayaran</th>
+                                            <th>Deskripsi</th>
+                                            <th>Jenis Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pembayaran as $p)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$p->tanggal_pembayaran}}</td>
+                                            <td>{{$p->project->project_name}}</td>
+                                            <td>{{$p->nilai_pembayaran}}</td>
+                                            <td>{{$p->deskripsi_pembayaran}}</td>
+                                            <td>{{$p->jenis_pembayaran}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
         </div>
-        
-    </div>
-</div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
 <div class="modal fade" id="add-data">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="card-header bg-orange">
                 <h3 class="card-title">Atur Jadwal Pertemuan</h3>
             </div>
             <div class="card-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="/meetings" method="POST" enctype="multipart/form-data">
                     @csrf
+
+                    <div class="form-group">
+                        <label>Pilih Proyek</label>
+                        <select name="pilihproyek" id="pilihproyek" class="form-select" required>
+                            <option hidden selected value="">Pilih Proyek</option>
+                            @foreach ($proyek as $p)
+                                <option value="{{$p->id}}">{{$p->project_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label>Pilih Tanggal Pertemuan</label>
-                        <input type="date" name="tanggalpertemuan" class="form-control">
+                        <input type="datetime-local" class="form-control" name="tanggalpertemuan" required>
                     </div>
 
                     <div class="form-group">
                         <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
-                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control"></textarea>
+                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin berbicara mengenai kelanjutan projek ini. Bisakah kita bertemu pukul 16.00?"></textarea>
                     </div>
+
+                    <input type="text" name="idklien" id="idklien" value="{{$klien->id}}" hidden>
 
                     <div class="form-group">
                         <button class="btn btn-success float-right">Save Data</button>
