@@ -5,8 +5,7 @@ Dashboard
 @section('body')
 @section('navbar')
 @endsection
-@section('sidebar')
-@endsection
+
 @section('content')
 
 <!-- Content Header (Page header) -->
@@ -170,7 +169,7 @@ Dashboard
                                                             <td class="badge bg-success my-2 mx-2">{{$m->status_pertemuan}}</td>
                                                             @endif
                                                             @if ($m->status_pertemuan == 'SELESAI')
-                                                            <td class="badge bg-success my-2 mx-2">{{$m->status_pertemuan}}</td>
+                                                            <td class="badge bg-primary my-2 mx-2">{{$m->status_pertemuan}}</td>
                                                             @endif
                                                             @if ($m->status_pertemuan == 'DITOLAK')
                                                             <td class="badge bg-danger my-2 mx-2">{{$m->status_pertemuan}}</td>
@@ -272,7 +271,7 @@ Dashboard
 
                     <div class="form-group">
                         <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
-                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin berbicara mengenai kelanjutan projek ini. Bisakah kita bertemu pukul 16.00?"></textarea>
+                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin membahas mengenai penambahan fitur pada proyek ini. Bisakah kita bertemu pukul 16.00 di Kantor IdeKite?"></textarea>
                     </div>
 
                     <input type="text" name="idklien" id="idklien" value="{{$klien->id}}" hidden>

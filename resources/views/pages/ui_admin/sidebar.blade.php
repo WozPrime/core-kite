@@ -49,9 +49,9 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'menu-open' : 'menu-closed' }}">
+                    class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') || request()->is('admin/meetings*') ? 'menu-open' : 'menu-closed' }}">
                     <a 
-                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'active text-light' : '' }}">
+                        class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') || request()->is('admin/meetings*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
                             Management
@@ -101,6 +101,15 @@
                                 <i class="nav-icon fas fa-money-check-alt"></i>
                                 <p>
                                     Finance
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/meetings"
+                                class="nav-link  {{ request()->is('admin/meetings*') ? 'active' : '' }}">
+                                <i class="nav-icon fa fa-clock"></i>
+                                <p>
+                                    Meetings
                                 </p>
                             </a>
                         </li>

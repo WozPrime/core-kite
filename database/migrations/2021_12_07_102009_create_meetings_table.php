@@ -17,7 +17,7 @@ class CreateMeetingsTable extends Migration
             $table->id();
             $table->foreignId('project_id');
             $table->foreignId('client_id');
-            $table->timestamp('tanggal_pertemuan');
+            $table->datetime('tanggal_pertemuan');
             $table->text('deskripsi_pertemuan');
             $table->text('hasil_pertemuan')->nullable();
             $table->text('dokumen_pertemuan')->nullable();

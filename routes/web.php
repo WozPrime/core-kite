@@ -22,6 +22,7 @@ use App\Http\Controllers\FiCategoryController;
 use App\Http\Controllers\ProjectAllController;
 use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\ProjectTaskController;
+use App\Http\Controllers\AdminMeetingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,8 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::resource('/admin/instansi', InstanceController::class);
     //Payment
     Route::resource('/admin/payment', PaymentController::class);
+    //Meeting
+    Route::resource('/admin/meetings', AdminMeetingController::class);
 
     //profile
     Route::get('/admin/profile/{id}', [UserController::class, 'profile'])->name('profile');
