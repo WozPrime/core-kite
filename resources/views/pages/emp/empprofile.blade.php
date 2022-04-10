@@ -96,12 +96,18 @@
 
                                     <strong><i class="fas fa-list-ol mr-1"></i> Employee Code</strong>
                                     <p class="text-muted">
+                                        @if ($data_user->code == null)
+                                            -
+                                        @endif
                                         {{ $data_user->code }}
                                     </p>
                                     <hr>
 
                                     <strong><i class="fas fa-user-tie mr-1"></i> Status</strong>
                                     <p class="text-muted">
+                                        @if ($data_user->stats == null)
+                                            -
+                                        @endif
                                         @if ($data_user->stats == 'KM')
                                             Karyawan Magang
                                         @elseif($data_user->stats == 'KT')
@@ -112,6 +118,9 @@
                                     <hr>
                                     <strong><i class="fas fa-venus-mars mr-1"></i> Gender</strong>
                                     <p class="text-muted">
+                                        @if ($data_user->gender == null)
+                                            -
+                                        @endif
                                         @if ($data_user->gender == 'L')
                                             Male
                                         @elseif($data_user->gender == 'P')

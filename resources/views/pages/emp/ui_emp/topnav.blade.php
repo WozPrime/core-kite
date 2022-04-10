@@ -179,7 +179,7 @@
                         @endif
                         <h4 class="user-name dropdown-toggle pt-2" data-toggle="dropdown">{{ Auth::user()->name }}<i class="fa fa-angle-down pb-1"></i></h4>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href={{ request()->is('emp/profile') ? 'javascript:void(0)' : 'profile/' }}>Profile Setting</a>
+                            <a class="dropdown-item" href={{ request()->is('emp/profile') ? 'javascript:void(0)' : '/emp/profile/' }}>Profile Setting</a>
                             {{-- <a class="dropdown-item" href="#">Settings</a> --}}
                             <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
                         </div>

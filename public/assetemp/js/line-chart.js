@@ -1300,8 +1300,8 @@ if ($('#seolinechart3').length) {
             labels: ["January", "February", "March", "April", "May", "June", "July", "January", "February", "March", "April", "May"],
             datasets: [{
                 label: "Share",
-                backgroundColor: "rgba(96, 241, 205, 0)",
-                borderColor: '#fff',
+                backgroundColor: "rgba(96, 241, 205, 0.2)",
+                borderColor: '#ed8c80',
                 data: [18, 41, 86, 49, 20, 35, 20, 50, 49, 30, 45, 25],
             }]
         },
@@ -1361,8 +1361,8 @@ if ($('#seolinechart4').length) {
             labels: ["January", "February", "March", "April", "May", "June", "July", "January", "February", "March", "April", "May"],
             datasets: [{
                 label: "New user",
-                backgroundColor: "rgba(96, 241, 205, 0)",
-                borderColor: '#fff',
+                backgroundColor: "rgba(96, 241, 205, 0.2)",
+                borderColor: '#ccbc72',
                 data: [18, 41, 86, 49, 20, 35, 20, 50, 49, 30, 45, 25],
             }]
         },

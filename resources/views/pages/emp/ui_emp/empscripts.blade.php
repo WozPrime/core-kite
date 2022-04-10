@@ -1,3 +1,4 @@
+<script src="{{asset('plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
 <!-- jquery latest version -->
 <script src="{{ asset('assetemp/js/vendor/jquery-2.2.4.min.js') }}"></script>
 <!-- bootstrap 4 js -->

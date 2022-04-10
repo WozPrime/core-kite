@@ -273,10 +273,7 @@
     .horizontal-menu ul li a {
         padding: 10px 8px;
     }
-    .seo-fact #seolinechart3,
-    .seo-fact #seolinechart4 {
-        max-width: 144px;
-    }
+    
 }
 
 /* Normal desktop :991px. */
@@ -832,11 +829,7 @@
         font-size: 12px;
     }
 
-    /* dashboard thee */
-    .seo-fact #seolinechart3,
-    .seo-fact #seolinechart4 {
-        max-width: 128px;
-    }
+    
     .seofct-icon i {
         font-size: 37px;
     }

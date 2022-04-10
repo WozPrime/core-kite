@@ -117,6 +117,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/emp/project', EmpProject::class);
     Route::get('/emp/profile/', [UserController::class, 'empprofile'])->name('empprofile');
     Route::get('/emp/file/download/{file_name}', [EmpReportController::class, 'downloadFile'])->name('empDownload');
+    Route::post('/emp/document/post/{id}', [ProjectAllController::class, 'file_move'])->name('emp_add_docs');
+    Route::post('/emp/task/upload_details/{id}', [ProjectAllController::class, 'upload_details'])->name('emp_up_details');
+    Route::post('/emp/file/delete/', [ProjectAllController::class, 'deleteFile'])->name('emp_delete_file');
     Route::post('/emp/generate-pdf', [PDFController::class, 'generatePDF']);
 });
 

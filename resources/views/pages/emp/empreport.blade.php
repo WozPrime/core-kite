@@ -68,10 +68,10 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th class="col-3">Submitter</th>
+                                        <th class="col-3">Job</th>
                                         <th class="col-2">Status</th>
                                         <th class="col-3">Date</th>
-                                        <th class="col-2">Job</th>
+                                        <th class="col-2">Category</th>
                                         <th class="col-2">Project Name</th>
                                         <th class="col-2">Action</th>
                                     </tr>
@@ -80,7 +80,7 @@
                                     @foreach ($project_task as $p_task)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $p_task->users()->first()->name }}</td>
+                                            <td>{{ $p_task->details }}</td>
                                             <td>
                                                 <small
                                                     class="badge 
@@ -111,7 +111,7 @@
                                                     {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
                                                 @endif
                                             </td>
-                                            <td>{{ $p_task->details }}</td>
+                                            <td>{{ $p_task->tasks()->first()->task_name }}</td>
                                             <td>{{ $p_task->project()->first()->project_name }}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary mr-1 mb-1" data-toggle="modal"

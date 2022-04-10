@@ -81,10 +81,10 @@
                                                     @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
                                                     @elseif($pcount > 0 && $progress == 100) class="badge bg-success" 
                                                     @endif>
-                                                    <div @if($pcount > 0 && $progress >= 0 && $progress <= 25) class="progress-bar bg-danger pb-3"
-                                                        @elseif($pcount > 0 && $progress > 25 && $progress <= 50) class="progress-bar bg-warning pb-3"
-                                                        @elseif($pcount > 0 && $progress > 50 && $progress <= 75) class="progress-bar bg-danger pb-3"
-                                                        @elseif($pcount > 0 && $progress > 75 && $progress < 100) class="progress-bar bg-bar-success pb-3"
+                                                    <div @if($pcount > 0 && $progress >= 0 && $progress < 25) class="progress-bar bg-danger pb-3"
+                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 50) class="progress-bar bg-warning pb-3"
+                                                        @elseif($pcount > 0 && $progress >= 50 && $progress < 75) class="progress-bar bg-primary pb-3"
+                                                        @elseif($pcount > 0 && $progress >= 75 && $progress < 100) class="progress-bar bg-bar-success pb-3"
                                                         @endif
                                                         @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
                                                         @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"

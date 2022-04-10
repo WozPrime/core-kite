@@ -159,8 +159,8 @@ use Carbon\Carbon;
                                                                 @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
                                                                     <div style="padding: 3px">
                                                                         <span
-                                                                            class="badge @if (fmod($prof_task->prof_id, 3) == 0) bg-danger
-                                                                                        @elseif(fmod($prof_task->prof_id, 2) == 0)
+                                                                            class="badge @if (fmod($loop->index, 3) == 0) bg-danger
+                                                                                        @elseif(fmod($loop->index, 2) == 0)
                                                                                         bg-warning 
                                                                                         @else
                                                                                         bg-success @endif">

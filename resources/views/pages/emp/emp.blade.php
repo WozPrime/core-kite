@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('pages.emp.ui_emp.empmaster')
 @section('title')
     Dashboard Karyawan
@@ -7,6 +10,63 @@
 <div class="main-content-inner">
     <div class="container">
         <div class="row">
+            <!-- Social Campain area start -->
+            <div class="col-lg-4 mt-5">
+                 <!-- TO DO List -->
+                 
+                <!-- Profile Image -->
+                <div class="card card-orange card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            @if (Auth::user()->pp == '')
+                                    <img src="{{ url('pp/default.jpg') }}" class="profile-user-img img-fluid img-circle">
+                                @else
+                                    <img src="{{ url('pp/' . $data_user->pp) }}"
+                                        class="profile-user-img img-fluid img-circle">
+                                @endif
+                        </div>
+        
+                        <h3 class="profile-username text-center">{{Auth::user()->name}}</h3>
+        
+                        <p class="text-muted text-center">@if (Auth::user()->profs()->first())
+                            {{ Auth::user()->profs()->first()->prof_name }}
+                        @else
+                            -
+                        @endif</p>
+        
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                            <strong><i class="fas fa-at mr-1"></i> Email</strong> <a class="float-right">{{Auth::user()->email}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-user-tie mr-1"></i> Status</strong> <a class="float-right">
+                                    @if (Auth::user()->stats == null)
+                                            -
+                                        @endif
+                                        @if (Auth::user()->stats == 'KM')
+                                            Karyawan Magang
+                                        @elseif(Auth::user()->stats == 'KT')
+                                            Karyawan Tetap
+                                        @endif
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-map-pin mr-1"></i> Address</strong> <a class="float-right">
+                                    @if (Auth::user()->address == null)
+                                        -
+                                    @endif
+                                    {{ Auth::user()->address }}</a>
+                            </li>
+                        </ul>
+        
+                        <a href="/emp/profile" class="btn btn-dark btn-block"><b>My Profile</b></a>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- Social Campain area end -->
             <!-- seo fact area start -->
             <div class="col-lg-8">
                 <div class="row">
@@ -14,8 +74,8 @@
                         <div class="card">
                             <div class="seo-fact sbg1">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-thumb-up"></i> Likes</div>
-                                    <h2>2,315</h2>
+                                    <div class="seofct-icon"><i class="ti-layers"></i> Project Involved</div>
+                                    <h2>{{$involved}}</h2>
                                 </div>
                                 <canvas id="seolinechart1" height="50"></canvas>
                             </div>
@@ -25,8 +85,8 @@
                         <div class="card">
                             <div class="seo-fact sbg2">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-share"></i> Share</div>
-                                    <h2>3,984</h2>
+                                    <div class="seofct-icon"><i class="ti-check-box"></i> Completion Rate</div>
+                                    <h2>{{$ct}} %</h2>
                                 </div>
                                 <canvas id="seolinechart2" height="50"></canvas>
                             </div>
@@ -36,9 +96,10 @@
                         <div class="card">
                             <div class="seo-fact sbg3">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon">Impressions</div>
-                                    <canvas id="seolinechart3" height="60"></canvas>
+                                    <div class="seofct-icon"><i class="ti-layout-list-thumb-alt"></i> Total Task this Month</div>
+                                    <h2>{{$sumMonth}}</h2>
                                 </div>
+                                <canvas id="seolinechart3" height="60"></canvas>
                             </div>
                         </div>
                     </div>
@@ -46,25 +107,16 @@
                         <div class="card">
                             <div class="seo-fact sbg4">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon">New Users</div>
-                                    <canvas id="seolinechart4" height="60"></canvas>
+                                    <div class="seofct-icon"><i class="ti-cup"></i> Total Points this Month</div>
+                                    <h2>{{$ptsMonth}} pts</h2>
                                 </div>
+                                <canvas id="seolinechart4" height="60"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- seo fact area end -->
-            <!-- Social Campain area start -->
-            <div class="col-lg-4 mt-5">
-                <div class="card">
-                    <div class="card-body pb-0">
-                        <h4 class="header-title">Social ads Campain</h4>
-                        <div id="socialads" style="height: 245px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Social Campain area end -->
             <!-- Statistics area start -->
             <div class="col-lg-8 mt-5">
                 <div class="card">
@@ -78,13 +130,92 @@
             <!-- Advertising area start -->
             <div class="col-lg-4 mt-5">
                 <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="ion ion-clipboard mr-1"></i>
+                            To Do List
+                        </h3>
+                    </div>
+                    <!-- /.card-header -->
                     <div class="card-body">
-                        <h4 class="header-title">Advertising & Marketing</h4>
-                        <canvas id="seolinechart8" height="233"></canvas>
+                        <ul class="todo-list ui-sortable" data-widget="todo-list">
+                            <input type="hidden" id="idJobs"
+                                value="{{ json_encode($project_task->pluck('id')->toArray()) }}">
+                            @php
+                                $nearestDeadline = new stdClass();
+                                $nearestDeadline->time = null;
+                                $diffMinutes = null;
+                                $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
+                                $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
+                                $date = [$firstDayofMonth,$lastDayofMonth];
+                            @endphp
+                            @foreach ($project_task as $job)
+                                @php
+                                    $subsDate = floor((strtotime($job->expired_at) - strtotime(Carbon::now())) / 86400);
+                                    if ($subsDate > 0) {
+                                        $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
+                                        $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
+                                        if (!$job->post_date) {
+                                            if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
+                                                $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
+                                                $nearestDeadline->task = $tasks
+                                                    ->where('id', $job->task_id)
+                                                    ->pluck('task_name')
+                                                    ->implode(' ');
+                                            }
+                                        }
+                                    }
+                                    
+                                @endphp
+                                <li>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
+                                            id="todoCheck{{ $job->id }}"
+                                            @if ($job->upload_details && $file_task->where('pt_id', $job->id)->count() > 0) checked @endif>
+                                        <label for="todoCheck{{ $job->id }}"></label>
+                                    </div>
+                                    <span
+                                        class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
+                                    <small
+                                        class="badge 
+                                    @if ($subsDate > 0) @if ($diffMinutes > 7 * 1440)
+                                        badge-success
+                                        @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
+                                        badge-primary
+                                        @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
+                                        badge-warning @endif
+                                        @else
+                                        badge-danger
+                                    @endif
+                                    "
+                                        id='deadline'><i class="far fa-clock"></i>
+                                        @if ($subsDate > 0)
+                                            @if ($diffMinutes > 1440)
+                                                {{ floor($diffMinutes / 1440) }} Days
+                                            @else
+                                                {{ floor($diffMinutes / 60) }} Hours
+                                            @endif
+                                        @else
+                                            EXPIRED
+                                        @endif
+                                    </small>
+                                    <div style="float: right">
+                                            <i class="fas fa-award" style="color: var(--gray)"></i>  {{$tasks->where('id', $job->task_id)->pluck('points')->implode(' ')}} pts
+                                    </div>
+
+                                </li>
+                                
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                    <a type="button" href="/emp/joblist" class="btn btn-primary float-right"><i class="fas fa-tasks"></i> See More</a>
                     </div>
                 </div>
             </div>
-            <!-- Advertising area end -->
+            {{-- <!-- Advertising area end -->
+            </div>
             <!-- sales area start -->
             <div class="col-xl-8 col-lg-8 mt-5">
                 <div class="card">
@@ -209,7 +340,7 @@
                     </div>
                 </div>
             </div>
-            <!-- testimonial area end -->
+            <!-- testimonial area end --> --}}
         </div>
     </div>
 </div>

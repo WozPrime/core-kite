@@ -38,7 +38,7 @@
                     <div class="card-header ui-sortable-handle">
                         <h3 class="card-title">
                             <i class="ion ion-clipboard mr-1"></i>
-                            To Do List
+                            Must Done
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -50,9 +50,6 @@
                                 $nearestDeadline = new stdClass();
                                 $nearestDeadline->time = null;
                                 $diffMinutes = null;
-                                $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
-                                $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
-                                $date = [$firstDayofMonth,$lastDayofMonth];
                             @endphp
                             @foreach ($project_task as $job)
                                 @php
@@ -73,10 +70,6 @@
                                     
                                 @endphp
                                 <li>
-                                    <span class="handle ui-sortable-handle">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </span>
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
                                             id="todoCheck{{ $job->id }}"
@@ -120,7 +113,7 @@
                                 </li>
                                 <meta name="token" content="{{ csrf_token() }}">
                                 <input type="hidden" id="routeSend{{ $job->id }}"
-                                    value="{{ route('add_docs', $job->id) }}">
+                                    value="{{ route('emp_add_docs', $job->id) }}">
                                 <div class="modal fade" id="assignment{{ $job->id }}">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -213,7 +206,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form action="{{ route('up_details', $job->id) }}" method="POST"
+                                                        <form action="{{ route('emp_up_details', $job->id) }}" method="POST"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="form-group">
@@ -275,7 +268,7 @@
                                                                 <div class="modal fade" id="delete{{$loop->index}}">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content bg-danger">
-                                                                            <form action="{{ route('delete_file') }}" method="POST"
+                                                                            <form action="{{ route('emp_delete_file') }}" method="POST"
                                                                                 enctype="multipart/form-data">
                                                                                 @csrf
                                                                             <div class="modal-header">
@@ -305,7 +298,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form action="{{ route('up_details', $job->id) }}" method="POST"
+                                                        <form action="{{ route('emp_up_details', $job->id) }}" method="POST"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="form-group">
@@ -366,7 +359,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Task Completed this Month</span>
-                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
+                            <span class="info-box-number">{{$check}}</span>
                             <span class="progress-description">
                                 Work Hard Play Hard!
                             </span>
