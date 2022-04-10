@@ -50,7 +50,7 @@ use Carbon\Carbon;
                                     <img src="/projectLogo/{{ $data->project_logo }}" alt="logo {{ $data->project_name }}"
                                         class="rounded-circle" width="150" height="150">
                                 @else
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/1024px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
+                                    <img src="https://images.tokopedia.net/img/cache/215-square/shops-1/2021/7/27/11968180/11968180_a9344c7d-9e89-4310-8ce8-f7053152571c.jpg"
                                         alt="Logo Instansi" class="rounded-circle" width="150">
                                 @endif
                                 <div class="mt-3">
