@@ -127,7 +127,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                    $list_project = DB::table('projects')->where('project_status', '!=', 'Selesai')->orderBy('id', 'desc')->take(4)->get();
+                                    $list_project = DB::table('projects')->where('project_status', '!=', 'Selesai')->inRandomOrder()->take(4)->get();
                                     @endphp
                                     @foreach ($list_project as $tbl_project)
                                     <tr>
