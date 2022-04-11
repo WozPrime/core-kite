@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Profile
+    Profil
 @endsection
 @section('body')
 @section('navbar')
@@ -12,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Fill Your Profile</h1>
+                    <h1>Profil</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                        <li class="breadcrumb-item active">Your Profile</li>
+                        <li class="breadcrumb-item active">Profil Anda</li>
                     </ol>
                 </div>
             </div>
@@ -62,13 +62,13 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Task Completed</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->where('status',2)->count()}}</a>
+                                    <b>Tugas Terselesaikan</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->where('status',2)->count()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Task Ongoing</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->where('status','<>',2)->count()}}</a>
+                                    <b>Tugas Berlangsung</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->where('status','<>',2)->count()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Project Involved</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->groupBy('project_id')->count('project_id')}}</a>
+                                    <b>Proyek Bersangkutan</b> <a class="float-right text-dark">{{$task_list->where('user_id',$data_user->id)->groupBy('project_id')->count('project_id')}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -89,9 +89,9 @@
                                 {{-- <li class="nav-item"><a class="nav-link" href="#timeline"
                                         data-toggle="tab">Timeline</a></li> --}}
                                 <li class="nav-item"><a class="nav-link" href="#settings"
-                                        data-toggle="tab">Edit</a></li>
+                                        data-toggle="tab">Ubah Data</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#changepass"
-                                    data-toggle="tab">Change Password</a></li>
+                                    data-toggle="tab">Ganti Sandi</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -103,12 +103,12 @@
                                         {{$data_user->email}}
                                     </p>
                                     <hr>
-                                    <strong><i class="fas fa-signature mr-1"></i> Full Name</strong>
+                                    <strong><i class="fas fa-signature mr-1"></i> Nama Lengkap</strong>
                                     <p class="text-muted">{{$data_user->name}}</p>
 
                                     <hr>
 
-                                    <strong><i class="fas fa-list-ol mr-1"></i> Employee Code</strong>
+                                    <strong><i class="fas fa-list-ol mr-1"></i> Kode Pegawai</strong>
                                     <p class="text-muted">
                                         {{$data_user->code}}
                                     </p>
@@ -122,14 +122,14 @@
                                     </p>
                                     
                                     <hr>
-                                    <strong><i class="fas fa-venus-mars mr-1"></i> Gender</strong>
+                                    <strong><i class="fas fa-venus-mars mr-1"></i> Jenis Kelamin</strong>
                                     <p class="text-muted">
                                         @if ($data_user->gender == "L")
-                                                Male
-                                                @elseif($data_user->gender == "P")Female @endif
+                                                Laki-laki
+                                                @elseif($data_user->gender == "P")Perempuan @endif
                                     </p>
                                     <hr>
-                                    <strong><i class="fas fa-map-pin mr-1"></i> Address</strong>
+                                    <strong><i class="fas fa-map-pin mr-1"></i> Alamat</strong>
                                     <p class="text-muted">
                                         @if ($data_user->address == null)
                                             -
@@ -252,7 +252,7 @@
                                             <div class="col-6">
                                                 <div class="card-body">
                                                     <div class="form-group row">
-                                                        <label for="Name">Full Name</label>
+                                                        <label for="Name">Nama Lengkap</label>
                                                         <input type="text" class="form-control" id="name" name="name"
                                                             value="{{ $data_user->name }}">
                                                         <div class="text-danger">
@@ -262,7 +262,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="Code">Employee Code</label>
+                                                        <label for="Code">Kode Karyawan</label>
                                                         <input type="text" class="form-control" id="code" name="code"
                                                             value="{{ $data_user->code }}">
                                                         <div class="text-danger">
@@ -273,7 +273,7 @@
                     
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="Gender">Gender</label>
+                                                        <label for="Gender">Kelamin</label>
                                                         <select name="gender" id="gender" class="form-control">
                                                             <option value="" @if ($data_user->gender == '') selected @endif disabled hidden>
                                                                 Pilih jenis kelamin
@@ -297,7 +297,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="Profession">Profession</label>
+                                                        <label for="Profession">Profesi</label>
                                                         <select name="prof_id" id="prof_id" class="form-control">
                                                             @if ($data_user->profs()->first())
                                                                 <option value="" @if ($data_user->profs()->first()->id == '') selected @endif disabled
@@ -331,7 +331,7 @@
                                                     </div>
                     
                                                     <div class="form-group row">
-                                                        <label for="ProfilePicture">Profile Picture/Avatar</label>
+                                                        <label for="ProfilePicture">Foto Profil/Avatar</label>
                                                         <div>
                                                             <div id="pp" class="mb-1"></div>
                                                             <input type="file" name="pp" onchange="Image_preview(event)">
@@ -341,7 +341,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <label>Saved Photo</label>
+                                                        <label>Foto Tersimpan</label>
                                                         <div>
                                                             @if ($data_user->pp == '')
                                                                 <img src="{{ url('pp/default.jpg') }}" class="img-circle" width="150">
@@ -354,7 +354,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                                        <button type="submit" class="btn btn-primary float-right">Simpan</button>
         
                                     </form>
                                 </div>
@@ -365,7 +365,7 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="password">Password</label>
+                                                <label for="password">Sandi Baru</label>
                                                 <input id="password" type="password"
                                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                                     required autocomplete="new-password" placeholder="Password">
@@ -376,13 +376,13 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="password-confirm">Confirm Password</label>
+                                                <label for="password-confirm">Konfirmasi Sandi Baru</label>
                                                 <input id="password-confirm" type="password" class="form-control"
                                                     name="password_confirmation" required autocomplete="new-password"
                                                     placeholder="Confirm Password">
                                             </div>
                                             <br>
-                                            <button type="submit" class="btn btn-warning float-left">Change Password</button>
+                                            <button type="submit" class="btn btn-warning float-left">Ganti Sandi</button>
                                         </form>
                                     </div>
                                 </div>
