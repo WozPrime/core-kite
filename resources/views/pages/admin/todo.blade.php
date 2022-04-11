@@ -527,8 +527,14 @@ use Illuminate\Support\Carbon;
                                                                                     {{ $diff }} Hari
                                                                                 @else
                                                                                     @if ($diff > 0 && $diff < 1)
-                                                                                        {{ floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 1440) }}
-                                                                                        Menit
+                                                                                        @php
+                                                                                            $jam = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 3600);
+                                                                                            $menit = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 60);
+                                                                                        @endphp
+                                                                                        @if ($jam > 0)
+                                                                                            {{$jam}} Jam
+                                                                                        @else
+                                                                                            {{$menit}} Menit
                                                                                     @else
                                                                                         Tenggat Waktu Terlewati
                                                                                     @endif
