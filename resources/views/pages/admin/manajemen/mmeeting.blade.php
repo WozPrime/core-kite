@@ -32,7 +32,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-responsive-sm table-bordered" id="myTable" width="100%">
+                            <table class="table table-responsive-sm table-bordered" id="myTable1" width="100%">
                                 <thead>
                                     <tr>    
                                         <th>Nama Klien</th>
@@ -98,7 +98,7 @@
                                                                     <input type="radio" name="persetujuanadmin" id="adminditolak" value="DITOLAK" required>
                                                                     <label for="adminditolak">Tolak Permintaan</label>
                                                                 </div>
-                                                                <button class="btn-success"> Simpan Data</button>
+                                                                <button class="btn-success rounded-top rounded-bottom"> Simpan Data</button>
     
                                                             </div>
                                                         </form>

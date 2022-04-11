@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\ProjectModel;
 use App\Models\Instance;
 use App\Models\User;
+use App\Models\Meeting;
 use Alert;
 
 class AdminClientController extends Controller
@@ -77,6 +78,7 @@ class AdminClientController extends Controller
             'klien'=>$client,
             'pembayaranklien'=>Payment::where('user_id', $client->id)->get(),
             'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
+            'meetingklien'=>Meeting::where('client_id',$client->id)->get(),
         ]);
     }
 

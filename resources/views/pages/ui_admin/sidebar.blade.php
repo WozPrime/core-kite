@@ -109,7 +109,7 @@
                                 class="nav-link  {{ request()->is('admin/meetings*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-clock"></i>
                                 <p>
-                                    Meetings
+                                    Meeting
                                 </p>
                             </a>
                         </li>
@@ -132,7 +132,7 @@
                         class="nav-link  {{ request()->is('admin/client*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
-                            Client
+                            Klien
                         </p>
                     </a>
                 </li>

@@ -25,7 +25,8 @@ class ClientController extends Controller
         $meetingklien = Meeting::where('client_id',$klien->id)->get();
         return view ('pages.klien.index',[
             'klien'=>$klien,
-            'proyek'=>ProjectModel::where('client_id',$klien->id)->get(),
+            'proyek'=>ProjectModel::where('client_id',$klien->id)->where('project_status','<>','Selesai')->get(),
+            'pselesai'=>ProjectModel::where('client_id',$klien->id)->where('project_status','Selesai')->get(),
             'pembayaran'=>Payment::where('user_id',$klien->id)->orderBy('updated_at','DESC')->get(),
             'proyekberjalan'=>ProjectModel::where('client_id',$klien->id)->where('project_status','Sedang Berjalan')->count(),
             'proyekselesai'=>ProjectModel::where('client_id',$klien->id)->where('project_status','Selesai')->count(),

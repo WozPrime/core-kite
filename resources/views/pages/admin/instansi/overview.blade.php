@@ -26,9 +26,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-dark">
+                    <div class="card-primary">
                         <div class="card-header">
-                            <h3 class="card-title text-orange">Tabel Instansi</h3>
+                            <h3 class="card-title">Tabel Instansi</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

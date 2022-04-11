@@ -132,6 +132,43 @@ Dashboard
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="mb-2">
+                                    <b> Proyek Selesai </b>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="bg-primary">
+                                        @if ($pselesai->count()==0)
+                                            <tr class="text-center">
+                                                <th>Belum ada proyek selesai</th>
+                                            </tr>
+                                        @else      
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Proyek</th>
+                                            <th>Jenis Proyek</th>
+                                            <th>Nilai Proyek</th>
+                                            <th>Status Proyek</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pselesai as $p)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$p->project_name}}</td>
+                                                <td>{{$p->project_category}}</td>
+                                                <td>{{$p->project_value}}</td>
+                                                <td>{{$p->project_status}}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                    <a href="#" class="btn btn-success mr-1" data-toggle="modal"
+                                                        data-target="#add-data"><i class="fa fa-clock"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="mymeeting">
@@ -178,7 +215,7 @@ Dashboard
                                                             <td>{{$m->hasil_pertemuan}}</td>
                                                             <td>
                                                                 <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
-                                                                @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI')
+                                                                @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI' || $m->status_pertemuan == 'DITOLAK')
                                                                     <a href="#" class="btn btn-warning mr-1" data-toggle="modal" data-target="#edit-data"><i class="fas fa-pencil-alt"></i></a>
                                                                     <a>
                                                                         <form autocomplete="off" action="/meetings/{{ $m->id }}" method="POST" class="d-inline">
