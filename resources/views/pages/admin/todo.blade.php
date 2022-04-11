@@ -63,8 +63,9 @@ use Illuminate\Support\Carbon;
                                 @endphp
                                 @foreach ($project_task as $job)
                                     @php
-                                        $subsDate = floor((strtotime($job->expired_at) - strtotime(Carbon::now())) / 86400);
-                                        if ($subsDate > 0) {
+                                        $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()))
+                                        $divDate = ($subsDate / 86400);
+                                        if ($divDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
                                             $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
                                             if (!$job->post_date) {
@@ -94,7 +95,7 @@ use Illuminate\Support\Carbon;
                                             class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
                                         <small
                                             class="badge 
-                                        @if ($subsDate > 0) @if ($diffMinutes > 7 * 1440)
+                                        @if ($divDate > 0) @if ($diffMinutes > 7 * 1440)
                                             badge-success
                                             @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
@@ -105,7 +106,7 @@ use Illuminate\Support\Carbon;
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
-                                            @if ($subsDate > 0)
+                                            @if ($divDate > 0)
                                                 @if ($diffMinutes > 1440)
                                                     {{ floor($diffMinutes / 1440) }} Hari
                                                 @else
