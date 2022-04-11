@@ -30,6 +30,9 @@ class EmpController extends Controller
         if (Auth::user()->role == 'admin') {
             return redirect('admin');
         }
+        if (Auth::user()->role == 'client') {
+            return redirect('/client');
+        }
         $from    = Carbon::now()
                 ->startOfMonth()        // 2018-09-29 00:00:00.000000
                 ->toDateTimeString(); // 2018-09-29 00:00:00

@@ -123,7 +123,7 @@ Dashboard
                                             <td>{{$p->project_value}}</td>
                                             <td>{{$p->project_status}}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                <a href="/client/project/{{$p->id}}" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="#" class="btn btn-success mr-1" data-toggle="modal"
                                                     data-target="#add-data"><i class="fa fa-clock"></i></a>
                                             </td>

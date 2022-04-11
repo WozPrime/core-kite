@@ -10,6 +10,7 @@ use App\Models\Meeting;
 use App\Models\ProjectModel;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Hash;
 
 class ClientController extends Controller
@@ -21,6 +22,12 @@ class ClientController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
+        if (Auth::user()->role == 'member') {
+            return redirect('emp');
+        }
         $klien=Client::where('user_id',auth()->user()->id)->first();
         $meetingklien = Meeting::where('client_id',$klien->id)->get();
         return view ('pages.klien.index',[
@@ -128,5 +135,12 @@ class ClientController extends Controller
             Alert::error('Password Lama Salah');
             return redirect()->back();
         }
+    }
+
+    public function projectdetail($id){
+        return view('pages.klien.clientproject',[
+            'data' => ProjectModel::where('id',$id)->first(),
+            'pembayaran' => Payment::where('project_id',$id),
+        ]);
     }
 }

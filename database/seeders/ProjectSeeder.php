@@ -20,7 +20,7 @@ class ProjectSeeder extends Seeder
             'instance_id' => '1',
             'client_id' => '1',
             'project_code' => 'APT',
-            'project_name' => 'AntiPEDO TopPEDO',
+            'project_name' => 'Advance Packaging Tool',
             'project_category' => 'Peralatan',
             'project_value' => 'Rp 69.420.000.000',
             'project_detail' => 'Nama menjelaskan semuanya',

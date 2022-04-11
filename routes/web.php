@@ -114,6 +114,7 @@ Route::middleware(['role', 'auth'])->group(function () {
 Route::resource('/client', ClientController::class)->middleware(['auth']);
 Route::resource('/meetings', MeetingController::class)->middleware(['auth']);
 Route::post('/client/gantipassword/{id}', [ClientController::class, 'gantipassword'])->middleware(['auth']);
+Route::get('/client/project/{id}', [ClientController::class, 'projectdetail'])->middleware(['auth']);
 
 Route::middleware(['auth'])->group(function () {
     // EMPLOYEE

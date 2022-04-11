@@ -41,7 +41,7 @@
 
                 <li class="nav-item">
                     <a href="/client/projects"
-                        class="nav-link  {{ request()->is('client/projects') ? 'active text-light' : '' }}">
+                        class="nav-link  {{ request()->is('client/project*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             My Project
