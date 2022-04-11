@@ -201,7 +201,7 @@ use Carbon\Carbon;
                                                                                     ">
                                                                                     @if ($p_task->post_date)
                                                                                         @php
-                                                                                            $diff = strtotime($tl->expired_at) - strtotime($tl->post_date);
+                                                                                            $diff = strtotime($p_task->expired_at) - strtotime($p_task->post_date);
                                                                                             $days = $diff / 86400;
                                                                                         @endphp
                                                                                         @if ($days >= 1)
