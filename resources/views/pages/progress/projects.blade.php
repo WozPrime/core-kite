@@ -161,10 +161,10 @@
                                                     <div class="d-flex flex-column align-items-center text-center col-3">
                                                         @if ($tbl_project->project_logo)
                                                             <img src="/projectLogo/{{ $tbl_project->project_logo }}" alt="logo {{ $tbl_project->project_name }}"
-                                                                class="border border-dark img-fluid img-circle">
+                                                                class="border border-dark img-fluid img-circle" width="50px" height="50px">
                                                         @else
                                                             <img src="https://images.tokopedia.net/img/cache/215-square/shops-1/2021/7/27/11968180/11968180_a9344c7d-9e89-4310-8ce8-f7053152571c.jpg"
-                                                                alt="Logo Instansi" class="border border-dark img-fluid img-circle">
+                                                                alt="Logo Instansi" class="border border-dark img-fluid img-circle" width="50px" height="50px">
                                                         @endif
                                                     </div>
                                                     <div class="col-9">

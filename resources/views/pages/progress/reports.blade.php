@@ -206,7 +206,7 @@
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Selang Tenggat Waktu</b>
+                                                                                <b>Jarak Tenggat Waktu</b>
                                                                                 <a
                                                                                     class="float-right
                                                                                 @if ($p_task->post_date) text-dark
