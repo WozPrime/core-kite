@@ -68,7 +68,7 @@
                             <h2 class="card-title pt-2">Daftar Laporan</h2>
                             <div class="col-xs-3" style="float: right">
                                 <a href="#pdf" class="btn btn-block btn-info text-light" data-toggle="modal"><i
-                                        class="fas fa-file-alt mr-2"></i>Print PDF</a>
+                                        class="fas fa-file-alt mr-2"></i>Cetak PDF</a>
                                 {{-- <a href="generate-pdf" target="_blank" class="btn btn-block btn-info"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a> --}}
                             </div>
                         </div>
