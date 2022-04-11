@@ -15,12 +15,14 @@ class ProjectTask extends Model
         'project_id',
         'task_id',
         'details',
-        'file_name',
+        'status',
         'checked_at',
         'expired_at',
         'post_date',
         'upload_details',
-    ];
+        'points',
+        'feedback',
+    ];  
     public function insertData($data)
     {
         DB::table('project_task')
@@ -41,18 +43,23 @@ class ProjectTask extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
 
     public function project()
     {
-        return $this->belongsToMany(ProjectModel::class);
+        return $this->belongsTo(ProjectModel::class);
+    }
+
+    public function instance()
+    {
+        return $this->hasOneThrough(Instance::class,ProjectModel::class,'id','id','project_id','id');
     }
 
     public function tasks()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsTo('App\Models\Task','task_id');
     }
 
 }

@@ -56,6 +56,10 @@ use Illuminate\Support\Carbon;
                                     $nearestDeadline = new stdClass();
                                     $nearestDeadline->time = null;
                                     $diffMinutes = null;
+                                    $date[]= null;
+                                    $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
+                                    $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
+                                    $date = [$firstDayofMonth,$lastDayofMonth];
                                 @endphp
                                 @foreach ($project_task as $job)
                                     @php
@@ -63,14 +67,14 @@ use Illuminate\Support\Carbon;
                                         if ($subsDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
                                             $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
-                                            if (!$job->post_date){
-                                            if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
-                                                $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
-                                                $nearestDeadline->task = $tasks
-                                                    ->where('id', $job->task_id)
-                                                    ->pluck('task_name')
-                                                    ->implode(' ');
-                                            }
+                                            if (!$job->post_date) {
+                                                if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
+                                                    $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
+                                                    $nearestDeadline->task = $tasks
+                                                        ->where('id', $job->task_id)
+                                                        ->pluck('task_name')
+                                                        ->implode(' ');
+                                                }
                                             }
                                         }
                                         
@@ -82,37 +86,33 @@ use Illuminate\Support\Carbon;
                                         </span>
                                         <div class="icheck-primary d-inline ml-2">
                                             <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
-                                                id="todoCheck{{ $job->id }}" 
-                                                @if ($job->upload_details && ($file_task->where('pt_id',$job->id)->count() > 0))
-                                                    checked
-                                                @endif>
+                                                id="todoCheck{{ $job->id }}"
+                                                @if ($job->upload_details && $file_task->where('pt_id', $job->id)->count() > 0) checked @endif>
                                             <label for="todoCheck{{ $job->id }}"></label>
                                         </div>
                                         <span
                                             class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
                                         <small
                                             class="badge 
-                                        @if ($subsDate > 0)
-                                            @if ($diffMinutes > 7 * 1440)
+                                        @if ($subsDate > 0) @if ($diffMinutes > 7 * 1440)
                                             badge-success
                                             @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
                                             @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
-                                            badge-warning
-                                            @endif
-                                        @else
-                                          badge-danger
+                                            badge-warning @endif
+                                            @else
+                                            badge-danger
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
                                             @if ($subsDate > 0)
                                                 @if ($diffMinutes > 1440)
-                                                    {{ floor($diffMinutes / 1440) }} Days
+                                                    {{ floor($diffMinutes / 1440) }} Hari
                                                 @else
-                                                    {{ floor($diffMinutes / 60) }} Hours
+                                                    {{ floor($diffMinutes / 60) }} Jam
                                                 @endif
                                             @else
-                                                EXPIRED
+                                                Terlewati
                                             @endif
                                         </small>
                                         <div style="float: right; margin-left: 15px">
@@ -132,7 +132,9 @@ use Illuminate\Support\Carbon;
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}</h4>
+                                                    <h4 class="modal-title">
+                                                        {{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}
+                                                    </h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -146,15 +148,15 @@ use Illuminate\Support\Carbon;
                                                                     <span
                                                                         class="btn btn-success col fileinput-button{{ $job->id }}">
                                                                         <i class="fas fa-plus"></i>
-                                                                        <span>Add files</span>
+                                                                        <span>Tambah Berkas</span>
                                                                     </span>
                                                                     <button type="submit" class="btn btn-primary col start">
                                                                         <i class="fas fa-upload"></i>
-                                                                        <span>Start upload</span>
+                                                                        <span>Mulai Unggah</span>
                                                                     </button>
                                                                     <button type="reset" class="btn btn-warning col cancel">
                                                                         <i class="fas fa-times-circle"></i>
-                                                                        <span>Cancel upload</span>
+                                                                        <span>Batal Unggah</span>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -197,17 +199,17 @@ use Illuminate\Support\Carbon;
                                                                     <div class="btn-group">
                                                                         <button class="btn btn-primary start">
                                                                             <i class="fas fa-upload"></i>
-                                                                            <span>Start</span>
+                                                                            <span>Mulai</span>
                                                                         </button>
                                                                         <button data-dz-remove
                                                                             class="btn btn-warning cancel">
                                                                             <i class="fas fa-times-circle"></i>
-                                                                            <span>Cancel</span>
+                                                                            <span>Batal</span>
                                                                         </button>
                                                                         <button data-dz-remove
                                                                             class="btn btn-danger delete">
                                                                             <i class="fas fa-trash"></i>
-                                                                            <span>Delete</span>
+                                                                            <span>Hapus</span>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -231,7 +233,7 @@ use Illuminate\Support\Carbon;
                                                             </div>
                                                             <div class="col-4 float-right">
                                                                 <button type="submit"
-                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                                    class="btn btn-primary btn-block">Selesai</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -245,7 +247,9 @@ use Illuminate\Support\Carbon;
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Edit "{{$tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ')}}"</h4>
+                                                    <h4 class="modal-title">Edit
+                                                        "{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}"
+                                                    </h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -257,8 +261,8 @@ use Illuminate\Support\Carbon;
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>
-                                                                    <th>File Name</th>
-                                                                    <th>Action</th>
+                                                                    <th>Nama Berkas</th>
+                                                                    <th>Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -275,25 +279,29 @@ use Illuminate\Support\Carbon;
                                                                 <div class="modal fade" id="delete{{$loop->index}}">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content bg-danger">
+                                                                            <form action="{{ route('delete_file') }}" method="POST"
+                                                                                enctype="multipart/form-data">
+                                                                                @csrf
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title">Hapus File {{$loop->index + 1}}</h4>
+                                                                                <h4 class="modal-title">Hapus Berkas {{$loop->index + 1}}</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                Apakah anda yakin ingin Menghapus File ini?
+                                                                                Apakah anda yakin ingin Menghapus Berkas ini?
                                                                             </div>
+                                                                            <input type="hidden" name="file_name" value="{{ strval($file->file_name) }}">
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                                                                <a href="/admin/file/delete/{{ $file->file_name }}" type="button" class="btn btn-outline-light">Hapus
-                                                                                    File</a>
+                                                                                <button class="btn btn-outline-light">Hapus
+                                                                                    Berkas</button>
                                                                             </div>
+                                                                            </form>
+                                                                            <!-- /.modal-content -->
                                                                         </div>
-                                                                        <!-- /.modal-content -->
+                                                                        <!-- /.modal-dialog -->
                                                                     </div>
-                                                                    <!-- /.modal-dialog -->
-                                                                </div> 
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
@@ -306,7 +314,7 @@ use Illuminate\Support\Carbon;
                                                                 <label>Edit Detail Pengumpulan</label>
                                                                 <textarea class="form-control" id="upload_details"
                                                                     name="upload_details" rows="3"
-                                                                    placeholder="Enter Task Details ...">{{$job->upload_details}}</textarea>
+                                                                    placeholder="Enter Task Details ...">{{ $job->upload_details }}</textarea>
                                                                 <div class="text-danger">
                                                                     @error('upload_details')
                                                                         {{ $message }}
@@ -315,12 +323,12 @@ use Illuminate\Support\Carbon;
                                                             </div>
                                                             <div class="col-4 float-right">
                                                                 <button type="submit"
-                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                                    class="btn btn-primary btn-block">Selesai</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="row">
-                                                        
+
                                                     </div>
                                                 </div>
 
@@ -333,30 +341,286 @@ use Illuminate\Support\Carbon;
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-success float-right"><i class="fas fa-tasks"></i> Save Task</button>
+                            <br>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4" style="text-align: center">
-                    <div class="info-box bg-warning">
+                    <div class="info-box bg-white">
                         <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">@isset($nearestDeadline->task)
+                            <span class="info-box-text">
+                                @isset($nearestDeadline->task)
                                     {{ $nearestDeadline->task }}
-                                @endisset</span>
-                            <h4 id="demo" style="text-align: center"></h4>
+                                @endisset
+                            </span>
+                            <h4 id="demo" class="bg-primary" style="text-align: center; border-radius: 5px;"></h4>
                             <input type="hidden" id="nearded" name="nearded" value="{{ json_encode($nearestDeadline) }}">
                             <div class="progress">
-                                <div class="progress-bar" style="width: 70%"></div>
+                                <div class="progress-bar bg-dark" style="width: 70%"></div>
                             </div>
                             <span class="progress-description">
-                                70% Increase in 30 Days
+                                Tugas Yang Harus Diselesaikan Sebelum Tenggat Waktu
                             </span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
+                    <div class="info-box bg-gradient-info" style="text-align: left; height: 100px;">
+                        <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tugas terselesaikan bulan ini</span>
+                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
+                            <span class="progress-description">
+                                Work Hard Play Hard!
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title pt-1">Daftar Laporan</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered" id="myTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">No</th>
+                                        <th class="col-3">Tugas</th>
+                                        <th class="col-2">Status</th>
+                                        <th class="col-3">Waktu Pemeriksaan</th>
+                                        <th class="col-2">Nama Proyek</th>
+                                        <th class="col-2">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($task_list as $tl)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$tl->details}}</td>
+                                        <td>
+                                            <small
+                                                    class="badge 
+                                                    @if ($tl->status == 2)
+                                                    badge-success
+                                                    @elseif ($tl->status == 3)
+                                                    badge-danger 
+                                                    @else
+                                                    badge-warning @endif
+                                                    "
+                                                    id='deadline'>
+                                                    @if ($tl->status == 2)
+                                                        Telah Diperiksa
+                                                    @elseif ($tl->status == 3)
+                                                        Belum Memenuhi Persyaratan
+                                                    @endif
+                                                </small>
+                                        </td>
+                                        <td>
+                                            {{ date('D, d M Y H:i', strtotime($tl->checked_at)) }}
+                                        </td>
+                                        <td>
+                                            {{ $tl->project()->first()->project_name }}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary mr-1 mb-1" data-toggle="modal"
+                                                    href="#detail{{ $tl->id }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="detail{{ $tl->id }}">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Task Detail</h4>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <section class="container-fluid">
+                                                        <div class="card card-primary card-outline">
+                                                            <div class="card-body box-profile">
+                                                                <div class="text-center">
+                                                                    {{-- @if ($tl->project()->first()->project_logo == '')
+                                                                        <img src="{{ url('pp/default.jpg') }}"
+                                                                            class="profile-user-img img-fluid img-circle">
+                                                                    @else
+                                                                        <img src="{{ url('pp/' . $tl->project()->first()->project_name) }}"
+                                                                            class="profile-user-img img-fluid img-circle">
+                                                                    @endif --}}
+                                                                </div>
+
+                                                                <h3 class="profile-username text-center">
+                                                                    {{ $tl->project()->first()->project_name }}
+                                                                </h3>
+
+                                                                <p class="text-muted text-center">
+                                                                    {{ $tl->instance()->first()->nama_instansi }}
+                                                                </p>
+
+                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                    <li class="list-group-item">
+                                                                        <b>Task</b> <a
+                                                                            class="float-right text-dark">
+                                                                            {{ $tl->details }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>PJ</b> <a class="float-right text-dark">
+                                                                            {{ $tl->users()->first()->name }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Category</b> <a
+                                                                            class="float-right text-dark">
+                                                                            {{ $tl->tasks()->first()->task_name }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Tanggal Pengunggahan</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->post_date) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->post_date)
+                                                                                {{ date('D, d M Y H:i', strtotime($tl->post_date)) }}
+                                                                            @else
+                                                                                Belum Diunggah
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Tenggat Waktu</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->post_date) text-success
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            {{ date('D, d M Y H:i', strtotime($tl->expired_at)) }}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Selang Tenggat Waktu</b>
+                                                                        <a
+                                                                            class="float-right
+                                                                        @if ($tl->post_date) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->post_date)
+                                                                                @php
+                                                                                    $diff = strtotime($tl->expired_at) - strtotime($tl->post_date);
+                                                                                    $days = ($diff / 86400);
+                                                                                @endphp
+                                                                                @if ($days >= 1)
+                                                                                    {{ floor($days) }} Hari
+                                                                                @else
+                                                                                    @if ($days > 0 && $days < 1)
+                                                                                        @php
+                                                                                            $jam = floor($diff / 3600);
+                                                                                            $menit = floor($diff / 60);
+                                                                                        @endphp
+                                                                                        @if ($jam > 0)
+                                                                                            {{$jam}} Jam
+                                                                                        @else
+                                                                                            {{$menit}} Menit
+                                                                                        @endif
+                                                                                    @else
+                                                                                        Tenggat Waktu Terlewati
+                                                                                    @endif
+                                                                                @endif
+                                                                            @else
+                                                                                Laporan Masih Kosong
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Detail Laporan Terunggah</b> <a
+                                                                            class="float-right 
+                                                                            @if ($tl->upload_details) text-dark
+                                                                            @else
+                                                                                text-red @endif
+                                                                            ">
+                                                                            @if ($tl->upload_details)
+                                                                                {{ $tl->upload_details }}
+                                                                            @else
+                                                                            Laporan Masih Kosong
+                                                                            @endif
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Nilai</b> <a class="@if ($tl->points/$tl->tasks()->first()->points > 0.7)
+                                                                            text-success
+                                                                        @else
+                                                                            text-orange
+                                                                        @endif float-right" style="font-weight: bold">
+                                                                            {{ $tl->points}}/{{$tl->tasks()->first()->points}}
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Masukan:</b> 
+                                                                        <br>
+                                                                        <a class="text-dark" style="display:block;text-overflow: ellipsis;width: 700px;overflow: hidden; white-space: nowrap;text-align: right">
+                                                                            {{ $tl->feedback }}
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                        <div class="card card-secondary">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title">Unduh Berkas</h3>
+                                                            </div>
+                                                            <!-- /.card-header -->
+                                                            <div class="card-body">
+                                                                @if ($file_task->where('pt_id', $tl->id)->count() == 0)
+                                                                    <strong class="text-red">Tidak Ada File yang Ditambahkan</strong>
+                                                                @else
+                                                                    @foreach ($file_task->where('pt_id', $tl->id) as $file)
+                                                                        <strong>{{ $file->file_name }}</strong>
+                                                                        <a class="btn btn-primary mr-1 float-right"
+                                                                            href="/admin/file/download/{{ $file->file_name }}"><i
+                                                                                class="fas fa-download"></i></a>
+                                                                        <hr>
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                    </section>
+
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -468,7 +732,7 @@ use Illuminate\Support\Carbon;
             // If the count down is over, write some text 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("demo").innerHTML = " - ";
             }
         }, 1000);
     </script>

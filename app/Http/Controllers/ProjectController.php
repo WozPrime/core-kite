@@ -39,6 +39,7 @@ class ProjectController extends Controller
             'instansi' => Instance::all(),
             'klien' => Client::all(),
             'modelinstansi' => InstancesModel::all(),
+            'ptask' => ProjectTask::all(),
         ]);
     }
     /**
@@ -103,18 +104,39 @@ class ProjectController extends Controller
         else{
             $data->client_id = $request->client_id;
         }
-        $data->project_code = $request->project_code;
-        $data->project_name = $request->project_name;
-        $data->project_detail = $request->project_detail;
-        $data->project_status = $request->project_status;
-        $data->project_category = $request->project_category;
-        $data->project_start_date = $request->project_start_date;
-        $data->project_deadline = $request->project_deadline;
-        $data->project_value = $request->project_value;
-        $data->save();
-        DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
-        Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
-        return redirect('/admin/proyek');
+        if($request->project_logo<> ""){
+            $file = $request->project_logo;
+            $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
+            $file->move(public_path('projectLogo'), $fileName);
+
+            $data->project_code = $request->project_code;
+            $data->project_name = $request->project_name;
+            $data->project_detail = $request->project_detail;
+            $data->project_status = $request->project_status;
+            $data->project_category = $request->project_category;
+            $data->project_start_date = $request->project_start_date;
+            $data->project_deadline = $request->project_deadline;
+            $data->project_value = $request->project_value;
+            $data->project_logo = $fileName;
+            $data->save();
+            DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
+            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+            return redirect('/admin/proyek');
+        }
+        else {
+            $data->project_code = $request->project_code;
+            $data->project_name = $request->project_name;
+            $data->project_detail = $request->project_detail;
+            $data->project_status = $request->project_status;
+            $data->project_category = $request->project_category;
+            $data->project_start_date = $request->project_start_date;
+            $data->project_deadline = $request->project_deadline;
+            $data->project_value = $request->project_value;
+            $data->save();
+            DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
+            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+            return redirect('/admin/proyek');
+        }
     }
 
     /**
@@ -126,13 +148,13 @@ class ProjectController extends Controller
     public function show(ProjectModel $proyek)
     {
         // dd($proyek);
-        $part_user = DB::table('project_all')
-            ->join('users', 'users.id', '=', 'project_all.user_id', 'right outer')
-            ->select(['users.id', 'users.name', 'project_all.id as pt_id'])
-            ->whereNull('project_all.id')
-            ->get();
+        // $part_user = DB::table('project_all')
+        //     ->join('users', 'users.id', '=', 'project_all.user_id', 'right outer')
+        //     ->select(['users.id', 'users.name', 'project_all.id as pt_id'])
+        //     ->whereNull('project_all.id')
+        //     ->get();
         // $prof_part = $this->projectAll->select('prof_id','user_id')->get();
-        $participant = $this->projectAll->select('user_id')->groupBy('user_id')->get();
+        $participant = $this->projectAll->select('user_id')->groupBy('user_id');
         $user_task = $this->user;
         $project_task = $this->projectTask;
         // $task_prof = $this->task->find(3)->profs()->first()->id;
@@ -141,8 +163,8 @@ class ProjectController extends Controller
 
         return view('pages.progress.p_detail', [
             'data' => $proyek,
-            'users' =>  User::get(['name', 'id', 'pp']),
-            'part_user' => $part_user,
+            'users' =>  User::where('role','<>','client')->get(['name', 'id', 'pp']),
+            // 'part_user' => $part_user,
             'project_all' => ProjectAll::all(),
             'profs' => ProfUser::all(),
             'job_list' => $this->task,
@@ -150,7 +172,6 @@ class ProjectController extends Controller
             // 'prof_part' => $prof_part,
             'user_task' => $user_task,
             'project_task' => $project_task,
-            'task_part' => $task_part,
             'pembayaran' => Payment::where('project_id',$proyek->id)->get(),
         ]);
     }
@@ -158,19 +179,23 @@ class ProjectController extends Controller
     public function addParticipant(Request $request)
     {
         // dd($this->user->find($request->user_id)->profUser()->first());
-        if ($this->user->find($request->user_id)->profUser()->first() == '') {
-            $data = new ProjectAll;
-            $data->user_id = $request->user_id;
-            $data->project_id = $request->project_id;
-            $data->save();
-            Alert::warning('Peringatan!!', 'Profesi Karyawan Masih Belum Terdata, Bagian Profesi Akan Dikosongkan');
-        } else {
-            $data = new ProjectAll;
-            $data->user_id = $request->user_id;
-            $data->project_id = $request->project_id;
-            $data->prof_id = $this->user->find($request->user_id)->profUser()->first()->prof_id;
-            $data->save();
-            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+        if($request->user_id == ""){
+            Alert::warning('Warning!!', 'Tidak Ada Karyawan yang dipilih');
+        } else{
+            if ($this->user->find($request->user_id)->profUser()->first() == '') {
+                $data = new ProjectAll;
+                $data->user_id = $request->user_id;
+                $data->project_id = $request->project_id;
+                $data->save();
+                Alert::warning('Peringatan!!', 'Profesi Karyawan Masih Belum Terdata, Bagian Profesi Akan Dikosongkan');
+            } else {
+                $data = new ProjectAll;
+                $data->user_id = $request->user_id;
+                $data->project_id = $request->project_id;
+                $data->prof_id = $this->user->find($request->user_id)->profUser()->first()->prof_id;
+                $data->save();
+                Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+            }
         }
         return redirect()->back();
     }
@@ -203,7 +228,8 @@ class ProjectController extends Controller
             Request()->project_status == $data->project_status &&
             Request()->project_category == $data->project_category &&
             Request()->project_start_date == $data->project_start_date &&
-            Request()->project_deadline == $data->project_deadline 
+            Request()->project_deadline == $data->project_deadline &&
+            Request()->project_logo == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->back();
@@ -230,18 +256,39 @@ class ProjectController extends Controller
                 'project_start_date' => 'Wajib diisi!!',
                 'project_deadline' => 'Wajib diisi!!',
             ]);
-            $data = [
-                'instance_id' => $request->instance_id,
-                'client_id' => $request->client_id,
-                'project_code' => $request->project_code,
-                'project_name' => $request->project_name,
-                'project_detail' => $request->project_detail,
-                'project_status' => $request->project_status,
-                'project_category' => $request->project_category,
-                'project_start_date' => $request->project_start_date,
-                'project_deadline' => $request->project_deadline,
-                'project_value' => $request->project_value,
-            ];
+            if($request->project_logo<> ""){
+                $file = $request->project_logo;
+                $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
+                $file->move(public_path('projectLogo'), $fileName);
+
+                $data = [
+                    'instance_id' => $request->instance_id,
+                    'client_id' => $request->client_id,
+                    'project_code' => $request->project_code,
+                    'project_name' => $request->project_name,
+                    'project_detail' => $request->project_detail,
+                    'project_status' => $request->project_status,
+                    'project_category' => $request->project_category,
+                    'project_start_date' => $request->project_start_date,
+                    'project_deadline' => $request->project_deadline,
+                    'project_value' => $request->project_value,
+                    'project_logo' => $fileName,
+                ];
+            }
+            else {
+                $data = [
+                    'instance_id' => $request->instance_id,
+                    'client_id' => $request->client_id,
+                    'project_code' => $request->project_code,
+                    'project_name' => $request->project_name,
+                    'project_detail' => $request->project_detail,
+                    'project_status' => $request->project_status,
+                    'project_category' => $request->project_category,
+                    'project_start_date' => $request->project_start_date,
+                    'project_deadline' => $request->project_deadline,
+                    'project_value' => $request->project_value,
+                ];
+            }
             ProjectModel::where('id', $id)->update($data);
             Alert::success('Sukses', 'Data Proyek berhasil diedit!');
             return redirect()->back();
@@ -263,24 +310,45 @@ class ProjectController extends Controller
                     'project_start_date' => 'Wajib diisi!!',
                     'project_deadline' => 'Wajib diisi!!',
                 ]);
-                $data = [
-                    'instance_id' => $request->instance_id,
-                    'client_id' => $request->client_id,
-                    'project_name' => $request->project_name,
-                    'project_detail' => $request->project_detail,
-                    'project_status' => $request->project_status,
-                    'project_category' => $request->project_category,
-                    'project_start_date' => $request->project_start_date,
-                    'project_deadline' => $request->project_deadline,
-                    'project_value' => $request->project_value,
-                ];
+                if($request->project_logo<> ""){
+                    $file = $request->project_logo;
+                    $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
+                    $file->move(public_path('projectLogo'), $fileName);
+    
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_value' => $request->project_value,
+                        'project_logo' => $fileName,
+                    ];
+                }
+                else {
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_value' => $request->project_value,
+                    ];
+                }
                 ProjectModel::where('id', $id)->update($data);
                 Alert::success('Sukses', 'Data Proyek berhasil diedit!');
                 return redirect()->back();
             }
+        }
     }
-    }
-
     /**
      * Remove the specified resource from storage.
      *

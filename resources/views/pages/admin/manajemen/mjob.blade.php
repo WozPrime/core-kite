@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Manage Joblist
+    Kelola Joblist
 @endsection
 <style>
     .floating-btn {
@@ -46,12 +46,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Joblist</h1>
+                    <h1>Kelola Joblist</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Joblist</li>
+                        <li class="breadcrumb-item active">Kelola Joblist</li>
                     </ol>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-12">
                     <div class="card card-fuchsia">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Jobs</h3>
+                            <h3 class="card-title pt-1">Daftar Pekerjaan</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool mt-1" data-card-widget="collapse"
                                     title="Collapse">
@@ -83,10 +83,10 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th class="col-2">Job Code</th>
-                                        <th class="col-4">Task</th>
-                                        <th class="col-1">Points</th>
-                                        <th>Profession</th>
+                                        <th class="col-2">Kode Pekerjaan</th>
+                                        <th class="col-4">Tugas</th>
+                                        <th class="col-1">Poin</th>
+                                        <th>Profesi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -115,7 +115,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Job Details</h4>
+                                                        <h4 class="modal-title">Edit Detail Pekerjaan</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -126,7 +126,7 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="Job_code">Job Code</label>
+                                                                <label for="Job_code">Kode Pekerjaan</label>
                                                                 <input type="text" class="form-control" id="code"
                                                                     name="code" value="{{ $job->code }}">
                                                                 <div class="text-danger">
@@ -136,7 +136,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Task">Task</label>
+                                                                <label for="Tugas">Tugas</label>
                                                                 <input type="text" class="form-control" id="task_name"
                                                                     name="task_name" value="{{ $job->task_name }}">
                                                                 <div class="text-danger">
@@ -146,7 +146,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Points">Points</label>
+                                                                <label for="Poin">Poin</label>
                                                                 <input type="text" class="form-control" id="points"
                                                                     name="points" value="{{ $job->points }}">
                                                                 <div class="text-danger">
@@ -157,7 +157,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="Profession">Profession</label>
+                                                                <label for="Profesi">Profesi</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">
                                                                     @if ($job->profs()->first())
                                                                             <option value="" @if ($job->profs()->first()->id == '')
@@ -183,9 +183,8 @@
 
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                         </div>
                                                         </form>
                                                         <!-- /.modal-content -->
@@ -208,7 +207,7 @@
                                                             {{ $job->code }} ini?
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
                                                             <a href="/admin/delete_task/{{ $job->id }}" type="button" class="btn btn-outline-light">Hapus
                                                                 Data</a>
                                                         </div>
@@ -237,7 +236,7 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title">Input New Task</h4>
+                                                            <h4 class="modal-title">Tambah Pekerjaan Baru</h4>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -246,7 +245,7 @@
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="Code">Code</label>
+                                                                    <label for="Kode">Kode</label>
                                                                     <input type="text" class="form-control" id="code" name="code">
                                                                     <div class="text-danger">
                                                                         @error('code')
@@ -255,7 +254,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="Task">Task</label>
+                                                                    <label for="Tugas">Tugas</label>
                                                                     <input type="text" class="form-control" id="task_name" name="task_name">
                                                                     <div class="text-danger">
                                                                         @error('task_name')
@@ -264,7 +263,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="Points">Points</label>
+                                                                    <label for="Poin">Poin</label>
                                                                     <input type="text" class="form-control" id="points" name="points">
                                                                     <div class="text-danger">
                                                                         @error('points')
@@ -274,7 +273,7 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="Profession">Profession</label>
+                                                                    <label for="Profesi">Profesi</label>
                                                                     <select name="prof_id" id="prof_id" class="form-control">
                                                                         <option value="" selected disabled hidden>Pilih Profesi
                                                                         </option>
@@ -287,8 +286,8 @@
 
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                             </div>
                                                         </form>
                                                     </div>

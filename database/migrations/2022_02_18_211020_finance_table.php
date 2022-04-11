@@ -22,9 +22,9 @@ class FinanceTable extends Migration
             $table->string('type_finance');
             $table->string('nominal_finance');
             $table->string('balance_finance');
-            $table->string('nota_finance')->nullable();
+            $table->string('nota_finance');
             $table->string('inout_finance');
-            $table->text('detail_finance');
+            $table->text('detail_finance')->nullable();
             $table->timestamps();
         });
     }

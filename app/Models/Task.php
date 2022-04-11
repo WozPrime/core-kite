@@ -38,6 +38,11 @@ class Task extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function projectTask()
+    {
+        return $this->hasMany(ProjectTask::class);
+    }
+
     public function profs()
     {
         return $this->belongsToMany(ProfUser::class,'prof_task','task_id','prof_id');

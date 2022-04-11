@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\ProfUser;
 use App\Models\ProfUserModel;
+use App\Models\ProjectModel;
+use App\Models\ProjectTask;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -30,9 +33,10 @@ class UserController extends Controller
 
     public function admin()
     {
-        return view('pages.admin.content-admin',[
-            //'pr' => DB::table('projects')->offset(0)->limit(1)->get(),
-        ]);
+        $project = ProjectModel::all();
+        $task = ProjectTask::all();
+        $user = User::all();
+        return view('pages.admin.content-admin', compact('project','task','user'));
     }
 
     public function tables()
@@ -45,8 +49,23 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $data_user = User::find($id);
         $prof_list = ProfUser::all();
+        $task_list = ProjectTask::all();
         // dd($data_user->profUser);
-        return view('pages.admin.profile_user', compact('data_user', 'prof_list'));
+        return view('pages.admin.profile_user', compact('data_user', 'prof_list','task_list'));
+    }
+    public function empprofile()
+    {
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
+        $id= Auth::user()->id;
+        $data_user = User::find($id);
+        $prof_list = ProfUser::all();
+        $task_list = ProjectTask::all();
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
+        return view('pages.emp.empprofile', compact('data_user','prof_list','task_list'));
     }
 
     public function cpass($id)
@@ -234,6 +253,63 @@ class UserController extends Controller
             }
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
             return redirect('/admin/profile');
+        }
+    }
+
+    public function newUser(Request $req)
+    {
+        $newProf = ProfUser::find($req->prof_id);
+        $req->validate([
+            'password' => 'required|confirmed|min:8',
+            'code' => 'unique:users,code,' . $req->id,
+            'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
+        ],[
+            'password.confirmed' => 'Cek Kembali Password!!',
+        ]);
+        if ($req->ava <> "") {
+            $file = $req->ava;
+            $fileName = $req->id . '.' . $file->extension();
+            $file->move(public_path('pp'), $fileName);
+            
+            $newUser = new User;
+            $newUser->name = $req->name;
+            $newUser->email = $req->email;
+            $newUser->password = bcrypt($req->password);
+            $newUser->code = $req->code;
+            $newUser->gender = $req->gender;
+            $newUser->stats = $req->stats;
+            $newUser->address = $req->address;
+            $newUser->pp = $req->ava;
+            $newUser->save();
+
+            User::find($newUser->id)->profUser()->save(new ProfUserModel([
+                "user_id"=>$newUser->id,
+                "prof_id"=>$newProf->id
+            ]));
+
+            Alert::success('Sukses', 'User berhasil ditambahkan !!!');
+            return redirect('/admin/manage_user');
+
+
+        } else {
+            $newUser = new User;
+            $newUser->name = $req->name;
+            $newUser->email = $req->email;
+            $newUser->password = bcrypt($req->password);
+            $newUser->code = $req->code;
+            $newUser->gender = $req->gender;
+            $newUser->stats = $req->stats;
+            $newUser->address = $req->address;
+            $newUser->save();
+
+            User::find($newUser->id)->profUser()->save(new ProfUserModel([
+                "user_id"=>$newUser->id,
+                "prof_id"=>$newProf->id
+            ]));
+
+            Alert::success('Sukses', 'User berhasil ditambahkan !!!');
+            return redirect('/admin/manage_user');
+
         }
     }
 

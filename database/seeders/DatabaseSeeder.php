@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfUserSeeder::class);
         $this->call(TaskSeeder::class);
         $this->call(FiCategorySeeder::class);
+        $this->call(ProfTaskSeeder::class);
+        $this->call(FakerSeeder::class);
     }
 }

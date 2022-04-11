@@ -23,7 +23,9 @@ class CreateProjectTaskTable extends Migration
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade'); 
             $table->text('details')->nullable();
             $table->text('upload_details')->nullable();
+            $table->text('feedback')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('points')->nullable();
             $table->dateTime('checked_at')->nullable();
             $table->dateTime('expired_at')->nullable();
             $table->dateTime('post_date')->nullable();

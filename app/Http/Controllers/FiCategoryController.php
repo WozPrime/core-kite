@@ -74,9 +74,23 @@ class FiCategoryController extends Controller
      * @param  \App\Models\FiCategoryModel  $fiCategoryModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FiCategoryModel $fiCategoryModel)
+    public function update(Request $request, $id)
     {
-        //
+        $data = FiCategoryModel::find($id);
+        if(
+            Request()->jenis_kategori == $data->jenis_kategori &&
+            Request()->nama_kategori == $data->nama_kategori
+        ) {
+            Alert::warning('Sama', 'Data Tidak Berubah');
+            return redirect()->back();
+        }
+        else {
+            $data->jenis_kategori = $request->jenis_kategori;
+            $data->nama_kategori = $request->nama_kategori;
+            $data->save();
+            Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
+            return redirect()->back();
+        }
     }
 
     /**
