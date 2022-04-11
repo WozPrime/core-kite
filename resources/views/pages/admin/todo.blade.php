@@ -521,20 +521,22 @@ use Illuminate\Support\Carbon;
                                                                             ">
                                                                             @if ($tl->post_date)
                                                                                 @php
-                                                                                    $diff = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 86400);
+                                                                                    $diff = strtotime($tl->expired_at) - strtotime($tl->post_date);
+                                                                                    $days = ($diff / 86400);
                                                                                 @endphp
-                                                                                @if ($diff >= 1)
-                                                                                    {{ $diff }} Hari
+                                                                                @if ($days >= 1)
+                                                                                    {{ floor($days) }} Hari
                                                                                 @else
-                                                                                    @if ($diff > 0 && $diff < 1)
+                                                                                    @if ($days > 0 && $days < 1)
                                                                                         @php
-                                                                                            $jam = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 3600);
-                                                                                            $menit = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 60);
+                                                                                            $jam = floor($diff / 3600);
+                                                                                            $menit = floor($diff / 60);
                                                                                         @endphp
                                                                                         @if ($jam > 0)
                                                                                             {{$jam}} Jam
                                                                                         @else
                                                                                             {{$menit}} Menit
+                                                                                        @endif
                                                                                     @else
                                                                                         Tenggat Waktu Terlewati
                                                                                     @endif
