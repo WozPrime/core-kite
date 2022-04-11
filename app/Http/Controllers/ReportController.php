@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Models\ProjectTask;
 use App\Models\ProjectModel;
@@ -21,7 +20,6 @@ class ReportController extends Controller
      */
     public function __construct()
     {   
-        $this->report = new Report();
         $this->middleware('auth');
     }
     public function index()
