@@ -63,8 +63,9 @@ use Illuminate\Support\Carbon;
                                 @endphp
                                 @foreach ($project_task as $job)
                                     @php
-                                        $subsDate = floor((strtotime($job->expired_at) - strtotime(Carbon::now())) / 86400);
-                                        if ($subsDate > 0) {
+                                        $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()));
+                                        $divDate = ($subsDate / 86400);
+                                        if ($divDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
                                             $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
                                             if (!$job->post_date) {
@@ -94,18 +95,19 @@ use Illuminate\Support\Carbon;
                                             class="text">{{ $tasks->where('id', $job->task_id)->pluck('task_name')->implode(' ') }}</span>
                                         <small
                                             class="badge 
-                                        @if ($subsDate > 0) @if ($diffMinutes > 7 * 1440)
+                                        @if ($divDate > 0) @if ($diffMinutes > 7 * 1440)
                                             badge-success
                                             @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
                                             @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
-                                            badge-warning @endif
+                                            badge-warning
                                             @else
                                             badge-danger
+                                            @endif
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
-                                            @if ($subsDate > 0)
+                                            @if ($divDate > 0)
                                                 @if ($diffMinutes > 1440)
                                                     {{ floor($diffMinutes / 1440) }} Hari
                                                 @else
@@ -372,7 +374,7 @@ use Illuminate\Support\Carbon;
 
                         <div class="info-box-content">
                             <span class="info-box-text">Tugas terselesaikan bulan ini</span>
-                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
+                            <span class="info-box-number">{{$task_list->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
                             <span class="progress-description">
                                 Work Hard Play Hard!
                             </span>
