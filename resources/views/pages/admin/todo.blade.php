@@ -373,7 +373,7 @@ use Illuminate\Support\Carbon;
 
                         <div class="info-box-content">
                             <span class="info-box-text">Tugas terselesaikan bulan ini</span>
-                            <span class="info-box-number">{{$project_task->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
+                            <span class="info-box-number">{{$task_list->where('status',2)->whereBetween('checked_at',$date)->count()}}</span>
                             <span class="progress-description">
                                 Work Hard Play Hard!
                             </span>
