@@ -111,12 +111,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Projects</h1>
+                    <h1>Proyek</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                        <li class="breadcrumb-item active">Projects</li>
+                        <li class="breadcrumb-item active">Proyek</li>
                     </ol>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Projects</h3>
+                            <h3 class="card-title pt-1">Daftar Proyek</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
                                     title="Collapse">
@@ -144,11 +144,11 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align: center" width="2%">No</th>
-                                        <th class="col-4">Project Name</th>
-                                        <th class="col-1">Project Code</th>
+                                        <th class="col-4">Nama Proyek</th>
+                                        <th class="col-1">Kode Proyek</th>
                                         <th class="col-1">Status</th>
                                         <th class="col-1">Kategori</th>
-                                        <th class="col-2">Progress</th>
+                                        <th class="col-2">Persentase Proyek</th>
                                         <th width="10%" style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
@@ -337,8 +337,7 @@
                                                                 <br>
                                     
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-success float-right">Save
-                                                                        Data</button>
+                                                                    <button class="btn btn-success float-right">Simpan Data</button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -370,7 +369,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
-                        <h3 class="card-title">Add New Instance</h3>
+                        <h3 class="card-title">Tambah Data Instansi</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -428,7 +427,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header bg-orange">
-                        <h3 class="card-title">Add New Client</h3>
+                        <h3 class="card-title">Tambah Data Klien</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -469,8 +468,7 @@
                                 <br>
     
                                 <div class="form-group">
-                                    <button class="btn btn-success float-right">Save
-                                        Data</button>
+                                    <button class="btn btn-success float-right">Simpan Data</button>
                                 </div>
                             </div>
                         </form>
@@ -637,8 +635,7 @@
                                 <br>
     
                                 <div class="form-group">
-                                    <button class="btn btn-success float-right">Save
-                                        Data</button>
+                                    <button class="btn btn-success float-right">Simpan Data</button>
                                 </div>
                             </div>
                         </form>

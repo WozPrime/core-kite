@@ -42,12 +42,12 @@
                             @endphp
                             <h3>{{$ct}}<sup style="font-size: 20px">%</sup></h3>
 
-                            <p>Task Completed</p>
+                            <p>Tugas Terselesaikan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-clipboard"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -61,12 +61,12 @@
                             @endphp
                             <h3>{{$pdone}} / {{$psum}}</sup></h3>
 
-                            <p>Project Finished</p>
+                            <p>Proyek Terselesaikan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -76,12 +76,12 @@
                         <div class="inner">
                             <h3>{{$user->count()}}</h3>
 
-                            <p>Total User</p>
+                            <p>Total Pengguna</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -96,7 +96,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -121,8 +121,8 @@
                                     <tr>
                                         <th>Nama Proyek</th>
                                         <th style="text-align: center">Status</th>
-                                        <th style="text-align: center">Progress</th>
-                                        <th style="text-align: center">Action</th>
+                                        <th style="text-align: center">Persentase Proyek</th>
+                                        <th style="text-align: center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
