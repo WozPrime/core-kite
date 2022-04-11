@@ -272,7 +272,7 @@ use Carbon\Carbon;
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close</button>
+                                                                    data-dismiss="modal">Tutup</button>
                                                             </div>
                                                     </div>
                                                     <!-- /.modal-content -->
@@ -295,7 +295,7 @@ use Carbon\Carbon;
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
-                                                                        <label for="Profession">Profession</label>
+                                                                        <label for="Profession">Profesi</label>
                                                                         <div class="select2-primary">
                                                                             <select class="select2" name="profs[]"
                                                                                 data-dropdown-css-class="select2-primary"
@@ -337,8 +337,7 @@ use Carbon\Carbon;
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default"
                                                                         data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save
-                                                                        changes</button>
+                                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -387,7 +386,7 @@ use Carbon\Carbon;
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="add_task">Add new Task</label>
+                                                                    <label for="add_task">Tambah Tugas Baru</label>
                                                                     <div class="row">
                                                                         <div class="col-9">
                                                                             <select name="task_id" id="task_id" class="form-control">
@@ -418,7 +417,7 @@ use Carbon\Carbon;
                                                                         placeholder="Enter Task Details ..." required></textarea>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="expired_at">Add Task Deadline</label>
+                                                                    <label for="expired_at">Tambah Tenggat Tugas</label>
                                                                     <input name="expired_at" class="form-control" type="datetime-local">
                                                                 </div>
                                             
@@ -426,8 +425,8 @@ use Carbon\Carbon;
                                                                 <input type="hidden" name="user_id" id="user_id" value="{{ $list->user_id }}">
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -524,7 +523,7 @@ use Carbon\Carbon;
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="card-header bg-orange">
-                            <h3 class="card-title">Edit Data Instansi</h3>
+                            <h3 class="card-title">Ubah Data Instansi</h3>
                         </div>
                         <div class="card-body">
                             <form action="#" method="POST" enctype="multipart/form-data">
@@ -566,7 +565,7 @@ use Carbon\Carbon;
                                 </div>
         
                                 <div class="form-group">
-                                    <button class="btn btn-success float-right">Save Data</button>
+                                    <button class="btn btn-success float-right">Simpan Data</button>
                                 </div>
                         </div>
                         </form>
@@ -621,7 +620,7 @@ use Carbon\Carbon;
                                 </div>
         
                                 <div class="form-group">
-                                    <button class="btn btn-success float-right">Save Data</button>
+                                    <button class="btn btn-success float-right">Simpan Data</button>
                                 </div>
                             </form>
                         </div>
