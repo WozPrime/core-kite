@@ -100,9 +100,10 @@ use Illuminate\Support\Carbon;
                                             @elseif ($diffMinutes <= 7 * 1440 && $diffMinutes > 4 * 1440)
                                             badge-primary
                                             @elseif ($diffMinutes <= 4 * 1440 && $diffMinutes > 1 * 1440)
-                                            badge-warning @endif
+                                            badge-warning
                                             @else
                                             badge-danger
+                                            @endif
                                         @endif
                                           "
                                             id='deadline'><i class="far fa-clock"></i>
