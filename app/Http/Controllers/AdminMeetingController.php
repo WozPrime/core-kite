@@ -78,7 +78,8 @@ class AdminMeetingController extends Controller
     public function update(Request $request, $id)
     {
         $data=[
-            'status_pertemuan'=>$request->persetujuanadmin
+            'status_pertemuan'=>$request->persetujuanadmin,
+            'catatan_admin'=>$request->catatanadmin,
         ];
         Meeting::where('id',$id)->update($data);
         Alert::success('Berhasil');

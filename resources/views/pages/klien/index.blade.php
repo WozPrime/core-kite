@@ -21,8 +21,7 @@ Dashboard
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg"
-                                alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User profile picture">
                         </div>
 
                         <p class="text-muted text-center">Selamat Datang,</p>
@@ -189,6 +188,7 @@ Dashboard
                                                         <th>Proyek Pertemuan</th>
                                                         <th>Status Pertemuan</th>
                                                         <th>Deskripsi Pertemuan</th>
+                                                        <th>Catatan dari Admin</th>
                                                         <th>Hasil Pertemuan</th>
                                                         <th>Aksi</th>
                                                     </tr>
@@ -212,6 +212,7 @@ Dashboard
                                                             <td class="badge bg-danger my-2 mx-2">{{$m->status_pertemuan}}</td>
                                                             @endif
                                                             <td>{{$m->deskripsi_pertemuan}}</td>
+                                                            <td>{{$m->catatan_admin}}</td>
                                                             <td>{{$m->hasil_pertemuan}}</td>
                                                             <td>
                                                                 <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
