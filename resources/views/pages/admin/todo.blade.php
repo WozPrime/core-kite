@@ -63,7 +63,7 @@ use Illuminate\Support\Carbon;
                                 @endphp
                                 @foreach ($project_task as $job)
                                     @php
-                                        $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()))
+                                        $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()));
                                         $divDate = ($subsDate / 86400);
                                         if ($divDate > 0) {
                                             $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
