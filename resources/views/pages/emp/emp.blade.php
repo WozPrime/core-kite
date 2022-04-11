@@ -51,7 +51,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item">
-                                <strong><i class="fas fa-map-pin mr-1"></i> Address</strong> <a class="float-right">
+                                <strong><i class="fas fa-map-pin mr-1"></i> Alamat</strong> <a class="float-right">
                                     @if (Auth::user()->address == null)
                                         -
                                     @endif
@@ -59,7 +59,7 @@
                             </li>
                         </ul>
         
-                        <a href="/emp/profile" class="btn btn-dark btn-block"><b>My Profile</b></a>
+                        <a href="/emp/profile" class="btn btn-dark btn-block"><b>Profil Saya</b></a>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -74,7 +74,7 @@
                         <div class="card">
                             <div class="seo-fact sbg1">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-layers"></i> Project Involved</div>
+                                    <div class="seofct-icon"><i class="ti-layers"></i> Proyek yang Terlibat</div>
                                     <h2>{{$involved}}</h2>
                                 </div>
                                 <canvas id="seolinechart1" height="50"></canvas>
@@ -85,7 +85,7 @@
                         <div class="card">
                             <div class="seo-fact sbg2">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-check-box"></i> Completion Rate</div>
+                                    <div class="seofct-icon"><i class="ti-check-box"></i> Tingkat Penyelesaian</div>
                                     <h2>{{$ct}} %</h2>
                                 </div>
                                 <canvas id="seolinechart2" height="50"></canvas>
@@ -96,7 +96,7 @@
                         <div class="card">
                             <div class="seo-fact sbg3">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-layout-list-thumb-alt"></i> Total Task this Month</div>
+                                    <div class="seofct-icon"><i class="ti-layout-list-thumb-alt"></i> Total Tugas Bulan Ini</div>
                                     <h2>{{$sumMonth}}</h2>
                                 </div>
                                 <canvas id="seolinechart3" height="60"></canvas>
@@ -107,7 +107,7 @@
                         <div class="card">
                             <div class="seo-fact sbg4">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-cup"></i> Total Points this Month</div>
+                                    <div class="seofct-icon"><i class="ti-cup"></i> Total Poin Bulan Ini</div>
                                     <h2>{{$ptsMonth}} pts</h2>
                                 </div>
                                 <canvas id="seolinechart4" height="60"></canvas>
@@ -191,12 +191,12 @@
                                         id='deadline'><i class="far fa-clock"></i>
                                         @if ($subsDate > 0)
                                             @if ($diffMinutes > 1440)
-                                                {{ floor($diffMinutes / 1440) }} Days
+                                                {{ floor($diffMinutes / 1440) }} Hari
                                             @else
-                                                {{ floor($diffMinutes / 60) }} Hours
+                                                {{ floor($diffMinutes / 60) }} Jam
                                             @endif
                                         @else
-                                            EXPIRED
+                                            Terlewati
                                         @endif
                                     </small>
                                     <div style="float: right">
@@ -210,7 +210,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                    <a type="button" href="/emp/joblist" class="btn btn-primary float-right"><i class="fas fa-tasks"></i> See More</a>
+                    <a type="button" href="/emp/joblist" class="btn btn-primary float-right"><i class="fas fa-tasks"></i> Lihat Selengkapnya</a>
                     </div>
                 </div>
             </div>

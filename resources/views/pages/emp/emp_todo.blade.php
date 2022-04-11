@@ -38,7 +38,7 @@
                     <div class="card-header ui-sortable-handle">
                         <h3 class="card-title">
                             <i class="ion ion-clipboard mr-1"></i>
-                            Must Done
+                            Yang Harus Diselesaikan
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -93,12 +93,12 @@
                                         id='deadline'><i class="far fa-clock"></i>
                                         @if ($subsDate > 0)
                                             @if ($diffMinutes > 1440)
-                                                {{ floor($diffMinutes / 1440) }} Days
+                                                {{ floor($diffMinutes / 1440) }} Hari
                                             @else
-                                                {{ floor($diffMinutes / 60) }} Hours
+                                                {{ floor($diffMinutes / 60) }} Jam
                                             @endif
                                         @else
-                                            EXPIRED
+                                            Terlewati
                                         @endif
                                     </small>
                                     <div style="float: right; margin-left: 15px">
@@ -135,15 +135,15 @@
                                                                     <span
                                                                         class="btn btn-success col fileinput-button{{ $job->id }}">
                                                                         <i class="fas fa-plus"></i>
-                                                                        <span>Add files</span>
+                                                                        <span>Tambah Berkas</span>
                                                                     </span>
                                                                     <button type="submit" class="btn btn-primary col start">
                                                                         <i class="fas fa-upload"></i>
-                                                                        <span>Start upload</span>
+                                                                        <span>Mulai Unggah</span>
                                                                     </button>
                                                                     <button type="reset" class="btn btn-warning col cancel">
                                                                         <i class="fas fa-times-circle"></i>
-                                                                        <span>Cancel upload</span>
+                                                                        <span>Batal Unggah</span>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -186,17 +186,17 @@
                                                                     <div class="btn-group">
                                                                         <button class="btn btn-primary start">
                                                                             <i class="fas fa-upload"></i>
-                                                                            <span>Start</span>
+                                                                            <span>Mulai</span>
                                                                         </button>
                                                                         <button data-dz-remove
                                                                             class="btn btn-warning cancel">
                                                                             <i class="fas fa-times-circle"></i>
-                                                                            <span>Cancel</span>
+                                                                            <span>Batal</span>
                                                                         </button>
                                                                         <button data-dz-remove
                                                                             class="btn btn-danger delete">
                                                                             <i class="fas fa-trash"></i>
-                                                                            <span>Delete</span>
+                                                                            <span>Hapus</span>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -222,7 +222,7 @@
                                                             </div>
                                                             <div class="col-4 float-right">
                                                                 <button type="submit"
-                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                                    class="btn btn-primary btn-block">Selesai</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -250,8 +250,8 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>
-                                                                    <th>File Name</th>
-                                                                    <th>Action</th>
+                                                                    <th>Nama Berkas</th>
+                                                                    <th>Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -272,19 +272,19 @@
                                                                                 enctype="multipart/form-data">
                                                                                 @csrf
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title">Hapus File {{$loop->index + 1}}</h4>
+                                                                                <h4 class="modal-title">Hapus Berkas {{$loop->index + 1}}</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                Apakah anda yakin ingin Menghapus File ini?
+                                                                                Apakah anda yakin ingin Menghapus Berkas ini?
                                                                             </div>
                                                                             <input type="hidden" name="file_name" value="{{ strval($file->file_name) }}">
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                                                                                 <button class="btn btn-outline-light">Hapus
-                                                                                    File</button>
+                                                                                    Berkas</button>
                                                                             </div>
                                                                             </form>
                                                                             <!-- /.modal-content -->
@@ -314,7 +314,7 @@
                                                             </div>
                                                             <div class="col-4 float-right">
                                                                 <button type="submit"
-                                                                    class="btn btn-primary btn-block">Finish</button>
+                                                                    class="btn btn-primary btn-block">Selesai</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -348,7 +348,7 @@
                             <div class="progress-bar bg-dark" style="width: 70%"></div>
                         </div>
                         <span class="progress-description">
-                            Task That You Must Do Before Deadline
+                            Tugas dengan Tenggat Waktu Terdekat
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -358,7 +358,7 @@
                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Task Completed this Month</span>
+                        <span class="info-box-text">Tugas yang Terselesaikan Bulan Ini</span>
                             <span class="info-box-number">{{$check}}</span>
                             <span class="progress-description">
                                 Work Hard Play Hard!
@@ -370,7 +370,7 @@
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title pt-1">List of Reports</h3>
+                        <h3 class="card-title pt-1">Daftar Laporan Tugas</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
                                 title="Collapse">
@@ -383,11 +383,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
-                                    <th class="col-3">Task</th>
+                                    <th class="col-3">Tugas</th>
                                     <th class="col-2">Status</th>
-                                    <th class="col-3">Checked At</th>
-                                    <th class="col-2">Project Name</th>
-                                    <th class="col-2">Action</th>
+                                    <th class="col-3">Tanggal Diperiksa</th>
+                                    <th class="col-2">Nama Proyek</th>
+                                    <th class="col-2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -407,9 +407,9 @@
                                                 "
                                                 id='deadline'>
                                                 @if ($tl->status == 2)
-                                                    Checked
+                                                    Telah Diperiksa
                                                 @elseif ($tl->status == 3)
-                                                    Not Passed
+                                                    Belum Memenuhi Persyaratan
                                                 @endif
                                             </small>
                                     </td>
@@ -428,7 +428,7 @@
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Task Detail</h4>
+                                                <h4 class="modal-title">Detail Tugas</h4>
                                                 <button type="button" class="close"
                                                     data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -458,7 +458,7 @@
 
                                                             <ul class="list-group list-group-unbordered mb-3">
                                                                 <li class="list-group-item">
-                                                                    <b>Task</b> <a
+                                                                    <b>Tugas</b> <a
                                                                         class="float-right text-dark">
                                                                         {{ $tl->details }}
                                                                     </a>
@@ -469,13 +469,13 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Category</b> <a
+                                                                    <b>Kategori</b> <a
                                                                         class="float-right text-dark">
                                                                         {{ $tl->tasks()->first()->task_name }}
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Date Uploaded</b> <a
+                                                                    <b>Tanggal Diunggah</b> <a
                                                                         class="float-right 
                                                                         @if ($tl->post_date) text-dark
                                                                         @else
@@ -484,12 +484,12 @@
                                                                         @if ($tl->post_date)
                                                                             {{ date('D, d M Y H:i', strtotime($tl->post_date)) }}
                                                                         @else
-                                                                            Not Uploaded Yet
+                                                                            Belum Diunggah
                                                                         @endif
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Deadline</b> <a
+                                                                    <b>Tenggat Waktu</b> <a
                                                                         class="float-right 
                                                                         @if ($tl->post_date) text-success
                                                                         @else
@@ -499,7 +499,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Deadline Intervals</b>
+                                                                    <b>Jarak Tenggat Waktu</b>
                                                                     <a
                                                                         class="float-right
                                                                     @if ($tl->post_date) text-dark
@@ -511,22 +511,22 @@
                                                                                 $diff = floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 86400);
                                                                             @endphp
                                                                             @if ($diff >= 1)
-                                                                                {{ $diff }} Days
+                                                                                {{ $diff }} Hari
                                                                             @else
                                                                                 @if ($diff > 0 && $diff < 1)
                                                                                     {{ floor((strtotime($tl->expired_at) - strtotime($tl->post_date)) / 1440) }}
-                                                                                    Minutes
+                                                                                    Menit
                                                                                 @else
-                                                                                    Deadline Expired
+                                                                                    Batas Waktu Berakhir
                                                                                 @endif
                                                                             @endif
                                                                         @else
-                                                                            Not Uploaded Yet
+                                                                            Belum Diunggah
                                                                         @endif
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Upload Details</b> <a
+                                                                    <b>Detail Unggahan</b> <a
                                                                         class="float-right 
                                                                         @if ($tl->upload_details) text-dark
                                                                         @else
@@ -535,7 +535,7 @@
                                                                         @if ($tl->upload_details)
                                                                             {{ $tl->upload_details }}
                                                                         @else
-                                                                            Not Uploaded Yet
+                                                                            Belum Diunggah
                                                                         @endif
                                                                     </a>
                                                                 </li>
@@ -549,7 +549,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Feedback:</b> 
+                                                                    <b>Masukan (Feedback):</b> 
                                                                     <br>
                                                                     <a class="text-dark" style="display:block;text-overflow: ellipsis;width: 700px;overflow: hidden; white-space: nowrap;text-align: right">
                                                                         {{ $tl->feedback }}
@@ -563,13 +563,12 @@
 
                                                     <div class="card card-secondary">
                                                         <div class="card-header">
-                                                            <h3 class="card-title">Download File</h3>
+                                                            <h3 class="card-title">Unduh Berkas</h3>
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
                                                             @if ($file_task->where('pt_id', $tl->id)->count() == 0)
-                                                                <strong class="text-red">No File
-                                                                    Added</strong>
+                                                                <strong class="text-red">Belum Ada Berkas yang diunggah</strong>
                                                             @else
                                                                 @foreach ($file_task->where('pt_id', $tl->id) as $file)
                                                                     <strong>{{ $file->file_name }}</strong>
@@ -589,7 +588,7 @@
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
+                                                    data-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->

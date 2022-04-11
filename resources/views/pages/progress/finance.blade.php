@@ -1,7 +1,7 @@
 @extends('pages.ui_admin.admin')
 
 @section('title')
-    Finance Reports
+    Laporan Finansial
 @endsection
 <style>
     .select2-container .select2-selection--single {
@@ -117,12 +117,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Finance</h1>
+                    <h1>Finansial</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/emp">Home</a></li>
-                        <li class="breadcrumb-item active">Finance Reports</li>
+                        <li class="breadcrumb-item active">Laporan Finansial</li>
                     </ol>
                 </div>
             </div>
@@ -154,12 +154,12 @@
                                                 <tr>
                                                     <th style="width: 2%">No</th>
                                                     {{-- <th style="width: 8%">Code</th> --}}
-                                                    <th style="width: 15%">Income Name</th>
-                                                    <th style="width: 12%">Category</th>
-                                                    <th style="width: 15%">Project</th>
-                                                    <th style="width: 13%">Income Nominal</th>
-                                                    <th style="width: 10%">Date</th>
-                                                    <th style="width: 12%">Action</th>
+                                                    <th style="width: 15%">Nama Pemasukan</th>
+                                                    <th style="width: 12%">Kategori</th>
+                                                    <th style="width: 15%">Proyek</th>
+                                                    <th style="width: 13%">Nominal Pemasukan</th>
+                                                    <th style="width: 10%">Tanggal</th>
+                                                    <th style="width: 12%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -324,8 +324,7 @@
                                                                                 <br>
             
                                                                                 <div class="form-group">
-                                                                                    <button class="btn btn-success float-right">Save
-                                                                                        Data</button>
+                                                                                    <button class="btn btn-success float-right">Simpan</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -347,11 +346,11 @@
                                                 <tr>
                                                     <th style="width: 2%">No</th>
                                                     {{-- <th style="width: 8%">Code</th> --}}
-                                                    <th style="width: 15%">Outcome Name</th>
-                                                    <th style="width: 12%">Category</th>
-                                                    <th style="width: 15%">Project</th>
-                                                    <th style="width: 13%">Outcome Nominal</th>
-                                                    <th style="width: 10%">Date</th>
+                                                    <th style="width: 15%">Nama Pengeluaran</th>
+                                                    <th style="width: 12%">Kategori</th>
+                                                    <th style="width: 15%">Proyek</th>
+                                                    <th style="width: 13%">Nominal Pengeluaran</th>
+                                                    <th style="width: 10%">Tanggal</th>
                                                     <th style="width: 12%">Action</th>
                                                 </tr>
                                             </thead>
@@ -517,8 +516,7 @@
                                                                                 <br>
             
                                                                                 <div class="form-group">
-                                                                                    <button class="btn btn-success float-right">Save
-                                                                                        Data</button>
+                                                                                    <button class="btn btn-success float-right">Simpan</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -540,9 +538,9 @@
                                                 <tr>
                                                     <th style="width: 2%">No</th>
                                                     {{-- <th style="width: 8%">Code</th> --}}
-                                                    <th style="width: 15%">Category Name</th>
-                                                    <th style="width: 12%">Category Type</th>
-                                                    <th style="width: 12%">Action</th>
+                                                    <th style="width: 15%">Nama Kategori</th>
+                                                    <th style="width: 12%">Tipe Kategori</th>
+                                                    <th style="width: 12%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -621,8 +619,7 @@
                                                                             <br>
             
                                                                             <div class="form-group">
-                                                                                <button class="btn btn-success float-right">Save
-                                                                                    Data</button>
+                                                                                <button class="btn btn-success float-right">Simpan</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -683,8 +680,7 @@
                             <br>
 
                             <div class="form-group">
-                                <button class="btn btn-success float-right">Save
-                                    Data</button>
+                                <button class="btn btn-success float-right">Simpan</button>
                             </div>
                         </div>
                     </form>

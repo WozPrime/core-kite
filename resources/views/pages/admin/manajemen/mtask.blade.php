@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Manage Task List on Project
+    Kelola Tugas
 @endsection
 @section('body')
 @section('navbar')
@@ -20,12 +20,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Task</h1>
+                    <h1>Kelola Tugas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Task Manager</li>
+                        <li class="breadcrumb-item active">Kelola Tugas</li>
                     </ol>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="col-md-12">
                     <div class="card card-fuchsia">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Tasks</h3>
+                            <h3 class="card-title pt-1">Daftar Tugas</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool mt-1" data-card-widget="collapse"
                                     title="Collapse">
@@ -57,11 +57,12 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th class="col-3">Task</th>
-                                        <th class="col-2">User</th>
-                                        <th class="col-3">Project</th>
-                                        <th class="col-2">Deadline</th>
-                                        <th class="col-2">Action</th>
+                                        <th class="col-3">Tugas</th>
+                                        <th class="col-2">Karyawan</th>
+                                        <th class="col-2">Proyek</th>
+                                        <th class="col-2">Tenggat Waktu</th>
+                                        <th class="col-1">Status</th>
+                                        <th class="col-2">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,6 +76,29 @@
                                                 @if ($ptask->expired_at != '')
                                                 {{ date('D, d M Y, H:i', strtotime($ptask->expired_at)) }}
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <small
+                                                    class="badge 
+                                                    @if ($ptask->status == 1) badge-warning
+                                                    @elseif ($ptask->status == 2)
+                                                    badge-success
+                                                    @elseif ($ptask->status == 3)
+                                                    badge-danger 
+                                                    @else
+                                                    badge-secondary @endif
+                                                    "
+                                                    id='deadline'>
+                                                    @if ($ptask->status == 1)
+                                                        Belum Diperiksa
+                                                    @elseif ($ptask->status == 2)
+                                                        Telah Diperiksa
+                                                    @elseif ($ptask->status == 3)
+                                                        Belum Memenuhi Persyaratan
+                                                    @else
+                                                        Laporan Masih Kosong 
+                                                    @endif
+                                                </small>
                                             </td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-success" data-toggle="modal"
@@ -93,7 +117,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Task</h4>
+                                                        <h4 class="modal-title">Edit Tugas</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -104,14 +128,14 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="expired_at">Edit Task Deadline</label>
+                                                                <label for="expired_at">Edit Tugas Deadline</label>
                                                                 <input @if ($ptask->status == 2)
                                                                     disabled
                                                                 @endif 
                                                                 name="expired_at" class="form-control" type="datetime-local" value="{{ (new DateTime($ptask->expired_at))->format('Y-m-d').'T'.(new DateTime($ptask->expired_at))->format('H:i')}}">
                                                               </div>
                                                             <div class="form-group">
-                                                                <label for="user_id">Edit User</label>
+                                                                <label for="user_id">Edit Karyawan</label>
                                                                 <select name="user_id" id="user_id" class="form-control" 
                                                                 @if ($ptask->status == 2)
                                                                     disabled
@@ -125,7 +149,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="task_id">Edit Task Category</label>
+                                                                <label for="task_id">Edit Kategori Tugas</label>
                                                                 <select name="task_id" id="task_id" class="form-control"
                                                                 @if ($ptask->status == 2)
                                                                     disabled
@@ -140,17 +164,16 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="details">Edit Details</label>
+                                                                <label for="details">Edit Detail</label>
                                                                 <textarea class="form-control" id="details"
                                                                     name="details" rows="3" required
-                                                                    placeholder="Enter Task Details ...">{{$ptask->details}}</textarea>
+                                                                    placeholder="Masukkan Detail Tugas ...">{{$ptask->details}}</textarea>
 
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                         </div>
                                                         </form>
                                                         <!-- /.modal-content -->
@@ -164,7 +187,7 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Task Detail</h4>
+                                                        <h4 class="modal-title">Detail Tugas</h4>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -194,7 +217,7 @@
 
                                                                     <ul class="list-group list-group-unbordered mb-3">
                                                                         <li class="list-group-item">
-                                                                            <b>Task</b> <a
+                                                                            <b>Tugas</b> <a
                                                                                 class="float-right text-dark">
                                                                                 {{ $ptask->details }}
                                                                             </a>
@@ -205,13 +228,13 @@
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Category</b> <a
+                                                                            <b>Kategori</b> <a
                                                                                 class="float-right text-dark">
                                                                                 {{ $ptask->tasks()->first()->task_name }}
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Date Uploaded</b> <a
+                                                                            <b>Tanggal Diunggah</b> <a
                                                                                 class="float-right 
                                                                                 @if ($ptask->post_date) text-dark
                                                                                 @else
@@ -220,12 +243,12 @@
                                                                                 @if ($ptask->post_date)
                                                                                     {{ date('D, d M Y H:i', strtotime($ptask->post_date)) }}
                                                                                 @else
-                                                                                    Not Uploaded Yet
+                                                                                    Belum Diunggah
                                                                                 @endif
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Deadline</b> <a
+                                                                            <b>Tenggat Waktu</b> <a
                                                                                 class="float-right 
                                                                                 @if ($ptask->post_date) text-success
                                                                                 @else
@@ -235,7 +258,7 @@
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Deadline Intervals</b>
+                                                                            <b>Jarak Tenggat Waktu</b>
                                                                             <a class="float-right
                                                                             @if ($ptask->post_date) text-dark
                                                                                 @else
@@ -251,16 +274,16 @@
                                                                                         @if ($diff > 0 && $diff < 1)
                                                                                             {{floor((strtotime($ptask->expired_at)- strtotime($ptask->post_date)) / 1440)}} Minutes
                                                                                         @else
-                                                                                            Deadline Expired
+                                                                                            Batas Waktu Berakhir
                                                                                         @endif
                                                                                     @endif
                                                                                 @else
-                                                                                    Not Uploaded Yet
+                                                                                    Belum Diunggah
                                                                                 @endif
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Upload Details</b> <a
+                                                                            <b>Detail Unggahan</b> <a
                                                                                 class="float-right 
                                                                                 @if ($ptask->upload_details) text-dark
                                                                                 @else
@@ -269,7 +292,7 @@
                                                                                 @if ($ptask->upload_details)
                                                                                     {{ $ptask->upload_details }}
                                                                                 @else
-                                                                                    Not Uploaded Yet
+                                                                                    Belum Diunggah
                                                                                 @endif
                                                                             </a>
                                                                         </li>
@@ -284,7 +307,7 @@
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Feedback:</b> 
+                                                                                <b>Masukan (Feedback):</b> 
                                                                                 <br>
                                                                                 <a class="text-dark" style="display:block;text-overflow: ellipsis;width: 700px;overflow: hidden; white-space: nowrap;text-align: right">
                                                                                     {{ $ptask->feedback }}
@@ -299,13 +322,12 @@
 
                                                             <div class="card card-secondary">
                                                                 <div class="card-header">
-                                                                    <h3 class="card-title">Download File</h3>
+                                                                    <h3 class="card-title">Unduh Berkas</h3>
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <div class="card-body">
                                                                     @if ($Doc->where('pt_id', $ptask->id)->count() == 0)
-                                                                        <strong class="text-red">No File
-                                                                            Added</strong>
+                                                                        <strong class="text-red">Berkas masih Kosong</strong>
                                                                     @else
                                                                         @foreach ($Doc->where('pt_id', $ptask->id)->get() as $file)
                                                                             <strong>{{ $file->file_name }}</strong>
@@ -325,7 +347,7 @@
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -337,7 +359,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Hapus Task</h4>
+                                                        <h4 class="modal-title">Hapus Tugas</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>

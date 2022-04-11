@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Manage Profession
+    Kelola Profesi
 @endsection
 <style>
     .floating-btn {
@@ -46,12 +46,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Profession</h1>
+                    <h1>Kelola Profesi</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Profession</li>
+                        <li class="breadcrumb-item active">Kelola Profesi</li>
                     </ol>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-12">
                     <div class="card card-gray-dark">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Professions</h3>
+                            <h3 class="card-title pt-1">Daftar Profesi</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool mt-1" data-card-widget="collapse"
                                     title="Collapse">
@@ -83,11 +83,11 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th class="col-2">Profession Code</th>
-                                        <th class="col-2">Profession Name</th>
+                                        <th class="col-2">Kode Profesi</th>
+                                        <th class="col-2">Nama Profesi</th>
                                         <th class="col-3">Detail</th>
-                                        <th style="text-align: center">Illustration</th>
-                                        <th>Action</th>
+                                        <th style="text-align: center">Ilustrasi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,7 +123,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">View Profession Detail</h4>
+                                                        <h4 class="modal-title">Lihat Detail Profesi</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -164,7 +164,7 @@
 
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -176,7 +176,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Profession Details</h4>
+                                                        <h4 class="modal-title">Edit Detail Profesi</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -187,7 +187,7 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="Prof_code">Profession Code</label>
+                                                                <label for="Prof_code">Kode Profesi</label>
                                                                 <input type="text" class="form-control" id="prof_code" name="prof_code"
                                                                     value="{{ $prof->prof_code }}">
                                                                 <div class="text-danger">
@@ -197,7 +197,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Prof_name">Profession Name</label>
+                                                                <label for="Prof_name">Nama Profesi</label>
                                                                 <input type="text" class="form-control" id="prof_name" name="prof_name"
                                                                     value="{{ $prof->prof_name }}">
                                                                 <div class="text-danger">
@@ -207,7 +207,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Detail">Details</label>
+                                                                <label for="Detail">Detail</label>
                                                                 <input type="text" class="form-control" id="detail" name="detail"
                                                                     value="{{ $prof->detail }}">
                                                                 <div class="text-danger">
@@ -218,7 +218,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="Profession_Img">Profession Image</label>
+                                                                <label for="Profession_Img">Ilustrasi</label>
                                                                 <div>
                                                                     <div id="prof_img" class="mb-1"></div>
                                                                     <input type="file" name="prof_img" onchange="Image_preview(event)">
@@ -227,7 +227,7 @@
                                                                             {{ $message }}
                                                                         @enderror
                                                                     </div>
-                                                                    <label>Saved Photo</label>
+                                                                    <label>Foto yang tersimpan</label>
                                                                     <div>
                                                                         @if ($prof->prof_img == '')
                                                                             <img src="{{ url('prof/default.png') }}"
@@ -244,7 +244,7 @@
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
                                                                 data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                         </div>
                                                     </form>
                                                     <!-- /.modal-content -->
@@ -268,7 +268,7 @@
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-outline-light"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal">Tutup</button>
                                                         <a href="/admin/delete_prof/{{ $prof->id }}" type="button"
                                                             class="btn btn-outline-light">Hapus Data</a>
                                                     </div>
@@ -297,7 +297,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Input New Profession</h4>
+                        <h4 class="modal-title">Tambah Profesi Baru</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -306,7 +306,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="Prof_code">Profession Code</label>
+                                <label for="Prof_code">Kode Profesi</label>
                                 <input type="text" class="form-control" id="prof_code" name="prof_code">
                                 <div class="text-danger">
                                     @error('prof_code')
@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="Prof_name">Profession Name</label>
+                                <label for="Prof_name">Nama Profesi</label>
                                 <input type="text" class="form-control" id="prof_name" name="prof_name">
                                 <div class="text-danger">
                                     @error('prof_name')
@@ -324,7 +324,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="Detail">Details</label>
+                                <label for="Detail">Detail</label>
                                 <input type="text" class="form-control" id="detail" name="detail">
                                 <div class="text-danger">
                                     @error('detail')
@@ -334,7 +334,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="Profession_Img">Profession Image</label>
+                                <label for="Profession_Img">Ilustrasi</label>
                                 <div>
                                     <div id="prof_img" class="mb-1"></div>
                                     <input type="file" name="prof_img" onchange="Image_preview(event)">
@@ -349,7 +349,7 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>

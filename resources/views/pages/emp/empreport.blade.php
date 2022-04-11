@@ -36,12 +36,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Reports</h1>
+                    <h1>Laporan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/emp">Home</a></li>
-                        <li class="breadcrumb-item active">Reports</li>
+                        <li class="breadcrumb-item active">Laporan</li>
                     </ol>
                 </div>
             </div>
@@ -55,10 +55,10 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Reports</h3>
+                            <h3 class="card-title pt-1">Daftar Laporan Tugas</h3>
                             <div class="col-xs-3" style="float: right">
                                 <a href="#pdf" class="btn btn-block btn-info text-light" data-toggle="modal"><i
-                                        class="fas fa-file-alt mr-2"></i>Generate PDF</a>
+                                        class="fas fa-file-alt mr-2"></i>Cetak PDF</a>
                                 {{-- <a href="generate-pdf" target="_blank" class="btn btn-block btn-info"><i class="fas fa-file-alt mr-2"></i>Generate PDF</a> --}}
                             </div>
                         </div>
@@ -68,12 +68,12 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th class="col-3">Job</th>
+                                        <th class="col-3">Tugas</th>
                                         <th class="col-2">Status</th>
-                                        <th class="col-3">Date</th>
-                                        <th class="col-2">Category</th>
-                                        <th class="col-2">Project Name</th>
-                                        <th class="col-2">Action</th>
+                                        <th class="col-3">Tanggal</th>
+                                        <th class="col-2">Kategori</th>
+                                        <th class="col-2">Nama Proyek</th>
+                                        <th class="col-2">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -84,29 +84,29 @@
                                             <td>
                                                 <small
                                                     class="badge 
-                                                    @if ($p_task->status == 1) badge-secondary
+                                                    @if ($p_task->status == 1) badge-warning
                                                     @elseif ($p_task->status == 2)
                                                     badge-success
                                                     @elseif ($p_task->status == 3)
                                                     badge-danger 
                                                     @else
-                                                    badge-warning @endif
+                                                    badge-secondary @endif
                                                     "
                                                     id='deadline'>
                                                     @if ($p_task->status == 1)
-                                                        Unchecked
+                                                        Belum Diperiksa
                                                     @elseif ($p_task->status == 2)
-                                                        Checked
+                                                        Telah Diperiksa
                                                     @elseif ($p_task->status == 3)
-                                                        Not Passed
+                                                        Belum Memenuhi Persyaratan
                                                     @else
-                                                        Unsubmitted
+                                                        Laporan Masih Kosong
                                                     @endif
                                                 </small>
                                             </td>
                                             <td class="@if ($p_task->post_date == null) text-red @endif">
                                                 @if ($p_task->post_date == null)
-                                                    Not Uploaded Yet
+                                                    Belum Diunggah
                                                 @else
                                                     {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
                                                 @endif
@@ -121,7 +121,7 @@
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title">Task Detail</h4>
+                                                            <h4 class="modal-title">Detail Tugas</h4>
                                                             <button type="button" class="close"
                                                                 data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -151,7 +151,7 @@
 
                                                                         <ul class="list-group list-group-unbordered mb-3">
                                                                             <li class="list-group-item">
-                                                                                <b>Task</b> <a
+                                                                                <b>Tugas</b> <a
                                                                                     class="float-right text-dark">
                                                                                     {{ $p_task->details }}
                                                                                 </a>
@@ -162,13 +162,13 @@
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Category</b> <a
+                                                                                <b>Kategori</b> <a
                                                                                     class="float-right text-dark">
                                                                                     {{ $p_task->tasks()->first()->task_name }}
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Date Uploaded</b> <a
+                                                                                <b>Tanggal Diunggah</b> <a
                                                                                     class="float-right 
                                                                                     @if ($p_task->post_date) text-dark
                                                                                     @else
@@ -177,12 +177,12 @@
                                                                                     @if ($p_task->post_date)
                                                                                         {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
                                                                                     @else
-                                                                                        Not Uploaded Yet
+                                                                                        Belum Diunggah
                                                                                     @endif
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Deadline</b> <a
+                                                                                <b>Tenggat</b> <a
                                                                                     class="float-right 
                                                                                     @if ($p_task->post_date) text-success
                                                                                     @else
@@ -192,7 +192,7 @@
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Deadline Intervals</b>
+                                                                                <b>Jarak Tenggat Waktu</b>
                                                                                 <a
                                                                                     class="float-right
                                                                                 @if ($p_task->post_date) text-dark
@@ -204,22 +204,22 @@
                                                                                             $diff = floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 86400);
                                                                                         @endphp
                                                                                         @if ($diff >= 1)
-                                                                                            {{ $diff }} Days
+                                                                                            {{ $diff }} Hari
                                                                                         @else
                                                                                             @if ($diff > 0 && $diff < 1)
                                                                                                 {{ floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 1440) }}
-                                                                                                Minutes
+                                                                                                Menit
                                                                                             @else
-                                                                                                Deadline Expired
+                                                                                                Tenggat Waktu Terlewati
                                                                                             @endif
                                                                                         @endif
                                                                                     @else
-                                                                                        Not Uploaded Yet
+                                                                                        Belum Diunggah
                                                                                     @endif
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Upload Details</b> <a
+                                                                                <b>Detail Upload</b> <a
                                                                                     class="float-right 
                                                                                     @if ($p_task->upload_details) text-dark
                                                                                     @else
@@ -228,7 +228,7 @@
                                                                                     @if ($p_task->upload_details)
                                                                                         {{ $p_task->upload_details }}
                                                                                     @else
-                                                                                        Not Uploaded Yet
+                                                                                        Belum Diunggah
                                                                                     @endif
                                                                                 </a>
                                                                             </li>
@@ -240,13 +240,12 @@
 
                                                                 <div class="card card-secondary">
                                                                     <div class="card-header">
-                                                                        <h3 class="card-title">Download File</h3>
+                                                                        <h3 class="card-title">Unduh Berkas</h3>
                                                                     </div>
                                                                     <!-- /.card-header -->
                                                                     <div class="card-body">
                                                                         @if ($doc->where('pt_id', $p_task->id)->count() == 0)
-                                                                            <strong class="text-red">No File
-                                                                                Added</strong>
+                                                                            <strong class="text-red">Belum Ada Berkas yang Diunggah</strong>
                                                                         @else
                                                                             @foreach ($doc->where('pt_id', $p_task->id) as $file)
                                                                                 <strong>{{ $file->file_name }}</strong>
@@ -266,7 +265,7 @@
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">Tutup</button>
                                                         </div>
                                                     </div>
                                                     <!-- /.modal-content -->

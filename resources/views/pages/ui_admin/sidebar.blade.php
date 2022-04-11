@@ -44,7 +44,7 @@
                         class="nav-link  {{ \Request::route()->getName() == 'profile' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>
-                            Profile
+                            Profil
                         </p>
                     </a>
                 </li>
@@ -53,7 +53,7 @@
                         class="nav-link {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
-                            Management
+                            Manajemen
                         </p>
                         <i class="fas fa-angle-left right"></i>
                     </a>
@@ -63,7 +63,7 @@
                                 class="nav-link {{ \Request::route()->getName() == 'manage_user' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users-cog"></i>
                                 <p>
-                                    Users
+                                    Pengguna
                                 </p>
                             </a>
                         </li>
@@ -72,7 +72,7 @@
                                 class="nav-link  {{ \Request::route()->getName() == 'prof' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
-                                    Profession
+                                    Profesi
                                 </p>
                             </a>
                         </li>
@@ -90,7 +90,7 @@
                                 class="nav-link  {{ \Request::route()->getName() == 'manage_task' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-thumbtack"></i>
                                 <p>
-                                    Task Manager
+                                    Tugas
                                 </p>
                             </a>
                         </li>
@@ -99,7 +99,7 @@
                                 class="nav-link  {{ request()->is('admin/manage/finance*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-money-check-alt"></i>
                                 <p>
-                                    Finance
+                                    Finansial
                                 </p>
                             </a>
                         </li>
@@ -122,7 +122,7 @@
                         class="nav-link  {{ request()->is('admin/client*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
-                            Client
+                            Klien
                         </p>
                     </a>
                 </li>
@@ -142,7 +142,7 @@
                         class="nav-link  {{ request()->is('admin/proyek*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
-                            Project
+                            Proyek
                         </p>
                     </a>
                 </li>
@@ -151,7 +151,7 @@
                         class="nav-link  {{ request()->is('admin/reports*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-fax"></i>
                         <p>
-                            Reports
+                            Laporan
                         </p>
                     </a>
                 </li>

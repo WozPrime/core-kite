@@ -1,6 +1,6 @@
 @extends('pages.emp.ui_emp.empmaster')
 @section('title')
-    Laporan Karyawan
+    Proyek yang Terlibat
 @endsection
 @section('emphead')
 @endsection
@@ -10,13 +10,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>My Projects</h1>
+                    <h1>Proyek Saya</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                         <li class="breadcrumb-item ">To Do List</li>
-                        <li class="breadcrumb-item active">Projects</li>
+                        <li class="breadcrumb-item active">Proyek</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 @if ($data->count() > 0)
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Projects</h3>
+                            <h3 class="card-title pt-1">Daftar Proyek</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool pt-3" data-card-widget="collapse"
                                     title="Collapse">
@@ -45,12 +45,12 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align: center" width="2%">No</th>
-                                        <th class="col-4">Project Name</th>
-                                        <th class="col-1">Project Code</th>
+                                        <th class="col-4">Nama Proyek</th>
+                                        <th class="col-1">Kode Proyek</th>
                                         <th class="col-1">Status</th>
                                         <th class="col-1">Kategori</th>
-                                        <th class="col-2">Progress</th>
-                                        <th width="10%" style="text-align: center">Action</th>
+                                        <th class="col-2">Persentase Proyek</th>
+                                        <th width="10%" style="text-align: center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,7 +119,7 @@
                     </div>
                 @else
                     <br>
-                    <h2 style="text-align: center">NO PROJECT ADDED</h2>
+                    <h2 style="text-align: center">Tidak Ada Proyek yang Terlibat</h2>
                 @endif
                 </div>
             </div>

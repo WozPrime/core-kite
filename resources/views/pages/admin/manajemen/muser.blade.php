@@ -1,6 +1,6 @@
 @extends('pages.ui_admin.admin')
 @section('title')
-    Manage Users
+    Kelola Pengguna
 @endsection
 <style>
     .floating-btn {
@@ -46,12 +46,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Users</h1>
+                    <h1>Kelola Pengguna</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Users</li>
+                        <li class="breadcrumb-item active">Kelola Pengguna</li>
                     </ol>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <div class="col-12">
                     <div class="card card-lime">
                         <div class="card-header">
-                            <h3 class="card-title pt-1">List of Users</h3>
+                            <h3 class="card-title pt-1">Daftar Pengguna</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -80,12 +80,12 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">No</th>
-                                        <th>Full Name</th>
-                                        <th>Email Address</th>
-                                        <th>Prof</th>
-                                        <th>Employee Code</th>
-                                        <th>Profile Pic</th>
-                                        <th>Action</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Alamat Email</th>
+                                        <th>Profesi</th>
+                                        <th>Kode Karyawan</th>
+                                        <th>Foto Profil</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,7 +123,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">View Profile</h4>
+                                                        <h4 class="modal-title">Lihat Profil</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -147,7 +147,11 @@
                                                                         {{ $user->name }}
                                                                     </h3>
 
-                                                                    <p class="text-muted text-center">Software Engineer</p>
+                                                                    <p class="text-muted text-center">@if (Auth::user()->profs()->first())
+                                                                        {{ Auth::user()->profs()->first()->prof_name }}
+                                                                    @else
+                                                                        -
+                                                                    @endif</p>
 
                                                                     <ul class="list-group list-group-unbordered mb-3">
                                                                         <li class="list-group-item">
@@ -155,18 +159,18 @@
                                                                                 class="float-right">{{ $user->email }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Employee Code</b> <a
+                                                                            <b>Kode Karyawan</b> <a
                                                                                 class="float-right text-dark">{{ $user->code }}</a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Prof</b> <a class="float-right text-dark">
+                                                                            <b>Kode Profesi</b> <a class="float-right text-dark">
                                                                                 @if ($user->profs()->first())
                                                                                     {{ $user->profs()->first()->prof_code }}
                                                                                 @endif
                                                                             </a>
                                                                         </li>
                                                                         <li class="list-group-item">
-                                                                            <b>Profession</b> <a
+                                                                            <b>Nama Profesi</b> <a
                                                                                 class="float-right text-dark">
                                                                                 @if ($user->profs()->first())
                                                                                     {{ $user->profs()->first()->prof_name }}
@@ -181,12 +185,12 @@
 
                                                             <div class="card card-primary">
                                                                 <div class="card-header">
-                                                                    <h3 class="card-title">About Me</h3>
+                                                                    <h3 class="card-title">Tentang Saya</h3>
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <div class="card-body">
                                                                     <strong><i class="fas fa-venus-mars mr-1"></i>
-                                                                        Gender</strong>
+                                                                        Jenis Kelamin</strong>
                                                                     <p class="text-muted">
                                                                         @if ($user->gender == 'L')
                                                                             Laki-laki
@@ -199,7 +203,7 @@
                                                                     <hr>
 
                                                                     <strong><i class="fas fa-map-marker-alt mr-1"></i>
-                                                                        Address</strong>
+                                                                        Alamat</strong>
                                                                     <p class="text-muted">
                                                                         @if ($user->address == '')
                                                                             -
@@ -211,7 +215,7 @@
                                                                     <hr>
 
                                                                     <strong><i class="fas fa-user-circle mr-1"></i>
-                                                                        Position</strong>
+                                                                        Status</strong>
 
                                                                     <p class="text-muted">
                                                                         @if ($user->stats == 'KT')
@@ -235,7 +239,7 @@
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -247,7 +251,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit User Data</h4>
+                                                        <h4 class="modal-title">Edit Data Pengguna</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -258,7 +262,7 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="Name">Full Name</label>
+                                                                <label for="Name">Nama Lengkap</label>
                                                                 <input type="text" class="form-control" id="name"
                                                                     name="name" value="{{ $user->name }}">
                                                                 <div class="text-danger">
@@ -268,7 +272,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Code">Employee Code</label>
+                                                                <label for="Code">Kode Karyawan</label>
                                                                 <input type="text" class="form-control" id="code"
                                                                     name="code" value="{{ $user->code }}">
                                                                 <div class="text-danger">
@@ -279,7 +283,7 @@
 
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="Gender">Gender</label>
+                                                                <label for="Gender">Jenis Kelamin</label>
                                                                 <select name="gender" id="gender" class="form-control">
                                                                     <option value=""
                                                                         @if ($user->gender == '') selected @endif
@@ -313,7 +317,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="Profession">Profession</label>
+                                                                <label for="Profession">Profesi</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">
                                                                     @if ($user->profs()->first())
                                                                         <option value=""
@@ -347,7 +351,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="ProfilePicture">Profile Picture/Avatar</label>
+                                                                <label for="ProfilePicture">Foto Profil</label>
                                                                 <div>
                                                                     <div id="pp" class="mb-1"></div>
                                                                     <input type="file" name="pp"
@@ -358,7 +362,7 @@
                                                                         @enderror
                                                                     </div>
                                                                 </div>
-                                                                <label>Saved Photo</label>
+                                                                <label>Foto yang tersimpan</label>
                                                                 <div>
                                                                     @if ($user->pp == '')
                                                                         <img src="{{ url('pp/default.jpg') }}"
@@ -373,9 +377,8 @@
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
+                                                                data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -400,7 +403,7 @@
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-outline-light"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal">Tutup</button>
                                                         <a href="/admin/profile/delete/{{ $user->id }}" type="button"
                                                             class="btn btn-outline-light">Hapus Data</a>
                                                     </div>
@@ -429,7 +432,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Input User</h4>
+                    <h4 class="modal-title">Tambah Pengguna</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -439,7 +442,7 @@
                     <div class="modal-body row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="Name">Full Name</label>
+                                <label for="Name">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                                 <div class="text-danger">
                                 </div>
@@ -460,17 +463,17 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="password-confirm">Confirm Password</label>
+                                <label for="password-confirm">Konfirmasi Password</label>
                                 <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" required autocomplete="new-password"
                                     placeholder="Confirm Password">
                             </div>
                             <div class="form-group">
-                                <label for="Code">Employee Code</label>
+                                <label for="Code">Kode Karyawan</label>
                                 <input type="text" class="form-control" id="code" name="code" required>
                             </div>
                             <div class="form-group">
-                                <label for="Gender">Gender</label>
+                                <label for="Gender">Jenis Kelamin</label>
                                 <select name="gender" id="gender" class="form-control" required>
                                     <option selected disabled hidden>Pilih jenis kelamin
                                     </option>
@@ -491,7 +494,7 @@
                             </div>
     
                             <div class="form-group">
-                                <label for="Profession">Profession</label>
+                                <label for="Profession">Profesi</label>
                                 <select name="prof_id" id="prof_id" class="form-control" required>
                                 <option selected disabled hidden>Pilih Profesi</option>
                                     @foreach ($prof_list as $prof)
@@ -507,7 +510,7 @@
                             </div>
     
                             <div class="form-group">
-                                <label for="ProfilePicture">Profile Picture/Avatar</label>
+                                <label for="ProfilePicture">Foto Profil</label>
                                 <div>
                                     <div id="ava" class="mb-1"></div>
                                     <input type="file" name="ava" onchange="Image_preview2(event)">
@@ -522,7 +525,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

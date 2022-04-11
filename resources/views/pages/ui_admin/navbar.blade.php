@@ -95,7 +95,7 @@
             </div>
         </li> --}}
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">15</span>
@@ -120,7 +120,7 @@
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
-        </li>
+        </li> --}}
         {{-- Profile --}}
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -145,8 +145,10 @@
                     @endif
 
                     <p class="text-light">
-                        {{ Auth::user()->name }} - Web Developer
-                        <small>Member since Nov. 2012</small>
+                        {{ Auth::user()->name }} - @if (Auth::user()->profs()->first())
+                        {{ Auth::user()->profs()->first()->prof_name }}
+                    @endif
+                        <small>Pengguna Sejak {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small>
                     </p>
                 </li>
                 <!-- Menu Body -->
