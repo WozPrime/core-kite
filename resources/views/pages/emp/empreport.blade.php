@@ -1,5 +1,5 @@
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
 @endphp
 @extends('pages.emp.ui_emp.empmaster')
 @section('title')
@@ -201,14 +201,23 @@
                                                                                     ">
                                                                                     @if ($p_task->post_date)
                                                                                         @php
-                                                                                            $diff = floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 86400);
+                                                                                            $diff = strtotime($tl->expired_at) - strtotime($tl->post_date);
+                                                                                            $days = $diff / 86400;
                                                                                         @endphp
-                                                                                        @if ($diff >= 1)
-                                                                                            {{ $diff }} Hari
+                                                                                        @if ($days >= 1)
+                                                                                            {{ floor($days) }} Hari
                                                                                         @else
-                                                                                            @if ($diff > 0 && $diff < 1)
-                                                                                                {{ floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 1440) }}
-                                                                                                Menit
+                                                                                            @if ($days > 0 && $days < 1)
+                                                                                                @php
+                                                                                                    $jam = floor($diff / 3600);
+                                                                                                    $menit = floor($diff / 60);
+                                                                                                @endphp
+                                                                                                @if ($jam > 0)
+                                                                                                    {{ $jam }} Jam
+                                                                                                @else
+                                                                                                    {{ $menit }}
+                                                                                                    Menit
+                                                                                                @endif
                                                                                             @else
                                                                                                 Tenggat Waktu Terlewati
                                                                                             @endif
@@ -245,7 +254,8 @@
                                                                     <!-- /.card-header -->
                                                                     <div class="card-body">
                                                                         @if ($doc->where('pt_id', $p_task->id)->count() == 0)
-                                                                            <strong class="text-red">Belum Ada Berkas yang Diunggah</strong>
+                                                                            <strong class="text-red">Belum Ada Berkas
+                                                                                yang Diunggah</strong>
                                                                         @else
                                                                             @foreach ($doc->where('pt_id', $p_task->id) as $file)
                                                                                 <strong>{{ $file->file_name }}</strong>
@@ -317,10 +327,14 @@
                         </div>
                         <div>
                             <div class="form-group" id="otherFieldReportDate">
-                                <label for="otherFieldReportDate" class="col-form-label">Tentukan Tanggal Awal Periode</label>
-                                <input class="form-control" type="date" name="startDate" value="{{date('Y-m-d',strtotime(Carbon::now()))}}">
-                                <label for="otherFieldReportDate" class="col-form-label">Tentukan Tanggal Akhir Periode</label>
-                                <input class="form-control" type="date" name="endDate" value="{{date('Y-m-d',strtotime(Carbon::now()))}}">
+                                <label for="otherFieldReportDate" class="col-form-label">Tentukan Tanggal Awal
+                                    Periode</label>
+                                <input class="form-control" type="date" name="startDate"
+                                    value="{{ date('Y-m-d', strtotime(Carbon::now())) }}">
+                                <label for="otherFieldReportDate" class="col-form-label">Tentukan Tanggal Akhir
+                                    Periode</label>
+                                <input class="form-control" type="date" name="endDate"
+                                    value="{{ date('Y-m-d', strtotime(Carbon::now())) }}">
                                 {{-- <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                     <i class="fa fa-calendar"></i>&nbsp;
                                     <span></span> <i class="fa fa-caret-down"></i>
@@ -350,51 +364,52 @@
     </div>
 @endsection
 @section('script')
-<script>
-    $(document).ready(function() {
-        $("#myTable").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#myTable').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+    <script>
+        $(document).ready(function() {
+            $("#myTable").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#myTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
-    });
-</script>
-<script type="text/javascript">
-    $(function() {
-        var start = moment().subtract(29, 'days');
-        var end = moment();
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            var start = moment().subtract(29, 'days');
+            var end = moment();
 
-        function cb(start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            $('input[name="startDate"]').val(start.format('MM/DD/YYYY'));
-            $('input[name="endDate"]').val(end.format('MM/DD/YYYY'));
-        }
-        $('#reportrange').daterangepicker({
-            startDate: start,
-            endDate: end,
-            ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                $('input[name="startDate"]').val(start.format('MM/DD/YYYY'));
+                $('input[name="endDate"]').val(end.format('MM/DD/YYYY'));
             }
-        }, cb);
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf('month')]
+                }
+            }, cb);
 
-        cb(start, end);
-        
-        
-    });
-</script>
+            cb(start, end);
+
+
+        });
+    </script>
 @endsection

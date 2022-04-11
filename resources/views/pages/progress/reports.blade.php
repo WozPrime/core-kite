@@ -127,8 +127,8 @@
                                                 <a class="btn btn-primary mr-1 mb-1" data-toggle="modal"
                                                     href="#detail{{ $p_task->id }}"><i class="fa fa-eye"></i></a>
                                                 @if (Auth::user()->id != $p_task->user_id)
-                                                <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
-                                                    href="#edit{{ $p_task->id }}"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
+                                                        href="#edit{{ $p_task->id }}"><i class="fa fa-edit"></i></a>
                                                 @endif
                                             </td>
                                             <div class="modal fade" id="detail{{ $p_task->id }}">
@@ -171,7 +171,8 @@
                                                                                 </a>
                                                                             </li>
                                                                             <li class="list-group-item">
-                                                                                <b>Penanggung Jawab</b> <a class="float-right text-dark">
+                                                                                <b>Penanggung Jawab</b> <a
+                                                                                    class="float-right text-dark">
                                                                                     {{ $p_task->users()->first()->name }}
                                                                                 </a>
                                                                             </li>
@@ -191,7 +192,7 @@
                                                                                     @if ($p_task->post_date)
                                                                                         {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
                                                                                     @else
-                                                                                    Belum Diunggah
+                                                                                        Belum Diunggah
                                                                                     @endif
                                                                                 </a>
                                                                             </li>
@@ -215,14 +216,23 @@
                                                                                     ">
                                                                                     @if ($p_task->post_date)
                                                                                         @php
-                                                                                            $diff = floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 86400);
+                                                                                            $diff = strtotime($tl->expired_at) - strtotime($tl->post_date);
+                                                                                            $days = $diff / 86400;
                                                                                         @endphp
-                                                                                        @if ($diff >= 1)
-                                                                                            {{ $diff }} Hari
+                                                                                        @if ($days >= 1)
+                                                                                            {{ floor($days) }} Hari
                                                                                         @else
-                                                                                            @if ($diff > 0 && $diff < 1)
-                                                                                                {{ floor((strtotime($p_task->expired_at) - strtotime($p_task->post_date)) / 1440) }}
-                                                                                                Menit
+                                                                                            @if ($days > 0 && $days < 1)
+                                                                                                @php
+                                                                                                    $jam = floor($diff / 3600);
+                                                                                                    $menit = floor($diff / 60);
+                                                                                                @endphp
+                                                                                                @if ($jam > 0)
+                                                                                                    {{ $jam }} Jam
+                                                                                                @else
+                                                                                                    {{ $menit }}
+                                                                                                    Menit
+                                                                                                @endif
                                                                                             @else
                                                                                                 Tenggat Waktu Terlewati
                                                                                             @endif
@@ -259,7 +269,8 @@
                                                                     <!-- /.card-header -->
                                                                     <div class="card-body">
                                                                         @if ($doc->where('pt_id', $p_task->id)->count() == 0)
-                                                                            <strong class="text-red">Tidak Ada File yang Ditambahkan</strong>
+                                                                            <strong class="text-red">Tidak Ada File
+                                                                                yang Ditambahkan</strong>
                                                                         @else
                                                                             @foreach ($doc->where('pt_id', $p_task->id) as $file)
                                                                                 <strong>{{ $file->file_name }}</strong>
@@ -343,7 +354,8 @@
                                                                 <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">Close</button>
                                                                 @if ($p_task->status != null)
-                                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                    <button type="submit" class="btn btn-primary">Simpan
+                                                                        Perubahan</button>
                                                                 @endif
                                                             </div>
 
@@ -404,7 +416,8 @@
                                 </div>
                                 <div class="form-group" id="otherFieldReportDate">
                                     <label for="otherFieldReportDate">Tentukan Tanggal</label>
-                                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <div id="reportrange"
+                                        style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
@@ -465,18 +478,19 @@
                 startDate: start,
                 endDate: end,
                 ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf('month')]
                 }
             }, cb);
 
             cb(start, end);
-            
-            
+
+
         });
     </script>
 @endsection
