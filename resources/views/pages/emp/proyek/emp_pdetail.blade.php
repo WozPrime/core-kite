@@ -104,7 +104,7 @@
                                                 <div style="display: flex;
                                                                             flex-direction:column;
                                                                             justify-content:center;">
-                                                    @foreach ($project_all as $prof_task)
+                                                    @foreach ($project_all->where('project_id',$data->id) as $prof_task)
                                                         @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
                                                             <div style="padding: 3px">
                                                                 <span
