@@ -201,6 +201,8 @@
                                                                         <textarea name="hasilpertemuan" id="hasilpertemuan" cols="30" rows="3" class="form-control"></textarea>
                                                                     </div>
 
+                                                                    <input type="text" name="persetujuanadmin" hidden value="SELESAI">
+
                                                                     @else
 
                                                                     <div class="form-group">
@@ -213,6 +215,10 @@
                                                                         <label for="adminsetuju">Setujui Permintaan</label>
                                                                         <input type="radio" name="persetujuanadmin" id="adminditolak" value="DITOLAK" required>
                                                                         <label for="adminditolak">Tolak Permintaan</label>
+                                                                        @if ($mp->status_pertemuan == 'DISETUJUI')
+                                                                        <input type="radio" value="SELESAI" name="persetujuanadmin" id="adminselesai" required>
+                                                                        <label for="adminselesai">Tandai selesai</label>
+                                                                        @endif
                                                                     </div>
 
                                                                     @endif

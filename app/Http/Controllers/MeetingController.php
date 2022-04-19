@@ -76,9 +76,17 @@ class MeetingController extends Controller
      * @param  \App\Models\Meeting  $meeting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Meeting $meeting)
+    public function update(Request $request, $id)
     {
-        //
+        $data=[
+            'tanggal_pertemuan' => $request->tanggalpertemuan,
+            'deskripsi_pertemuan' => $request->deskripsipertemuan,
+            'project_id'=>$request->pilihproyek,
+            'status_pertemuan'=>'MENUNGGU VERIFIKASI',
+        ];
+        Meeting::where('id',$id)->update($data);
+        Alert::success('Berhasil');
+        return redirect()->back();
     }
 
     /**

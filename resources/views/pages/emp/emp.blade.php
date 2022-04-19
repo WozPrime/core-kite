@@ -171,7 +171,7 @@
                                     <div class="icheck-primary d-inline ml-2">
                                         <input type="checkbox" value="" disabled name="todo{{ $job->id }}"
                                             id="todoCheck{{ $job->id }}"
-                                            @if ($job->upload_details && $file_task->where('pt_id', $job->id)->count() > 0) checked @endif>
+                                            @if ($job->upload_details && $project_task->where('pt_id', $job->id)->count() > 0) checked @endif>
                                         <label for="todoCheck{{ $job->id }}"></label>
                                     </div>
                                     <span

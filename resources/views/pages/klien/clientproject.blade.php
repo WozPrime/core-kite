@@ -52,10 +52,48 @@ Dashboard
                         <p class="text-muted font-size-sm">
                             {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date) }} Hari
                         </p>
-                        <b class="text-secondary-bold"> Klien </b>
-                        <p class="text-muted font-size-sm"> {{ $data->client->name }} </p>
                         <b class="text-secondary-bold"> Instansi </b>
                         <p class="text-muted font-size-sm"> {{ $data->instance->nama_instansi }} </p>
+                        <b class="text-secondary-bold">Persentase Proyek</b>
+                        <div>
+                            {{-- <div class="row"> --}}
+                                <div 
+                                @php
+                                $pcount = $ptask->where('project_id', $data->id)->count('id');
+                                $pstatus = $ptask->where('project_id', $data->id)->where('status', '==', 2)->count('id');
+                                if($pcount == 0) {$progress = 0;}
+                                elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
+                                @endphp 
+                                @if($pcount == 0) class="badge bg-danger" 
+                                @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
+                                @elseif($pcount > 0 && $progress == 100) class="badge bg-success" 
+                                @endif>
+                                <div @if($pcount > 0 && $progress >= 0 && $progress < 25) class="progress-bar bg-danger pb-3"
+                                    @elseif($pcount > 0 && $progress >= 25 && $progress < 50) class="progress-bar bg-warning pb-3"
+                                    @elseif($pcount > 0 && $progress >= 50 && $progress < 75) class="progress-bar bg-primary pb-3"
+                                    @elseif($pcount > 0 && $progress >= 75 && $progress < 100) class="progress-bar bg-bar-success pb-3"
+                                    @endif
+                                    @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
+                                    @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
+                                    @endif>
+                                    @if($pcount == 0) Belum ada tugas yang disiapkan
+                                    @elseif($pcount > 0 && $progress == 100) Seluruh tugas proyek sudah terselesaikan
+                                    @endif
+                                </div>
+                            </div>
+
+                            @if($pcount > 0 && $progress >= 0 && $progress < 100) <span class="badge 
+                                @if($pcount > 0 && $progress >= 0 && $progress < 25) bg-danger float-left
+                                @elseif($pcount > 0 && $progress >= 25 && $progress < 50) bg-warning 
+                                @elseif($pcount > 0 && $progress >= 50 && $progress < 75) bg-primary 
+                                @elseif($pcount > 0 && $progress >= 75 && $progress < 100) bg-success float-right
+                                @endif col-2" 
+                                @if($pcount > 0 && $progress >= 25 && $progress < 50) style="margin-right:130px"
+                                @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"
+                                @endif>{{ $progress }}%</span>
+                            @endif
+                            {{-- </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,6 +129,48 @@ Dashboard
                                             <td>{{ $p->jenis_pembayaran }}</td>
                                             <td>{{ $p->deskripsi_pembayaran }}</td>
                                             <td>{{ $p->nilai_pembayaran }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- /.modal-dialog -->
+    
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row gutters-sm">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-orange">
+                        {{-- RIWAYAT PEMBAYARAN --}}
+                        <div class="card-header">
+                            <h2 class="card-title text-light pt-2">Perkembangan Proyek</h2>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered" id="myTable1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No.</th>
+                                        <th class="text-center">Tugas</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ptask as $p)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $p->details }}</td>
+
+                                            @if ($p->status == '2')
+                                                <td class="badge bg-success m-2">Selesai</td>
+                                            @else
+                                                <td class="badge bg-warning m-2">Dalam Pengerjaan</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

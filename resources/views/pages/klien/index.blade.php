@@ -215,9 +215,11 @@ Dashboard
                                                             <td>{{$m->catatan_admin}}</td>
                                                             <td>{{$m->hasil_pertemuan}}</td>
                                                             <td>
+                                                                @if ($m->status_pertemuan == 'SELESAI')    
                                                                 <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                                @endif
                                                                 @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI' || $m->status_pertemuan == 'DITOLAK')
-                                                                    <a href="#" class="btn btn-warning mr-1" data-toggle="modal" data-target="#edit-data"><i class="fas fa-pencil-alt"></i></a>
+                                                                    <a href="#" class="btn btn-warning mr-1" data-toggle="modal" data-target="#edit-data{{$m->id}}"><i class="fas fa-pencil-alt"></i></a>
                                                                     <a>
                                                                         <form autocomplete="off" action="/meetings/{{ $m->id }}" method="POST" class="d-inline">
                                                                             @method('delete')
@@ -230,6 +232,47 @@ Dashboard
                                                                 @endif
                                                             </td>
                                                         </tr>
+                                                        <div class="modal fade" id="edit-data{{$m->id}}">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="card-header bg-orange">
+                                                                        <h3 class="card-title">Atur Jadwal Pertemuan</h3>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <form action="/meetings/{{$m->id}}" method="POST" enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            @method('put')
+                                                                            <div class="form-group">
+                                                                                <label>Proyek</label>
+                                                                                <select name="pilihproyek" id="pilihproyek" class="form-select" required>
+                                                                                    <option hidden selected value="{{$m->project->id}}">{{$m->project->project_name}}</option>
+                                                                                    @foreach ($proyek as $p)
+                                                                                        <option value="{{$p->id}}">{{$p->project_name}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                        
+                                                                            <div class="form-group">
+                                                                                <label>Pilih Tanggal Pertemuan</label>
+                                                                                <input type="datetime-local" class="form-control" name="tanggalpertemuan" required>
+                                                                            </div>
+                                                        
+                                                                            <div class="form-group">
+                                                                                <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
+                                                                                <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin membahas mengenai penambahan fitur pada proyek ini. Bisakah kita bertemu pukul 16.00 di Kantor IdeKite?">{{$m->deskripsi_pertemuan}}</textarea>
+                                                                            </div>
+                                                        
+                                                                            <input type="text" name="idklien" id="idklien" value="{{$klien->id}}" hidden>
+                                                        
+                                                                            <div class="form-group">
+                                                                                <button class="btn btn-success float-right">Save Data</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.modal-content -->
+                                                            </div>
+                                                        </div>
                                                     @endforeach
                                                 </tbody>
                                             </table>

@@ -40,7 +40,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/client/projects"
+                    <a href="#"
                         class="nav-link  {{ request()->is('client/project*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/client/meetings"
+                    <a href="#"
                         class="nav-link  {{ request()->is('client/meetings*') ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>

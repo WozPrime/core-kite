@@ -453,7 +453,7 @@
                                                             </h3>
 
                                                             <p class="text-muted text-center">
-                                                                {{ $tl->instance()->first()->nama_instansi }}
+                                                                {{-- {{ $tl->instance()->first()->nama_instansi }} --}}
                                                             </p>
 
                                                             <ul class="list-group list-group-unbordered mb-3">

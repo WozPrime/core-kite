@@ -46,7 +46,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
-Route::middleware(['role', 'auth'])->group(function () {
+Route::middleware(['role:admin', 'auth'])->group(function () {
     // // ADMIN
     Route::get('/admin', [UserController::class, 'admin'])->name('admin');
     Route::get('/admin/profile/', [UserController::class, 'profile'])->name('profile');
@@ -116,7 +116,7 @@ Route::resource('/meetings', MeetingController::class)->middleware(['auth']);
 Route::post('/client/gantipassword/{id}', [ClientController::class, 'gantipassword'])->middleware(['auth']);
 Route::get('/client/project/{id}', [ClientController::class, 'projectdetail'])->middleware(['auth']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:member'])->group(function () {
     // EMPLOYEE
     Route::get('/emp', [EmpController::class, 'index'])->name('emp');
     Route::resource('/emp/reports', EmpReportController::class);

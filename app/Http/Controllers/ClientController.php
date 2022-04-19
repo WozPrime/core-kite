@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Models\Client;
+use App\Models\ProjectTask;
 use App\Models\Instance;
 use App\Models\User;
 use App\Models\Meeting;
@@ -140,7 +141,9 @@ class ClientController extends Controller
     public function projectdetail($id){
         return view('pages.klien.clientproject',[
             'data' => ProjectModel::where('id',$id)->first(),
-            'pembayaran' => Payment::where('project_id',$id),
+            'pembayaran' => Payment::where('project_id',$id)->get(),
+            'ptask'=>ProjectTask::all(),
+            'progress'=>ProjectTask::where('project_id',$id)->get(),
         ]);
     }
 }
