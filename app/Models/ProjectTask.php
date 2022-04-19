@@ -54,7 +54,7 @@ class ProjectTask extends Model
 
     public function instance()
     {
-        return $this->hasOneThrough(Instance::class,ProjectModel::class,'id','id','project_id','id');
+        return $this->hasOneThrough(Instance::class,ProjectModel::class,'id','id','project_id','instance_id');
     }
 
     public function tasks()
