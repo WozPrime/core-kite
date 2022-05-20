@@ -250,7 +250,7 @@
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
                                                                         <div class="form-group">
-                                                                            <label for="seeAnotherFieldInstance">Pilih Instansi</label>
+                                                                            <label>Pilih Instansi</label>
                                                                             <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansiEdit()" id="instance_id_edit" required>
                                                                                     <option selected hidden value="{{ $tbl_project->instance_id }}">{{ $tbl_project->instance->nama_instansi }}</option>
                                                                                 @foreach ($instansi as $i)
@@ -264,7 +264,7 @@
                                                                         </div>
                                             
                                                                         <div class="form-group">
-                                                                            <label for="seeAnotherFieldClient">Pilih Klien</label>
+                                                                            <label>Pilih Klien</label>
                                                                            
                                                                             <select class='form-select' name='client_id' id='client_id_edit' required>
                                                                                 <option selected hidden value="{{ $tbl_project->client_id }}">{{ $tbl_project->client->name }}</option>
@@ -287,7 +287,7 @@
                                                                         </div>
                                             
                                                                         <div class="form-group">
-                                                                            <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                                                            <label>Pilih Kategori Proyek</label>
                                                                             <select class="form-select" name="project_category" required>
                                                                                 <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
                                                                                     <option value="Web">Web</option>
@@ -301,9 +301,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
-                                                                            <select class="form-select" name="project_status" required>
+                                                                        <div class="form-group" id="seeAnotherFieldStatus">
+                                                                            <label for="seeAnotherFieldStatus">Pilih Status Proyek</label>
+                                                                                <select class="form-select" name="project_status" id="project_status" required>
                                                                                 <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
                                                                                     <option value="Baru">Baru</option>
                                                                                     <option value="Sedang Berjalan">Sedang Berjalan</option>
@@ -322,9 +322,10 @@
                                                                             <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
                                                                         </div>
 
-                                                                        <div class="form-group">
-                                                                            <label>Finished At</label>
-                                                                            <input name="project_finished" class="form-control" type="date" value="{{ $tbl_project->project_finished }}">
+                                                                        <div class="form-group" id="otherFieldStatus">
+                                                                            <label for="otherFieldStatus">Finished Date</label>
+                                                                            <input name="project_finished" id="project_finished" class="form-control" type="date">
+                                                                             {{-- value="{{ $tbl_project->project_finished }}"> --}}
                                                                         </div>
                                             
                                                                         <div>
@@ -391,7 +392,7 @@
                                 </div>
     
                                 <div class="form-group">
-                                    <label for="seeAnotherFieldClient">Alamat Instansi</label>
+                                    <label>Alamat Instansi</label>
                                     <textarea name="instance_address" id="instance_address" class="form-control" cols="30" rows="3" placeholder="Isikan Alamat Instansi Disini"></textarea>
                                 </div>
     
@@ -590,7 +591,7 @@
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="seeAnotherFieldClient">Pilih Kategori Proyek</label>
+                                            <label>Pilih Kategori Proyek</label>
                                             <select class="form-select" name="project_category" required>
                                                 <option selected hidden> Pilih Kategori </option>
                                                     <option value="Web">Web</option>
@@ -604,7 +605,7 @@
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="seeAnotherFieldClient">Pilih Status Proyek</label>
+                                            <label>Pilih Status Proyek</label>
                                             <select class="form-select" name="project_status" required>
                                                 <option selected hidden> Pilih Status </option>
                                                     <option value="Baru">Baru</option>

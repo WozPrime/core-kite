@@ -1,59 +1,84 @@
-@extends('auth.ui_auth.app')
-@section('title')
-    Idekite Core | Forgot Pass
-@endsection
-@section('body')
-    <div class="login-box">
-        <div class="login-logo font-weight-bold">
-            <a href="#">IDEKITE<span class="text-orange">CORE</span></a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">
-                    You forgot your password? Here you can easily retrieve a new
-                    password.
-                </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Idekite Core | Forgot Pass</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/animate/animate.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css-hamburgers/hamburgers.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/animsition/css/animsition.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+</head>
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" action="{{ route('password.email') }}" method="post">
+                    @csrf
+                    <div class="login-logo font-weight-bold">
+                        <img src="{{ asset('images/ikcore2.png') }}" width="250px" height="auto" style="margin-bottom: 30px;">
+                    </div>
+                    
+					<div>
+                        <p class="login-box-msg">
+                            You forgot your password? Here you can easily retrieve a new
+                            password.
+                        </p>
+                    </div>
 
-                @if (session('status'))
+                    @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
-                <form action="{{ route('password.email') }}" method="post">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email" />
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
+					
+					<div class="wrap-input100 validate-input">
+						<input id="email" type="email" class="input100 @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
                         @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                Send Password Reset Link
-                            </button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+					</div>
 
-                <p class="mt-3 mb-1">
-                    <a href="/login">Login</a>
-                </p>
-                <p class="mb-0">
-                    <a href="/register" class="text-center">Register a new membership</a>
-                </p>
-            </div>
-            <!-- /.login-card-body -->
-        </div>
-    </div>
-@endsection
+					
+                    <div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">Send Password Reset Link</button>
+					</div>
+                    <div>
+                        <p class="mt-3 mb-1">
+                            <a href="/login">< Back to Login Page</a>
+                        </p>
+                    </div>
+				</form>
+
+				<div class="login100-more" style="background-image: url({{ asset('images/bg-01.jpg') }});">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+	<script src="{{ asset('vendor/animsition/js/animsition.min.js') }}"></script>
+	<script src="{{ asset('vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+	<script src="{{ asset('vendor/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
+	<script src="{{ asset('vendor/countdowntime/countdowntime.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+
+</body>
+</html>
