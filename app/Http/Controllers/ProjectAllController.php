@@ -36,7 +36,7 @@ class ProjectAllController extends Controller
     {
         $pt =  ProjectTask::all()->where('user_id', Auth::user()->id);
         return view('pages.admin.todo', [
-            'project_task' => $pt->where('status','<',2),
+            'project_task' => $pt->where('status','<',2)->where('start_at','<=', Carbon::now()),
             'tasks' => Task::all(),
             'file_task' => Doc::all(),
             'task_list' => $pt->where('status', '>=',2),
@@ -116,13 +116,20 @@ class ProjectAllController extends Controller
     public function edit($id, Request $req)
     {
         $ptask = $this->projectTask->find($id);
+        if($req->start_at > $req->expired_at){
+            $temp  = $req->start_at;
+            $req->start_at = $req->expired_at;
+            $req->expired_at = $temp;
+        }
         $req->validate([
             'expired_at' => 'required',
+            'start_at' => 'required',
             'user_id' => 'required',
             'task_id' => 'required',
             'details' => 'required',
         ], [
-            'expired_at.required' => 'Profesi Tidak Boleh Kosong!!',
+            'expired_at.required' => 'Tanggal Tidak Boleh Kosong!!',
+            'start_at.required' => 'Tanggal Tidak Boleh Kosong!!',
             'user_id.required' => 'User Tidak Boleh Kosong!!',
             'task_id.required' => 'Task Tidak Boleh Kosong!!',
             'details.required' => 'Detail Tidak Boleh Kosong!!',
@@ -131,7 +138,8 @@ class ProjectAllController extends Controller
             $req->user_id == $ptask->user_id &&
             $req->task_id == $ptask->task_id &&
             $req->details == $ptask->details &&
-            strtotime($req->expired_at) == strtotime($ptask->expired_at) 
+            strtotime($req->expired_at) == strtotime($ptask->expired_at) &&
+            strtotime($req->start_at) == strtotime($ptask->start_at)  
         ){
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect('/admin/manage/project_all');
@@ -143,6 +151,7 @@ class ProjectAllController extends Controller
             } elseif(($ptask->status == 3) && $req->user_id != $ptask->user_id) {
                 $this->projectTask->find($id)->update([
                     'expired_at' => $req->expired_at,
+                    'start_at' => $req->start_at,
                     'user_id' => $req->user_id,
                     'task_id' => $req->task_id,
                     'details' => $req->details,
@@ -153,6 +162,7 @@ class ProjectAllController extends Controller
             } else{
                 $this->projectTask->find($id)->update([
                     'expired_at' => $req->expired_at,
+                    'start_at' => $req->start_at,
                     'user_id' => $req->user_id,
                     'task_id' => $req->task_id,
                     'details' => $req->details,
@@ -170,13 +180,20 @@ class ProjectAllController extends Controller
         // // dd($req->tags[1]);
         // $checkTask = $this->projectTask->where(['user_id' => $req->user_id, 'project_id' => $req->project_id])->pluck('task_id')->toArray();
         // dd($checkTask);
+        if($req->start_at > $req->expired_at){
+            $temp  = $req->start_at;
+            $req->start_at = $req->expired_at;
+            $req->expired_at = $temp;
+        }
         $req->validate([
             'task_id' => 'required',
             'details' => 'required',
             'expired_at' => 'required',
+            'start_at' => 'required',
         ], [
             'task_id.required' => 'Task Tidak Boleh Kosong!!',
             'details.required' => 'Detail Tidak Boleh Kosong!!',
+            'start_at.required' => 'Tanggal Tidak Boleh Kosong!!',
             'expired_at.required' => 'Deadline Tidak Boleh Kosong!!',
         ]);
         ProjectTask::create([
@@ -185,6 +202,7 @@ class ProjectAllController extends Controller
                     'task_id' => $req->task_id,
                     'details' => $req->details,
                     'expired_at' => $req->expired_at,
+                    'start_at' => $req->start_at,
                 ]);
         // $newTagsIds = array_map('intval', $req->tags);
         // // dd($newProfIds);

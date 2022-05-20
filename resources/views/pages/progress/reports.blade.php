@@ -203,6 +203,7 @@
                                                                                     @else
                                                                                         text-red @endif
                                                                                     ">
+                                                                                    {{ date('D, d M Y H:i', strtotime($p_task->start_at)) }} - <br>
                                                                                     {{ date('D, d M Y H:i', strtotime($p_task->expired_at)) }}
                                                                                 </a>
                                                                             </li>

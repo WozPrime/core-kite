@@ -17,6 +17,7 @@ class ProjectTask extends Model
         'details',
         'status',
         'checked_at',
+        'start_at',
         'expired_at',
         'post_date',
         'upload_details',

@@ -27,6 +27,7 @@ class CreateProjectTaskTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('points')->nullable();
             $table->dateTime('checked_at')->nullable();
+            $table->dateTime('start_at')->nullable();
             $table->dateTime('expired_at')->nullable();
             $table->dateTime('post_date')->nullable();
             $table->timestamps();

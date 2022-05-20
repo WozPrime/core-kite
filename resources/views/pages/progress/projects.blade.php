@@ -321,6 +321,11 @@
                                                                             <label>Deadline</label>
                                                                             <input name="project_deadline" class="form-control" type="date" value="{{ $tbl_project->project_deadline }}">
                                                                         </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Finished At</label>
+                                                                            <input name="project_finished" class="form-control" type="date" value="{{ $tbl_project->project_finished }}">
+                                                                        </div>
                                             
                                                                         <div>
                                                                             <label>Total Project</label>

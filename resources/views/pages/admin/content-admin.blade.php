@@ -47,7 +47,7 @@
                         <div class="icon">
                             <i class="ion ion-clipboard"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/tables" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -66,7 +66,7 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/tables" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -81,7 +81,7 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/tables" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -89,14 +89,14 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{$client}}</h3>
 
-                            <p>Unique Visitors</p>
+                            <p>Total Klien</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/tables" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -106,6 +106,49 @@
             <div class="row">
                 <!-- Left col -->
                 <section class="col-lg-7 connectedSortable">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            
+                            <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Calendar
+                            </h3>
+                            <!-- tools card -->
+                            <div class="card-tools">
+                            <!-- button with a dropdown -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                <i class="fas fa-bars"></i>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                <a href="/admin/testCal" class="dropdown-item">View calendar</a>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body pt-0">
+                            <!--The calendar -->
+                            <div id="calendar" style="width: 100%"></div>
+                        </div>
+                        <!-- /.card-body -->
+                            <!-- /.Left col -->
+                            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                            <section class="col-lg-5 connectedSortable">
+                                <div id="evoCal"></div>
+                            </section>
+                            <!-- right col -->
+                            
+                    </div>
+                </section>
+                <section class="col-lg-5 connectedSortable">
                     <div class="card">
                         <div class="card-header border-0">
                             <h3 class="card-title">Proyek</h3>
@@ -191,12 +234,7 @@
                         </div>
                     </div>
                 </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
-                    <div id="evoCal"></div>
-                </section>
-                <!-- right col -->
+                <!-- Calendar -->
             </div>
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
@@ -205,5 +243,55 @@
 <!-- /.content -->
 @section('footer')
 @endsection
+@section('script')
+<script>
+    $(function() {
 
+
+        /* initialize the calendar
+         -----------------------------------------------------------------*/
+        //Date for the calendar events (dummy data)
+        var date = new Date()
+        var d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear()
+
+        var Calendar = FullCalendar.Calendar;
+        var Draggable = FullCalendar.Draggable;
+
+        var calendarEl = document.getElementById('calendar');
+        var agenda = @json($agenda);
+        // initialize the external events
+        // -----------------------------------------------------------------
+
+        
+
+        var calendar = new Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            themeSystem: 'bootstrap',
+            //Random default events
+            events: agenda,
+            editable: false,
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function(info) {
+                // is the "remove after drop" checkbox checked?
+                if (checkbox.checked) {
+                    // if so, remove the element from the "Draggable Events" list
+                    info.draggedEl.parentNode.removeChild(info.draggedEl);
+                }
+            }
+        });
+
+        calendar.render();
+        // $('#calendar').fullCalendar()
+        
+
+        
+    })
+</script>
+@endsection
 @endsection

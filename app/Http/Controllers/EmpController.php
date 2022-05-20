@@ -69,7 +69,7 @@ class EmpController extends Controller
         $date = [$firstDayofMonth,$lastDayofMonth];
         $check = $pt->where('status',2)->whereBetween('checked_at',$date)->count();
         return view('pages.emp.emp_todo', [
-            'project_task' => $pt->where('status','<',2),
+            'project_task' => $pt->where('status','<',2)->where('start_at','<=', Carbon::now()),
             'tasks' => Task::all(),
             'file_task' => Doc::all(),
             'task_list' => $pt->where('status', '>=',2),

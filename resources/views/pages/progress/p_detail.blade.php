@@ -159,8 +159,8 @@ use Carbon\Carbon;
                                                                 @if ($prof_task->user_id == $list->user_id && $prof_task->prof_id != '')
                                                                     <div style="padding: 3px">
                                                                         <span
-                                                                            class="badge @if (fmod($loop->index, 3) == 0) bg-danger
-                                                                                        @elseif(fmod($loop->index, 2) == 0)
+                                                                            class="badge @if (fmod($prof_task->id, 3) == 0) bg-danger
+                                                                                        @elseif(fmod($prof_task->id, 2) == 0)
                                                                                         bg-warning 
                                                                                         @else
                                                                                         bg-success @endif">
@@ -415,6 +415,10 @@ use Carbon\Carbon;
                                                                     <label>Details</label>
                                                                     <textarea class="form-control" id="details" name="details" rows="3"
                                                                         placeholder="Enter Task Details ..." required></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="start_at">Tambah Waktu Mulai Tugas</label>
+                                                                    <input name="start_at" class="form-control" type="datetime-local">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="expired_at">Tambah Tenggat Tugas</label>

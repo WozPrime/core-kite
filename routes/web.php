@@ -40,16 +40,19 @@ use App\Models\ProjectAll;
 Route::get('/', [HomeController::class, 'index']);
 
 // AUTH
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
-Route::middleware(['role', 'auth'])->group(function () {
+Route::middleware(['role:admin', 'auth'])->group(function () {
     // // ADMIN
     Route::get('/admin', [UserController::class, 'admin'])->name('admin');
     Route::get('/admin/profile/', [UserController::class, 'profile'])->name('profile');
     Route::get('/admin/tables', [UserController::class, 'tables'])->name('tables');
     Route::get('/admin/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/admin/testCal', [UserController::class, 'testCalendar'])->name('testCal');
     Route::resource('/admin/client', AdminClientController::class);
     // Route::get('/admin/klien',[UserController::class, 'klien'])->name('klien')->middleware(['role','auth']);
     // Route::get('/admin/klien/detail',[UserController::class, 'detailklien'])->name('detailklien')->middleware(['role','auth']);
@@ -107,9 +110,9 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
 });
 
-Route::resource('/client', ClientController::class)->middleware(['auth']);
+Route::resource('/client', ClientController::class)->middleware(['role:client','auth']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['role:member','auth'])->group(function () {
     // EMPLOYEE
     Route::get('/emp', [EmpController::class, 'index'])->name('emp');
     Route::resource('/emp/reports', EmpReportController::class);

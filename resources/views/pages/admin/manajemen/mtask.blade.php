@@ -58,10 +58,10 @@
                                     <tr>
                                         <th style="width: 10px">No</th>
                                         <th class="col-3">Tugas</th>
-                                        <th class="col-2">Karyawan</th>
-                                        <th class="col-2">Proyek</th>
-                                        <th class="col-2">Tenggat Waktu</th>
-                                        <th class="col-1">Status</th>
+                                        <th class="col-1">Karyawan</th>
+                                        <th class="col-1">Proyek</th>
+                                        <th class="col-3">Tenggat Waktu</th>
+                                        <th class="col-2">Status</th>
                                         <th class="col-2">Aksi</th>
                                     </tr>
                                 </thead>
@@ -73,8 +73,10 @@
                                             <td>{{ $User->find($ptask->user_id)->name }}</td>
                                             <td>{{ $Project->find($ptask->project_id)->project_name }}</td>
                                             <td>
-                                                @if ($ptask->expired_at != '')
-                                                {{ date('D, d M Y, H:i', strtotime($ptask->expired_at)) }}
+                                                @if ($ptask->expired_at != '' && $ptask->start_at != '')
+                                                Start : {{ date('D, d M Y, H:i', strtotime($ptask->start_at)) }} 
+                                                <br>
+                                                End : {{ date('D, d M Y, H:i', strtotime($ptask->expired_at)) }}
                                                 @endif
                                             </td>
                                             <td>
@@ -127,6 +129,13 @@
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="start_at">Edit Waktu Mulai Tugas</label>
+                                                                <input @if ($ptask->status == 2)
+                                                                    disabled
+                                                                @endif 
+                                                                name="start_at" class="form-control" type="datetime-local" value="{{ (new DateTime($ptask->start_at))->format('Y-m-d').'T'.(new DateTime($ptask->start_at))->format('H:i')}}">
+                                                              </div>
                                                             <div class="form-group">
                                                                 <label for="expired_at">Edit Tugas Deadline</label>
                                                                 <input @if ($ptask->status == 2)
@@ -254,6 +263,7 @@
                                                                                 @else
                                                                                     text-red @endif
                                                                                 ">
+                                                                                    {{ date('D, d M Y H:i', strtotime($ptask->start_at)) }} - <br>
                                                                                     {{ date('D, d M Y H:i', strtotime($ptask->expired_at)) }}
                                                                             </a>
                                                                         </li>

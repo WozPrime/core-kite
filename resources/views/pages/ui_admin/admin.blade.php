@@ -40,6 +40,9 @@
     <link rel="stylesheet" href="{{ asset('/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     
+        
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/main.css')}}">
 
     <!-- show-hide-fields-form -->
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
@@ -121,6 +124,9 @@
     <script src="{{ asset('/plugins/dropzone/min/dropzone.min.js') }}"></script>
     {{-- Select2 --}}
     <script src="{{ asset('/plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- fullCalendar 2.2.5 -->
+    <script src="{{ asset('/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{ asset('/plugins/fullcalendar/main.js')}}"></script>
 
 
     {{-- Multi Page Modal --}}
@@ -171,6 +177,7 @@
 
         })
     </script>
+    
     @yield('script')
 
 </body>

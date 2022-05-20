@@ -17,12 +17,6 @@ class Role
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == 'admin') {
-            return $next($request);
-        }
-        elseif (Auth::user()->role == 'client'){
-            return redirect('/client');
-        }
-        else {return redirect('/emp');}
+        return $next($request);
     }
 }

@@ -31,7 +31,7 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="/admin"
-                        class="nav-link  {{ \Request::route()->getName() == 'admin' ? 'active text-light' : '' }}">
+                        class="nav-link  {{ \Request::route()->getName() == 'admin' || \Request::route()->getName() == 'testCal' ? 'active text-light' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard

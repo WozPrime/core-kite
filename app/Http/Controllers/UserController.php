@@ -8,10 +8,13 @@ use App\Models\ProjectModel;
 use App\Models\ProjectTask;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\Instance;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -36,12 +39,135 @@ class UserController extends Controller
         $project = ProjectModel::all();
         $task = ProjectTask::all();
         $user = User::all();
-        return view('pages.admin.content-admin', compact('project','task','user'));
+        $client = Client::all()->count('id');
+        $events = ProjectTask::all();
+        $agenda = [];
+        function randColor() {
+            return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+        }
+        foreach ($events as $event) {
+            $start = $event->start_at;
+            $end = $event->expired_at;
+            $color = randColor();
+            $backgroundColor = strtolower($color);
+            $borderColor = strtolower($color);
+            $title =  $event->details;
+            $input = [
+            'title' => $title,
+            'start' => $start,
+            'end' => $end,
+            'backgroundColor' => $backgroundColor,
+            'borderColor' => $borderColor,
+            ];
+            array_push($agenda,$input);
+        }
+        return view('pages.admin.content-admin', compact('project','task','user','agenda','client'));
+    }
+    public function testCalendar()
+    {
+        $events = ProjectTask::all();
+        $agenda = [];
+        function randColor1() {
+            return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+        }
+        foreach ($events as $event) {
+            $start = $event->start_at;
+            $end = $event->expired_at;
+            $color = randColor1();
+            $backgroundColor = strtolower($color);
+            $borderColor = strtolower($color);
+            $title =  $event->details;
+            $input = [
+            'title' => $title,
+            'start' => $start,
+            'end' => $end,
+            'backgroundColor' => $backgroundColor,
+            'borderColor' => $borderColor,
+            ];
+            array_push($agenda,$input);
+        }
+        // dd($agenda);
+        return view('pages.admin.testCal',['agenda' => $agenda,]);
     }
 
     public function tables()
     {
-        return view('pages.admin.tables');
+        $proyek = ProjectModel::all();
+        $task = ProjectTask::all();
+        $users = User::all();
+        $instances = Instance::all();
+        function randColor2() {
+            return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+        }
+        // Pengguna 
+        $roles = User::groupBy('role')->get('role');
+        $userCt = $roles->count();
+        $userLabel = [];
+        $userDataset = [];
+        $userBg = [];
+        foreach ($roles as $role) {
+            array_push($userLabel,$role->role);
+        }
+        for ($i=0; $i < $userCt; $i++) { 
+            array_push($userDataset,$users->where('role',$userLabel[$i])->count());
+            array_push($userBg,randColor2());
+        }
+        
+        // Proyek w/ Instansi
+        $pi = ProjectModel::groupBy('instance_id')->get('instance_id');
+        $piCt = $pi->count();
+        $idIn = [];
+        $piLabel = [];
+        $piDataset = [];
+        $piBg = [];
+        foreach ($pi as $proIn) {
+            array_push($idIn,$proIn->instance_id);
+        }
+        foreach ($idIn as $idInstansi) {
+            array_push($piLabel,$instances->where('id',$idInstansi)->first()->nama_instansi);
+        }
+        foreach ($idIn as $i) {
+            array_push($piDataset,$proyek->where('instance_id',$i)->count());
+            array_push($piBg,randColor2());
+        }
+
+        // Project Terselesaikan
+        $pj = ProjectModel::all();
+        $months = [];
+        $min = null;
+        $b4Ct = $pj->where('project_finished','<>',null)
+        ->where('project_finished','<=',Carbon::now()->subMonth(6)->endOfMonth()->toDateString())
+        ->count();
+        $pjConDataset = [];
+        $pjFinDataset = [];
+        for ($i=6; $i > -1; $i--) { 
+            
+            array_push($months,Carbon::now()->startOfMonth()->subMonth($i)->format('F'));
+            $allPj = $pj
+            ->where('project_start_date','<=',Carbon::now()->subMonth($i)->endOfMonth()->toDateString())
+            ->count();
+            $fininMon = $pj
+            ->where('project_finished','>=',Carbon::now()->subMonth($i)->startOfMonth()->toDateString())
+            ->where('project_finished','<=',Carbon::now()->subMonth($i)->endOfMonth()->toDateString()) 
+            ->count();
+            $conPj = ($allPj - $fininMon) - $min - $b4Ct;
+            if($fininMon > 0){
+                $min += $fininMon;
+            }
+            array_push($pjConDataset,$conPj);
+            array_push($pjFinDataset,$fininMon);
+            
+        }
+
+        // dd($pjConDataset,$pjFinDataset);
+        // dd($userLabel,$userDataset,$userBg);
+
+        return view('pages.admin.tables', 
+        compact(
+            'userLabel','userDataset','userBg',
+            'piLabel','piDataset','piBg',
+            'months', 'pjConDataset', 'pjFinDataset'
+        ));
     }
 
     public function profile()
