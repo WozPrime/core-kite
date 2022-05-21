@@ -79,6 +79,7 @@ class AdminClientController extends Controller
             'pembayaranklien'=>Payment::where('user_id', $client->id)->get(),
             'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
             'meetingklien'=>Meeting::where('client_id',$client->id)->get(),
+            'karyawan'=>User::where('role','<>','client')->orderBy('name')->get(),
         ]);
     }
 

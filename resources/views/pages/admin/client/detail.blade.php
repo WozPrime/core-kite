@@ -296,6 +296,7 @@ Profil Klien
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <a href="#add-data" data-toggle="modal" class="btn btn-success"><i class="fas fa-plus-circle"></i>Tambahkan Meeting dengan Klien</a>  
                             <table class="table table-responsive-sm table-bordered" id="myTable">
                                 <thead>
                                     <tr>
@@ -398,6 +399,80 @@ Profil Klien
                 </form>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-data">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card-header bg-orange">
+                <h3 class="card-title">Tambah Jadwal Pertemuan</h3>
+            </div>
+            <div class="card-body">
+                <form action="/admin/meetings" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="form-group">
+                        <label>Nama Klien</label>
+                       <select name="idklien" id="" class="form-control">
+                           <option value="{{$klien->id}}" selected>{{$klien->name}}</option>
+                       </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pilih Proyek</label>
+                        <select name="pilihproyek" id="pilihproyek" class="form-select" required>
+                            <option hidden selected value="">Pilih Proyek</option>
+                            @foreach ($projekklien as $p)
+                                <option value="{{$p->id}}">{{$p->project_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pilih Tanggal Pertemuan</label>
+                        <input type="datetime-local" class="form-control" name="tanggalpertemuan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
+                        <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin membahas mengenai penambahan fitur pada proyek ini. Bisakah kita bertemu pukul 16.00 di Kantor IdeKite?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="catatanadmin">Catatan dari Admin</label>
+                        <textarea name="catatanadmin" id="catatanadmin" class="form-control" cols="30" rows="3" placeholder="Contoh : Selamat Siang, untuk pertemuan tanggal 10 april 2022 bisa dilaksanakan sekitar pukul 13.30, Terima Kasih"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="analispertemuan">Analis Pertemuan</label>
+                        <select name="analispertemuan" id="analispertemuan" class="form-select">
+                            <option value="" selected hidden><div class="text-muted">Pilih Analis</div></option>
+                            @foreach ($karyawan as $k)
+                                <option value="{{$k->name}}">{{$k->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hasilpertemuan">Hasil Pertemuan</label>
+                        <textarea name="hasilpertemuan" id="hasilpertemuan" cols="30" rows="3" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="radio" value="DISETUJUI" name="persetujuanadmin" id="adminsetuju" required>
+                        <label for="adminsetuju">Tandai Setuju Permintaan</label>
+                        <input type="radio" value="SELESAI" name="persetujuanadmin" id="adminselesai" required>
+                        <label for="adminselesai">Tandai selesai</label>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success float-right">Save Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
     </div>
 </div>
 

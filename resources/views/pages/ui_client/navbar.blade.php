@@ -3,12 +3,14 @@
 
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('home') }}" class="nav-link">Home</a>
-        </li>
+        </li> --}}
+        <a href="/client" class="brand-link">
+            <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <h4 class="brand-text font-weight-bold text-dark">IDEKITE<span class="text-orange">INDONESIA</span> </h4>
+        </a>
     </ul>
 
     <!-- Right navbar links -->
@@ -16,8 +18,7 @@
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 @if (Auth::user()->pp == '')
-                    <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"
-                        alt="{{ Auth::user()->name }}">
+                <img class="user-image img-circle elevation-2" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User profile picture">
                 @else
                     <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
                         alt="{{ Auth::user()->name }}">
@@ -28,8 +29,7 @@
                 <!-- User image -->
                 <li class="user-header bg-orange">
                     @if (Auth::user()->pp == '')
-                        <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"
-                            alt="{{ Auth::user()->name }}">
+                    <img class="user-image img-circle elevation-2" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User profile picture">
                     @else
                         <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
                             alt="{{ Auth::user()->name }}">

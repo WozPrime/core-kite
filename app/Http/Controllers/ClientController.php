@@ -139,11 +139,26 @@ class ClientController extends Controller
     }
 
     public function projectdetail($id){
-        return view('pages.klien.clientproject',[
-            'data' => ProjectModel::where('id',$id)->first(),
-            'pembayaran' => Payment::where('project_id',$id)->get(),
-            'ptask'=>ProjectTask::all(),
-            'progress'=>ProjectTask::where('project_id',$id)->get(),
-        ]);
+        if (Auth::user()->role == 'admin') {
+            return redirect('admin');
+        }
+        if (Auth::user()->role == 'member') {
+            return redirect('emp');
+        }
+        $klien=Client::where('user_id',auth()->user()->id)->first();
+        $data=ProjectModel::where('id',$id)->first();
+        if ($data->client_id != $klien->id) {
+            Alert::error('FORBIDDEN');
+            return redirect()->back();
+        } 
+        else {
+            return view('pages.klien.clientproject',[
+                'data' => ProjectModel::where('id',$id)->first(),
+                'pembayaran' => Payment::where('project_id',$id)->get(),
+                'ptask'=>ProjectTask::all(),
+                'progress'=>ProjectTask::where('project_id',$id)->get(),
+                'klien'=>$klien,
+            ]);
+        }
     }
 }

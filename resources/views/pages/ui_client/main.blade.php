@@ -37,12 +37,12 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition layout-fixed sidebar-collapse">
     @yield('body')
     <div class="wrapper">
 
         @include('pages.ui_client.navbar')
-        @include('pages.ui_client.sidebar')
+        {{-- @include('pages.ui_client.sidebar') --}}
         @include('sweetalert::alert')
         
 
@@ -53,10 +53,9 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             @yield('footer')
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
+            2021-2022 CV. Idekite Indonesia
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0-rc
+                <b>CV IDEKITE INDONESIA</b> 2021-2022
             </div>
         </footer>
 

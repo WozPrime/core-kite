@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Models\Meeting;
+use App\Models\User;
+use App\Models\ProjectModel;
 use Illuminate\Http\Request;
 
 class AdminMeetingController extends Controller
@@ -22,6 +24,7 @@ class AdminMeetingController extends Controller
             'meetingselesai'=>Meeting::where('status_pertemuan','SELESAI')->get(),
             'meetingditolak'=>Meeting::where('status_pertemuan','DITOLAK')->get(),
             'meetingdiputuskan'=>Meeting::where('status_pertemuan','<>','MENUNGGU VERIFIKASI')->get(),
+            'karyawan'=>User::where('role','<>','client')->orderBy('name')->get(),
         ]);
     }
 
@@ -43,7 +46,18 @@ class AdminMeetingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $meeting = new Meeting;
+        $meeting->project_id = $request->pilihproyek;
+        $meeting->client_id = $request->idklien;
+        $meeting->tanggal_pertemuan = $request->tanggalpertemuan;
+        $meeting->deskripsi_pertemuan = $request->deskripsipertemuan;
+        $meeting->status_pertemuan =  $request->persetujuanadmin;
+        $meeting->catatan_admin =  $request->catatanadmin;
+        $meeting->sistem_analis =  $request->analispertemuan;
+        $meeting->hasil_pertemuan =  $request->hasilpertemuan;
+        $meeting->save();
+        Alert::success('Jadwal Berhasil Ditambahkan');
+        return redirect()->back();
     }
 
     /**
@@ -80,8 +94,16 @@ class AdminMeetingController extends Controller
         $data=[
             'status_pertemuan'=>$request->persetujuanadmin,
             'catatan_admin'=>$request->catatanadmin,
+            'hasil_pertemuan'=>$request->hasilpertemuan,
+            'sistem_analis'=>$request->analispertemuan,
         ];
         Meeting::where('id',$id)->update($data);
+        if($request->nilaiproyek){
+            $total=[
+                'project_value'=>$request->nilaiproyek,
+            ];
+            ProjectModel::where('id',$request->idproyek)->update($total);
+        }
         Alert::success('Berhasil');
         return redirect()->back();
     }

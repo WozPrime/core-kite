@@ -134,8 +134,10 @@
                                         <th>Nama Klien</th>
                                         <th>Proyek</th>
                                         <th>Waktu Pertemuan</th>
+                                        <th>Analis</th>
                                         <th>Deskripsi Pertemuan</th>
                                         <th>Status Pertemuan</th>
+                                        <th>Hasil Pertemuan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -145,6 +147,7 @@
                                                 <td>{{$mp->client->name}}</td>
                                                 <td>{{$mp->project->project_name}}</td>
                                                 <td>{{$mp->tanggal_pertemuan}}</td>
+                                                <td>{{$mp->sistem_analis}}</td>
                                                 <td>{{$mp->deskripsi_pertemuan}}</td>
                                                 @if ($mp->status_pertemuan == 'MENUNGGU VERIFIKASI')
                                                 <td class="badge bg-warning my-2 mx-2">{{$mp->status_pertemuan}}</td>
@@ -158,6 +161,11 @@
                                                 @if ($mp->status_pertemuan == 'DITOLAK')
                                                 <td class="badge bg-danger my-2 mx-2">{{$mp->status_pertemuan}}</td>
                                                 @endif
+                                                <td>@if ($mp->hasil_pertemuan == "")
+                                                    <div class="text-muted">Belum Ada Hasil Pertemuan</div>
+                                                @else
+                                                    {{$mp->hasil_pertemuan}}
+                                                @endif</td>
                                                 <td><a href="" class="btn btn-primary" data-toggle="modal" data-target="#edit-data{{$mp->id}}"><i class="fas fa-pencil-alt"></i></a></td>
                                             </tr>
                                             
@@ -197,8 +205,29 @@
                                                                     @if ($mp->status_pertemuan == 'SELESAI')    
                                                                     
                                                                     <div class="form-group">
+                                                                        <label for="analispertemuan">Analis Pertemuan</label>
+                                                                        <select name="analispertemuan" id="analispertemuan" class="form-select">
+                                                                            @if ($mp->sistem_analis)
+                                                                                <option value="{{$mp->sistem_analis}}" selected hidden>{{$mp->sistem_analis}}</option>
+                                                                            @else    
+                                                                                <option value="" selected hidden><div class="text-muted">Pilih Analis</div></option>
+                                                                            @endif
+                                                                            @foreach ($karyawan as $k)
+                                                                                <option value="{{$k->name}}">{{$k->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
                                                                         <label for="hasilpertemuan">Hasil Pertemuan</label>
-                                                                        <textarea name="hasilpertemuan" id="hasilpertemuan" cols="30" rows="3" class="form-control"></textarea>
+                                                                        <textarea name="hasilpertemuan" id="hasilpertemuan" cols="30" rows="3" class="form-control">{{$mp->hasil_pertemuan}}</textarea>
+                                                                    </div>
+
+                                                                    <input type="text" name="idproyek" hidden value="{{$mp->project->id}}">
+
+                                                                    <div class="form-group">
+                                                                        <label for="nilaiproyek">Nilai Proyek</label>
+                                                                        <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="nilaiproyek" value="{{$mp->project->project_value}}">
                                                                     </div>
 
                                                                     <input type="text" name="persetujuanadmin" hidden value="SELESAI">
@@ -207,7 +236,7 @@
 
                                                                     <div class="form-group">
                                                                         <label for="catatanadmin">Catatan dari Admin</label>
-                                                                        <textarea name="catatanadmin" id="catatanadmin" class="form-control" cols="30" rows="3" placeholder="Contoh : Selamat Siang, untuk pertemuan tanggal 10 april 2022 bisa dilaksanakan sekitar pukul 13.30, Terima Kasih"></textarea>
+                                                                        <textarea name="catatanadmin" id="catatanadmin" class="form-control" cols="30" rows="3" placeholder="Contoh : Selamat Siang, untuk pertemuan tanggal 10 april 2022 bisa dilaksanakan sekitar pukul 13.30, Terima Kasih">{{$mp->catatan_admin}}</textarea>
                                                                     </div>
                                                                     
                                                                     <div class="form-group">

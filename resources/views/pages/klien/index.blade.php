@@ -73,9 +73,9 @@ Dashboard
                         <strong><i class="fas fa-lock mr-1"></i> Ganti Password</strong> <br>
                         <form action="/client/gantipassword/{{auth()->user()->id}}" method="POST">
                             @csrf
-                            <input type="password" name="plama" id="plama" placeholder="isi password lama" class="form-control my-1">
-                            <input type="password" name="pbaru" id="pbaru" placeholder="isi password baru" class="form-control mb-1">
-                            <input type="password" name="pulang" id="pulang" placeholder="ulangi password baru" class="form-control mb-1">
+                            <input type="password" name="plama" id="plama" placeholder="isi password lama" class="form-control my-1" required>
+                            <input type="password" name="pbaru" id="pbaru" placeholder="isi password baru" class="form-control mb-1" required>
+                            <input type="password" name="pulang" id="pulang" placeholder="ulangi password baru" class="form-control mb-1" required>
                             <button class="mt-2">Save Data</button>
                         </form>
                     </div>
@@ -159,7 +159,7 @@ Dashboard
                                                 <td>{{$p->project_value}}</td>
                                                 <td>{{$p->project_status}}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
+                                                    <a href="/client/project/{{$p->id}}" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
                                                     <a href="#" class="btn btn-success mr-1" data-toggle="modal"
                                                         data-target="#add-data"><i class="fa fa-clock"></i></a>
                                                 </td>
@@ -212,12 +212,19 @@ Dashboard
                                                             <td class="badge bg-danger my-2 mx-2">{{$m->status_pertemuan}}</td>
                                                             @endif
                                                             <td>{{$m->deskripsi_pertemuan}}</td>
-                                                            <td>{{$m->catatan_admin}}</td>
-                                                            <td>{{$m->hasil_pertemuan}}</td>
+                                                            <td>@if ($m->catatan_admin=="")
+                                                                <div class="text-muted">Belum ada catatan dari admin</div>
+                                                            @else
+                                                                {{$m->catatan_admin}}
+                                                            @endif</td>
                                                             <td>
-                                                                @if ($m->status_pertemuan == 'SELESAI')    
-                                                                <a href="#" class="btn btn-info mr-1"><i class="fa fa-eye"></i></a>
-                                                                @endif
+                                                                @if ($m->hasil_pertemuan=="")
+                                                                    <div class="text-muted">Belum ada hasil pertemuan</div>
+                                                                @else
+                                                                {{$m->hasil_pertemuan}}
+                                                                @endif</td>
+                                                            <td>
+                                                                
                                                                 @if ($m->status_pertemuan == 'MENUNGGU VERIFIKASI' || $m->status_pertemuan == 'DITOLAK')
                                                                     <a href="#" class="btn btn-warning mr-1" data-toggle="modal" data-target="#edit-data{{$m->id}}"><i class="fas fa-pencil-alt"></i></a>
                                                                     <a>
