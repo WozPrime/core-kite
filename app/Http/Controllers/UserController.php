@@ -92,7 +92,7 @@ class UserController extends Controller
 
     public function tables()
     {
-        $proyek = ProjectModel::all();
+        $pj = ProjectModel::all();
         $task = ProjectTask::all();
         $users = User::all();
         $instances = Instance::all();
@@ -127,12 +127,12 @@ class UserController extends Controller
             array_push($piLabel,$instances->where('id',$idInstansi)->first()->nama_instansi);
         }
         foreach ($idIn as $i) {
-            array_push($piDataset,$proyek->where('instance_id',$i)->count());
+            array_push($piDataset,$pj->where('instance_id',$i)->count());
             array_push($piBg,randColor2());
         }
 
         // Project Terselesaikan
-        $pj = ProjectModel::all();
+        
         $months = [];
         $min = null;
         $b4Ct = $pj->where('project_finished','<>',null)
@@ -159,14 +159,40 @@ class UserController extends Controller
             
         }
 
-        // dd($pjConDataset,$pjFinDataset);
+        // Tugas Terselesaikan
+        $minTask = null;
+        $b4Task = $task->where('checked_at','<>',null)
+        ->where('checked_at','<=',Carbon::now()->subMonth(6)->endOfMonth()->toDateString())
+        ->count();
+        $taskConDataset = [];
+        $taskFinDataset = [];
+        for ($i=6; $i > -1; $i--) { 
+            
+            $allTask = $task
+            ->where('start_at','<=',Carbon::now()->subMonth($i)->endOfMonth()->toDateString())
+            ->count();
+            $checkMon = $task
+            ->where('checked_at','>=',Carbon::now()->subMonth($i)->startOfMonth()->toDateString())
+            ->where('checked_at','<=',Carbon::now()->subMonth($i)->endOfMonth()->toDateString()) 
+            ->count();
+            $conTask = ($allTask - $checkMon) - $minTask - $b4Task;
+            if($checkMon > 0){
+                $minTask += $checkMon;
+            }
+            array_push($taskConDataset,$conTask);
+            array_push($taskFinDataset,$checkMon);
+            // dd($allTask,$conTask,$checkMon,$b4Task);
+        }
+
+        // dd($taskConDataset,$taskFinDataset);
         // dd($userLabel,$userDataset,$userBg);
 
         return view('pages.admin.tables', 
         compact(
             'userLabel','userDataset','userBg',
             'piLabel','piDataset','piBg',
-            'months', 'pjConDataset', 'pjFinDataset'
+            'months', 'pjConDataset', 'pjFinDataset',
+            'taskConDataset', 'taskFinDataset',
         ));
     }
 
