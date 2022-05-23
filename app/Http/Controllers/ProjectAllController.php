@@ -218,7 +218,11 @@ class ProjectAllController extends Controller
         //         'user_id'=>$req->user_id, 'project_id' => $req->project_id,'task_id' => $new
         //     ]);
         // }
-
+        $data = ProjectModel::find($req->project_id);
+        $data = [
+        'project_status' => "Dalam Pengerjaan",
+        ];
+        ProjectModel::where('id', $req->project_id)->update($data);
         Alert::success('Sukses', 'Tugas Berhasil Ditambahkan!!!');
         return redirect()->back();
     }
