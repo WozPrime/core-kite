@@ -175,7 +175,7 @@
                                         <td style="text-align: center">
                                             <span class="badge @if ($tbl_project->project_status == 'Baru') bg-primary
                                                 @elseif ($tbl_project->project_status == 'Tertunda') bg-danger
-                                                @elseif ($tbl_project->project_status == 'Sedang Berjalan') bg-warning
+                                                @elseif ($tbl_project->project_status == 'Dalam Pengerjaan') bg-warning
                                                 @elseif ($tbl_project->project_status == 'Selesai') bg-success @endif">
                                                 {{ $tbl_project->project_status }}
                                             </span>
