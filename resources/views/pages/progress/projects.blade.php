@@ -149,7 +149,7 @@
                                         <th class="col-1">Status</th>
                                         <th class="col-1">Kategori</th>
                                         <th class="col-2">Persentase Proyek</th>
-                                        <th width="10%" style="text-align: center">Action</th>
+                                        <th width="11%" style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,7 +176,7 @@
                                             <td style="text-align: center">
                                                 <span class="badge @if ($tbl_project->project_status == 'Baru') bg-primary
                                                     @elseif ($tbl_project->project_status == 'Tertunda') bg-danger
-                                                    @elseif ($tbl_project->project_status == 'Sedang Berjalan') bg-warning
+                                                    @elseif ($tbl_project->project_status == 'Dalam Pengerjaan') bg-warning
                                                     @elseif ($tbl_project->project_status == 'Selesai') bg-success @endif">
                                                     {{ $tbl_project->project_status }}
                                                 </span>
@@ -191,32 +191,33 @@
                                                     if($pcount == 0) {$progress = 0;}
                                                     elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
                                                     @endphp 
-                                                    @if($pcount == 0) class="badge bg-danger" 
-                                                    @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
-                                                    @elseif($pcount > 0 && $progress == 100) class="badge bg-success" 
+                                                    @if($pcount == 0 && $tbl_project->project_status <> 'Selesai') class="badge bg-danger" 
+                                                        @elseif ($pcount > 0 && $progress < 100 && $tbl_project->project_status <> 'Selesai')  class="progress progress-xs pb-3" 
+                                                        @elseif($pcount > 0 && $progress == 100 || $tbl_project->project_status == 'Selesai') class="badge bg-success" 
                                                     @endif>
                                                     <div @if($pcount > 0 && $progress >= 0 && $progress < 25) class="progress-bar bg-danger pb-3"
-                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 50) class="progress-bar bg-warning pb-3"
-                                                        @elseif($pcount > 0 && $progress >= 50 && $progress < 75) class="progress-bar bg-primary pb-3"
-                                                        @elseif($pcount > 0 && $progress >= 75 && $progress < 100) class="progress-bar bg-bar-success pb-3"
+                                                            @elseif($pcount > 0 && $progress >= 25 && $progress < 50) class="progress-bar bg-warning pb-3"
+                                                            @elseif($pcount > 0 && $progress >= 50 && $progress < 75) class="progress-bar bg-primary pb-3"
+                                                            @elseif($pcount > 0 && $progress >= 75 && $progress < 100) class="progress-bar bg-bar-success pb-3"
                                                         @endif
                                                         @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
-                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
+                                                            @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
                                                         @endif>
-                                                        @if($pcount == 0) Belum ada tugas yang disiapkan
-                                                        @elseif($pcount > 0 && $progress == 100) Seluruh tugas proyek sudah terselesaikan
+                                                        @if($tbl_project->project_status == 'Selesai') Proyek sudah selesai
+                                                            @elseif($pcount == 0 && $tbl_project->project_status <> 'Selesai') Belum ada tugas yang disiapkan
+                                                            @elseif($pcount > 0 && $progress == 100 && $tbl_project->project_status <> 'Selesai') Seluruh tugas proyek sudah terselesaikan
                                                         @endif
                                                     </div>
                                                 </div>
 
                                                 @if($pcount > 0 && $progress >= 0 && $progress < 100) <span class="badge 
                                                     @if($pcount > 0 && $progress >= 0 && $progress < 25) bg-danger float-left
-                                                    @elseif($pcount > 0 && $progress >= 25 && $progress < 50) bg-warning 
-                                                    @elseif($pcount > 0 && $progress >= 50 && $progress < 75) bg-primary 
-                                                    @elseif($pcount > 0 && $progress >= 75 && $progress < 100) bg-success float-right
+                                                        @elseif($pcount > 0 && $progress >= 25 && $progress < 50) bg-warning 
+                                                        @elseif($pcount > 0 && $progress >= 50 && $progress < 75) bg-primary 
+                                                        @elseif($pcount > 0 && $progress >= 75 && $progress < 100) bg-success float-right
                                                     @endif col-2" 
                                                     @if($pcount > 0 && $progress >= 25 && $progress < 50) style="margin-right:130px"
-                                                    @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"
+                                                        @elseif($pcount > 0 && $progress > 50 && $progress <= 75) style="margin-left:130px"
                                                     @endif>{{ $progress }}%</span>
                                                 @endif
                                                 {{-- </div> --}}
@@ -306,7 +307,7 @@
                                                                                 <select class="form-select" name="project_status" id="project_status" required>
                                                                                 <option selected hidden value="{{ $tbl_project->project_status }}">{{ $tbl_project->project_status }}</option>
                                                                                     <option value="Baru">Baru</option>
-                                                                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                                                    <option value="Dalam Pengerjaan">Dalam Pengerjaan</option>
                                                                                     <option value="Tertunda">Tertunda</option>
                                                                                     <option value="Selesai">Selesai</option>
                                                                             </select>
@@ -324,8 +325,11 @@
 
                                                                         <div class="form-group" id="otherFieldStatus">
                                                                             <label for="otherFieldStatus">Finished Date</label>
-                                                                            <input name="project_finished" id="project_finished" class="form-control" type="date">
-                                                                             {{-- value="{{ $tbl_project->project_finished }}"> --}}
+                                                                            <input name="project_finished" id="project_finished" class="form-control" type="date" value="{{ $tbl_project->project_finished }}">
+                                                                            {{-- @if($tbl_project->project_status == 'Selesai') 
+                                                                            <input name="project_finished" id="project_finished" class="form-control" type="date" value="{{ $tbl_project->project_finished }}">
+                                                                            @else <input name="project_finished" id="project_finished" class="form-control" type="date">                                                                        </div>
+                                                                            @endif --}}
                                                                         </div>
                                             
                                                                         <div>
