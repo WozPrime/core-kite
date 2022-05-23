@@ -59,7 +59,7 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
         if($request->instance_id == 'yes'){
             $instansibaru = new Instance;
             $instansibaru->nama_instansi = $request->newnamainstansi;
@@ -105,10 +105,10 @@ class ProjectController extends Controller
         else{
             $data->client_id = $request->client_id;
         }
-        if ($data->project_start_date > $data->project_category) {
-            $temp = $data->project_start_date; 
-            $data->project_start_date = $data->project_category;
-            $data->project_category = $temp;
+        if ($request->project_start_date > $request->project_deadline) {
+            $temp = $request->project_start_date; 
+            $request->project_start_date = $request->project_deadline;
+            $request->project_deadline = $temp;
         }
         if($request->project_logo<> ""){
             $file = $request->project_logo;
@@ -226,22 +226,22 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $data = ProjectModel::find($id);
-        if ($data->project_start_date > $data->project_category) {
-            $temp = $data->project_start_date; 
-            $data->project_start_date = $data->project_category;
-            $data->project_category = $temp;
+        if ($request->project_start_date > $request->project_deadline) {
+            $temp = $request->project_start_date; 
+            $request->project_start_date = $request->project_deadline;
+            $request->project_deadline = $temp;
         }
         if (
-            Request()->instance_id == $data->instance_id &&
-            Request()->client_id == $data->client_id &&
-            Request()->project_code == $data->project_code &&
-            Request()->project_name == $data->project_name &&
-            Request()->project_status == $data->project_status &&
-            Request()->project_category == $data->project_category &&
-            Request()->project_start_date == $data->project_start_date &&
-            Request()->project_deadline == $data->project_deadline &&
-            Request()->project_finished == $data->project_finished &&
-            Request()->project_logo == ""
+            $request->instance_id == $data->instance_id &&
+            $request->client_id == $data->client_id &&
+            $request->project_code == $data->project_code &&
+            $request->project_name == $data->project_name &&
+            $request->project_status == $data->project_status &&
+            $request->project_category == $data->project_category &&
+            $request->project_start_date == $data->project_start_date &&
+            $request->project_deadline == $data->project_deadline &&
+            $request->project_finished == $data->project_finished &&
+            $request->project_logo == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->back();

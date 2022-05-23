@@ -508,7 +508,7 @@
                                         <div class="form-group" id="seeAnotherFieldInstance">
                                             <label for="seeAnotherFieldInstance">Pilih Instansi</label>
                                             <select class="form-select" aria-label="Disable" name="instance_id" onchange="pilihInstansi()" id="instance_id" required>
-                                                <option selected hidden>Pilih Instansi</option>
+                                                <option selected hidden value="">Pilih Instansi</option>
                                                 @foreach ($instansi as $i)
                                                     <option value="{{ $i->id }}">
                                                         {{ $i->nama_instansi }} </option>
@@ -556,7 +556,7 @@
                                         <div class="form-group" id="seeAnotherFieldClient">
                                             <label for="seeAnotherFieldClient">Pilih Klien</label>
                                             <select class='form-select' name='client_id' id='client_id' required>
-                                                <option selected hidden>Pilih Klien</option>
+                                                <option selected hidden value="">Pilih Klien</option>
                                                 <option value="yes">Tambah Klien Baru</option>
                                             </select>
                                         </div>
