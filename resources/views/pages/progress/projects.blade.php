@@ -192,8 +192,9 @@
                                                     elseif($pcount > 0) {$progress = floor(($pstatus / $pcount) * 100);}
                                                     @endphp 
                                                     @if($pcount == 0 && $tbl_project->project_status <> 'Selesai') class="badge bg-danger" 
-                                                        @elseif ($pcount > 0 && $progress < 100 && $tbl_project->project_status <> 'Selesai')  class="progress progress-xs pb-3" 
-                                                        @elseif($pcount > 0 && $progress == 100 || $tbl_project->project_status == 'Selesai') class="badge bg-success" 
+                                                        {{-- @elseif ($pcount > 0 && $progress < 100 && $tbl_project->project_status <> 'Selesai')  class="progress progress-xs pb-3"  --}}
+                                                        @elseif ($pcount > 0 && $progress < 100)  class="progress progress-xs pb-3" 
+                                                        @elseif(($pcount == 0 && $tbl_project->project_status == 'Selesai') || ($pcount > 0 && $progress == 100 && $tbl_project->project_status == 'Selesai')) class="badge bg-success" 
                                                     @endif>
                                                     <div @if($pcount > 0 && $progress >= 0 && $progress < 25) class="progress-bar bg-danger pb-3"
                                                             @elseif($pcount > 0 && $progress >= 25 && $progress < 50) class="progress-bar bg-warning pb-3"
@@ -203,7 +204,7 @@
                                                         @if($pcount > 0 && $progress <= 25) style="background-color:red !important;width:{{ $progress }}%;"
                                                             @elseif($pcount > 0 && $progress >= 25 && $progress < 100) style="width:{{ $progress }}%"
                                                         @endif>
-                                                        @if($tbl_project->project_status == 'Selesai') Proyek sudah selesai
+                                                        @if(($pcount == 0 && $tbl_project->project_status == 'Selesai') || ($pcount > 0 && $progress == 100 && $tbl_project->project_status == 'Selesai')) Proyek sudah selesai
                                                             @elseif($pcount == 0 && $tbl_project->project_status <> 'Selesai') Belum ada tugas yang disiapkan
                                                             @elseif($pcount > 0 && $progress == 100 && $tbl_project->project_status <> 'Selesai') Seluruh tugas proyek sudah terselesaikan
                                                         @endif
@@ -613,7 +614,7 @@
                                             <select class="form-select" name="project_status" required>
                                                 <option selected hidden> Pilih Status </option>
                                                     <option value="Baru">Baru</option>
-                                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                                                    <option value="Dalam Pengerjaan">Dalam Pengerjaan</option>
                                                     <option value="Tertunda">Tertunda</option>
                                                     <option value="Selesai">Selesai</option>
                                             </select>

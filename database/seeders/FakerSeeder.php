@@ -83,7 +83,7 @@ class FakerSeeder extends Seeder
                 'project_category' => $faker->jobTitle,
                 'project_value' => $faker->bothify('Rp ##.###.###'),
                 'project_detail' => $faker->text($maxNbChars = 50) ,
-                'project_status' => $faker->randomElement(['Selesai', 'Sedang Berjalan', 'Tertunda', 'Baru']),
+                'project_status' => $faker->randomElement(['Selesai', 'Dalam Pengerjaan', 'Tertunda', 'Baru']),
                 'project_start_date' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = '-1 years', $endDate = '+3 years'),
                 'project_deadline' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = 'now', $endDate = '+3 years'),
     		]);
@@ -99,7 +99,7 @@ class FakerSeeder extends Seeder
                 'project_category' => $faker->jobTitle,
                 'project_value' => $faker->bothify('Rp ##.###.###'),
                 'project_detail' => $faker->text($maxNbChars = 50) ,
-                'project_status' => $faker->randomElement(['Selesai', 'Sedang Berjalan', 'Tertunda', 'Baru']),
+                'project_status' => $faker->randomElement(['Selesai', 'Dalam Pengerjaan', 'Tertunda', 'Baru']),
                 'project_start_date' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = '-1 years', $endDate = '+3 years'),
                 'project_deadline' => $faker->dateTimeBetween($format = 'Y-m-d', $startDate = 'now', $endDate = '+3 years'),
     		]);
