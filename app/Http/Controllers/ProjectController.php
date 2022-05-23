@@ -105,6 +105,11 @@ class ProjectController extends Controller
         else{
             $data->client_id = $request->client_id;
         }
+        if ($data->project_start_date > $data->project_category) {
+            $temp = $data->project_start_date; 
+            $data->project_start_date = $data->project_category;
+            $data->project_category = $temp;
+        }
         if($request->project_logo<> ""){
             $file = $request->project_logo;
             $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
@@ -221,6 +226,11 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $data = ProjectModel::find($id);
+        if ($data->project_start_date > $data->project_category) {
+            $temp = $data->project_start_date; 
+            $data->project_start_date = $data->project_category;
+            $data->project_category = $temp;
+        }
         if (
             Request()->instance_id == $data->instance_id &&
             Request()->client_id == $data->client_id &&
