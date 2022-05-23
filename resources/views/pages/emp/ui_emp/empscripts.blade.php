@@ -40,7 +40,7 @@
 {{-- DataTables --}}
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <!-- dropzonejs -->
-<script src="{{ asset('/plugins/dropzone/min/dropzone.min.js') }}"></script>
+<script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
 <!-- hide-show-fields-form -->
 <script src="{{ asset('dist/js/hide-show-fields-form.js') }}"></script>
 <script src="{{ asset('dist/js/hide-show-fields-form-float.js') }}"></script>
@@ -50,6 +50,10 @@
 <!-- daterangepicker -->
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<!-- fullCalendar 2.2.5 -->
+<script src="{{ asset('plugins/fullcalendar/main.js')}}"></script>
+
 
 <script type="text/javascript">
     function Image_preview(event) {

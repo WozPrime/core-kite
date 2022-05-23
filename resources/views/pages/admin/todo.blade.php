@@ -49,7 +49,7 @@ use Illuminate\Support\Carbon;
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <ul class="todo-list ui-sortable" data-widget="todo-list">
+                            <ul class="todo-list ui-sortable" data-widget="todo-list" style="max-height: 220px">
                                 <input type="hidden" id="idJobs"
                                     value="{{ json_encode($project_task->pluck('id')->toArray()) }}">
                                 @php
@@ -342,13 +342,10 @@ use Illuminate\Support\Carbon;
                             </ul>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <br>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4" style="text-align: center">
-                    <div class="info-box bg-white">
+                    <div class="info-box bg-white mb-4" style="height: 130px;">
                         <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
                         <div class="info-box-content">
@@ -369,7 +366,7 @@ use Illuminate\Support\Carbon;
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
-                    <div class="info-box bg-gradient-info" style="text-align: left; height: 100px;">
+                    <div class="info-box bg-gradient-info" style="text-align: left; height: 130px;">
                         <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
 
                         <div class="info-box-content">

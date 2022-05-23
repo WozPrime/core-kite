@@ -169,9 +169,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
-                                    $list_project = DB::table('projects')->where('project_status', '!=', 'Selesai')->orderBy('id', 'desc')->take(4)->get();
-                                    @endphp
                                     @foreach ($list_project as $tbl_project)
                                     <tr>
                                         <td>{{ $tbl_project->project_name }}</td>
@@ -233,6 +230,26 @@
                             </table>
                         </div>
                     </div>
+                    <div class="info-box bg-primary">
+                        <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                @isset($nearestDeadline->task)
+                                    {{ $nearestDeadline->task }}
+                                @endisset
+                            </span>
+                            <h4 id="demo" class="mt-3 mb-3" style="text-align: left; border-radius: 5px;"></h4>
+                            <input type="hidden" id="nearded" name="nearded" value="{{ json_encode($nearestDeadline) }}">
+                            <div class="progress">
+                                <div class="progress-bar bg-light" style="width: 100%"></div>
+                            </div>
+                            <span class="progress-description">
+                                Tugas Yang Harus Diselesaikan Sebelum Tenggat Waktu
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
                 </section>
                 <!-- Calendar -->
             </div>
@@ -289,7 +306,35 @@
         calendar.render();
         // $('#calendar').fullCalendar()
         
+        // Set the date we're counting down to
+        var nearded = JSON.parse(document.getElementById("nearded").value);
+        var countDownDate = new Date(nearded.time).getTime();
 
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = " - ";
+            }
+        }, 1000);
         
     })
 </script>

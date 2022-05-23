@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmpModel;
-use App\Models\ProjectModel;
-use App\Models\ProjectAll;
-use App\Models\ProfUser;
 use App\Models\Doc;
 use App\Models\User;
 use App\Models\Task;
 use App\Models\ProjectTask;
-use Illuminate\Http\Request;
+use stdClass;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +26,58 @@ class EmpController extends Controller
         if (Auth::user()->role == 'admin') {
             return redirect('admin');
         }
+        // dedline
+        
+        $events = ProjectTask::all()->where('user_id',Auth::user()->id);
+        $agenda = [];
+
+        // $project_task = ProjectTask::all()
+        // ->where('user_id', Auth::user()->id)
+        // ->where('status','<',2)
+        // ->where('start_at','<=', Carbon::now());
+        // $nearestDeadline = new stdClass();
+        // $nearestDeadline->time = null;
+        // $diffMinutes = null;
+        // foreach ($project_task as $job) {
+        //     $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()));
+        //     $divDate = ($subsDate / 86400);
+        //     if ($divDate > 0) {
+        //         $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
+        //         $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
+        //         if (!$job->post_date) {
+        //             if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
+        //                 $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
+        //                 $nearestDeadline->task = Task::all()
+        //                     ->where('id', $job->task_id)
+        //                     ->pluck('task_name')
+        //                     ->implode(' ');
+        //             }
+        //         }
+        //     }
+        // }
+
+        // agenda
+        function randColor() {
+            return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+        }
+        foreach ($events as $event) {
+            $start = $event->expired_at;
+            $end = $event->expired_at;
+            $color = randColor();
+            $backgroundColor = strtolower($color);
+            $borderColor = strtolower($color);
+            $title =  $event->details;
+            $input = [
+            'title' => $title,
+            'start' => $start,
+            'end' => $end,
+            'backgroundColor' => $backgroundColor,
+            'borderColor' => $borderColor,
+            ];
+            array_push($agenda,$input);
+        }
+
+
         $from    = Carbon::now()
                 ->startOfMonth()        // 2018-09-29 00:00:00.000000
                 ->toDateTimeString(); // 2018-09-29 00:00:00
@@ -52,10 +100,12 @@ class EmpController extends Controller
         else {
             $ct = 0;
         }
-        $project_task =  $pt->where('user_id', Auth::user()->id)->where('status','<',2);
+        $project_task =  $pt->where('user_id', Auth::user()->id)->where('status','<',2)->take(10);
         $involved = $pt->where('user_id',Auth::user()->id)->groupBy('project_id')->count('project_id');
         $tasks = Task::all();
-        return view('pages.emp.emp',compact('ct','involved','project_task','tasks','sumMonth','ptsMonth'));
+        return view('pages.emp.emp',compact('ct','involved','project_task','tasks','sumMonth','ptsMonth',
+        // 'nearestDeadline',
+        'agenda'));
     }
 
     public function jobList()

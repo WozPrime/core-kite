@@ -58,7 +58,7 @@
                     </div>
                     <!-- /.card -->
                     <!-- LINE CHART -->
-                    <div class="card card-info">
+                    {{-- <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Line Chart</h3>
 
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <!-- /.card-body -->
-                    </div>
+                    </div> --}}
                     <!-- /.card -->
 
                     
@@ -131,7 +131,7 @@
                     </div>
                     <!-- /.card -->
                     <!-- BAR CHART -->
-                    <div class="card card-success">
+                    {{-- <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">Bar Chart</h3>
 
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                         <!-- /.card-body -->
-                    </div>
+                    </div> --}}
                     <!-- /.card -->
 
                 </div>
@@ -236,20 +236,20 @@
             })
 
             //-------------
-            //- LINE CHART -
-            //--------------
-            var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-            var lineChartOptions = $.extend(true, {}, areaChartOptions)
-            var lineChartData = $.extend(true, {}, areaChartData)
-            lineChartData.datasets[0].fill = false;
-            lineChartData.datasets[1].fill = false;
-            lineChartOptions.datasetFill = false
+            // //- LINE CHART -
+            // //--------------
+            // var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+            // var lineChartOptions = $.extend(true, {}, areaChartOptions)
+            // var lineChartData = $.extend(true, {}, areaChartData)
+            // lineChartData.datasets[0].fill = false;
+            // lineChartData.datasets[1].fill = false;
+            // lineChartOptions.datasetFill = false
 
-            var lineChart = new Chart(lineChartCanvas, {
-                type: 'line',
-                data: lineChartData,
-                options: lineChartOptions
-            })
+            // var lineChart = new Chart(lineChartCanvas, {
+            //     type: 'line',
+            //     data: lineChartData,
+            //     options: lineChartOptions
+            // })
 
             //-------------
             //- DONUT CHART -
@@ -310,24 +310,24 @@
             //-------------
             //- BAR CHART -
             //-------------
-            var barChartCanvas = $('#barChart').get(0).getContext('2d')
-            var barChartData = $.extend(true, {}, areaChartData)
-            var temp0 = areaChartData.datasets[0]
-            var temp1 = areaChartData.datasets[1]
-            barChartData.datasets[0] = temp1
-            barChartData.datasets[1] = temp0
+            // var barChartCanvas = $('#barChart').get(0).getContext('2d')
+            // var barChartData = $.extend(true, {}, areaChartData)
+            // var temp0 = areaChartData.datasets[0]
+            // var temp1 = areaChartData.datasets[1]
+            // barChartData.datasets[0] = temp1
+            // barChartData.datasets[1] = temp0
 
-            var barChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
+            // var barChartOptions = {
+            //     responsive: true,
+            //     maintainAspectRatio: false,
+            //     datasetFill: false
+            // }
 
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: barChartOptions
-            })
+            // new Chart(barChartCanvas, {
+            //     type: 'bar',
+            //     data: barChartData,
+            //     options: barChartOptions
+            // })
 
             //---------------------
             //- STACKED BAR CHART -

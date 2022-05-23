@@ -30,11 +30,14 @@
     {{-- DataTables --}}
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     {{-- DROPZONE --}}
-    <link rel="stylesheet" href="{{ asset('/plugins/dropzone/min/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- show-hide-fields-form -->
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
+     
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/main.css')}}">
     
     <style>
         .floating-btn {

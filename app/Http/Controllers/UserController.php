@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Task;
+use stdClass;
 
 class UserController extends Controller
 {
@@ -42,11 +44,38 @@ class UserController extends Controller
         $client = Client::all()->count('id');
         $events = ProjectTask::all();
         $agenda = [];
+
+        // Dedlin
+        $project_task = ProjectTask::all()
+        ->where('user_id', Auth::user()->id)
+        ->where('status','<',2)
+        ->where('start_at','<=', Carbon::now());
+        $nearestDeadline = new stdClass();
+        $nearestDeadline->time = null;
+        $diffMinutes = null;
+        foreach ($project_task as $job) {
+            $subsDate = (strtotime($job->expired_at) - strtotime(Carbon::now()));
+            $divDate = ($subsDate / 86400);
+            if ($divDate > 0) {
+                $diffMinutes = Carbon::parse($job->expired_at)->diffInRealMinutes();
+                $deadlineMinutes = Carbon::parse($nearestDeadline->time)->diffInRealMinutes();
+                if (!$job->post_date) {
+                    if ($nearestDeadline->time == null || $deadlineMinutes > $diffMinutes) {
+                        $nearestDeadline->time = date('F d, Y H:i:s', strtotime($job->expired_at));
+                        $nearestDeadline->task = Task::all()
+                            ->where('id', $job->task_id)
+                            ->pluck('task_name')
+                            ->implode(' ');
+                    }
+                }
+            }
+        }
+
         function randColor() {
             return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
         }
         foreach ($events as $event) {
-            $start = $event->start_at;
+            $start = $event->expired_at;
             $end = $event->expired_at;
             $color = randColor();
             $backgroundColor = strtolower($color);
@@ -61,7 +90,11 @@ class UserController extends Controller
             ];
             array_push($agenda,$input);
         }
-        return view('pages.admin.content-admin', compact('project','task','user','agenda','client'));
+
+        
+        $list_project = DB::table('projects')->where('project_status', '!=', 'Selesai')->orderBy('id', 'desc')->take(4)->get();
+                                    
+        return view('pages.admin.content-admin', compact('project','task','user','agenda','client','nearestDeadline','list_project'));
     }
     public function testCalendar()
     {
@@ -71,7 +104,7 @@ class UserController extends Controller
             return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
         }
         foreach ($events as $event) {
-            $start = $event->start_at;
+            $start = $event->expired_at;
             $end = $event->expired_at;
             $color = randColor1();
             $backgroundColor = strtolower($color);
