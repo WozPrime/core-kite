@@ -43,7 +43,7 @@ use Carbon\Carbon;
             @enderror
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
-                    <div class="card" style="height: 375px">
+                    <div class="card" style="height: 440px">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if ($data->project_logo)
@@ -61,12 +61,23 @@ use Carbon\Carbon;
                                     <b class="text-secondary-bold"> Jenis Proyek </b>
                                     <p class="text-muted font-size-sm"> {{ $data->project_category }} </p>
                                 </div>
+                                @if($data->project_status <> 'Selesai') 
+                                    <form autocomplete="off" action="/admin/proyek/change_status/{{ $data->id }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <button type="submit" class="btn btn-block btn-info" onclick="return confirm('Yakin untuk mengubah status proyek {{ $data->project_name }} menjadi selesai?')">
+                                            Tandai Proyek sebagai 'Selesai'
+                                        </button>
+                                    </form>
+                                @else
+                                    <b class="text-secondary-bold"> Status Proyek </b>
+                                    <p class="text-muted font-size-sm"> {{ $data->project_status }} </p>    
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card mb-3" style="height: 375px">
+                    <div class="card mb-3" style="height: 440px">
                         <div class="card-body">
                             <b class="text-secondary-bold"> Detail Proyek </b>
                             <p class="text-muted font-size-sm"> {{ $data->project_detail }} </p>
@@ -75,10 +86,14 @@ use Carbon\Carbon;
                                 {{ date('D, d M Y', strtotime($data->project_start_date)) }}
                                 <b>s/d</b> {{ date('D, d M Y', strtotime($data->project_deadline)) }}
                             </p>
-                            <b class="text-secondary-bold"> Rentang Pengerjaan Waktu </b>
+                            <b class="text-secondary-bold"> Rentang Waktu Pengerjaan </b>
                             <p class="text-muted font-size-sm">
                                 {{ Carbon::parse($data->project_deadline)->diffInDays($data->project_start_date) }} Hari
                             </p>
+                            @if($data->project_status == 'Selesai') 
+                            <b class="text-secondary-bold"> Waktu Selesai Pengerjaan </b>
+                            <p class="text-muted font-size-sm"> @if($data->project_finished == null) - @else {{ $data->project_finished }} @endif</p>
+                            @endif
                             <b class="text-secondary-bold"> Klien </b>
                             <p class="text-muted font-size-sm"> {{ $data->client->name }} </p>
                             <b class="text-secondary-bold"> Instansi </b>

@@ -15,6 +15,7 @@ use App\Models\ProfUser;
 use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
@@ -229,6 +230,7 @@ class ProjectController extends Controller
             Request()->project_category == $data->project_category &&
             Request()->project_start_date == $data->project_start_date &&
             Request()->project_deadline == $data->project_deadline &&
+            Request()->project_finished == $data->project_finished &&
             Request()->project_logo == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
@@ -236,58 +238,118 @@ class ProjectController extends Controller
         } else {
             if (Request()->project_code != $data->project_code)
             {
-            $request->validate([
-                'instance_id' => 'required',
-                'client_id' => 'required',
-                'project_code' => 'required|unique:projects',
-                'project_name' => 'required',
-                'project_status' => 'required',
-                'project_category' => 'required',
-                'project_start_date' => 'required',
-                'project_deadline' => 'required',
-            ], [
-                'instance_id.required' => 'Wajib diisi!!',
-                'client_id.required' => 'Wajib diisi!!',
-                'project_code.required' => 'Wajib diisi!!',
-                'project_code.unique' => 'Kode harus unik!!',
-                'project_name.required' => 'Wajib diisi!!',
-                'project_status.required' => 'Wajib dipilih!!',
-                'project_category.required' => 'Wajib diisi!!',
-                'project_start_date' => 'Wajib diisi!!',
-                'project_deadline' => 'Wajib diisi!!',
-            ]);
-            if($request->project_logo<> ""){
+                if($request->project_status <> 'Selesai'){
+                    $request->validate([
+                        'instance_id' => 'required',
+                        'client_id' => 'required',
+                        'project_code' => 'required|unique:projects',
+                        'project_name' => 'required',
+                        'project_status' => 'required',
+                        'project_category' => 'required',
+                        'project_start_date' => 'required',
+                        'project_deadline' => 'required',
+                    ], [
+                        'instance_id.required' => 'Wajib diisi!!',
+                        'client_id.required' => 'Wajib diisi!!',
+                        'project_code.required' => 'Wajib diisi!!',
+                        'project_code.unique' => 'Kode harus unik!!',
+                        'project_name.required' => 'Wajib diisi!!',
+                        'project_status.required' => 'Wajib dipilih!!',
+                        'project_category.required' => 'Wajib diisi!!',
+                        'project_start_date' => 'Wajib diisi!!',
+                        'project_deadline' => 'Wajib diisi!!',
+                    ]);
+                } else {
+                    $request->validate([
+                        'instance_id' => 'required',
+                        'client_id' => 'required',
+                        'project_code' => 'required|unique:projects',
+                        'project_name' => 'required',
+                        'project_status' => 'required',
+                        'project_category' => 'required',
+                        'project_start_date' => 'required',
+                        'project_finished' => 'required',
+                        'project_deadline' => 'required',
+                    ], [
+                        'instance_id.required' => 'Wajib diisi!!',
+                        'client_id.required' => 'Wajib diisi!!',
+                        'project_code.required' => 'Wajib diisi!!',
+                        'project_code.unique' => 'Kode harus unik!!',
+                        'project_name.required' => 'Wajib diisi!!',
+                        'project_status.required' => 'Wajib dipilih!!',
+                        'project_category.required' => 'Wajib diisi!!',
+                        'project_start_date' => 'Wajib diisi!!',
+                        'project_deadline' => 'Wajib diisi!!',
+                        'project_finished' => 'Wajib diisi!!',
+                    ]);
+                }
+            if($request->project_logo <> ""){
                 $file = $request->project_logo;
                 $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
                 $file->move(public_path('projectLogo'), $fileName);
-
-                $data = [
-                    'instance_id' => $request->instance_id,
-                    'client_id' => $request->client_id,
-                    'project_code' => $request->project_code,
-                    'project_name' => $request->project_name,
-                    'project_detail' => $request->project_detail,
-                    'project_status' => $request->project_status,
-                    'project_category' => $request->project_category,
-                    'project_start_date' => $request->project_start_date,
-                    'project_deadline' => $request->project_deadline,
-                    'project_value' => $request->project_value,
-                    'project_logo' => $fileName,
-                ];
+                if($request->project_status <> 'Selesai'){
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_finished' => null,
+                        'project_value' => $request->project_value,
+                        'project_logo' => $fileName,
+                    ];
+                } else {
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_finished' => $request->project_finished,
+                        'project_value' => $request->project_value,
+                        'project_logo' => $fileName,
+                    ];
+                }
             }
             else {
-                $data = [
-                    'instance_id' => $request->instance_id,
-                    'client_id' => $request->client_id,
-                    'project_code' => $request->project_code,
-                    'project_name' => $request->project_name,
-                    'project_detail' => $request->project_detail,
-                    'project_status' => $request->project_status,
-                    'project_category' => $request->project_category,
-                    'project_start_date' => $request->project_start_date,
-                    'project_deadline' => $request->project_deadline,
-                    'project_value' => $request->project_value,
-                ];
+                if($request->project_status <> 'Selesai') {
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_finished' => null,
+                        'project_value' => $request->project_value,
+                    ];
+                } else {
+                    $data = [
+                        'instance_id' => $request->instance_id,
+                        'client_id' => $request->client_id,
+                        'project_code' => $request->project_code,
+                        'project_name' => $request->project_name,
+                        'project_detail' => $request->project_detail,
+                        'project_status' => $request->project_status,
+                        'project_category' => $request->project_category,
+                        'project_start_date' => $request->project_start_date,
+                        'project_deadline' => $request->project_deadline,
+                        'project_finished' => $request->project_finished,
+                        'project_value' => $request->project_value,
+                    ];
+                }
+
             }
             ProjectModel::where('id', $id)->update($data);
             Alert::success('Sukses', 'Data Proyek berhasil diedit!');
@@ -314,34 +376,69 @@ class ProjectController extends Controller
                     $file = $request->project_logo;
                     $fileName = 'logo' . '_' . Request()->project_name . '.' . $file->extension();
                     $file->move(public_path('projectLogo'), $fileName);
-    
-                    $data = [
-                        'instance_id' => $request->instance_id,
-                        'client_id' => $request->client_id,
-                        'project_code' => $request->project_code,
-                        'project_name' => $request->project_name,
-                        'project_detail' => $request->project_detail,
-                        'project_status' => $request->project_status,
-                        'project_category' => $request->project_category,
-                        'project_start_date' => $request->project_start_date,
-                        'project_deadline' => $request->project_deadline,
-                        'project_value' => $request->project_value,
-                        'project_logo' => $fileName,
-                    ];
+                    
+                    if($request->project_status <> 'Selesai') {
+                        $data = [
+                            'instance_id' => $request->instance_id,
+                            'client_id' => $request->client_id,
+                            'project_code' => $request->project_code,
+                            'project_name' => $request->project_name,
+                            'project_detail' => $request->project_detail,
+                            'project_status' => $request->project_status,
+                            'project_category' => $request->project_category,
+                            'project_start_date' => $request->project_start_date,
+                            'project_deadline' => $request->project_deadline,
+                            'project_finished' => null,
+                            'project_value' => $request->project_value,
+                            'project_logo' => $fileName,
+                        ];
+                    } else {
+                        $data = [
+                            'instance_id' => $request->instance_id,
+                            'client_id' => $request->client_id,
+                            'project_code' => $request->project_code,
+                            'project_name' => $request->project_name,
+                            'project_detail' => $request->project_detail,
+                            'project_status' => $request->project_status,
+                            'project_category' => $request->project_category,
+                            'project_start_date' => $request->project_start_date,
+                            'project_deadline' => $request->project_deadline,
+                            'project_finished' => $request->project_finished,
+                            'project_value' => $request->project_value,
+                            'project_logo' => $fileName,
+                        ];
+                    }
                 }
                 else {
-                    $data = [
-                        'instance_id' => $request->instance_id,
-                        'client_id' => $request->client_id,
-                        'project_code' => $request->project_code,
-                        'project_name' => $request->project_name,
-                        'project_detail' => $request->project_detail,
-                        'project_status' => $request->project_status,
-                        'project_category' => $request->project_category,
-                        'project_start_date' => $request->project_start_date,
-                        'project_deadline' => $request->project_deadline,
-                        'project_value' => $request->project_value,
-                    ];
+                    if($request->project_status <> 'Selesai') {
+                        $data = [
+                            'instance_id' => $request->instance_id,
+                            'client_id' => $request->client_id,
+                            'project_code' => $request->project_code,
+                            'project_name' => $request->project_name,
+                            'project_detail' => $request->project_detail,
+                            'project_status' => $request->project_status,
+                            'project_category' => $request->project_category,
+                            'project_start_date' => $request->project_start_date,
+                            'project_deadline' => $request->project_deadline,
+                            'project_finished' => null,
+                            'project_value' => $request->project_value,
+                        ];
+                    } else {
+                        $data = [
+                            'instance_id' => $request->instance_id,
+                            'client_id' => $request->client_id,
+                            'project_code' => $request->project_code,
+                            'project_name' => $request->project_name,
+                            'project_detail' => $request->project_detail,
+                            'project_status' => $request->project_status,
+                            'project_category' => $request->project_category,
+                            'project_start_date' => $request->project_start_date,
+                            'project_deadline' => $request->project_deadline,
+                            'project_finished' => $request->project_finished,
+                            'project_value' => $request->project_value,
+                        ];
+                    }
                 }
                 ProjectModel::where('id', $id)->update($data);
                 Alert::success('Sukses', 'Data Proyek berhasil diedit!');
@@ -359,6 +456,18 @@ class ProjectController extends Controller
     {
         ProjectModel::destroy('id', $id);
         Alert::success('Sukses', 'Data Proyek berhasil dihapus!');
+        return redirect()->back();
+    }
+
+    public function finished($id)
+    {
+        $data = ProjectModel::find($id);
+        $data = [
+        'project_status' => "Selesai",
+        'project_finished' => Carbon::now()->format('Y-m-d'),
+        ];
+        ProjectModel::where('id', $id)->update($data);
+        Alert::success('Sukses', 'Data Proyek berhasil diedit!');
         return redirect()->back();
     }
 }

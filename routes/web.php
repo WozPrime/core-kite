@@ -98,6 +98,7 @@ Route::middleware(['role:admin', 'auth'])->group(function () {
     // PROGRESS
     Route::resource('/admin/proyek', ProjectController::class);
     Route::post('/admin/proyek/emp/upload', [ProjectController::class, 'addParticipant'])->name('upload_emp');
+    Route::post('/admin/proyek/change_status/{id}', [ProjectController::class, 'finished'])->name('change_status');
     Route::resource('/admin/reports', ReportController::class);
     Route::post('/admin/reports/grade/{id}', [ReportController::class, 'store'])->name('grade_task');
     Route::get('/admin/file/download/{file_name}', [ReportController::class, 'downloadFile'])->name('download_file');
