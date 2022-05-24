@@ -125,17 +125,36 @@ class ClientController extends Controller
         if(Hash::check ($request->plama,$pasli->password) ){
             // Alert::error('Password lama salah');
             // return redirect()->back();
-            $data =[
-                'password'=>bcrypt($request->pbaru),
-            ];
-            User::where('id',$id)->update($data);
-            Alert::success('Berhasil Mengganti Password');
-            return redirect()->back();
+            if($request->pulang == $request->pbaru){
+                $data =[
+                    'password'=>bcrypt($request->pbaru),
+                ];
+                User::where('id',$id)->update($data);
+                Alert::success('Berhasil Mengganti Password');
+                return redirect()->back();
+            }
+            else{
+                Alert::error('Konfirmasi Password tidak sesuai');
+                return redirect()->back();
+            }
         }
         else{
             Alert::error('Password Lama Salah');
             return redirect()->back();
         }
+    }
+
+    public function gantipp(Request $request, $id){
+        $file = $request->pp;
+        $filename = 'profilepic'.$id. '.' . $file->extension();
+            $file->move(public_path('pp'), $filename);
+
+            $update = [
+                'pp'=>$filename,
+            ];
+            User::where('id',$id)->update($update);
+            Alert::success('Berhasil Mengganti Foto Profil');
+            return redirect()->back();
     }
 
     public function projectdetail($id){

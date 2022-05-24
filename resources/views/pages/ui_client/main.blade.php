@@ -9,10 +9,7 @@
     {{-- Tombol Tambah di Table --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -24,6 +21,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    {{-- One Template --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/application.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -34,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
     <!-- fullCalendar -->
     <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/main.css') }}">
+
 
 </head>
 
@@ -107,6 +109,9 @@
     <!-- fullCalendar 2.2.5 -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/fullcalendar/main.js') }}"></script>
+
+    <script src="{{ asset('dist/js/settings.js') }}"></script>
+    <script src="{{ asset('dist/js/app.js') }}"></script>
 
 
     {{-- script gambar preview --}}

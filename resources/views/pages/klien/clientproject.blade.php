@@ -104,9 +104,9 @@ Dashboard
         <div class="row gutters-sm">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-orange">
+                    <div class="card">
                         {{-- RIWAYAT PEMBAYARAN --}}
-                        <div class="card-header">
+                        <div class="card-header bg-primary">
                             <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
                         </div>
                         <!-- /.card-header -->
@@ -141,13 +141,14 @@ Dashboard
                 </div>
             </div>
         </div>
-
+<br>
         <div class="row gutters-sm">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-orange">
+                    <div class="card">
                         {{-- RIWAYAT PEMBAYARAN --}}
-                        <div class="card-header">
+                        
+                        <div class="card-header bg-primary">
                             <h2 class="card-title text-light pt-2">Perkembangan Proyek</h2>
                         </div>
                         <!-- /.card-header -->
@@ -183,119 +184,6 @@ Dashboard
                 </div>
             </div>
         </div>
-    
-    
-    
-    
-        <div class="modal fade" id="edit-data-instansi">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="card-header bg-orange">
-                        <h3 class="card-title">Ubah Data Instansi</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="#" method="POST" enctype="multipart/form-data">
-                            @method('put')
-                            @csrf
-                            <div class="content">
-                                <div class="form-group">
-                                    <label>Nama Instansi</label>
-                                    <input name="namainstansi" class="form-control" value="#" required>
-                                    <div class="text-danger">
-                                        @error('namainstansi')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Alamat Instansi</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                    name="alamatinstansi"> # </textarea>
-                            </div>
-    
-                            <div class="form-group">
-                                <label>Kota Instansi</label>
-                                <input name="kotainstansi" class="form-control" value="#" required>
-                                <div class="text-danger">
-                                    @error('namainstansi')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-    
-                            <div class="form-group">
-                                <label>Jenis Instansi</label>
-                                <select name="jenisinstansi" class="form-control" value="#">
-    
-                                </select>
-                            </div>
-    
-                            <div class="form-group">
-                                <button class="btn btn-success float-right">Simpan Data</button>
-                            </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-    
-        <div class="modal fade" id="addpembayaran">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="card-header bg-orange">
-                        <h3 class="card-title">Tambah Data Pembayaran</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="/admin/payment" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="content">
-                                <div class="form-group">
-                                    <label>Tanggal Pembayaran</label>
-                                    <input type="date" name="tanggalpembayaran" class="form-control" value="" required>
-                                </div>
-                            </div>
-    
-                            <div class="form-group">
-                                <input type="text" name="userpembayaran" value="{{ $data->client->id }}" hidden>
-                            </div>
-    
-                            <div class="form-group">
-                                <input type="text" name="proyekpembayaran" value="{{ $data->id }}" hidden>
-                            </div>
-    
-                            <div class="form-group">
-                                <label>Jenis Pembayaran</label>
-                                <select name="jenispembayaran" id="jenispembayaran" class="form-select">
-                                    <option value="" selected hidden>Pilih Jenis Pembayaran</option>
-                                    <option value="Tunai">Tunai</option>
-                                    <option value="Transfer">Transfer</option>
-                                    <option value="Cek">Cek</option>
-                                </select>
-                            </div>
-    
-                            <div class="form-group">
-                                <label>Deskripsi Pembayaran</label>
-                                <textarea name="deskripsipembayaran" class="form-control" value="#" required></textarea>
-                            </div>
-    
-                            <div class="form-group">
-                                <label>Nilai Pembayaran</label>
-                                <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp"
-                                    name="nilaipembayaran" required>
-                            </div>
-    
-                            <div class="form-group">
-                                <button class="btn btn-success float-right">Simpan Data</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 
