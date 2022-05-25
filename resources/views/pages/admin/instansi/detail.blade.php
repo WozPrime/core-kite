@@ -390,7 +390,7 @@ Profil Instansi
                         <div class="form-group">
                             <label>Logo Instansi</label>
                             <div>
-                                <input type="file" name="logoinstansi" id="logoinstansi">
+                                <input type="file" name="logoinstansi" id="logoinstansi" accept="image/*">
                                 <div class="text-danger">
                                     @error('logoinstansi')
                                     {{ $message }}

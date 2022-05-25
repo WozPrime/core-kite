@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\ProjectAll;
 use App\Models\ProjectTask;
+use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -10,21 +12,21 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InstanceController;
-use App\Http\Controllers\ProjectAllController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\AdminClientController;
-use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FiCategoryController;
+use App\Http\Controllers\ProjectAllController;
+use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\ProjectTaskController;
+use App\Http\Controllers\AdminMeetingController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\EmpController;
 use App\Http\Controllers\EmpProject;
 use App\Http\Controllers\EmpReportController;
-use App\Http\Middleware\Role;
-use App\Models\ProjectAll;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,8 @@ Route::middleware(['role:admin', 'auth'])->group(function () {
     Route::resource('/admin/instansi', InstanceController::class);
     //Payment
     Route::resource('/admin/payment', PaymentController::class);
+    //Meeting
+    Route::resource('/admin/meetings', AdminMeetingController::class);
 
     //profile
     Route::get('/admin/profile/{id}', [UserController::class, 'profile'])->name('profile');
@@ -110,10 +114,16 @@ Route::middleware(['role:admin', 'auth'])->group(function () {
     Route::resource('/admin/manage/ficategory', FiCategoryController::class);
     Route::post('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
 });
+Route::middleware(['auth', 'role:client'])->group(function () {
+    Route::resource('/client', ClientController::class);
+    Route::resource('/meetings', MeetingController::class);
+    Route::post('/client/gantipassword/{id}', [ClientController::class, 'gantipassword']);
+    Route::post('/client/gantipp/{id}', [ClientController::class, 'gantipp']);
+    Route::get('/client/project/{id}', [ClientController::class, 'projectdetail']);
+});
 
-Route::resource('/client', ClientController::class)->middleware(['role:client','auth']);
 
-Route::middleware(['role:member','auth'])->group(function () {
+Route::middleware(['auth', 'role:member'])->group(function () {
     // EMPLOYEE
     Route::get('/emp', [EmpController::class, 'index'])->name('emp');
     Route::resource('/emp/reports', EmpReportController::class);
