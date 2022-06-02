@@ -294,7 +294,8 @@ class UserController extends Controller
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
             Request()->prof_id == $oldProf &&
-            Request()->pp == ""
+            Request()->role == $data_user->role &&
+            Request()->pp == "" 
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect('/admin/profile');
@@ -324,6 +325,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'role' => Request()->role,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -345,6 +347,7 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'role' => Request()->role,
                 ];
                 $this->user->editData($id, $update_data);
                 if ($data_user->profUser) {

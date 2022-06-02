@@ -315,7 +315,20 @@
                                                                         Magang</option>
                                                                 </select>
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label for="Role">Role</label>
+                                                                <select name="role" id="role" class="form-control">
+                                                                    <option value="member"
+                                                                        @if ($user->role == 'member') selected @endif
+                                                                        >Karyawan </option>
+                                                                    <option value="admin"
+                                                                        @if ($user->role == 'admin') selected @endif>
+                                                                        Admin</option>
+                                                                    <option value="client"
+                                                                        @if ($user->role == 'client') selected @endif>
+                                                                        Klien</option>
+                                                                </select>
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="Profession">Profesi</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">

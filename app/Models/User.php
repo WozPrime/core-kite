@@ -39,6 +39,7 @@ class User extends Authenticatable
         'gender',
         'stats',
         'pp',
+        'role',
     ];
 
     public function profUser()
