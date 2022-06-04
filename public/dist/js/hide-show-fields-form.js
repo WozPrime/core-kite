@@ -144,15 +144,15 @@ $("#seeAnotherFieldGroup").change(function() {
 });
 $("#seeAnotherFieldGroup").trigger("change");
 
-$("#seeAnotherFieldStatus").change(function() {
-    if ($('#project_status').val() == "Selesai") {
-        $('#otherFieldStatus').show();
-        $('#project_finished').attr('required','');
-        $('#project_finished').attr('data-error', 'This field is required.');
-    } else {
-        $('#otherFieldStatus').hide();
-        $('#project_finished').removeAttr('required');
-        $('#project_finished').removeAttr('data-error');		
-    }
-});
-$("#seeAnotherFieldStatus").trigger("change");
+// $("#seeAnotherFieldStatus").change(function() {
+//     if ($('#project_status').val() == "Selesai") {
+//         $('#otherFieldStatus').show();
+//         $('#project_finished').attr('required','');
+//         $('#project_finished').attr('data-error', 'This field is required.');
+//     } else {
+//         $('#otherFieldStatus').hide();
+//         $('#project_finished').removeAttr('required');
+//         $('#project_finished').removeAttr('data-error');		
+//     }
+// });
+// $("#seeAnotherFieldStatus").trigger("change");
