@@ -26,9 +26,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-dark">
+                    <div class="card-primary">
                         <div class="card-header">
-                            <h3 class="card-title text-orange">Tabel Klien</h3>
+                            <h3 class="card-title">Tabel Klien</h3>
                             <div class="text-right"><a href="/admin/instansi" class="text-orange">Lihat Tabel Instansi</a></div>
                         </div>
                         <!-- /.card-header -->

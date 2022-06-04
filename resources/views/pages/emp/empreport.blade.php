@@ -146,7 +146,7 @@ use Carbon\Carbon;
                                                                         </h3>
 
                                                                         <p class="text-muted text-center">
-                                                                            {{ $p_task->instance()->first()->nama_instansi }}
+                                                                            {{-- {{ $p_task->instance()->first()->nama_instansi }} --}}
                                                                         </p>
 
                                                                         <ul class="list-group list-group-unbordered mb-3">

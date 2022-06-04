@@ -128,8 +128,10 @@ class InstanceController extends Controller
      * @param  \App\Models\Instance  $instance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instance $instance)
+    public function destroy(Instance $instansi)
     {
-        //
+        Instance::destroy('id',$instansi->id);
+        Alert::success('Sukses','Data Berhasil Dihapus');
+        return redirect()->back();
     }
 }

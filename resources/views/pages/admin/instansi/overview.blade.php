@@ -26,9 +26,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-dark">
+                    <div class="card-primary">
                         <div class="card-header">
-                            <h3 class="card-title text-orange">Tabel Instansi</h3>
+                            <h3 class="card-title">Tabel Instansi</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -51,7 +51,15 @@
                                             <td> {{$i->kota_instansi}} </td>
                                             <td><a href="/admin/instansi/{{$i->id}}" class="badge bg-info mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="#edit{{$i->id}}" class="badge bg-warning mr-1" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a>
-                                                <a href="#" class="badge bg-danger mr-1"><i class="fa fa-eraser"></i></a>
+                                                <a>
+                                                    <form autocomplete="off" action="/admin/instansi/{{ $i->id }}" method="POST" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="badge bg-danger" onclick="return confirm('Yakin untuk menghapus data {{ $i->nama_instansi }}?')">
+                                                            <span class="fas fa-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                </a>
                                             </td>
                                         </tr>
 
