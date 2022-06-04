@@ -35,14 +35,14 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
         User::create([
-            'name' => 'Hina',
-            'email' => 'hina@student.bluearchive.ac.id',
+            'name' => 'Dahlia Mutiyah',
+            'email' => 'dahliamutiyah31@gmail.com',
             'password' => bcrypt('12345678'),
             'role' => 'client',
         ]);
         User::create([
-            'name' => 'Amiya',
-            'email' => 'Amiya@rhodes.tr',
+            'name' => 'Yasmin Nur Iqram',
+            'email' => 'yasminiqram@gmail.com',
             'password' => bcrypt('12345678'),
             'role' => 'client',
         ]);

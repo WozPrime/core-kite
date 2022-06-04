@@ -19,18 +19,18 @@ class ClientSeeder extends Seeder
         Client::create([
             'instance_id' => '1',
             'user_id' => '4',
-            'name' => 'Hina',
+            'name' => 'Dahlia Mutiyah',
             'password' => bcrypt('12345678'),
-            'email' => 'hina@student.bluearchive.ac.id',
-            'phone_number' => '098569420',
+            'email' => 'dahliamutiyah31@gmail.com',
+            'phone_number' => '089526860333',
         ]);
         Client::create([
             'instance_id' => '2',
             'user_id' => '5',
-            'name' => 'Amiya',
+            'name' => 'Yasmin Nur Iqram',
             'password' => bcrypt('12345678'),
-            'email' => 'Amiya@rhodes.tr',
-            'phone_number' => '089669420',
+            'email' => 'yasminiqram@gmail.com',
+            'phone_number' => '082124073911',
         ]);
     }
 }
