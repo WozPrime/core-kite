@@ -25,9 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role == 'admin'){ 
-            return redirect('admin');
-         }elseif(Auth::user()->role == 'member') {
+        if(Auth::user()->role == 'member') {
             return redirect('emp');
         }else {
             return redirect('client');
