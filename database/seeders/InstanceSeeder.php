@@ -17,15 +17,15 @@ class InstanceSeeder extends Seeder
     {
         // Instance::truncate();
         Instance::create([
-            'nama_instansi' => 'Berkas Biru',
-            'alamat_instansi' => 'Nexon',
-            'kota_instansi' => 'Seoul',
+            'nama_instansi' => 'JITTER',
+            'alamat_instansi' => 'Jl. Cikutra No.404, Sukapada, Kec. Kidul, Kota Adiarsa',
+            'kota_instansi' => 'Adiarsa',
             'instances_model_id' => '1',
         ]);
         Instance::create([
-            'nama_instansi' => 'Pulau Rhodes',
-            'alamat_instansi' => 'Rim Billiton',
-            'kota_instansi' => 'Terra',
+            'nama_instansi' => 'Jehuty Tech',
+            'alamat_instansi' => 'Jl. Sentra Niaga 40A Ruko 237, Kota Harapan Pupus',
+            'kota_instansi' => 'Bekasi',
             'instances_model_id' => '2',
         ]);
     }
