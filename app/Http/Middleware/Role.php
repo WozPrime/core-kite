@@ -17,10 +17,13 @@ class Role
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role == 'admin'){
+        if (Auth::user()->role == 'admin') {
             return $next($request);
         }
-   
-        return redirect()->route('home');
+        if (Auth::user()->role == 'client'){
+            return redirect('/client');
+        }
+
+        return redirect('/emp');
     }
 }
