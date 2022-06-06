@@ -9,7 +9,7 @@
         <a href="/client" class="brand-link">
             <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <h4 class="brand-text font-weight-bold text-dark">IDEKITE<span class="text-orange">INDONESIA</span> </h4>
+                <img src="{{ asset('images/ikcore2.png') }}" width="150px" height="auto">
         </a>
     </ul>
 

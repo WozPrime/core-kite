@@ -45,10 +45,10 @@ Route::get('/', [HomeController::class, 'index']);
 Auth::routes([
     'register' => false,
 ]);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth']);
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
-Route::middleware(['role:admin', 'auth'])->group(function () {
+Route::middleware(['role', 'auth'])->group(function () {
     // // ADMIN
     Route::get('/admin', [UserController::class, 'admin'])->name('admin');
     Route::get('/admin/profile/', [UserController::class, 'profile'])->name('profile');
@@ -114,7 +114,7 @@ Route::middleware(['role:admin', 'auth'])->group(function () {
     Route::resource('/admin/manage/ficategory', FiCategoryController::class);
     Route::post('/admin/generate-pdf', [PDFController::class, 'generatePDF']);
 });
-Route::middleware(['auth', 'role:client'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('/client', ClientController::class);
     Route::resource('/meetings', MeetingController::class);
     Route::post('/client/gantipassword/{id}', [ClientController::class, 'gantipassword']);
@@ -123,7 +123,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:member'])->group(function () {
+Route::middleware(['auth','isMember'])->group(function () {
     // EMPLOYEE
     Route::get('/emp', [EmpController::class, 'index'])->name('emp');
     Route::resource('/emp/reports', EmpReportController::class);
