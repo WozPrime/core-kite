@@ -13,8 +13,8 @@
             <div class="col-md-9 clearfix text-right">
                 <div class="d-md-inline-block d-block mr-md-4">
                     <ul class="notification-area">
-                        <li id="full-view"><i class="ti-fullscreen"></i></li>
-                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                        {{-- <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li> --}}
                         {{-- <li class="dropdown">
                             <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
                                 <span>2</span>
