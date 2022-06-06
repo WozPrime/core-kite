@@ -19,8 +19,11 @@ class Role
     {
         if(auth()->user()->role == 'admin'){
             return $next($request);
+        }elseif (auth()->user()->role == 'member'){
+            return redirect()->route('emp');
+        } else {
+            return redirect()->route('client');
         }
    
-        return redirect('home')->with('error',"You don't have admin access.");
     }
 }
