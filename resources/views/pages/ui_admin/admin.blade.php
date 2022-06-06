@@ -63,13 +63,9 @@
             @yield('content')
         </div>
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
+        <footer style="text-align: center" class="main-footer">
             @yield('footer')
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0-rc
-            </div>
+            <strong>{{Carbon\Carbon::now()->format('Y') }}  Ⓒ  <a href="https://idekite.id/">IdeKite Indonesia</a></strong>
         </footer>
 
         <!-- Control Sidebar -->
