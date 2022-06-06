@@ -32,11 +32,11 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth::user()->role == 'admin') {
-            return route('admin');
+            return redirect('admin');
         } elseif (Auth::user()->role == 'member') {
-            return route('emp');
+            return redirect('emp');
         }else {
-            return route('client');
+            return redirect('client');
         }
     }
 
@@ -61,11 +61,11 @@ class LoginController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (Auth::user()->role == 'admin') {
-                return route('admin');
+                return redirect('admin');
             } elseif (Auth::user()->role == 'member') {
-                return route('emp');
+                return redirect('emp');
             }else {
-                return route('client');
+                return redirect('client');
             }
         }else{
             return redirect()->route('login')
