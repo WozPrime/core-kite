@@ -13,7 +13,7 @@ class FiCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('fiCategory', function (Blueprint $table) {
+        Schema::create('ficategory', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
             $table->string('jenis_kategori');
@@ -27,6 +27,6 @@ class FiCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fiCategory');
+        Schema::dropIfExists('ficategory');
     }
 }
