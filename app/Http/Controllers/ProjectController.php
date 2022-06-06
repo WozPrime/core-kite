@@ -65,7 +65,14 @@ class ProjectController extends Controller
             $instansibaru->alamat_instansi = $request->newalamatinstansi;
             $instansibaru->kota_instansi = $request->newkotainstansi;
             $instansibaru->instances_model_id = $request->newjenisinstansi;
-            $instansibaru->logo_instansi = $request->newlogoinstansi;
+            if ($request->newlogoinstansi) {
+                $jumlah = Instance::count();
+                $jumlah = $jumlah+1;
+                $file = $request->newlogoinstansi;
+                $fileName = 'logo'.$jumlah. '.' . $file->extension();
+                $file->move(public_path('logoinstansi'), $fileName);
+                $instansibaru->logo_instansi = $fileName;
+            }
             $instansibaru->save();
         }
         if($request->client_id == 'yes'){

@@ -50,6 +50,14 @@ class InstanceController extends Controller
         // if($request->file('instance_logo')){
         //     $data->logo_instansi = $request->file('instance_logo')->store('logoinstansi', ['disk' => 'public']);
         // }
+        if ($request->instance_logo) {
+            $jumlah = Instance::count();
+            $jumlah = $jumlah+1;
+            $file = $request->instance_logo;
+            $fileName = 'logo'.$jumlah. '.' . $file->extension();
+            $file->move(public_path('logoinstansi'), $fileName);
+            $data->logo_instansi = $fileName;
+        }
         $data->save();
         Alert::success('Sukses','Data Instansi Berhasil Ditambahkan');
         return redirect()->back();

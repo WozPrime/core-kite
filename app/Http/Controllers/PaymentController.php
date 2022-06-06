@@ -79,7 +79,15 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $data=[
+            'tanggal_pembayaran'=>$request->tanggalpembayaran,
+            'jenis_pembayaran'=>$request->jenispembayaran,
+            'deskripsi_pembayaran'=>$request->deskripsipembayaran,
+            'nilai_pembayaran'=>$request->nilaipembayaran,
+        ];
+        Payment::where('id',$payment->id)->update($data);
+        Alert::success('Data berhasil di edit');
+        return redirect()->back();
     }
 
     /**
