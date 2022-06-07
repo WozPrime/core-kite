@@ -132,7 +132,7 @@ class ProjectController extends Controller
             $data->project_value = $request->project_value;
             $data->project_logo = $fileName;
             $data->save();
-            DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
+            // DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
             Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
             return redirect('/admin/proyek');
         }
@@ -146,7 +146,7 @@ class ProjectController extends Controller
             $data->project_deadline = $request->project_deadline;
             $data->project_value = $request->project_value;
             $data->save();
-            DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
+            // DB::statement("ALTER TABLE `projects` AUTO_INCREMENT = 1;");
             Alert::success('Sukses', 'Data Proyek berhasil ditambahkan!');
             return redirect('/admin/proyek');
         }

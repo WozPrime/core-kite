@@ -165,7 +165,7 @@ class TaskController extends Controller
     public function delete($id)
     {
         $this->task->deleteData($id);
-        DB::statement("ALTER TABLE tasks AUTO_INCREMENT = 1;");
+        // DB::statement("ALTER TABLE tasks AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus!!');
         return redirect('/admin/joblist');
     }

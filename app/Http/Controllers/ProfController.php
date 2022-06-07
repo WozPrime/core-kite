@@ -165,7 +165,7 @@ class ProfController extends Controller
     public function delete($id)
     {
         $this->prof->deleteData($id);
-        DB::statement("ALTER TABLE profs AUTO_INCREMENT = 1;");
+        // DB::statement("ALTER TABLE profs AUTO_INCREMENT = 1;");
         Alert::success('Sukses','Data berhasil Dihapus');
         return redirect('/admin/prof');
     }

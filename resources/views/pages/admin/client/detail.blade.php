@@ -182,7 +182,7 @@ Profil Klien
                                                     <div class="form-group">
                                                         <label>Detail Proyek</label>
                                                         <textarea name="project_detail" class="form-control"
-                                                            type="date">{{ $p->project_detail }}</textarea
+                                                            type="date">{{ $p->project_detail }}</textarea>
                                                     </div>
 
                                                     <div class="form-group">
