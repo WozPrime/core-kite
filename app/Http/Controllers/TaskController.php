@@ -35,7 +35,7 @@ class TaskController extends Controller
     public function create()
     {
         Request()->validate([
-            'code' => 'required|unique:tasks,code,'.Request()->id,
+            'code' => 'required|unique:tasks,code,'.$this->task->id,
             'task_name' => 'required',
             'points' => 'required|integer',
             'prof_id' => 'required',
