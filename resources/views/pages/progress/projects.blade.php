@@ -293,6 +293,7 @@
                                                                             <select class="form-select" name="project_category" required>
                                                                                 <option selected hidden value="{{ $tbl_project->project_category }}">{{ $tbl_project->project_category }}</option>
                                                                                     <option value="Web">Web</option>
+                                                                                    <option value="Aplikasi">Aplikasi</option>
                                                                                     <option value="Mobile App">Mobile App</option>
                                                                             </select>
                                                                         </div>
@@ -600,6 +601,7 @@
                                             <select class="form-select" name="project_category" required>
                                                 <option selected hidden value=""> Pilih Kategori </option>
                                                     <option value="Web">Web</option>
+                                                    <option value="Aplikasi">Aplikasi</option>
                                                     <option value="Mobile App">Mobile App</option>
                                             </select>
                                         </div>

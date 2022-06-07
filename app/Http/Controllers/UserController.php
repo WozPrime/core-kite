@@ -325,7 +325,6 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'role' => Request()->role,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -347,7 +346,6 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
-                    'role' => Request()->role,
                 ];
                 $this->user->editData($id, $update_data);
                 if ($data_user->profUser) {
