@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Task;
 use stdClass;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -447,7 +448,11 @@ class UserController extends Controller
         $newProf = ProfUser::find($req->prof_id);
         $req->validate([
             'password' => 'required|confirmed|min:8',
-            'code' => 'unique:users,code,' . $req->id,
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('users')->ignore($this->user->id, 'id')
+            ],
             'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',
         ],[
             'password.confirmed' => 'Cek Kembali Password!!',

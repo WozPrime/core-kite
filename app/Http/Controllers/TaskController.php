@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProfUser;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -35,7 +36,11 @@ class TaskController extends Controller
     public function create()
     {
         Request()->validate([
-            'code' => 'required|unique:tasks,code,'.Request()->id,
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('tasks')->ignore($this->task->id, 'id')
+            ],
             'task_name' => 'required',
             'points' => 'required|integer',
             'prof_id' => 'required',

@@ -6,6 +6,7 @@ use App\Models\ProfUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class ProfController extends Controller
 {
@@ -34,7 +35,11 @@ class ProfController extends Controller
     public function create()
     {
         Request()->validate([
-                'prof_code' => 'required|unique:profs,prof_code,'.Request()->id,
+                'prof_code' => [
+                    'required',
+                    'string',
+                    Rule::unique('profs')->ignore($this->prof->id, 'id')
+                ],
                 'prof_name' => 'required',
                 'prof_img' => 'mimes:jpg,png,jpeg,bmp|max:5120',
             ], [

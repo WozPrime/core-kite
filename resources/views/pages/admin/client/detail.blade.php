@@ -20,8 +20,11 @@ Profil Klien
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="d-flex flex-column align-items-center my-2 ml-2">
-                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                    alt="Logo Instansi" class="rounded-circle" width="150" height="150">
+                                @if ($klienuser->pp!='')
+                                    <img src="{{ url('pp/' . $klienuser->pp) }}" alt="Profil Klien" class="rounded-circle" width="150" height="150">
+                                @else    
+                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profil Klien" class="rounded-circle" width="150" height="150">
+                                @endif
                             </div>
                             <div class="text-center mb-1 ml-2">
                                 {{$klien->name}}
@@ -278,6 +281,61 @@ Profil Klien
                                             </form>
                                         </td>
                                     </tr>
+
+                                    <div class="modal fade" id="editpembayaran{{$p->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card-header bg-orange">
+                                                    <h3 class="card-title">Edit Data Pembayaran</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form action="/admin/payment/{{$p->id}}" method="POST" enctype="multipart/form-data">
+                                                        @method('put')
+                                                        @csrf
+                                                        <div class="content">
+                                                            <div class="form-group">
+                                                                <label>Tanggal Pembayaran</label>
+                                                                <input type="date" name="tanggalpembayaran" class="form-select" value="{{$p->tanggal_pembayaran}}" required>
+                                                            </div>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <input type="text" name="userpembayaran" value="{{$klien->id}}" hidden>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label for="proyekpembayaran">Proyek</label>
+                                                            <input type="text" class="form-control" value="{{$p->project->project_name}}" disabled>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label>Jenis Pembayaran</label>
+                                                            <select name="jenispembayaran" id="jenispembayaran" class="form-select">
+                                                                <option value="{{$p->jenis_pembayaran}}" selected hidden>{{$p->jenis_pembayaran}}</option>
+                                                                <option value="Tunai">Tunai</option>
+                                                                <option value="Transfer">Transfer</option>
+                                                                <option value="Cek">Cek</option>
+                                                            </select>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label>Deskripsi Pembayaran</label>
+                                                            <textarea name="deskripsipembayaran" class="form-control" required>{{$p->deskripsi_pembayaran}}</textarea>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label>Nilai Pembayaran</label>
+                                                            <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="nilaipembayaran" value="{{$p->nilai_pembayaran}}" required>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <button class="btn btn-success float-right">Save Data</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </tbody>
                             </table>

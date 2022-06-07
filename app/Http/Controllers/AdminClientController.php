@@ -80,6 +80,7 @@ class AdminClientController extends Controller
             'projekklien'=>ProjectModel::where('client_id', $client->id)->get(),
             'meetingklien'=>Meeting::where('client_id',$client->id)->get(),
             'karyawan'=>User::where('role','<>','client')->orderBy('name')->get(),
+            'klienuser'=>User::where('id',$client->user_id)->first(),
         ]);
     }
 
