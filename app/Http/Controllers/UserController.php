@@ -450,10 +450,9 @@ class UserController extends Controller
         $newProf = ProfUser::find($req->prof_id);
         $req->validate([
             'password' => 'required|confirmed|min:8',
-            'code' => 'unique:users,code,' . $req->id,
             'code' => [
                 'required',
-                'code',
+                'string',
                 Rule::unique('users')->ignore($this->user->id, 'id')
             ],
             'pp' => 'mimes:jpg,png,jpeg,bmp|max:1024',

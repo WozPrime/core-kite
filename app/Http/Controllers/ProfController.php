@@ -37,7 +37,7 @@ class ProfController extends Controller
         Request()->validate([
                 'prof_code' => [
                     'required',
-                    'prof_code',
+                    'string',
                     Rule::unique('profs')->ignore($this->prof->id, 'id')
                 ],
                 'prof_name' => 'required',

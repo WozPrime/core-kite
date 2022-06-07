@@ -38,7 +38,7 @@ class TaskController extends Controller
         Request()->validate([
             'code' => [
                 'required',
-                'code',
+                'string',
                 Rule::unique('tasks')->ignore($this->task->id, 'id')
             ],
             'task_name' => 'required',
