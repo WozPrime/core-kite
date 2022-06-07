@@ -516,7 +516,6 @@ class UserController extends Controller
     public function delete_user($id)
     {
         $this->user->deleteData($id);
-        DB::statement("ALTER TABLE users AUTO_INCREMENT = 1;");
         Alert::success('Sukses', 'Data berhasil Diperbaharui');
         return redirect('/admin/profile');
     }
