@@ -174,6 +174,7 @@ Profil Klien
                                                             <option selected hidden value="{{ $p->project_category }}">
                                                                 {{ $p->project_category }}</option>
                                                             <option value="Web">Web</option>
+                                                            <option value="Aplikasi">Aplikasi</option>
                                                             <option value="Mobile App">Mobile App</option>
                                                         </select>
                                                     </div>
@@ -181,7 +182,7 @@ Profil Klien
                                                     <div class="form-group">
                                                         <label>Detail Proyek</label>
                                                         <textarea name="project_detail" class="form-control"
-                                                            type="date">{{ $p->project_detail }}</textarea>
+                                                            type="date">{{ $p->project_detail }}</textarea
                                                     </div>
 
                                                     <div class="form-group">
