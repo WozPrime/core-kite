@@ -3,9 +3,9 @@
     @yield('sidebar')
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
-        <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
+        <img src="{{ secure_asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-            <img src="{{ asset('images/ikcore2.png') }}" width="150px" height="auto">
+            <img src="{{ secure_asset('images/ikcore2.png') }}" width="150px" height="auto">
     </a>
 
     <!-- Sidebar -->
