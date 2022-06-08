@@ -388,8 +388,8 @@
         <div class="modal fade" id="pdf">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="card-header bg-orange">
-                        <h3 class="card-title">Tambah Data Instansi</h3>
+                    <div class="card-header bg-green">
+                        <h3 class="card-title">Cetak Laporan</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
