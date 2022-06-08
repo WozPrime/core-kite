@@ -61,7 +61,7 @@ use Carbon\Carbon;
                                     <b class="text-secondary-bold"> Jenis Proyek </b>
                                     <p class="text-muted font-size-sm"> {{ $data->project_category }} </p>
                                 </div>
-                                @if($data->project_status <> 'Selesai') 
+                                @if($data->project_status <> 'Selesai' && Auth::user()->privilege < 2) 
                                     <form autocomplete="off" action="/admin/proyek/change_status/{{ $data->id }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <button type="submit" class="btn btn-block btn-info" onclick="return confirm('Yakin untuk mengubah status proyek {{ $data->project_name }} menjadi selesai?')">
@@ -111,41 +111,43 @@ use Carbon\Carbon;
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('upload_emp') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row" @if($data->project_status == 'Selesai') hidden @endif>
-                                        <div class="col-9">
-                                            <div class="form-group no-border">
-                                                <select name="user_id" id="user_id" class="form-control">
-                                                    <option value="" selected disabled hidden>Pilih Karyawan
-                                                    </option>
-                                                    @php
-                                                        $pusers = array();
-                                                        foreach ($project_all->where('project_id',$data->id) as $p) {
-                                                            $pusers[]=$p->user_id;
-                                                        }
-                                                        $part_user = $users->whereNotIn('id',$pusers);
-                                                    @endphp
-                                                    @if (count($part_user) == 0)
-                                                        <option value="">Karyawan Tidak Tersedia
+                                @if (Auth::user()->privilege < 2)
+                                    <form action="{{ route('upload_emp') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row" @if($data->project_status == 'Selesai') hidden @endif>
+                                            <div class="col-9">
+                                                <div class="form-group no-border">
+                                                    <select name="user_id" id="user_id" class="form-control">
+                                                        <option value="" selected disabled hidden>Pilih Karyawan
                                                         </option>
-        
-                                                    @endif
-                                                    @foreach ($part_user as $karyawan)
-                                                        <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="project_id" id="project_id" value="{{ $data->id }}">
+                                                        @php
+                                                            $pusers = array();
+                                                            foreach ($project_all->where('project_id',$data->id) as $p) {
+                                                                $pusers[]=$p->user_id;
+                                                            }
+                                                            $part_user = $users->whereNotIn('id',$pusers);
+                                                        @endphp
+                                                        @if (count($part_user) == 0)
+                                                            <option value="">Karyawan Tidak Tersedia
+                                                            </option>
+            
+                                                        @endif
+                                                        @foreach ($part_user as $karyawan)
+                                                            <option value="{{ $karyawan->id }}">{{ $karyawan->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="hidden" name="project_id" id="project_id" value="{{ $data->id }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <button @if (count($part_user) == 0) disabled @endif type="submit"
+                                                    class="btn btn-block btn-info">Tambah</button>
                                             </div>
                                         </div>
-                                        <div class="col-3">
-                                            <button @if (count($part_user) == 0) disabled @endif type="submit"
-                                                class="btn btn-block btn-info">Tambah</button>
-                                        </div>
-                                    </div>
-        
-                                </form>
+            
+                                    </form>
+                                @endif
                                 <table class="table table-responsive-sm table-bordered" id="myTable">
                                     <thead>
                                         <tr>
@@ -205,10 +207,12 @@ use Carbon\Carbon;
         
                                                     <a class="btn btn-primary" data-toggle="modal"
                                                         href="#detail{{ $list->user_id }}"><i class="fa fa-eye"></i></a>
+                                                    @if (Auth::user()->privilege < 2)
                                                     <a class="btn btn-success" data-toggle="modal"
                                                         href="#tambah{{ $list->user_id }}" @if($data->project_status == 'Selesai') hidden @endif><i class="fa fa-edit"></i></a>
                                                     <a class="btn btn-danger" data-toggle="modal"
                                                         href="#delete{{ $list->user_id }}" @if($data->project_status == 'Selesai') hidden @endif><i class="fa fa-trash"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="detail{{ $list->user_id }}">
@@ -294,7 +298,7 @@ use Carbon\Carbon;
                                                 </div>
                                                 <!-- /.modal-dialog -->
                                             </div>
-                                            @if($data->project_status != 'Selesai') 
+                                            @if($data->project_status != 'Selesai' && Auth::user()->privilege < 2) 
                                                 <div class="modal fade" id="insert{{ $list->user_id }}">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -361,6 +365,7 @@ use Carbon\Carbon;
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                             @endif  
+                                            @if (Auth::user()->privilege < 2)
                                             <div class="modal fade" id="tambah{{ $list->user_id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -473,6 +478,7 @@ use Carbon\Carbon;
                                                 </div>
                                                 <!-- /.modal-dialog -->
                                             </div>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -498,9 +504,11 @@ use Carbon\Carbon;
                             {{-- RIWAYAT PEMBAYARAN --}}
                             <div class="card-header">
                                 <h2 class="card-title text-light pt-2">Riwayat Pembayaran</h2>
+                                @if (Auth::user()->privilege < 2)
                                 <div class="col-xs-3" style="float: right">
                                     <a href="#addpembayaran" class="btn btn-block btn-info text-light" data-toggle="modal"><i class="fas fa-plus-circle mr-2"></i> Tambah Pembayaran</a>
                                 </div>
+                                @endif
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

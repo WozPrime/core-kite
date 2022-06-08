@@ -10,6 +10,7 @@ use App\Models\Doc;
 use App\Models\User;
 Use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -24,10 +25,17 @@ class ReportController extends Controller
     }
     public function index()
     {
+        $project_task = ProjectTask::all();
+        $users = User::all();
+        if (Auth::user()->privilege == null){
+            $project_task = $project_task->where('user_id',Auth::user()->id);
+            $users = $users->find(Auth::user()->id);
+        }
+        
         return view('pages.progress.reports', [
-            'project_task' => ProjectTask::all(),
+            'project_task' => $project_task,
             'doc' => Doc::all(),
-            'users' => User::all(),
+            'users' => $users,
             'proyek' => ProjectModel::all(),
             'profesi' => ProfUser::all(),
         ]);

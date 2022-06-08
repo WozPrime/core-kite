@@ -8,6 +8,7 @@ use App\Models\Instance;
 use App\Models\ProjectModel;
 use App\Models\InstancesModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstanceController extends Controller
 {
@@ -18,6 +19,9 @@ class InstanceController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.instansi.overview',[
             'instance'=>Instance::all(),
             'jenisinstansi'=>InstancesModel::all()
@@ -71,6 +75,9 @@ class InstanceController extends Controller
      */
     public function show(Instance $instansi)
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view( 'pages.admin.instansi.detail', [
             'instance'=>$instansi,
             'jenis'=>InstancesModel::all(),
@@ -87,6 +94,9 @@ class InstanceController extends Controller
      */
     public function edit(Instance $instansi)
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view( 'pages.admin.instansi.edit', [
             'instance'=>$instansi,
             'jenis'=>InstancesModel::all()

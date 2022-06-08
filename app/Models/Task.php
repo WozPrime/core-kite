@@ -14,6 +14,7 @@ class Task extends Model
         'task_name',
         'code',
         'points',
+        'deadlineBy',
     ];
 
     public function editData($id, $update_data)

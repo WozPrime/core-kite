@@ -226,8 +226,11 @@
                                             <td style="text-align: center">
                                                 <a class="btn btn-primary mr-1 mb-1" href="/admin/proyek/{{ $tbl_project->id }}"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
+                                                @if (Auth::user()->privilege < 2)
+                                                    <a class="btn btn-success mr-1 mb-1" data-toggle="modal"
                                                     href="#edit{{ $tbl_project->id }}"><i class="fa fa-edit"></i></a>
+                                                @endif
+                                                @if (Auth::user()->privilege == 1)
                                                 <form autocomplete="off" action="/admin/proyek/{{ $tbl_project->id }}" method="POST" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -235,9 +238,11 @@
                                                         <span class="fa fa-trash"></span>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                         <!-- /.modal -->
+                                        @if (Auth::user()->privilege < 2)
                                         <div class="modal fade" id="edit{{ $tbl_project->id }}">
                                             <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
@@ -357,6 +362,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -364,6 +370,7 @@
                         <!-- /.card-body -->
                         <!-- /.card -->
                         <!-- /.card-body -->
+                        @if (Auth::user()->privilege == 1)
                         <div class="action" onclick="actionToggle();">
                             <span>+</span>
                             <ul>
@@ -372,6 +379,7 @@
                                 <li data-toggle="modal" data-target="#add-data">Tambah Proyek Baru</li>
                             </ul>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

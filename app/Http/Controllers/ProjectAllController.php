@@ -98,6 +98,9 @@ class ProjectAllController extends Controller
      */
     public function show()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         $projectTask = $this->projectTask;
         $Task = $this->task;
         $User = $this->user;

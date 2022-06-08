@@ -132,10 +132,19 @@ use Illuminate\Support\Carbon;
             <td style="width:15%">Penanggung Jawab Proyek: </td>
             <td></td>
         </tr>
+    </tbody>
+</table>
+<br>
+<table>
+    <tbody>
         <tr>
-            <td style="width:15%">Anggota Kelompok: </td>
-            <td></td>
+            <td style="text-align: center">Anggota Kelompok: </td>
         </tr>
+        @foreach ( $project_task->where('project_id',$input) as $listKaryawan)
+        <tr>
+            <td colspan="2">  {{$listKaryawan->users()->first()->name}}</td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 <br>
@@ -143,7 +152,7 @@ use Illuminate\Support\Carbon;
     <tbody>
         <tr>
             <td style="width:15%">Deskripsi Proyek</td>
-            <td></td>
+            <td>{{$project_task->where('project_id',$input)->first()->project()->first()->project_detail}}</td>
         </tr>
     </tbody>
 </table>
@@ -169,11 +178,15 @@ use Illuminate\Support\Carbon;
         </tr>
     </thead>
     <tbody>
+        @php
+            $totalPts = null;
+            $totalExp = null;
+        @endphp
         @foreach ($project_task->where('status',2) as $p_task)
             <tr>
-                <td style="text-align: center">{{$loop->iteration}}</td>
+                <td rowspan="2" style="text-align: center">{{$loop->iteration}}</td>
                 @if ($report_opt <> "Karyawan")
-                    <td>{{$p_task->users()->first()->name}}</td>
+                    <td rowspan="2">{{$p_task->users()->first()->name}}</td>
                 @endif
                 <td>{{$p_task->details}}</td>
                 @if ($report_opt <> "Profesi")
@@ -183,9 +196,30 @@ use Illuminate\Support\Carbon;
                 @if ($report_opt <> "Proyek")
                     <td>{{ $p_task->project()->first()->project_name }}</td>
                 @endif
-                <td style="text-align: center">{{$p_task->points}}</td>
+                <td style="text-align: center">{{$p_task->points}}/{{$p_task->tasks()->first()->points}}</td>
             </tr>
+            <tr>
+                <td colspan="7">
+                Feedback : <br>{{$p_task->feedback}}
+                </td>
+            </tr>
+            @php
+                $totalPts += $p_task->points;
+                $totalExp += $p_task->tasks()->first()->points;
+            @endphp
         @endforeach
+        <tr>
+            <td colspan="@if ($report_opt == "All" || $report_opt == "Tanggal")
+                6
+            @else
+                5
+            @endif">
+                Total Points / Total Expected Points =
+            </td>
+            <td style="text-align: center">
+                {{$totalPts}}/{{$totalExp}}
+            </td>
+        </tr>
     </tbody>
 </table>
 

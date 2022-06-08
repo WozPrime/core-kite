@@ -10,6 +10,7 @@ use App\Models\Instance;
 use App\Models\User;
 use App\Models\Meeting;
 use Alert;
+use Illuminate\Support\Facades\Auth;
 
 class AdminClientController extends Controller
 {
@@ -20,6 +21,9 @@ class AdminClientController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.client.overview',[
             'client'=>Client::all(),
             'instansi'=>Instance::all()
@@ -74,6 +78,9 @@ class AdminClientController extends Controller
      */
     public function show(Client $client)
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.client.detail', [
             'klien'=>$client,
             'pembayaranklien'=>Payment::where('user_id', $client->id)->get(),

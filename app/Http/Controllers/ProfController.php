@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class ProfController extends Controller
 {
@@ -23,6 +24,9 @@ class ProfController extends Controller
 
     public function index()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         $prof_list = ProfUser::all();
         return view('pages.admin.manajemen.mprof', compact('prof_list'));
     }

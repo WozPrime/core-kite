@@ -27,6 +27,15 @@ class PDFController extends Controller
     public function generatePDF(Request $req)
     {
         $project_task = ProjectTask::all();
+        $error = null;
+        if ($req->dataKaryawan == '' &&
+            $req->dataProyek == '' &&
+            $req->dataProfesi == '' &&
+            $req->reportList != "All" &&
+            $req->reportList != "Tanggal"){
+                Alert::error('Input masih kosong');
+                return redirect()->back();
+        }
         if (Auth::user()->role == 'member') {
             $project_task = $project_task->where('user_id',Auth::user()->id);
         }
@@ -35,7 +44,11 @@ class PDFController extends Controller
         $prof_name= null;
         if ($req->reportList == "Karyawan") {
             $input = $req->dataKaryawan;
-            $project_task = $project_task->where('user_id',$input);
+            if($project_task->where('user_id',$input)->count()>0){
+                $project_task = $project_task->where('user_id',$input);
+            }else {
+                $error = 2;
+            }
         } 
         if ($req->reportList == "Tanggal") {
             if ($req->startDate > $req->endDate) {
@@ -51,11 +64,21 @@ class PDFController extends Controller
                             ->endOfDay()          // 2018-09-29 23:59:59.000000
                             ->toDateTimeString(); // 2018-09-29 23:59:59
             $input= [$from,$to];
-            $project_task = $project_task->whereBetween('checked_at',$input);
+            if($project_task->whereBetween('checked_at',$input)->count()>0){
+                $project_task = $project_task->whereBetween('checked_at',$input);
+            }else {
+                $error = 3;
+            }
+
         } 
         if ($req->reportList == "Proyek") {
             $input = $req->dataProyek;
-            $project_task = $project_task->where('project_id',$input);
+            if($project_task->where('project_id',$input)->count()>0){
+                $project_task = $project_task->where('project_id',$input);
+            }else {
+                $error = 3;
+            }
+
 
         }
         if ($req->reportList == "Profesi") {
@@ -63,11 +86,28 @@ class PDFController extends Controller
             $input =[];
             $prof_task = $prof_task->where('prof_id',$i);
             $prof_name = ProfUser::find($i)->prof_name;
+           
             foreach ($prof_task as $list) {
                 $input[] = $list->task_id;
             }
-            $project_task = $project_task->whereIn('task_id',$input);
+            if($project_task->whereIn('task_id',$input)->count()>0){
+                $project_task = $project_task->whereIn('task_id',$input);
+            }else {
+                $error = 4;
+            }
         }
+        if ($error > 1){
+            if ($error == 2) {
+                Alert::error('Karyawan Pada Proyek Masih kosong');
+            } elseif ($error == 3) {
+                Alert::error('Tugas Pada Proyek Masih kosong');
+            } elseif ($error == 4) {
+                Alert::error('Profesi Pada Proyek Masih kosong');
+            }
+                
+            return redirect()->back();
+        }
+        
 
         $data = [
             'doc' => Doc::all(),
@@ -81,15 +121,15 @@ class PDFController extends Controller
         // $pdf->setPaper('A4', 'Landscape');
         // ini_set('max_execution_time', 0); 
         // return $pdf->stream('ReportPDF.pdf');
-        // return view('pages.progress.generatedPDF', $data);
-        $view = view('pages.progress.generatedPDF', $data);
-        $dompdf= new Dompdf();
-        $options = $dompdf->getOptions();
-        $options->setIsHtml5ParserEnabled(true);
-        $dompdf->loadHtml($view);
-        $dompdf->setPaper('A4', 'Landscape');
-        $dompdf->render();
-        $dompdf->stream($req->reportList."-Report.pdf");
+        return view('pages.progress.generatedPDF', $data);
+        // $view = view('pages.progress.generatedPDF', $data);
+        // $dompdf= new Dompdf();
+        // $options = $dompdf->getOptions();
+        // $options->setIsHtml5ParserEnabled(true);
+        // $dompdf->loadHtml($view);
+        // $dompdf->setPaper('A4', 'Landscape');
+        // $dompdf->render();
+        // $dompdf->stream($req->reportList."-Report.pdf");
 
     }
 
