@@ -3,7 +3,7 @@
     @yield('sidebar')
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
-        <img src="{{ secure_asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
+        <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <h4 class="brand-text font-weight-bold">IDEKITE<span class="text-orange">CORE</span> </h4>
     </a>

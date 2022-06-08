@@ -191,7 +191,7 @@ use Illuminate\Support\Carbon;
 
 {{-- <head>
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ secure_asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head> --}}
 
 {{-- <head>

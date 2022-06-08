@@ -3,41 +3,41 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ secure_asset('assetemp/images/icon/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/metisMenu.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/slicknav.min.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assetemp/images/icon/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/metisMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/slicknav.min.css') }}">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/typography.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/default-css.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/styles.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('assetemp/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/typography.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/default-css.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetemp/css/responsive.css') }}">
     <!-- modernizr css -->
-    <script src="{{ secure_asset('assetemp/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <script src="{{ asset('assetemp/js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <!-- Font Awesome -->
-    <link href="{{ secure_asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     {{-- AdminLTE --}}
-    <link rel="stylesheet" href="{{ secure_asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ secure_asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{ secure_asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     {{-- DataTables --}}
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     {{-- DROPZONE --}}
-    <link rel="stylesheet" href="{{ secure_asset('plugins/dropzone/min/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ secure_asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- show-hide-fields-form -->
-    <link rel="stylesheet" href="{{ secure_asset('plugins/hsff/hide-show-field-form.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/hsff/hide-show-field-form.css') }}">
      
     <!-- fullCalendar -->
-    <link rel="stylesheet" href="{{ secure_asset('plugins/fullcalendar/main.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/main.css')}}">
     
     <style>
         .floating-btn {

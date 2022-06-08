@@ -395,24 +395,24 @@ Dashboard
 
 <!-- common libraries. required for every page-->
 {{-- 
-<script src="{{secure_asset('../node_modules/jquery/dist/jquery.min.js')}}"></script>
-<script src="{{secure_asset('../node_modules/jquery-pjax/jquery.pjax.js')}}"></script>
-<script src='{{secure_asset('../node_modules/popper.js/dist/umd/popper.js')}}'></script>
-<script src="{{secure_asset('../node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
-<script src="{{secure_asset('../node_modules/bootstrap/js/dist/util.js')}}"></script>
-<script src="{{secure_asset('../node_modules/widgster/widgster.js')}}"></script>
-<script src="{{secure_asset('../node_modules/hammerjs/hammer.js')}}"></script>
-<script src='{{secure_asset('../node_modules/jquery-slimscroll/jquery.slimscroll.js')}}'></script>
-<script src="{{secure_asset('../node_modules/jquery-hammerjs/jquery.hammer.js')}}"></script>
+<script src="{{asset('../node_modules/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('../node_modules/jquery-pjax/jquery.pjax.js')}}"></script>
+<script src='{{asset('../node_modules/popper.js/dist/umd/popper.js')}}'></script>
+<script src="{{asset('../node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="{{asset('../node_modules/bootstrap/js/dist/util.js')}}"></script>
+<script src="{{asset('../node_modules/widgster/widgster.js')}}"></script>
+<script src="{{asset('../node_modules/hammerjs/hammer.js')}}"></script>
+<script src='{{asset('../node_modules/jquery-slimscroll/jquery.slimscroll.js')}}'></script>
+<script src="{{asset('../node_modules/jquery-hammerjs/jquery.hammer.js')}}"></script>
 
 <!-- common app js -->
-<script src="{{secure_asset('dist/js/settings.js')}}"></script>
-<script src="{{secure_asset('dist/js/app.js')}}"></script>
+<script src="{{asset('dist/js/settings.js')}}"></script>
+<script src="{{asset('dist/js/app.js')}}"></script>
 
 <!-- Page scripts -->
     <script src='../node_modules/apexcharts/dist/apexcharts.js'></script>
     <!-- page specific js -->
-    <script src="{{secure_asset('dist/js/dashboard/index.js')}}"></script> --}}
+    <script src="{{asset('dist/js/dashboard/index.js')}}"></script> --}}
 @endsection
 @section('footer')
 @endsection
