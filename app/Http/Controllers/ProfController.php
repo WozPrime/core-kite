@@ -71,7 +71,7 @@ class ProfController extends Controller
                 ];
                 $this->prof->insertData($insert_data);
             }
-            Alert::success('Sukses','Data berhasil Diperbaharui');
+            Alert::success('Sukses','Data berhasil Ditambahkan!!!');
             return redirect('/admin/prof');
     }
 

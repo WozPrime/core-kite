@@ -540,7 +540,7 @@ class UserController extends Controller
     {
         $this->user->deleteData($id);
         Alert::success('Sukses', 'Data berhasil Dihapus !!!');
-        return redirect('manage_user');
+        return redirect('/admin/manage_user');
     }
     public function klien()
     {
