@@ -401,6 +401,9 @@ class UserController extends Controller
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->route('manage_user');
         } else {
+            if (Request()->role == "member"){
+                Request()->privilege = null;
+            }
             Request()->validate([
                 'name' => 'required',
                 'code' => 'unique:users,code,' . $data_user->id,
