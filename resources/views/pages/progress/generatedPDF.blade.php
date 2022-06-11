@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
     td,
     th {
         border: 1px solid #595959;
-        /* border-collapse: collapse; */
+        border-collapse: collapse;
         width: 100%;
     }
 
@@ -183,8 +183,6 @@ use Illuminate\Support\Carbon;
                 <td style="font-weight: 1000">Kategori
                 </td>
             @endif
-            <td style="font-weight: 1000">Lama Pengerjaan
-            </td>
             @if ($report_opt <> "Proyek")
                 <td style="font-weight: 1000">Nama Proyek
                 </td>
@@ -200,10 +198,11 @@ use Illuminate\Support\Carbon;
         @endphp
         @foreach ($project_task->where('status',2) as $p_task)
             <tr>
-                <td rowspan="2" style="text-align: center">{{$loop->iteration}}
+                <td rowspan="3" style="text-align: center">{{$loop->iteration}}
                 </td>
                 @if ($report_opt <> "Karyawan")
-                    <td rowspan="2">{{$p_task->users()->first()->name}}
+                    <td rowspan="3">
+                        {{$p_task->users()->first()->name}}
                     </td>
                 @endif
                 <td>{{$p_task->details}}
@@ -212,17 +211,28 @@ use Illuminate\Support\Carbon;
                     <td>{{ $p_task->tasks()->first()->task_name }}
                     </td>
                 @endif
-                <td>{{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
-                </td>
                 @if ($report_opt <> "Proyek")
                     <td>{{ $p_task->project()->first()->project_name }}
                     </td>
                 @endif
-                <td style="text-align: center">{{$p_task->points}}/{{$p_task->tasks()->first()->points}}
+                <td rowspan="3" style="text-align: center">
+                    {{$p_task->points}}/{{$p_task->tasks()->first()->points}}
                 </td>
             </tr>
             <tr>
-                <td colspan="7">
+                <td colspan="@if ($report_opt == "Proyek")
+                    3
+                @else
+                    2
+                @endif">Lama Pengerjaan : <br>
+                    {{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="@if ($report_opt == "Proyek")
+                3
+                @else
+                2 @endif">
                 Feedback : <br>{{$p_task->feedback}}
                 </td>
             </tr>
@@ -233,9 +243,9 @@ use Illuminate\Support\Carbon;
         @endforeach
         <tr>
             <td colspan="@if ($report_opt == "All" || $report_opt == "Tanggal")
-                6
-            @else
                 5
+            @else
+                4
             @endif">
                 Total Points / Total Expected Points =
             </td>
