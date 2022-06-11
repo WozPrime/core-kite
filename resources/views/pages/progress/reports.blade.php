@@ -294,7 +294,7 @@
                                                                         <div class="form-group">
                                                                             <label for="rate">Nilai Tugas</label>
                                                                             <select name="task_points" id="task_points"
-                                                                                class="form-control" disabled>
+                                                                                class="form-control" readonly>
                                                                                 @php
                                                                                             $diff = strtotime($p_task->expired_at) - strtotime($p_task->post_date);
                                                                                             $days = $diff / 86400;
@@ -339,7 +339,7 @@
                                                                                     @endphp
                                                                                 @else
                                                                                     @php
-                                                                                        $points == $p_task->points
+                                                                                        $points = $p_task->points
                                                                                     @endphp
                                                                                 @endif
                                                                                 @if ($points == 0)

@@ -64,7 +64,7 @@ use Illuminate\Support\Carbon;
                 <td rowspan="3" style="max-width: 30px; max-height: 70px;">
                     <div class="center">
                         <img
-                        src="{{ public_path('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;">
+                        src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo" style="opacity: .8; border-radius:50%; max-width: 50px; max-height: 50px;">
                         </div>
                     <p>IDEKITE<br>INDONESIA</p>
                 </td>
@@ -120,7 +120,8 @@ use Illuminate\Support\Carbon;
 <table>
     <tbody>
         <tr>
-            <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b></td>
+            <td style="text-align:center;background-color:#d7d7d7;font-family:arial;"><b>URAIAN PEKERJAAN</b>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -129,8 +130,11 @@ use Illuminate\Support\Carbon;
 <table>
     <tbody>
         <tr>
-            <td style="width:15%">Penanggung Jawab Proyek: </td>
-            <td></td>
+            <td style="width:15%">Penanggung Jawab Proyek: 
+            </td>
+            <td>
+
+            </td>
         </tr>
     </tbody>
 </table>
@@ -138,11 +142,14 @@ use Illuminate\Support\Carbon;
 <table>
     <tbody>
         <tr>
-            <td style="text-align: center">Anggota Kelompok: </td>
+            <td style="text-align: center">Anggota Kelompok: 
+            </td>
         </tr>
         @foreach ( $project_task->where('project_id',$input) as $listKaryawan)
         <tr>
-            <td colspan="2">  {{$listKaryawan->users()->first()->name}}</td>
+            <td colspan="2">  
+                {{$listKaryawan->users()->first()->name}}
+            </td>
         </tr>
         @endforeach
     </tbody>
@@ -151,8 +158,10 @@ use Illuminate\Support\Carbon;
 <table>
     <tbody>
         <tr>
-            <td style="width:15%">Deskripsi Proyek</td>
-            <td>{{$project_task->where('project_id',$input)->first()->project()->first()->project_detail}}</td>
+            <td style="width:15%">Deskripsi Proyek
+            </td>
+            <td>{{$project_task->where('project_id',$input)->first()->project()->first()->project_detail}}
+            </td>
         </tr>
     </tbody>
 </table>
@@ -162,19 +171,24 @@ use Illuminate\Support\Carbon;
 <table>
     <thead>
         <tr style="text-align: center">
-            <td style="width: 5%; font-weight: 1000" >No</td>
+            <td style="width: 5%; font-weight: 1000" >No
+            </td>
             @if ($report_opt <> "Karyawan")
-                <td style="font-weight: 1000">Penanggung Jawab</td>
+                <td style="font-weight: 1000">Penanggung Jawab
+                </td>
             @endif
-            <td style="font-weight: 1000">Tugas</td>
+            <td style="font-weight: 1000">Tugas
+            </td>
             @if ($report_opt <> "Profesi")
-                <td style="font-weight: 1000">Kategori</td>
+                <td style="font-weight: 1000">Kategori
+                </td>
             @endif
-            <td style="font-weight: 1000">Lama Pengerjaan</td>
             @if ($report_opt <> "Proyek")
-                <td style="font-weight: 1000">Nama Proyek</td>
+                <td style="font-weight: 1000">Nama Proyek
+                </td>
             @endif
-            <td style="font-weight: 1000">Poin</td>
+            <td style="font-weight: 1000">Poin
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -184,22 +198,41 @@ use Illuminate\Support\Carbon;
         @endphp
         @foreach ($project_task->where('status',2) as $p_task)
             <tr>
-                <td rowspan="2" style="text-align: center">{{$loop->iteration}}</td>
+                <td rowspan="3" style="text-align: center">{{$loop->iteration}}
+                </td>
                 @if ($report_opt <> "Karyawan")
-                    <td rowspan="2">{{$p_task->users()->first()->name}}</td>
+                    <td rowspan="3">
+                        {{$p_task->users()->first()->name}}
+                    </td>
                 @endif
-                <td>{{$p_task->details}}</td>
+                <td>{{$p_task->details}}
+                </td>
                 @if ($report_opt <> "Profesi")
-                    <td>{{ $p_task->tasks()->first()->task_name }}</td>
+                    <td>{{ $p_task->tasks()->first()->task_name }}
+                    </td>
                 @endif
-                <td>{{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}</td>
                 @if ($report_opt <> "Proyek")
-                    <td>{{ $p_task->project()->first()->project_name }}</td>
+                    <td>{{ $p_task->project()->first()->project_name }}
+                    </td>
                 @endif
-                <td style="text-align: center">{{$p_task->points}}/{{$p_task->tasks()->first()->points}}</td>
+                <td rowspan="3" style="text-align: center">
+                    {{$p_task->points}}/{{$p_task->tasks()->first()->points}}
+                </td>
             </tr>
             <tr>
-                <td colspan="7">
+                <td colspan="@if ($report_opt == "Proyek")
+                    3
+                @else
+                    2
+                @endif">Lama Pengerjaan : <br>
+                    {{ date('D, d M Y H:i', strtotime($p_task->created_at)) }} - {{ date('D, d M Y H:i', strtotime($p_task->post_date)) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="@if ($report_opt == "Proyek")
+                3
+                @else
+                2 @endif">
                 Feedback : <br>{{$p_task->feedback}}
                 </td>
             </tr>
@@ -210,9 +243,9 @@ use Illuminate\Support\Carbon;
         @endforeach
         <tr>
             <td colspan="@if ($report_opt == "All" || $report_opt == "Tanggal")
-                6
-            @else
                 5
+            @else
+                4
             @endif">
                 Total Points / Total Expected Points =
             </td>

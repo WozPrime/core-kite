@@ -71,7 +71,6 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/admin/profile/edit/{id}', [UserController::class, 'edit'])->name('edit');
     Route::post('/admin/profile/edit2/{id}', [UserController::class, 'edit2'])->name('edit2');
     Route::get('/admin/profile/delete/{id}', [UserController::class, 'delete_user'])->name('delete');
-    Route::post('/admin/profile/cpass/{id}', [UserController::class, 'cpass'])->name('cpass');
     Route::get('/admin/manage_user/', [UserController::class, 'manage_user'])->name('manage_user');
     Route::post('/admin/manage_user/new', [UserController::class, 'newUser'])->name('newUser');
 
@@ -122,6 +121,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/client/project/{id}', [ClientController::class, 'projectdetail']);
 });
 
+Route::post('/profile/cpass/{id}', [UserController::class, 'cpass'])->name('cpass')->middleware(['auth']);
 
 Route::middleware(['auth','isMember'])->group(function () {
     // EMPLOYEE
