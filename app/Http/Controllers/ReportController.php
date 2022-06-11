@@ -31,9 +31,9 @@ class ReportController extends Controller
             $project_task = $project_task->where('user_id',Auth::user()->id);
             $users = $users->find(Auth::user()->id);
         }
-        
         return view('pages.progress.reports', [
             'project_task' => $project_task,
+            'user_task' => $project_task->groupBy('user_id'),
             'doc' => Doc::all(),
             'users' => $users,
             'proyek' => ProjectModel::all(),
