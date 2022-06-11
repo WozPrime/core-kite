@@ -8,6 +8,7 @@ use App\Models\Meeting;
 use App\Models\User;
 use App\Models\ProjectModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMeetingController extends Controller
 {
@@ -18,6 +19,9 @@ class AdminMeetingController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.manajemen.mmeeting',[
             'meetingpending'=>Meeting::where('status_pertemuan','MENUNGGU VERIFIKASI')->get(),
             'meetingdisetujui'=>Meeting::where('status_pertemuan','DISETUJUI')->get(),

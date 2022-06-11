@@ -16,6 +16,7 @@ use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -35,12 +36,22 @@ class ProjectController extends Controller
     }
     public function index()
     {
+        $data = ProjectModel::all();
+        $ptask = ProjectTask::all();
+        $list_project = [];
+        if (Auth::user()->privilege == null) {
+            foreach ($ptask->where('user_id',Auth::user()->id)->groupBy('project_id') as $myProject) {
+                $list_project[] = $myProject->first()->project_id;
+            }
+            $data = $data->whereIn('id',$list_project);
+            $ptask = $ptask->where('user_id',Auth::user()->id);
+        }
         return view('pages.progress.projects', [
-            'data' => ProjectModel::all(),
+            'data' => $data,
             'instansi' => Instance::all(),
             'klien' => Client::all(),
             'modelinstansi' => InstancesModel::all(),
-            'ptask' => ProjectTask::all(),
+            'ptask' => $ptask,
         ]);
     }
     /**

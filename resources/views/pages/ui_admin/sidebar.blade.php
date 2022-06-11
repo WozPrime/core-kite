@@ -5,15 +5,15 @@
     <a href="/admin" class="brand-link">
         <img src="{{ asset('dist/img/idekitelogo.png') }}" alt="Idekite Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-            <img src="{{ asset('images/ikcore2.png') }}" width="150px" height="auto">
+            <img src="{{ asset('images/ikcore2.png') }}" width="150px" height="auto" class="ml-2">
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <br>
+        {{-- <br> --}}
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        {{-- <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -22,7 +22,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -48,6 +48,7 @@
                         </p>
                     </a>
                 </li>
+                @if (Auth::user()->privilege == 1)
                 <li
                     class="nav-item {{ \Request::route()->getName() == 'manage_user' || \Request::route()->getName() == 'prof' || \Request::route()->getName() == 'joblist' || \Request::route()->getName() == 'manage_task' || request()->is('admin/manage/finance*') || request()->is('admin/meetings*') ? 'menu-open' : 'menu-closed' }}">
                     <a 
@@ -115,6 +116,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
                 <li class="nav-item">
                     <a href="/admin/project_all"
@@ -125,6 +127,7 @@
                         </p>
                     </a>
                 </li>
+                @if (Auth::user()->privilege == 1)
                 <li class="nav-item">
                     {{-- <a href="/admin/instansi"
                         class="nav-link  {{ request()->is('admin/instansi*') ? 'active text-light' : '' }}"> --}}
@@ -147,6 +150,7 @@
                         </p>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="/admin/proyek"
                         class="nav-link  {{ request()->is('admin/proyek*') ? 'active text-light' : '' }}">

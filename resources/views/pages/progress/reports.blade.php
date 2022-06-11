@@ -2,38 +2,6 @@
 @section('title')
     Tabel Laporan
 @endsection
-<style>
-    .floating-btn {
-        width: 50px;
-        height: 50px;
-        background: var(--gray-dark);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        border-radius: 50%;
-        color: var(--white);
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        transition: background 0.25s;
-
-        /* button */
-        outline: gray;
-        border: none;
-        cursor: pointer;
-    }
-
-    .floating-btn:hover {
-        color: lawngreen;
-    }
-
-    .floating-btn:active {
-        background: var(--gray);
-    }
-
-</style>
 @section('body')
 @section('navbar')
 @endsection
@@ -307,7 +275,7 @@
 
                                                             @csrf
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Tambah Nilai</h4>
+                                                                <h4 class="modal-title">Tandai Sebagai Selesai</h4>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -320,27 +288,70 @@
                                                                             style="text-align: center">Tugas Belum Diunggah
                                                                         </h3>
                                                                     @else
+                                                                        @php
+                                                                            $points = null;
+                                                                        @endphp
                                                                         <div class="form-group">
                                                                             <label for="rate">Nilai Tugas</label>
                                                                             <select name="task_points" id="task_points"
-                                                                                class="form-control" required>
-                                                                                <option value="" selected disabled hidden>
-                                                                                    Beri
-                                                                                    Nilai
-                                                                                    Tugas yang telah dikerjakan</option>
-                                                                                @for ($i = 0; $i < $p_task->tasks()->first()->points + 1; $i++)
-                                                                                    @if ($i == 0)
-                                                                                        <option value="{{ $i }}"
-                                                                                            @if ($i === $p_task->points) selected @endif
+                                                                                class="form-control" disabled>
+                                                                                @php
+                                                                                            $diff = strtotime($p_task->expired_at) - strtotime($p_task->post_date);
+                                                                                            $days = $diff / 86400;
+                                                                                        @endphp
+                                                                                        @if ($days >= 1)
+                                                                                            {{ floor($days) }} Hari
+                                                                                        @else
+                                                                                            @if ($days > 0 && $days < 1)
+                                                                                                @php
+                                                                                                    $jam = floor($diff / 3600);
+                                                                                                    $menit = floor($diff / 60);
+                                                                                                @endphp
+                                                                                                @if ($jam > 0)
+                                                                                                    {{ $jam }} Jam
+                                                                                                @else
+                                                                                                    {{ $menit }}
+                                                                                                    Menit
+                                                                                                @endif
+                                                                                            @else
+                                                                                                Tenggat Waktu Terlewati
+                                                                                            @endif
+                                                                                        @endif
+                                                                                @if ($p_task->status <2)
+                                                                                    @php
+                                                                                        $points = $p_task->tasks()->first()->points;
+                                                                                        $diff = strtotime($p_task->expired_at)- strtotime($p_task->post_date);
+                                                                                        $days = floor($diff / 86400);
+                                                                                        $jam = floor($diff / 3600);
+                                                                                        if($diff < 0){
+                                                                                            if($p_task->tasks()->first()->deadlineBy == "D"){
+                                                                                                $points += $days;
+                                                                                                if($points < 0){
+                                                                                                    $points = 0;
+                                                                                                }
+                                                                                            }else {
+                                                                                                $points += $jam;
+                                                                                                if($points < 0){
+                                                                                                    $points = 0;
+                                                                                                }
+                                                                                            } 
+                                                                                        }
+                                                                                    @endphp
+                                                                                @else
+                                                                                    @php
+                                                                                        $points == $p_task->points
+                                                                                    @endphp
+                                                                                @endif
+                                                                                @if ($points == 0)
+                                                                                        <option value="{{ $points }}" selected
                                                                                             class="text-red">
-                                                                                            {{ $i }} (Gagal)
+                                                                                            {{ $points }} (Gagal)
                                                                                         </option>
                                                                                     @else
-                                                                                        <option value="{{ $i }}"
-                                                                                            @if ($i == $p_task->points) selected @endif>
-                                                                                            {{ $i }}</option>
+                                                                                        <option value="{{ $points }}" selected>
+                                                                                            {{ $points }}
+                                                                                        </option>
                                                                                     @endif
-                                                                                @endfor
                                                                             </select>
                                                                         </div>
                                                                         <div class="form-group">
@@ -377,8 +388,8 @@
         <div class="modal fade" id="pdf">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="card-header bg-orange">
-                        <h3 class="card-title">Tambah Data Instansi</h3>
+                    <div class="card-header bg-green">
+                        <h3 class="card-title">Cetak Laporan</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>

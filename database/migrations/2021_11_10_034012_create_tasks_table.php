@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('code')->unique();
             $table->string('task_name');
             $table->integer('points');
+            $table->string('deadlineBy');
             $table->timestamps();
         });
     }

@@ -381,10 +381,12 @@ class UserController extends Controller
             Request()->stats == $data_user->stats &&
             Request()->address == $data_user->address &&
             Request()->prof_id == $oldProf &&
+            Request()->role == $data_user->role &&
+            Request()->privilege == $data_user->privilege &&
             Request()->pp == ""
         ) {
             Alert::warning('Sama', 'Data Tidak Berubah');
-            return redirect('/admin/profile');
+            return redirect()->route('manage_user');
         } else {
             Request()->validate([
                 'name' => 'required',
@@ -404,6 +406,8 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'role' => Request()->role,
+                    'privilege' => Request()->privilege,
                     'pp' => $fileName,
                 ];
                 $this->user->editData($id, $update_data);
@@ -425,6 +429,8 @@ class UserController extends Controller
                     'gender' => Request()->gender,
                     'stats' => Request()->stats,
                     'address' => Request()->address,
+                    'role' => Request()->role,
+                    'privilege' => Request()->privilege,
                 ];
                 $this->user->editData($id, $update_data);
                 if ($data_user->profUser) {
@@ -439,7 +445,7 @@ class UserController extends Controller
                 }
             }
             Alert::success('Sukses', 'Data berhasil Diperbaharui');
-            return redirect('/admin/profile');
+            return redirect()->back();
         }
     }
 
@@ -506,6 +512,9 @@ class UserController extends Controller
 
     public function manage_user()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         $data = User::all();
         $prof_list = ProfUser::all();
         return view('pages.admin.manajemen.muser', ['users' => $data], ['prof_list' => $prof_list]);
@@ -519,11 +528,17 @@ class UserController extends Controller
     }
     public function klien()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.klien.overview');
     }
 
     public function detailklien()
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         return view('pages.admin.klien.detail');
     }
 

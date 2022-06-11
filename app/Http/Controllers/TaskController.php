@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ProfUser;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -43,17 +44,20 @@ class TaskController extends Controller
             ],
             'task_name' => 'required',
             'points' => 'required|integer',
+            'deadlineBy' => 'required',
             'prof_id' => 'required',
         ], [
             'code.required' => 'Wajib Isi!!',
             'task_name.required' => 'Wajib Isi!!',
             'points.required' => 'Wajib Isi!!',
+            'deadlineBy.required' => 'Wajib Isi!!',
             'prof_id.required' => 'Wajib Isi!!',
         ]);
         $create = $this->task->create([
             'code' => Request()->code,
             'task_name' => Request()->task_name,
             'points' => Request()->points,
+            'deadlineBy' => Request()->deadlineBy,
         ]);
         $createId = $create->id;
         $createId = $this->task->find($createId);
@@ -84,6 +88,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        if (Auth::user()->privilege != 1){
+            return redirect('admin');
+        }
         $joblist = Task::all();
         $prof_list = ProfUser::all();
         return view('pages.admin.manajemen.mjob',compact('joblist','prof_list'));
@@ -107,6 +114,7 @@ class TaskController extends Controller
         if (Request()->code == $data_task->code &&
         Request()->task == $data_task->task_name &&
         Request()->points == $data_task->points &&
+        Request()->deadlineBy == $data_task->deadlineBy &&
         Request()->prof_id == $oldProf
         ) {
             Alert::warning('sama','Data Tidak Berubah');
@@ -117,16 +125,20 @@ class TaskController extends Controller
                 'task_name' => 'required',
                 'points' => 'required|integer',
                 'prof_id' => 'required',
+                'deadlineBy' => 'required',
             ], [
                 'code.required' => 'Wajib Isi!!',
                 'task_name.required' => 'Wajib Isi!!',
                 'points.required' => 'Wajib Isi!!',
                 'prof_id.required' => 'Wajib Isi!!',
+                'deadlineBy.required' => 'Wajib Isi!!',
+                
             ]);
             $update_data = [
                 'code' => Request()->code,
                 'task_name' => Request()->task_name,
                 'points' => Request()->points,
+                'deadlineBy' => Request()->deadlineBy,
             ];
             $this->task->editData($id,$update_data);
             if ($data_task->profTask) {

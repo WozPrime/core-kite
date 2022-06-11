@@ -87,6 +87,7 @@
                                         <th class="col-4">Tugas</th>
                                         <th class="col-1">Poin</th>
                                         <th>Profesi</th>
+                                        <th class="col-2">Pengurangan Poin Berdasarkan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -99,6 +100,14 @@
                                             <td>{{ $job['points'] }}</td>
                                             <td>@if ($job->profs()->first())
                                                 {{ $job->profs()->first()->prof_name }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($job->deadlineBy == "D")
+                                                    Hari
+                                                @endif
+                                                @if ($job->deadlineBy == "H")
+                                                    Jam
                                                 @endif
                                             </td>
                                             <td style="text-align: center">
@@ -155,7 +164,13 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label for="DeadlineBy">Pengurangan Poin Berdasarkan</label>
+                                                                <select name="deadlineBy" id="deadlineBy" class="form-control">
+                                                                    <option value="D" @if($job->deadlineBy == "D")selected @endif>Hari</option>
+                                                                    <option value="H" @if($job->deadlineBy == "H")selected @endif>Jam</option>
+                                                                </select>    
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="Profesi">Profesi</label>
                                                                 <select name="prof_id" id="prof_id" class="form-control">
@@ -280,6 +295,15 @@
                                                                         @foreach ($prof_list as $prof)
                                                                             <option value="{{ $prof->id }}">{{$prof->prof_name}}</option>
                                                                         @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="DeadlineBy">Pengurangan Poin Berdasarkan</label>
+                                                                    <select name="deadlineBy" id="deadlineBy" class="form-control">
+                                                                        <option value="" selected disabled hidden>Pilih Waktu
+                                                                        </option>
+                                                                        <option value="D">Hari</option>
+                                                                        <option value="H">Jam</option>
                                                                     </select>
                                                                 </div>
 
