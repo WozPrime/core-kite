@@ -539,8 +539,8 @@ class UserController extends Controller
     public function delete_user($id)
     {
         $this->user->deleteData($id);
-        Alert::success('Sukses', 'Data berhasil Diperbaharui');
-        return redirect('/admin/profile');
+        Alert::success('Sukses', 'Data berhasil Dihapus !!!');
+        return redirect('manage_user');
     }
     public function klien()
     {
