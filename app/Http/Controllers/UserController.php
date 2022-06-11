@@ -258,21 +258,34 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $password = Request()->password;
+        $oldPass = Request()->oldPassword;
         Request()->validate([
             'email' => 'email',
             'password' => 'required|confirmed|min:8',
+            'oldPassword' => 'required|min:8',
         ], [
             'password.confirmed' => 'Cek Kembali Password!!',
+            
         ]);
-        if (Hash::check($password, $user->password)) {
-            Alert::warning('Sama', 'Password Tidak Berubah');
-            return redirect()->route('profile');
+        if (Hash::check($oldPass, $user->password)) {
+            if (Hash::check($password, $user->password)) {
+                Alert::warning('Sama', 'Password Tidak Berubah');
+                if (Auth::user()->role == 'admin'){
+                    return redirect()->route('profile');
+                } else {
+                    return redirect()->route('empprofile');
+                }
+                
+            } else {
+                $update_data = [
+                    'password' => bcrypt($password)
+                ];
+                $this->user->editData($id, $update_data);
+                Alert::success('Sukses', 'Data berhasil Diperbaharui');
+                return redirect()->back();
+            }
         } else {
-            $update_data = [
-                'password' => bcrypt($password)
-            ];
-            $this->user->editData($id, $update_data);
-            Alert::success('Sukses', 'Data berhasil Diperbaharui');
+            Alert::warning('Password tidak cocok', 'Input Password Lama Salah!!!');
             return redirect()->back();
         }
     }

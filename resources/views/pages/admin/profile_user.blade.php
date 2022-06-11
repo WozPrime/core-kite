@@ -361,10 +361,14 @@
                                 <!-- /.tab-pane -->
                                 <div class="tab-pane" id="changepass">
                                     <div class="card-body">
-                                        <form action="/admin/profile/cpass/{{ $data_user->id }}" method="POST"
+                                        <form action="/profile/cpass/{{ $data_user->id }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="oldPassword">Sandi Lama</label>
+                                                    <input type="password" class="form-control" id="oldPassword" name="oldPassword" required placeholder=" Old Password">
+                                                </div>
                                                 <label for="password">Sandi Baru</label>
                                                 <input id="password" type="password"
                                                     class="form-control @error('password') is-invalid @enderror" name="password"
