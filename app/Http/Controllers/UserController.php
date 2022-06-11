@@ -387,6 +387,9 @@ class UserController extends Controller
         } else{
             $oldProf = '';
         }
+        if (Request()->role == "member"){
+            Request()->privilege = null;
+        }
         if (
             Request()->name == $data_user->name &&
             Request()->code == $data_user->code &&
@@ -401,9 +404,6 @@ class UserController extends Controller
             Alert::warning('Sama', 'Data Tidak Berubah');
             return redirect()->route('manage_user');
         } else {
-            if (Request()->role == "member"){
-                Request()->privilege = null;
-            }
             Request()->validate([
                 'name' => 'required',
                 'code' => 'unique:users,code,' . $data_user->id,
