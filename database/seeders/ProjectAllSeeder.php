@@ -25,5 +25,29 @@ class ProjectAllSeeder extends Seeder
             'project_id' => '2',
             'prof_id' => '2'
         ]);
+        ProjectAll::create([
+            'user_id' => '1',
+            'project_id' => '5',
+        ]);
+        ProjectAll::create([
+            'user_id' => '2',
+            'project_id' => '5',
+        ]);
+        ProjectAll::create([
+            'user_id' => '3',
+            'project_id' => '5',
+        ]);
+        ProjectAll::create([
+            'user_id' => '6',
+            'project_id' => '5',
+        ]);
+        ProjectAll::create([
+            'user_id' => '7',
+            'project_id' => '5',
+        ]);
+        ProjectAll::create([
+            'user_id' => '8',
+            'project_id' => '5',
+        ]);
     }
 }
