@@ -421,8 +421,10 @@
                                     <label for="otherFieldReportEmp">Pilih Karyawan</label>
                                     <select name="dataKaryawan" id="dataKaryawan" class="form-select">
                                         <option value="" selected hidden>Pilih Data Karyawan</option>
-                                        @foreach ($project_task->where('status', 2) as $data)
-                                            <option value="{{ $data->user_id }}">{{ $data->users->name }}</option>
+                                        @foreach ($user_task as $data)
+                                            @if ($data->first()->status == 2)
+                                                <option value="{{ $data->first()->user_id }}">{{ $data->first()->users->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -460,7 +462,7 @@
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                             <button type="submit" id="saveBtn" class="btn btn-primary"><i
-                                    class="fas fa-file-alt mr-2"></i>Print
+                                    class="fas fa-file-alt mr-2"></i>Cetak
                                 PDF</a></button>
                         </div>
                     </form>

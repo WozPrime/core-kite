@@ -220,8 +220,10 @@ use Illuminate\Support\Carbon;
                 </td>
             </tr>
             <tr>
-                <td colspan="@if ($report_opt == "Proyek")
+                <td colspan="@if ($report_opt == "Proyek"||$report_opt == "Karyawan")
                     3
+                @elseif ($report_opt == "All")
+                    4
                 @else
                     2
                 @endif">Lama Pengerjaan : <br>
@@ -229,8 +231,10 @@ use Illuminate\Support\Carbon;
                 </td>
             </tr>
             <tr>
-                <td colspan="@if ($report_opt == "Proyek")
+                <td colspan="@if ($report_opt == "Proyek"||$report_opt == "Karyawan")
                 3
+                @elseif ($report_opt == "All")
+                    4
                 @else
                 2 @endif">
                 Feedback : <br>{{$p_task->feedback}}
