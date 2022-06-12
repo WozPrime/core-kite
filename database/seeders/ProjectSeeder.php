@@ -46,11 +46,31 @@ class ProjectSeeder extends Seeder
             'project_code' => 'CC',
             'project_name' => 'Cold Case',
             'project_category' => 'Aplikasi',
-            'project_value' => 'Rp 21.000.000',
+            'project_value' => 'Rp 45.000.000',
             'project_detail' => 'Aplikasi finansial',
             'project_status' => 'Dalam Pengerjaan',
             'project_start_date' => '2022-03-04',
             'project_deadline' => '2022-08-01',
+        ]);
+        ProjectModel::create([
+            'instance_id' => '3',
+            'client_id' => '4',
+            'project_code' => 'HFL',
+            'project_name' => 'Landing Page Halaman Horizon Finance',
+            'project_category' => 'Aplikasi',
+            'project_value' => 'Rp 25.000.000',
+            'project_detail' => 'WebsiteHorizon Finance',
+            'project_status' => 'Dalam Pengerjaan',
+            'project_start_date' => '2021-2-04',
+            'project_deadline' => '2022-3-13',
+        ]);
+        ProjectModel::create([
+            'project_code' => 'NP',
+            'project_name' => 'Non-Proyek',
+            'project_category' => 'Website',
+            'project_value' => 'Rp 30.000.000',
+            'project_detail' => 'Khusus Data Non Proyek',
+            'project_status' => 'Selesai',
         ]);
     }
 }
