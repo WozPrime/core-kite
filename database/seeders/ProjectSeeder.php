@@ -17,6 +17,14 @@ class ProjectSeeder extends Seeder
     {
         // ProjectModel::truncate();
         ProjectModel::create([
+            'project_code' => 'NP',
+            'project_name' => 'Non-Proyek',
+            'project_category' => 'Website',
+            'project_value' => 'Rp 30.000.000',
+            'project_detail' => 'Khusus Data Non Proyek',
+            'project_status' => 'Selesai',
+        ]);
+        ProjectModel::create([
             'instance_id' => '1',
             'client_id' => '1',
             'project_code' => 'APT',
@@ -64,14 +72,6 @@ class ProjectSeeder extends Seeder
             'project_status' => 'Dalam Pengerjaan',
             'project_start_date' => '2021-2-04',
             'project_deadline' => '2022-3-13',
-        ]);
-        ProjectModel::create([
-            'project_code' => 'NP',
-            'project_name' => 'Non-Proyek',
-            'project_category' => 'Website',
-            'project_value' => 'Rp 30.000.000',
-            'project_detail' => 'Khusus Data Non Proyek',
-            'project_status' => 'Selesai',
         ]);
     }
 }
