@@ -40,5 +40,17 @@ class ProjectSeeder extends Seeder
             'project_start_date' => '2020-09-04',
             'project_deadline' => '2022-08-01',
         ]);
+        ProjectModel::create([
+            'instance_id' => '3',
+            'client_id' => '3',
+            'project_code' => 'CC',
+            'project_name' => 'Cold Case',
+            'project_category' => 'Aplikasi',
+            'project_value' => 'Rp 21.000.000',
+            'project_detail' => 'Aplikasi finansial',
+            'project_status' => 'Dalam Pengerjaan',
+            'project_start_date' => '2020-09-04',
+            'project_deadline' => '2022-08-01',
+        ]);
     }
 }

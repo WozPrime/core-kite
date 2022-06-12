@@ -32,5 +32,21 @@ class ClientSeeder extends Seeder
             'email' => 'yasminiqram@gmail.com',
             'phone_number' => '082124073911',
         ]);
+        Client::create([
+            'instance_id' => '3',
+            'user_id' => '9',
+            'name' => 'Rita Arsenco',
+            'password' => bcrypt('12345678'),
+            'email' => 'arsenorita@gmail.com',
+            'phone_number' => '083192753645',
+        ]);
+        Client::create([
+            'instance_id' => '3',
+            'user_id' => '10',
+            'name' => 'Dash',
+            'password' => bcrypt('12345678'),
+            'email' => 'klienuji@gmail.com',
+            'phone_number' => '083192753420',
+        ]);
     }
 }

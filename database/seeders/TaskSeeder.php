@@ -40,5 +40,37 @@ class TaskSeeder extends Seeder
             'points' => 30,
             'deadlineBy' => 'D',
         ]);
+        Task::create([
+            'code' => 'WB-JOB-005',
+            'task_name' => 'Membuat API',
+            'points' => 20,
+            'deadlineBy' => 'D',
+        ]);
+        Task::create([
+            'code' => 'WB-JOB-006',
+            'task_name' => 'Perbaiki UI',
+            'points' => 15,
+            'deadlineBy' => 'D',
+        ]);
+        
+        Task::create([
+            'code' => 'WB-JOB-007',
+            'task_name' => 'Maintenance',
+            'points' => 20,
+            'deadlineBy' => 'D',
+        ]);
+        
+        Task::create([
+            'code' => 'WB-JOB-008',
+            'task_name' => 'Perbaiki Back-End',
+            'points' => 30,
+            'deadlineBy' => 'D',
+        ]);
+        Task::create([
+            'code' => 'WB-JOB-009',
+            'task_name' => 'Debugging',
+            'points' => 20,
+            'deadlineBy' => 'D',
+        ]);
     }
 }

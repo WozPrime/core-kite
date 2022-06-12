@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskSeeder::class);
         $this->call(FiCategorySeeder::class);
         $this->call(ProfTaskSeeder::class);
+        $this->call(ProjectTaskSeeder::class);
+        $this->call(ProjectAllSeeder::class);
         // $this->call(FakerSeeder::class);
     }
 }
