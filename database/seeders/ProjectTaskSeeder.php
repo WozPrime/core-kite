@@ -18,7 +18,7 @@ class ProjectTaskSeeder extends Seeder
         ProjectTask::create([
             'task_id' => '2',
             'user_id' => '8',
-            'project_id' => '2',
+            'project_id' => '3',
             'details' => 'Tugas Test Seeder',
             'status' => '2',
             'points' => '5',
@@ -28,7 +28,7 @@ class ProjectTaskSeeder extends Seeder
         ProjectTask::create([
             'task_id' => '3',
             'user_id' => '8',
-            'project_id' => '2',
+            'project_id' => '3',
             'details' => 'Tugas Test Seeder 2',
             'start_at' => '2022-5-12 12:12:00',
             'expired_at' => '2022-7-12 12:12:00'
