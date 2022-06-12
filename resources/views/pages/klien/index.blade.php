@@ -287,6 +287,10 @@ Dashboard
                                                                             </div>
                                                         
                                                                             <div class="form-group">
+                                                                                <label for="tempatpertemuan">Tempat Pertemuan</label>
+                                                                                <textarea name="tempatpertemuan" id="tempatpertemuan" class="form-control" placeholder="Contoh : Kantor IdeKite Indonesia, Lewat Google Meet, Cafe Purnama, dll.">{{$m->tempat_pertemuan}}</textarea>
+                                                                            </div>\
+                                                                            <div class="form-group">
                                                                                 <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
                                                                                 <textarea name="deskripsipertemuan" id="deskripsipertemuan" class="form-control" placeholder="Contoh : Saya ingin membahas mengenai penambahan fitur pada proyek ini. Bisakah kita bertemu pukul 16.00 di Kantor IdeKite?">{{$m->deskripsi_pertemuan}}</textarea>
                                                                             </div>
@@ -403,6 +407,11 @@ Dashboard
                     <div class="form-group">
                         <label>Pilih Tanggal Pertemuan</label>
                         <input type="datetime-local" class="form-control" name="tanggalpertemuan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempatpertemuan">Tempat Pertemuan</label>
+                        <textarea name="tempatpertemuan" id="tempatpertemuan" class="form-control" placeholder="Contoh : Kantor Idekite Indonesia, Lewat Google Meet, Cafe Purnama, Dll." required></textarea>
                     </div>
 
                     <div class="form-group">

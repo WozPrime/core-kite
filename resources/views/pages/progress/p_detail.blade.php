@@ -645,6 +645,11 @@ use Carbon\Carbon;
                                     <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp"
                                         name="nilaipembayaran" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="buktipembayaran">Bukti Pembayaran</label>
+                                    <input type="file" name="buktipembayaran" onchange="Image_preview(event)" class="form-control mt" accept="image/*" required>
+                                </div>
         
                                 <div class="form-group">
                                     <button class="btn btn-success float-right">Simpan Data</button>

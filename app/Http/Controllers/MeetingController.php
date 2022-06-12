@@ -40,6 +40,7 @@ class MeetingController extends Controller
         $meeting->project_id = $request->pilihproyek;
         $meeting->client_id = $request->idklien;
         $meeting->tanggal_pertemuan = $request->tanggalpertemuan;
+        $meeting->tempat_pertemuan = $request->tempatpertemuan;
         $meeting->deskripsi_pertemuan = $request->deskripsipertemuan;
         $meeting->status_pertemuan =  'MENUNGGU VERIFIKASI';
         $meeting->save();

@@ -174,8 +174,7 @@ class ClientController extends Controller
             return view('pages.klien.clientproject',[
                 'data' => ProjectModel::where('id',$id)->first(),
                 'pembayaran' => Payment::where('project_id',$id)->get(),
-                'ptask'=>ProjectTask::all(),
-                'progress'=>ProjectTask::where('project_id',$id)->get(),
+                'ptask'=>ProjectTask::where('project_id',$id)->get(),
                 'klien'=>$klien,
             ]);
         }
