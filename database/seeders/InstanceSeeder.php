@@ -34,5 +34,11 @@ class InstanceSeeder extends Seeder
             'kota_instansi' => 'Balikpapan',
             'instances_model_id' => '2',
         ]);
+        Instance::create([
+            'nama_instansi' => 'IdeKite',
+            'alamat_instansi' => 'Jl. HM Suwignyo Gg. Margodadirejo1 No.12A Kelurahan Sungai Jawi Kecamatan Pontianak Barat, Sungai Jawi Dalam, Kec. Pontianak Kota, Kota Pontianak, Kalimantan Barat 78113',
+            'kota_instansi' => 'Pontianak',
+            'instances_model_id' => '2',
+        ]);
     }
 }

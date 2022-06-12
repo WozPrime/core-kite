@@ -43,10 +43,18 @@ class ClientSeeder extends Seeder
         Client::create([
             'instance_id' => '3',
             'user_id' => '10',
-            'name' => 'Dash',
+            'name' => 'Klien',
             'password' => bcrypt('12345678'),
             'email' => 'klienuji@gmail.com',
             'phone_number' => '083192753420',
+        ]);
+        Client::create([
+            'instance_id' => '4',
+            'user_id' => '8',
+            'name' => 'Klien',
+            'password' => bcrypt('12345678'),
+            'email' => 'hello@idekite.id',
+            'phone_number' => '082350729317',
         ]);
     }
 }
