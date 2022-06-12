@@ -23,7 +23,7 @@
                     <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
                         alt="{{ Auth::user()->name }}">
                 @endif
-                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                <span class="ml-2 d-none d-md-inline">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
@@ -34,10 +34,9 @@
                         <img src="{{ url('pp/' . Auth::user()->pp) }}" class="user-image img-circle elevation-2"
                             alt="{{ Auth::user()->name }}">
                     @endif
-
-                    <p class="text-light">
-                        {{ Auth::user()->name }}
-                        <small>Member since {{Auth::user()->created_at}}</small>
+                    <p style="font-size: 20px;"><b>
+                        {{ Auth::user()->name }} </b>
+                    <small style="font-size: 15px">Pengguna Sejak {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small>
                     </p>
                 </li>
                 <!-- Menu Body -->

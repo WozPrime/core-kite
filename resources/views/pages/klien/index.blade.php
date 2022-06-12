@@ -11,6 +11,25 @@ Dashboard
     .modal-backdrop{
         z-index: -1;
     }
+    .border{
+        border-width: 4px !important;
+        border-radius: 25px !important;
+    }
+    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+        color: #fff;
+        background-color: #1932c8;
+    }
+    .bg-custom{
+        color: #fff;
+        background-color: #1932c8;
+    }
+    .btn-custom{
+        color: #fff;
+        background-color: #5cb85c;
+    }
+    .bg-orange, .bg-orange>a {
+    color: #f5f5f7!important;
+}
 </style>
 <!-- Content Header (Page header) -->
 
@@ -22,7 +41,7 @@ Dashboard
             <div class="col-md-3 pt-3">
 
                 <!-- Profile Image -->
-                <div class="card card-outline" style="background: #F2F3F5">
+                <div class="card card-outline rounded-3 border border-warning">
                     <div class="card-body box-profile">
                         <div class="text-center">
                             @if (auth()->user()->pp)
@@ -31,9 +50,10 @@ Dashboard
                             <img class="profile-user-img img-fluid img-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User profile picture">
                             @endif
                         </div>
-
-                        <p class="text-muted text-center">Selamat Datang,</p>
+                        <br>
+                        <p style="text-align: center">Selamat Datang,</p>
                         <h3 class="profile-username text-center">{{$klien->name}}</h3>
+                        <br>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
@@ -50,14 +70,14 @@ Dashboard
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-
+                <br>
                 <!-- About Me Box -->
-                <div class="card">
-                    <div class="card-header bg-primary">
-                        <h3 class="card-title">About Me</h3>
+                <div class="card rounded-3 mb-3 border border-warning">
+                    <div class="card-header" style="background : #f58c23">
+                        <h3 class="card-title text-white">Tentang Saya</h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body" style="background: #F2F3F5">
+                    <div class="card-body">
                         <strong><i class="fas fa-building mr-1"></i> Instansi</strong>
 
                         <p class="text-muted">
@@ -76,25 +96,7 @@ Dashboard
 
                         <p class="text-muted">{{$klien->phone_number}}</p>
 
-                        <hr>
 
-                        <strong><i class="fas fa-user mr-1"></i> Ganti Foto Profil</strong> <br>
-                        <form action="/client/gantipp/{{auth()->user()->id}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="file" name="pp" class="form-control mt-2" accept="image/*" required>
-                            <button class="mt-2 rounded-top bg-primary rounded-bottom" style="border: none; padding:5pt">Save Data</button>
-                        </form>
-
-                        <hr>
-
-                        <strong><i class="fas fa-lock mr-1"></i> Ganti Password</strong> <br>
-                        <form action="/client/gantipassword/{{auth()->user()->id}}" method="POST">
-                            @csrf
-                            <input type="password" name="plama" id="plama" placeholder="isi password lama" class="form-control my-1" required>
-                            <input type="password" name="pbaru" id="pbaru" placeholder="isi password baru" class="form-control mb-1" required>
-                            <input type="password" name="pulang" id="pulang" placeholder="ulangi password baru" class="form-control mb-1" required>
-                            <button class="mt-2 rounded-top bg-primary rounded-bottom" style="border: none; padding:5pt">Save Data</button>
-                        </form>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -102,7 +104,7 @@ Dashboard
             </div>
             <!-- /.col -->
             <div class="col-md-9 pt-3">
-                <div class="card" style="height:auto ; background :#F2F3F5">
+                <div class="card rounded-3 border" style="height:auto ;">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#project" data-toggle="tab">Proyek
@@ -111,6 +113,8 @@ Dashboard
                                     Saya</a></li>
                             <li class="nav-item"><a class="nav-link" href="#mypayments" data-toggle="tab">Riwayat
                                     Pembayaran</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Pengaturan
+                                    Akun</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -121,7 +125,7 @@ Dashboard
                                     <b> Proyek Saya </b>
                                 </div>
                                 <table class="table">
-                                    <thead class="bg-primary">
+                                    <thead class="bg-custom">
                                         <tr>
                                             <th class="d-none d-md-table-cell">No</th>
                                             <th class="d-none d-md-table-cell">Nama Proyek</th>
@@ -152,7 +156,7 @@ Dashboard
                                     <b> Proyek Selesai </b>
                                 </div>
                                 <table class="table table-hover">
-                                    <thead class="bg-primary">
+                                    <thead class="bg-custom">
                                         @if ($pselesai->count()==0)
                                             <tr class="text-center">
                                                 <th>Belum ada proyek selesai</th>
@@ -193,12 +197,12 @@ Dashboard
                                     @if ($meeting->count()==0)
                                         <div class="text-muted">Belum Ada Jadwal Pertemuan Aktif</div><br>
                                     @endif <br>
-                                    <a href="#add-data" data-toggle="modal" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajukan Jadwal Pertemuan Dengan Perusahaan</a>      
+                                    <a href="#add-data" data-toggle="modal" class="btn btn-custom"><i class="fas fa-plus-circle"></i> Ajukan Jadwal Pertemuan Dengan Perusahaan</a>      
                                     <div class="card">
                                         <div class="card-body">
                                             <b>Riwayat Meeting</b>
                                             <table class="table table-hover table-responsive">
-                                                <thead class="bg-primary">
+                                                <thead class="bg-custom">
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Tanggal Pertemuan</th>
@@ -312,7 +316,7 @@ Dashboard
                                     <b> Riwayat Pembayaran </b>
                                 </div>
                                 <table class="table table-responsive table-hover">
-                                    <thead class="bg-primary">
+                                    <thead class="bg-custom">
                                         <tr>
                                             <th>No</th>
                                             <th>Tanggal Pembayaran</th>
@@ -335,6 +339,31 @@ Dashboard
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                <div class="mb-2">
+                                    <h1> Pengaturan Akun </h1>
+                                </div>
+                                <hr>
+                                <br>
+                                <strong><i class="fas fa-user mr-1"></i> Ganti Foto Profil</strong> <br>
+                                <form action="/client/gantipp/{{auth()->user()->id}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="pp" class="form-control mt-2" accept="image/*" required>
+                                    <button class="mt-2 rounded-top bg-custom rounded-bottom" style="border: none; padding:5pt">Save Data</button>
+                                </form>
+
+                                <hr>
+
+                                <strong><i class="fas fa-lock mr-1"></i> Ganti Password</strong> <br>
+                                <form action="/client/gantipassword/{{auth()->user()->id}}" method="POST">
+                                    @csrf
+                                    <input type="password" name="plama" id="plama" placeholder="isi password lama" class="form-control my-1" required>
+                                    <input type="password" name="pbaru" id="pbaru" placeholder="isi password baru" class="form-control mb-1" required>
+                                    <input type="password" name="pulang" id="pulang" placeholder="ulangi password baru" class="form-control mb-1" required>
+                                    <button class="mt-2 rounded-top bg-custom rounded-bottom" style="border: none; padding:5pt">Save Data</button>
+                                </form>
+                                
                             </div>
                             <!-- /.tab-pane -->
                         </div>
