@@ -25,8 +25,8 @@ class ProjectSeeder extends Seeder
             'project_value' => 'Rp 30.000.000',
             'project_detail' => 'Aplikasi enkripsi khusus',
             'project_status' => 'Selesai',
-            'project_start_date' => '2018-04-04',
-            'project_deadline' => '2020-06-09',
+            'project_start_date' => '2021-12-04',
+            'project_deadline' => '2022-03-09',
         ]);
         ProjectModel::create([
             'instance_id' => '2',
@@ -37,8 +37,8 @@ class ProjectSeeder extends Seeder
             'project_value' => 'Rp 21.000.000',
             'project_detail' => 'Landing Page & Customer Service untuk pengujung website Jehuty Tech',
             'project_status' => 'Dalam Pengerjaan',
-            'project_start_date' => '2020-09-04',
-            'project_deadline' => '2022-08-01',
+            'project_start_date' => '2022-01-04',
+            'project_deadline' => '2022-12-01',
         ]);
         ProjectModel::create([
             'instance_id' => '3',
@@ -49,7 +49,7 @@ class ProjectSeeder extends Seeder
             'project_value' => 'Rp 21.000.000',
             'project_detail' => 'Aplikasi finansial',
             'project_status' => 'Dalam Pengerjaan',
-            'project_start_date' => '2020-09-04',
+            'project_start_date' => '2022-03-04',
             'project_deadline' => '2022-08-01',
         ]);
     }
