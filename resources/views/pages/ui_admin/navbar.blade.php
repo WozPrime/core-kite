@@ -135,7 +135,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
-                <li class="user-header bg-orange">
+                <li class="user-header bg-orange" style="height: 200px">
                     @if (Auth::user()->pp == '')
                         <img src="{{ url('pp/default.jpg') }}" class="user-image img-circle elevation-2"
                             alt="{{ Auth::user()->name }}">
@@ -144,11 +144,11 @@
                             alt="{{ Auth::user()->name }}">
                     @endif
 
-                    <p class="text-light">
-                        {{ Auth::user()->name }} - @if (Auth::user()->profs()->first())
-                        {{ Auth::user()->profs()->first()->prof_name }}
-                    @endif
-                        <small>Pengguna Sejak {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small>
+                    <p class="text-light" style="font-size: 20px"><b>
+                        {{ Auth::user()->name }} @if (Auth::user()->profs()->first())
+                        - {{ Auth::user()->profs()->first()->prof_name }}
+                    @endif</b>
+                    <small style="font-size: 15px">Pengguna Sejak {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small>
                     </p>
                 </li>
                 <!-- Menu Body -->
