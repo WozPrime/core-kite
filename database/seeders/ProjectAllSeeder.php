@@ -42,27 +42,27 @@ class ProjectAllSeeder extends Seeder
         ]);
         ProjectAll::create([
             'user_id' => '1',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
         ProjectAll::create([
             'user_id' => '2',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
         ProjectAll::create([
             'user_id' => '3',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
         ProjectAll::create([
             'user_id' => '6',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
         ProjectAll::create([
             'user_id' => '7',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
         ProjectAll::create([
             'user_id' => '8',
-            'project_id' => '5',
+            'project_id' => '1',
         ]);
     }
 }
