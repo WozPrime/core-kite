@@ -17,6 +17,8 @@ class ProjectSeeder extends Seeder
     {
         // ProjectModel::truncate();
         ProjectModel::create([
+            'instance_id' => '4',
+            'client_id' => '5',
             'project_code' => 'NP',
             'project_name' => 'Non-Proyek',
             'project_category' => 'Website',
