@@ -270,6 +270,7 @@ Profil Klien
                                         <td>{{$p->deskripsi_pembayaran}}</td>
                                         <td>{{$p->nilai_pembayaran}}</td>
                                         <td>
+                                            <a href="#lihatpembayaran{{$p->id}}" data-toggle="modal" class="badge bg-info mr-1"><i class="fas fa-eye"></i></a>
                                             <a href="#editpembayaran{{$p->id}}" data-toggle="modal"
                                                 class="badge bg-warning mr-1"><i class="fas fa-pencil-alt"></i></a>
                                             <form onclick="return confirm('yakin untuk menghapus data ini')"
@@ -281,6 +282,19 @@ Profil Klien
                                             </form>
                                         </td>
                                     </tr>
+
+                                    <div class="modal fade" id="lihatpembayaran{{ $p->id }}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card-header bg-orange">
+                                                    <h3 class="card-title">Bukti Pembayaran</h3>
+                                                </div>
+                                                <div class="card-body text-center">
+                                                    <img src="{{ url('buktipembayaran/' . $p->bukti_pembayaran) }}" alt="Bukti Pembayaran">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="modal fade" id="editpembayaran{{$p->id}}">
                                         <div class="modal-dialog">
@@ -326,6 +340,11 @@ Profil Klien
                                                         <div class="form-group">
                                                             <label>Nilai Pembayaran</label>
                                                             <input class="input-currency form-control" type="text" type-currency="IDR" placeholder="Rp" name="nilaipembayaran" value="{{$p->nilai_pembayaran}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="buktipembayaran">Bukti Pembayaran</label>
+                                                            <input type="file" name="buktipembayaran" onchange="Image_preview(event)" class="form-control mt" accept="image/*">
                                                         </div>
                                     
                                                         <div class="form-group">
@@ -453,6 +472,11 @@ Profil Klien
                     </div>
 
                     <div class="form-group">
+                        <label for="buktipembayaran">Bukti Pembayaran</label>
+                        <input type="file" name="buktipembayaran" onchange="Image_preview(event)" class="form-control mt" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
                         <button class="btn btn-success float-right">Save Data</button>
                     </div>
                 </form>
@@ -491,6 +515,11 @@ Profil Klien
                     <div class="form-group">
                         <label>Pilih Tanggal Pertemuan</label>
                         <input type="datetime-local" class="form-control" name="tanggalpertemuan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempatpertemuan">Tempat Pertemuan</label>
+                        <textarea name="tempatpertemuan" id="tempatpertemuan" class="form-control" placeholder="Contoh : Kantor Idekite, Lewat Zoom Meeting, Cafe Purnama, dll."></textarea>
                     </div>
 
                     <div class="form-group">

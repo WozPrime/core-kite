@@ -81,6 +81,11 @@
                                                                     <label for="tanggalpertemuan">Tanggal Pertemuan</label>
                                                                     <input type="text" name="tanggalpertemuan" id="tanggalpertemuan" class="form-control" value="{{$mp->tanggal_pertemuan}}" readonly>
                                                                 </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="tempatpertemuan">Tempat Pertemuan</label>
+                                                                    <input type="text" name="tempatpertemuan" id="tempatpertemuan" class="form-control" value="{{$mp->tempat_pertemuan}}" readonly>
+                                                                </div>
         
                                                                 <div class="form-group">
                                                                     <label for="deskripsipertemuan">Deskripsi Pertemuan</label>
@@ -195,6 +200,11 @@
                                                                     <div class="form-group">
                                                                         <label for="tanggalpertemuan">Tanggal Pertemuan</label>
                                                                         <input type="text" name="tanggalpertemuan" id="tanggalpertemuan" class="form-control" value="{{$mp->tanggal_pertemuan}}" readonly>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="tempatpertemuan">Tempat Pertemuan</label>
+                                                                        <input type="text" name="tempatpertemuan" id="tempatpertemuan" class="form-control" value="{{$mp->tempat_pertemuan}}" readonly>
                                                                     </div>
             
                                                                     <div class="form-group">

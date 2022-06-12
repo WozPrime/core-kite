@@ -36,6 +36,12 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+        $jumlah=Payment::count();
+        $jumlah=$jumlah+1;
+        $file = $request->buktipembayaran;
+        $filename = 'pembayaran'.$jumlah. '.' . $file->extension();
+            $file->move(public_path('buktipembayaran'), $filename);
+        
         $data = new Payment;
         $data->user_id = $request->userpembayaran;
         $data->project_id = $request->proyekpembayaran;
@@ -43,6 +49,7 @@ class PaymentController extends Controller
         $data->jenis_pembayaran = $request->jenispembayaran;
         $data->deskripsi_pembayaran = $request->deskripsipembayaran;
         $data->nilai_pembayaran = $request->nilaipembayaran;
+        $data->bukti_pembayaran = $filename;
         $data->save();
         Alert::success('Sukses', 'Data Pembayaran Berhasil Ditambahkan');
         return redirect()->back();
@@ -79,12 +86,26 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        $data=[
-            'tanggal_pembayaran'=>$request->tanggalpembayaran,
-            'jenis_pembayaran'=>$request->jenispembayaran,
-            'deskripsi_pembayaran'=>$request->deskripsipembayaran,
-            'nilai_pembayaran'=>$request->nilaipembayaran,
-        ];
+        if ($request->buktipembayaran) {
+            $file = $request->buktipembayaran;
+            $filename = 'pembayaran'.$payment->id. '.' . $file->extension();
+            $file->move(public_path('buktipembayaran'), $filename);
+            $data=[
+                'tanggal_pembayaran'=>$request->tanggalpembayaran,
+                'jenis_pembayaran'=>$request->jenispembayaran,
+                'deskripsi_pembayaran'=>$request->deskripsipembayaran,
+                'nilai_pembayaran'=>$request->nilaipembayaran,
+                'bukti_pembayaran'=>$filename,
+            ];
+        }
+        else {
+            $data=[
+                'tanggal_pembayaran'=>$request->tanggalpembayaran,
+                'jenis_pembayaran'=>$request->jenispembayaran,
+                'deskripsi_pembayaran'=>$request->deskripsipembayaran,
+                'nilai_pembayaran'=>$request->nilaipembayaran,
+            ];
+        }
         Payment::where('id',$payment->id)->update($data);
         Alert::success('Data berhasil di edit');
         return redirect()->back();
