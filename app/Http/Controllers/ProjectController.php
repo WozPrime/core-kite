@@ -44,7 +44,7 @@ class ProjectController extends Controller
                 $list_project[] = $myProject->first()->project_id;
             }
             $data = $data->whereIn('id',$list_project);
-            $ptask = $ptask->where('user_id',Auth::user()->id);
+            $ptask = $ptask->whereIn('project_id',$list_project);
         }
         return view('pages.progress.projects', [
             'data' => $data,
