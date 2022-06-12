@@ -29,5 +29,25 @@ class ProfTaskSeeder extends Seeder
             'prof_id' => 4,
             'task_id' => 1,
         ]);
+        ProfTask::create([
+            'prof_id' => 1,
+            'task_id' => 5,
+        ]);
+        ProfTask::create([
+            'prof_id' => 2,
+            'task_id' => 6,
+        ]);
+        ProfTask::create([
+            'prof_id' => 4,
+            'task_id' => 7,
+        ]);
+        ProfTask::create([
+            'prof_id' => 1,
+            'task_id' => 8,
+        ]);
+        ProfTask::create([
+            'prof_id' => 3,
+            'task_id' => 9,
+        ]);
     }
 }

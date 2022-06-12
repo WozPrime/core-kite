@@ -61,8 +61,21 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'IdeKite',
             'email' => 'hello@idekite.id',
+            'privilege' => '1',
             'password' => bcrypt('12345678'),
             'role' => 'admin',
+        ]);
+        User::create([
+            'name' => 'Rita Arsenco',
+            'email' => 'arsenorita@gmail.com',
+            'password' => bcrypt('12345678'),
+            'role' => 'client',
+        ]);
+        User::create([
+            'name' => 'Dash',
+            'email' => 'karyawanuji@gmail.com',
+            'password' => bcrypt('12345678'),
+            'role' => 'client',
         ]);
     }
 }

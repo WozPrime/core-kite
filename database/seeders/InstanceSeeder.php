@@ -28,5 +28,11 @@ class InstanceSeeder extends Seeder
             'kota_instansi' => 'Bekasi',
             'instances_model_id' => '2',
         ]);
+        Instance::create([
+            'nama_instansi' => 'Horizon Finance',
+            'alamat_instansi' => 'Jl. Jendral Sudirman Rt. 49',
+            'kota_instansi' => 'Balikpapan',
+            'instances_model_id' => '2',
+        ]);
     }
 }
