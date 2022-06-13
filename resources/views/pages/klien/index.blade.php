@@ -45,7 +45,7 @@ Dashboard
                     <div class="card-body box-profile">
                         <div class="text-center">
                             @if (auth()->user()->pp)
-                            <img src="{{ url('pp/' . auth()->user()->pp) }}" class="profile-user-img img-fluid img-circle" alt="User's profile picture">
+                            <img src="{{ url('pp/' . auth()->user()->pp) }}" class="profile-user-img img-fluid img-circle" alt="User's profile picture" style="height: 125px; width: 125px">
                             @else
                             <img class="profile-user-img img-fluid img-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User profile picture">
                             @endif

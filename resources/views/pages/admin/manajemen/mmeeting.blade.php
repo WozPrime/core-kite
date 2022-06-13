@@ -37,6 +37,7 @@
                                     <tr>    
                                         <th>Nama Klien</th>
                                         <th>Proyek</th>
+                                        <th>Tempat Pertemuan</th>
                                         <th>Waktu Pertemuan</th>
                                         <th>Deskripsi Pertemuan</th>
                                         <th>Status Pertemuan</th>
@@ -48,6 +49,7 @@
                                         <tr>
                                             <td>{{$mp->client->name}}</td>
                                             <td>{{$mp->project->project_name}}</td>
+                                            <td>{{$mp->tempat_pertemuan}}</td>
                                             <td>{{$mp->tanggal_pertemuan}}</td>
                                             <td>{{$mp->deskripsi_pertemuan}}</td>
                                             <td class="badge bg-warning m-2">{{$mp->status_pertemuan}}</td>

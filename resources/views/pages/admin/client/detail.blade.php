@@ -290,7 +290,7 @@ Profil Klien
                                                     <h3 class="card-title">Bukti Pembayaran</h3>
                                                 </div>
                                                 <div class="card-body text-center">
-                                                    <img src="{{ url('buktipembayaran/' . $p->bukti_pembayaran) }}" alt="Bukti Pembayaran">
+                                                    <img src="{{ url('buktipembayaran/' . $p->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-height: 700px ; max-width:400px">
                                                 </div>
                                             </div>
                                         </div>
