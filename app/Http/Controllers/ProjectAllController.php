@@ -141,6 +141,7 @@ class ProjectAllController extends Controller
             $req->user_id == $ptask->user_id &&
             $req->task_id == $ptask->task_id &&
             $req->details == $ptask->details &&
+            $req->points == $ptask->points &&
             strtotime($req->expired_at) == strtotime($ptask->expired_at) &&
             strtotime($req->start_at) == strtotime($ptask->start_at)  
         ){
@@ -158,6 +159,7 @@ class ProjectAllController extends Controller
                     'user_id' => $req->user_id,
                     'task_id' => $req->task_id,
                     'details' => $req->details,
+                    'points' => $req->points,
                     'status' => null,
                 ]);
                 Alert::success('Sukses', 'Tugas Berhasil Diperbaharui!!!');
@@ -169,6 +171,7 @@ class ProjectAllController extends Controller
                     'user_id' => $req->user_id,
                     'task_id' => $req->task_id,
                     'details' => $req->details,
+                    'points' => $req->points,
                 ]);
                 Alert::success('Sukses', 'Tugas Berhasil Diperbaharui!!!');
                 return redirect()->back();

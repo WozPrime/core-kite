@@ -172,6 +172,31 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
+                                                            @if ($ptask->status > 1)
+                                                            <div class="form-group">
+                                                                <label for="rate"> Edit Nilai Tugas</label>
+                                                                <select name="points" id="points"
+                                                                    class="form-control" required>
+                                                                    <option value="" selected disabled hidden>
+                                                                        Edit
+                                                                        Nilai
+                                                                        Tugas yang telah dikerjakan</option>
+                                                                    @for ($i = 0; $i < $ptask->tasks()->first()->points + 1; $i++)
+                                                                        @if ($i == 0)
+                                                                            <option value="{{ $i }}"
+                                                                                @if ($i === $ptask->points) selected @endif
+                                                                                class="text-red">
+                                                                                {{ $i }} (Gagal)
+                                                                            </option>
+                                                                        @else
+                                                                            <option value="{{ $i }}"
+                                                                                @if ($i == $ptask->points) selected @endif>
+                                                                                {{ $i }}</option>
+                                                                        @endif
+                                                                    @endfor
+                                                                </select>
+                                                            </div>
+                                                            @endif
                                                             <div class="form-group">
                                                                 <label for="details">Edit Detail</label>
                                                                 <textarea class="form-control" id="details"
